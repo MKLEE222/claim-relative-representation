@@ -1,5 +1,38 @@
 # Experiment 1B - Recovery depth of claim-evidence relations
 
+**Status: SUPERSEDED_BEFORE_RUN**
+
+Superseded on: 2026-09-24
+
+This protocol was frozen after Experiment 1A but before any recovery-depth coding was executed. It is retained for provenance because the redesign was triggered by a conceptual audit, not by unfavorable Experiment 1B outcomes.
+
+## Why it was superseded
+
+The protocol treated recovery depth as the primary experimental object. Further design review showed that depth is only one coordinate of a larger task-relative recoverability construct.
+
+The replacement design separates:
+
+1. task-independent typed representation transformations;
+2. frozen scholarly task contracts;
+3. recovery contracts;
+4. task-adapted states;
+5. recoverability profiles;
+6. only later, humanistic claim adjudication.
+
+See:
+
+- `spec/TASK_CONTRACT.md`
+- `spec/RECOVERY_CONTRACT.md`
+- `spec/TRANSFORMATION_TAXONOMY.md`
+- `spec/task_contracts_v1.csv`
+- `spec/transformation_task_factorial_v1.csv`
+
+The original protocol follows below unchanged for auditability.
+
+---
+
+# Experiment 1B - Recovery depth of claim-evidence relations
+
 Date frozen: 2026-09-23
 
 ## Motivation
@@ -70,3 +103,4 @@ No single aggregate mean is sufficient. Results are reported by claim family, re
 2. complete independent relation coding;
 3. blind recovery-depth coding;
 4. only then open claim-state adjudication.
+
