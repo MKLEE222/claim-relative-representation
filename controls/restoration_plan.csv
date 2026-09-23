@@ -1,0 +1,9 @@
+restoration_id,intervention_id,target_claim_id,restore_coordinate,baseline_dependency_recovered,empirical_status
+R1,T_ATTRIBUTION,C_PM_REVISION,attribution,yes,pending
+R2,T_TEMPORAL,C_PM_REVISION,temporal_order,yes,pending
+R3,T_EVIDENCE,C_PM_REVISION,evidence_relation,yes,pending
+R4,T_ATTRIBUTION,C_KS_EYEWITNESS,attribution,yes,pending
+R5,T_TEMPORAL,C_KS_EYEWITNESS,temporal_order,yes,pending
+R6,T_EVIDENCE,C_KS_EYEWITNESS,evidence_relation,yes,pending
+R7,T_ATTRIBUTION,C_CL_ACCRETION,attribution,yes,pending
+R8,T_EVIDENCE,C_CL_ACCRETION,evidence_relation,yes,pending
