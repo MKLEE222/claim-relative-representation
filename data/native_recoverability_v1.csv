@@ -1,0 +1,6 @@
+check_id,representation,evidence_type,locator,observed_structure,cedl_implication,status
+NR01,Project Gutenberg vol. 1 UTF-8,front matter,lines 43-49,"Complete Yule-Cordier edition explicitly distinguishes the 1903 third edition from Cordier's 1920 Notes and Addenda","chronology remains textually explicit; plain text is not chronology-free",verified_web
+NR02,Project Gutenberg vol. 1 UTF-8,editorial policy,lines 306-329,"Cordier states that altered paragraphs are specially marked and that his additions appear in brackets with H. C. attribution","attribution and editorial-layer cues survive in plain text",verified_web
+NR03,Project Gutenberg vol. 1 UTF-8,paper-money note,lines 34702-34708,"The Bretschneider botanical challenge remains as readable text in the plain-text witness","the challenge relation endpoints remain textually recoverable",verified_web
+NR04,Project Gutenberg vol. 2 UTF-8,1920 paper-money addendum,lines 41931-41936,"The addendum points back to pp. 423/430 and explicitly introduces Laufer's response to Bretschneider","cross-layer temporal/binding cues remain recoverable in plain text",verified_web
+NR05,Project Gutenberg vol. 2 UTF-8,Kinsay addendum,lines 43092-43099,"The addendum names Moule and Tanner in a sequence of later Kinsay discussion","named source attribution survives digital assembly",verified_web
