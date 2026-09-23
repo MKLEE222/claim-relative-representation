@@ -158,3 +158,23 @@ for r in projection:
         warnings.append(f'{r["event_ref"]}: ontology has an unmapped residual')
 
 print(f"author-ledger primitive coverage={len(projection)}/{len(events)}")
+
+
+# Humanistic significance and transformation-analogue checks
+h_registry = rows("data/humanistic_significance_v1.csv")
+if not h_registry:
+    errors.append("humanistic significance registry missing")
+elif any(r["status"] != "PASS" for r in h_registry):
+    errors.append("one or more humanistic claim families lack independent significance PASS")
+
+analogue_ok = all(r["realism_status"].startswith("analogue_verified") for r in interventions)
+if not analogue_ok:
+    errors.append("one or more intervention coordinates lack a documented real-use analogue")
+
+print(f"humanistic_significance_pass={sum(r['status']=='PASS' for r in h_registry)}/{len(h_registry)}")
+print(f"transformation_analogue_coverage={sum(r['realism_status'].startswith('analogue_verified') for r in interventions)}/{len(interventions)}")
+
+if all(r["status"] == "PASS" for r in h_registry):
+    print("GATE_H=PASS")
+if analogue_ok:
+    print("GATE_T_DESIGN=PASS")
