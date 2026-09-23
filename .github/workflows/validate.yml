@@ -21,3 +21,6 @@ jobs:
 
       - name: Run Experiment 1A residual-cue leakage audit
         run: python experiments/exp1_residual_cue_leakage/run.py
+
+      - name: Validate task-adapted design v2
+        run: python validation/validate_design_v2.py
