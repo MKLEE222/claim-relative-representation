@@ -1,0 +1,6 @@
+intervention_id,coordinate,operation,preserved_coordinates,realism_status,empirical_status
+T_ATTRIBUTION,attribution,"remove explicit actor/editor attribution while preserving substantive text and order","text_presence|temporal_order|claim_binding",candidate_real_operation,pending
+T_TEMPORAL,temporal_order,"remove explicit edition/revision ordering while preserving text and actor labels","text_presence|attribution|claim_binding",candidate_real_operation,pending
+T_EVIDENCE,evidence_relation,"remove explicit support/challenge/revision links while preserving both endpoint passages","text_presence|attribution|temporal_order|claim_binding",candidate_real_operation,pending
+T_BINDING,claim_binding,"remove explicit referent/claim binding while preserving passages, actor labels, and chronology","text_presence|attribution|temporal_order",candidate_real_operation,pending
+T_NORMALIZE,distinction_collapse,"normalize role/note distinctions into generic annotation classes","text_presence",candidate_real_operation,pending
