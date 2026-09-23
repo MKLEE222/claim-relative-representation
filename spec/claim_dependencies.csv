@@ -1,0 +1,7 @@
+claim_id,theme,role,claim_text,dependency_coordinates,source_events,freeze_status
+C_PM_REVISION,paper_money,target,"The 1920 addendum reverses the 1903 botanical challenge and restores the material plausibility of Polo's mulberry-bark report","attribution|temporal_order|evidence_relation|claim_binding","PM02|PM03",frozen_v0
+C_PM_REPORT,paper_money,control,"The base narrative reports bark-based paper money","text_presence|claim_binding","PM01",frozen_v0
+C_KS_EYEWITNESS,kinsay,target,"The evidential status of Kinsay as Polo eyewitness testimony is qualified by later source criticism","attribution|temporal_order|evidence_relation|claim_binding","KS01|KS03",frozen_v0
+C_KS_GEO,kinsay,control,"The 1920 addendum updates geographic identifications around Kinsay","text_presence|claim_binding|geographic_identification","KS04",frozen_v0
+C_CL_ACCRETION,coal,target,"The editorial note adds a nineteenth-century industrial/geopolitical projection to the base coal observation","attribution|evidence_relation|claim_binding","CL01|CL02",frozen_v0
+C_CL_FUEL,coal,control,"The base narrative reports coal as a widely used durable fuel","text_presence|claim_binding","CL01",frozen_v0
