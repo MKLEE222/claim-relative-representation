@@ -18,3 +18,6 @@ jobs:
         run: |
           cd validation
           python -m unittest -v test_interventions.py
+
+      - name: Run Experiment 1A residual-cue leakage audit
+        run: python experiments/exp1_residual_cue_leakage/run.py
