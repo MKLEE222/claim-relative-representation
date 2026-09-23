@@ -131,3 +131,30 @@ if set(coder_template[0].keys()) != allowed_template_fields:
 
 print(f"blind relation-coding items={len(blind_packet)}")
 print("BLIND_PACKET_LEAKAGE_CHECK=PASS" if not any("blind packet" in e for e in errors) else "BLIND_PACKET_LEAKAGE_CHECK=FAIL")
+
+
+# Primitive-ontology coverage check against the pre-existing author ledger
+projection = rows("coding/author_ledger_projection_v1.csv")
+allowed_primitives = {
+    "ASSERTS_CONTENT","ATTRIBUTES_SOURCE","SUPPORTS","CHALLENGES",
+    "QUALIFIES_AUTHORITY","DISTINGUISHES_WITNESSES",
+    "UPDATES_IDENTIFICATION","ACCRETES_INTERPRETATION",
+    "LINKS_PRIOR","DIGITAL_ASSEMBLES"
+}
+
+if len(projection) != len(events):
+    errors.append(f"author-ledger projection size {len(projection)} != event ledger size {len(events)}")
+
+proj_refs = {r["event_ref"] for r in projection}
+if proj_refs != event_set:
+    errors.append("author-ledger projection does not cover exactly the event ledger")
+
+for r in projection:
+    labels = splitset(r["primitive_labels"])
+    bad = labels - allowed_primitives
+    if bad:
+        errors.append(f'{r["event_ref"]}: unknown primitive labels {sorted(bad)}')
+    if r["residual_unmapped"].strip().lower() != "no":
+        warnings.append(f'{r["event_ref"]}: ontology has an unmapped residual')
+
+print(f"author-ledger primitive coverage={len(projection)}/{len(events)}")
