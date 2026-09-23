@@ -1,0 +1,106 @@
+from __future__ import annotations
+
+import csv
+from pathlib import Path
+import sys
+
+ROOT = Path(__file__).resolve().parents[1]
+
+def rows(path):
+    with open(ROOT / path, newline="", encoding="utf-8") as f:
+        return list(csv.DictReader(f))
+
+def splitset(value):
+    return {x for x in (value or "").split("|") if x}
+
+events = rows("data/yule_cordier_claim_events.csv")
+alignment = rows("data/yule_cordier_papermoney_alignment_v0.csv")
+claims = rows("spec/claim_dependencies.csv")
+interventions = rows("spec/interventions.csv")
+controls = rows("controls/matched_controls.csv")
+restorations = rows("controls/restoration_plan.csv")
+
+errors = []
+warnings = []
+
+event_ids = [r["event_id"] for r in events]
+if len(event_ids) != len(set(event_ids)):
+    errors.append("duplicate event_id")
+event_set = set(event_ids)
+
+align_refs = {r["event_ref"] for r in alignment}
+unknown = align_refs - event_set
+if unknown:
+    errors.append(f"alignment references unknown events: {sorted(unknown)}")
+
+claim_map = {r["claim_id"]: r for r in claims}
+int_map = {r["intervention_id"]: r for r in interventions}
+
+for c in claims:
+    missing = splitset(c["source_events"]) - event_set
+    if missing:
+        errors.append(f'{c["claim_id"]} uses unknown source events {sorted(missing)}')
+
+for p in controls:
+    if p["target_claim_id"] not in claim_map or p["control_claim_id"] not in claim_map:
+        errors.append(f'{p["pair_id"]}: unknown claim')
+        continue
+    if p["intervention_id"] not in int_map:
+        errors.append(f'{p["pair_id"]}: unknown intervention')
+        continue
+    coord = int_map[p["intervention_id"]]["coordinate"]
+    tdeps = splitset(claim_map[p["target_claim_id"]]["dependency_coordinates"])
+    cdeps = splitset(claim_map[p["control_claim_id"]]["dependency_coordinates"])
+    if coord not in tdeps:
+        errors.append(f'{p["pair_id"]}: target does not depend on {coord}')
+    if coord in cdeps:
+        errors.append(f'{p["pair_id"]}: control also depends on {coord}')
+
+for r in restorations:
+    if r["target_claim_id"] not in claim_map or r["intervention_id"] not in int_map:
+        errors.append(f'{r["restoration_id"]}: unknown target/intervention')
+        continue
+    coord = int_map[r["intervention_id"]]["coordinate"]
+    deps = splitset(claim_map[r["target_claim_id"]]["dependency_coordinates"])
+    if r["restore_coordinate"] != coord:
+        errors.append(f'{r["restoration_id"]}: restoration coordinate mismatch')
+    if coord not in deps:
+        errors.append(f'{r["restoration_id"]}: restored coordinate absent from target dependency')
+
+verified_excerpt = []
+object_checked = []
+pending_excerpt = []
+for r in alignment:
+    s = r["verification_status"].lower()
+    if "page-image-verified" in s and "pending" not in s:
+        verified_excerpt.append(r["event_ref"])
+    elif "object-structure-checked" in s:
+        object_checked.append(r["event_ref"])
+    else:
+        pending_excerpt.append(r["event_ref"])
+
+print("CEDL scientific-object validation")
+print(f"events={len(events)} claims={len(claims)} interventions={len(interventions)}")
+print(f"source edges with page-image-verified excerpt={len(verified_excerpt)}: {verified_excerpt}")
+print(f"digital-object structure checks={len(object_checked)}: {object_checked}")
+print(f"page-anchored but excerpt pending={len(pending_excerpt)}: {pending_excerpt}")
+print(f"matched negative-control designs={len(controls)}")
+print(f"restoration designs={len(restorations)}")
+
+if pending_excerpt:
+    warnings.append("Gate V remains incomplete for events whose page anchor exists but verbatim excerpt has not yet been extracted into the alignment ledger.")
+if any(r["realism_status"] != "verified_real_operation" for r in interventions):
+    warnings.append("Gate T remains empirical-pending: interventions are frozen as candidate real operations but have not yet been bound to documented transformation witnesses.")
+if any(r["empirical_status"] != "observed" for r in restorations):
+    warnings.append("Gate R has only design validity; no restoration outcome has yet been observed.")
+
+for w in warnings:
+    print("BLOCKED:", w)
+
+if errors:
+    for e in errors:
+        print("FAIL:", e)
+    sys.exit(1)
+
+print("STRUCTURAL_CHECK=PASS")
+print("EMPIRICAL_DISPOSITION=SOURCE_VALIDATION_IN_PROGRESS")
