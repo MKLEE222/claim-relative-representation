@@ -1,0 +1,9 @@
+pair_id,intervention_id,target_claim_id,control_claim_id,target_intersection,control_intersection,status
+P1,T_ATTRIBUTION,C_PM_REVISION,C_PM_REPORT,attribution,,design_pass
+P2,T_TEMPORAL,C_PM_REVISION,C_PM_REPORT,temporal_order,,design_pass
+P3,T_EVIDENCE,C_PM_REVISION,C_PM_REPORT,evidence_relation,,design_pass
+K1,T_ATTRIBUTION,C_KS_EYEWITNESS,C_KS_GEO,attribution,,design_pass
+K2,T_TEMPORAL,C_KS_EYEWITNESS,C_KS_GEO,temporal_order,,design_pass
+K3,T_EVIDENCE,C_KS_EYEWITNESS,C_KS_GEO,evidence_relation,,design_pass
+C1,T_ATTRIBUTION,C_CL_ACCRETION,C_CL_FUEL,attribution,,design_pass
+C2,T_EVIDENCE,C_CL_ACCRETION,C_CL_FUEL,evidence_relation,,design_pass
