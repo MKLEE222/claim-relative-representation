@@ -1,0 +1,10 @@
+transformation_id,layer,changed_object,primary_changed_coordinate,mandatory_invariants,special_constraint,initial_task_blocks
+TD_ATTRIBUTION,TD,documentary_metadata,attribution,"focal_text|span_order|temporal_metadata|endpoint_identity","lexical attribution cues may remain and must be recorded as alternate carriers","relation/attribution tasks"
+TD_TEMPORAL,TD,documentary_metadata,temporal_order,"focal_text|attribution_metadata|endpoint_identity","cross-references and lexical sequencing cues may remain and must be recorded","cross-layer relation/sequence tasks"
+TD_NORMALIZE,TD,documentary_text_or_labels,distinction_class,"referent_identity|document_order|source_mapping","lexical identity is not invariant; every normalization requires a source-to-output mapping and semantic-preservation audit","held out of first main-effect block until audit passes"
+TR_EVIDENCE,TR,relational_interface,evidence_relation,"endpoint_text|endpoint_identity|attribution_metadata|temporal_metadata","must remove typed edge only; source passages remain untouched","relation tasks"
+TR_BINDING,TR,relational_interface,claim_binding,"endpoint_text|endpoint_identity|relation_labels|attribution_metadata|temporal_metadata","must remove target pointer only, not the target passage or relation label","binding/relation tasks"
+TA_SPAN,TA,access_scope,context_window,"focal_span|minimal_bibliographic_identity","only available context changes; focal span must be byte-identical","recovery-depth tasks"
+TA_LOCAL,TA,access_scope,context_window,"focal_span|local_document_identity","exposes frozen local context only","recovery-depth tasks"
+TA_OBJECT,TA,access_scope,context_window,"focal_span|object_identity","full declared digital object available; no external witness","recovery-depth tasks"
+TA_EXTERNAL,TA,access_scope,context_window,"focal_span|object_identity","external witness list must be preregistered","sensitivity only"
