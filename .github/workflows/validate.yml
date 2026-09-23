@@ -14,3 +14,7 @@ jobs:
           python-version: "3.12"
       - name: Validate CEDL research contract
         run: python validation/validate_object.py
+      - name: Test controlled representation interventions
+        run: |
+          cd validation
+          python -m unittest -v test_interventions.py
