@@ -1,0 +1,11 @@
+event_ref,legacy_relation,primitive_labels,derived_mechanism,residual_unmapped,projection_status
+PM01,primary narrative assertion,ASSERTS_CONTENT,,no,covered
+PM02,contradicts narrative material identification,ATTRIBUTES_SOURCE|CHALLENGES,,no,covered
+PM03,contradicts PM02 and restores material plausibility,ATTRIBUTES_SOURCE|CHALLENGES|SUPPORTS|LINKS_PRIOR,rehabilitation,no,covered
+PM04,creates unresolved cross-layer contradiction unless provenance is modelled,DIGITAL_ASSEMBLES,cross_layer_assembly,no,covered
+KS01,mixed documentary and eyewitness attribution,ASSERTS_CONTENT|ATTRIBUTES_SOURCE,,no,covered
+KS02,weakens the personal-inspection basis of the fiscal claim,DISTINGUISHES_WITNESSES|QUALIFIES_AUTHORITY,authority_qualification,no,covered
+KS03,contradicts eyewitness attribution in KS01,ATTRIBUTES_SOURCE|CHALLENGES|QUALIFIES_AUTHORITY,authority_qualification,no,covered
+KS04,corrects editor-level geographic identifications,ATTRIBUTES_SOURCE|UPDATES_IDENTIFICATION,identification_update,no,covered
+CL01,primary narrative observation,ASSERTS_CONTENT,,no,covered
+CL02,adds nineteenth-century geopolitical interpretation,ATTRIBUTES_SOURCE|ACCRETES_INTERPRETATION,interpretive_accretion,no,covered
