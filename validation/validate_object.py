@@ -104,3 +104,30 @@ if errors:
 
 print("STRUCTURAL_CHECK=PASS")
 print("EMPIRICAL_DISPOSITION=SOURCE_VALIDATION_IN_PROGRESS")
+
+
+# Coding-packet leakage and coverage checks
+blind_packet = rows("coding/blind_packet_v1.csv")
+coder_template = rows("coding/independent_coder_template.csv")
+
+if len(blind_packet) != len(events):
+    errors.append(f"blind packet size {len(blind_packet)} != event ledger size {len(events)}")
+
+packet_refs = {r["event_ref"] for r in blind_packet}
+if packet_refs != event_set:
+    errors.append(f"blind packet event coverage mismatch: missing={sorted(event_set-packet_refs)}, extra={sorted(packet_refs-event_set)}")
+
+for forbidden in ("provisional_decision", "author_claim_hypothesis", "relation_to_claim"):
+    if forbidden in blind_packet[0]:
+        errors.append(f"blind packet leaks forbidden field: {forbidden}")
+
+allowed_template_fields = {
+    "item_id","primitive_labels","claim_binding","attribution_actor",
+    "attribution_status","temporal_relation","representation_status",
+    "uncertainty_note","coder_id","coded_without_provisional_decision"
+}
+if set(coder_template[0].keys()) != allowed_template_fields:
+    errors.append("independent coder template fields changed without contract update")
+
+print(f"blind relation-coding items={len(blind_packet)}")
+print("BLIND_PACKET_LEAKAGE_CHECK=PASS" if not any("blind packet" in e for e in errors) else "BLIND_PACKET_LEAKAGE_CHECK=FAIL")
