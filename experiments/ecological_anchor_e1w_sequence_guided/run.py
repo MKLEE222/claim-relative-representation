@@ -45,13 +45,16 @@ def normalize_terms(words):
     return out
 
 def locate_seed_context(v1):
+    # Anchor on the PM02-specific botanical term first, so we do not
+    # accidentally use an earlier Bretschneider mention in the preface.
     low=v1.lower()
-    p=low.find("dr. bretschneider")
+    p=low.find("broussonetia")
     if p<0:
-        p=low.find("dr bretschneider")
-    if p<0:
-        raise RuntimeError("PM02 source-name phrase not found")
-    return v1[max(0,p-900):p+1800]
+        raise RuntimeError("PM02 Broussonetia anchor not found")
+    context=v1[max(0,p-1200):p+1800]
+    if "bretschneider" not in context.lower():
+        raise RuntimeError("PM02 context lacks Bretschneider")
+    return context
 
 def extract_surname(context):
     m=re.search(r"\bDr\.?\s+([A-Z][A-Za-z-]+)",context)
@@ -93,6 +96,8 @@ def main():
     seed_tokens=normalize_terms(toks(seed_context))
     domain_vocab={"mulberry","mulberry-trees","bark","broussonetia","papyrifera","bank-notes","money"}
     active=sorted(domain_vocab & seed_tokens)
+    if not active:
+        raise RuntimeError("PM02-specific seed produced no active domain terms")
 
     addenda_char,addenda=find_addenda(text["V2"])
     ws=make_windows(addenda)
