@@ -56,3 +56,8 @@ jobs:
 
       - name: Run Frankenstein X1A static external audit
         run: python experiments/external_x1_frankenstein_static/run.py
+
+      - name: Run Whitman X2A relation-certainty audit
+        run: python experiments/external_x2_whitman_static/run.py
+      - name: Run Faust X3A temporal-provenance audit
+        run: python experiments/external_x3_faust_static/run.py
