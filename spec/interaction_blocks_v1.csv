@@ -1,0 +1,9 @@
+interaction_id,phase,class,task_id,target_distinction,T1,T2,order,baseline,R10,R01,R11,mechanism,status
+I01,confirmatory,I1,TAU_PM_CROSSLAYER,temporal_order,TD_TEMPORAL,TA_SPAN,commuting,R00,R10,R01,R11,"structured chronology removal followed by context restriction may exhaust cross-layer temporal basis",PREREGISTERED
+I02,confirmatory,I1,TAU_PM_CROSSLAYER,claim_binding,TR_BINDING,TA_SPAN,commuting,R00,R10,R01,R11,"pointer removal plus context restriction may exhaust rebinding basis",PREREGISTERED
+I03,confirmatory,I1,TAU_PM_CROSSLAYER,evidence_relation,TR_EVIDENCE,TA_SPAN,commuting,R00,R10,R01,R11,"typed-edge removal plus context restriction may exhaust relation-recovery basis",PREREGISTERED
+I04,confirmatory,I1,TAU_KS_EYEWITNESS,temporal_order,TD_TEMPORAL,TA_SPAN,commuting,R00,R10,R01,R11,"chronology metadata removal plus focal-span restriction may make later-layer relation unresolved",PREREGISTERED
+I05,confirmatory,I1,TAU_KS_EYEWITNESS,claim_binding,TR_BINDING,TA_SPAN,commuting,R00,R10,R01,R11,"binding removal plus focal-span restriction may exhaust eyewitness-status rebinding basis",PREREGISTERED
+I06,confirmatory,I1,TAU_KS_EYEWITNESS,evidence_relation,TR_EVIDENCE,TA_SPAN,commuting,R00,R10,R01,R11,"typed relation removal plus focal-span restriction tests contextual carrier substitution",PREREGISTERED
+I07,confirmatory,I1,TAU_COAL_NOTE,claim_binding,TR_BINDING,TA_SPAN,commuting,R00,R10,R01,R11,"binding pointer removal plus local-context restriction may leave only lexical carrier",PREREGISTERED
+I08,confirmatory,I1,TAU_COAL_NOTE,evidence_relation,TR_EVIDENCE,TA_SPAN,commuting,R00,R10,R01,R11,"typed relation removal plus local-context restriction tests whether lexical relation cue alone is sufficient",PREREGISTERED
