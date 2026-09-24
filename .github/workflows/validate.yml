@@ -66,3 +66,6 @@ jobs:
         run: python experiments/external_x2b_whitman_cert_projection/run.py
       - name: Run Faust X3B source-locator projection
         run: python experiments/external_x3b_faust_source_projection/run.py
+
+      - name: Run Frankenstein X1B sealed C17 holdout
+        run: python experiments/external_x1b_frankenstein_holdout/run.py
