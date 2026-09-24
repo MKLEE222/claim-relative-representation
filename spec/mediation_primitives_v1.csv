@@ -1,0 +1,6 @@
+primitive_id,name,support_condition,source_basis,output_type,target_only_info_allowed,status
+M_LOCAL_ATTACHMENT,local_attachment,"seed has explicit local note/pointer marker AND matching native note unit exists","seed marker + native note label","documentary target unit",no,FROZEN
+M_REFERENT_ALIAS,referent_alias,"seed-side local context explicitly equates or renames the frozen referent","native identity statement","alias set",no,FROZEN
+M_CITED_SOURCE,cited_source,"seed-side text explicitly names a scholar/source relevant to task","native cited-source mention","source search key",no,FROZEN
+M_NATIVE_SEQUENCE,native_sequence,"task requests earlier/later treatment AND native object exposes layer chronology","task direction + native section/edition structure","historical horizon",no,FROZEN
+M_EXPLICIT_POINTER,explicit_pointer,"native object exposes page/cross-reference/hyperlink from seed locus","native pointer","documentary target locus",no,FROZEN
