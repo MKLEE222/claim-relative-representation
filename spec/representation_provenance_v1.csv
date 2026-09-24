@@ -1,0 +1,17 @@
+representation_id,class,object,origin,experimental_role,claim_ceiling,status
+N_1903_V1_SCAN,N,"1903 volume 1 printed page-image witness","historical scan","native source witness","Tier 1",VERIFIED_LOCI
+N_1903_V2_SCAN,N,"1903 volume 2 printed page-image witness","historical scan","native source witness","Tier 1",VERIFIED_LOCI
+N_1920_ADDENDA_SCAN,N,"1920 Notes and Addenda printed page-image witness","historical scan","native source witness","Tier 1",VERIFIED_LOCI
+N_GUTENBERG_V1_TEXT,N,"Project Gutenberg volume 1 UTF-8/plain-text object","independent digital edition","native digital representation","Tier 1",CHECKED
+N_GUTENBERG_V2_TEXT,N,"Project Gutenberg volume 2 + addenda UTF-8/plain-text object","independent digital edition","native digital representation","Tier 1",CHECKED
+N_1871_OCR,N,"1871 scan-tied OCR witnesses","scan-derived OCR","native/derived archival representation","Tier 1",REGISTERED
+N_1875_OCR,N,"1875 scan-tied OCR witnesses","scan-derived OCR","native/derived archival representation","Tier 1",REGISTERED
+R_CEDL_REFERENCE,R,"source-aligned CEDL reference reconstruction","researcher reconstruction from verified witnesses","source verification / restoration reference","No ecological effect claim",ACTIVE
+W_BODY_ONLY_EXPORT,W,"body-only export from structured documentary object","documented workflow replay","workflow realism test","Tier 3 if native/workflow convergence shown",PLANNED
+W_METADATA_STRIP,W,"declared metadata-stripping replay","documented workflow replay","workflow realism test","Tier 3 if native/workflow convergence shown",PLANNED
+W_CHUNK_EXPORT,W,"declared local chunk extraction replay","documented corpus workflow replay","access/context realism test","Tier 3 if native/workflow convergence shown",PLANNED
+C_TD_ATTRIBUTION,C,"controlled attribution-coordinate projection","researcher-controlled projection","mechanism identification","Tier 2",VALIDATED_CONSTRUCTOR
+C_TD_TEMPORAL,C,"controlled temporal-coordinate projection","researcher-controlled projection","mechanism identification","Tier 2",VALIDATED_CONSTRUCTOR
+C_TR_EVIDENCE,C,"controlled relation-edge projection","researcher-controlled projection","mechanism identification","Tier 2",VALIDATED_CONSTRUCTOR
+C_TR_BINDING,C,"controlled claim-binding projection","researcher-controlled projection","mechanism identification","Tier 2",VALIDATED_CONSTRUCTOR
+C_TA_SPAN,C,"controlled focal-span access state","researcher-controlled projection","mechanism identification","Tier 2",VALIDATED_CONSTRUCTOR
