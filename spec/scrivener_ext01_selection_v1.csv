@@ -1,0 +1,2 @@
+episode_id,role,external_object,selection_rule,selected_entry,mediator,target_outcome_inspected_before_freeze,status
+EP_EXT_01,EXTERNAL_HOLDOUT,"Scrivener Plain Introduction Vol I 4th ed. Gutenberg 36548","first single-page single-line lexical for-X-read-Y correction after page 20 excluding chapter-number navigation corrections","P. 87 l. 19 for Synaxaria read Menologies",M_EXPLICIT_POINTER,no,FROZEN
