@@ -80,12 +80,18 @@ sha=hashlib.sha256(raw).hexdigest()
 assert sha==EXPECTED_SHA
 text=raw.decode("utf-8",errors="replace")
 
-chapter_start=text.find(CHAPTER)
-if chapter_start<0:
+m=re.search(
+    r"CHAPTER\s+XXX\.\s+CONCERNING\s+THE\s+BLACK\s+STONES\s+THAT\s+ARE\s+DUG\s+IN\s+CATHAY,\s+AND\s+ARE\s+BURNT\s+FOR\s+FUEL\.",
+    text,
+    flags=re.I,
+)
+if not m:
     raise RuntimeError("coal chapter heading not found")
-chapter_end=text.find(NEXT_CHAPTER,chapter_start+len(CHAPTER))
-if chapter_end<0:
+chapter_start=m.start()
+n=re.search(r"CHAPTER\s+XXXI\.",text[m.end():],flags=re.I)
+if not n:
     raise RuntimeError("next chapter boundary not found")
+chapter_end=m.end()+n.start()
 chapter=text[chapter_start:chapter_end]
 
 sa=chapter.lower().find(SEED_A.lower())
