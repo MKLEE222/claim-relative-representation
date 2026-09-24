@@ -32,3 +32,6 @@ jobs:
         run: |
           cd validation
           python -m unittest -v test_interaction_construction.py
+
+      - name: Run paper-money interaction dry-run probe
+        run: python experiments/pilot_p0_pm_interactions/run.py
