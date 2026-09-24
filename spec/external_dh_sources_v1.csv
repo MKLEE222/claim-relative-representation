@@ -1,0 +1,10 @@
+material_id,source_type,title,url,verified_use
+P1_FV,project_method,"Frankenstein Variorum - Method",https://frankensteinvariorum.org/method,"heterogeneous TEI structure; flattening; 33 alignment chunks; stand-off spine"
+P1_FV,project_data,"Frankenstein Variorum - Data",https://frankensteinvariorum.org/data,"public reusable collation/annotation data"
+P1_FV,project_repo,"FrankensteinVariorum/collationWorkspace",https://github.com/FrankensteinVariorum/collationWorkspace,"five-version machine-assisted collation workflow"
+P2_WW,editorial_policy,"Walt Whitman Archive - Editorial Policy Statement and Procedures",https://whitmanarchive.org/about/editorial-policies,"printed app/rdg versus separate manuscript relations; possible/speculative links"
+P2_WW,data_repo,"whitmanarchive/whitman-notebooks",https://github.com/whitmanarchive/whitman-notebooks,"public TEI notebook data"
+P3_FAUST,project_intro,"Digital Faust Edition - Macrogenesis",https://www.faustedition.net/intro_macrogenesis,"source-qualified temporal assertions; conflict handling; non-unique model interpretation"
+P3_FAUST,graph_download,"Digital Faust Edition - Macrogenesis Downloads",https://www.faustedition.net/macrogenesis/downloads,"edge attributes source/ignore/delete/weight and downloadable graph"
+P3_FAUST,data_repo,"faustedition GitHub organization",https://github.com/faustedition,"XML source data and macrogenesis software"
+P4_ELTEC,corpus_guidelines,"ELTeC Encoding Guidelines - Corpus Design",https://distantreading.github.io/Schema/eltec-0.html,"transparent operationalized selection and task-specific subcollections"
