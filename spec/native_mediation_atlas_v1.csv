@@ -1,0 +1,7 @@
+material_id,episode_or_object,scholarly_task,M_LOCAL_ATTACHMENT,M_REFERENT_ALIAS,M_CITED_SOURCE,M_NATIVE_SEQUENCE,M_EXPLICIT_POINTER,evidence_status,pooled_score_allowed
+P0_YC_PM,EP_PM_01,"find later treatment of 1903 paper-money objection",NA,NA,SUPPORTED,SUPPORTED,NA,"observed in development workflow",no
+P0_YC_KS,EP_KS_01,"find later editorial treatment of Kinsay eyewitness status",NA,SUPPORTED,NA,SUPPORTED,NA,"generic retrieval failed; exploratory native alias bridge improved access",no
+P0_YC_CL,EP_CL_01,"find editorial material attached to coal passage",PENDING,NA,NA,NA,NA,"boundary run pending/transport repair at atlas freeze",no
+P1_FV,C17,"cross-witness collation and source-documentary recovery",NA,NA,NA,NA,SUPPORTED,"stand-off/common apparatus exposes witness-linked readings; task-specific source structure selectivity observed",no
+P2_WW,anc.02134,"recover manuscript/notebook links from printed loci",NA,NA,NA,NA,SUPPORTED,"1444 explicit target links in native relation list",no
+P3_FAUST,macrogenesis,"recover source-qualified temporal assertions",NA,NA,SUPPORTED,NA,SUPPORTED,"source URIs and ordered item URIs explicit in native temporal assertions",no
