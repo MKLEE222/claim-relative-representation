@@ -1,0 +1,7 @@
+entry_id,task_block,task_id,start_state,provided_by_experiment,withheld_from_experiment,ecological_rationale,status
+E_PM_ACCESS,access,TAU_PM_LOCATE_LATER,"PM02 1903 botanical objection as seed passage; declared native digital object available","seed passage + object identity","PM03 locator and relation label","resembles a scholar following a known objection to search for later treatment",DESIGN
+E_KS_ACCESS,access,TAU_KS_LOCATE_LATER,"KS01 Kinsay eyewitness-style passage as seed; declared native digital object available","seed passage + object identity","KS03 locator and challenge label","tests whether later source-critical treatment enters the active evidence set",DESIGN
+E_PM_SEQUENCE,access,TAU_PM_SEQUENCE,"PM02 and candidate later passage returned by locate stage","candidate passages","known edition-order answer","sequence reconstruction follows discovery rather than being supplied in advance",DESIGN
+E_PM_RELATION,relation,TAU_PM_CROSSLAYER,"PM01|PM02|PM03 endpoints supplied","relevant endpoints","expected primitive relation labels","relation block deliberately fixes discovery to isolate representation of relation carriers",FROZEN
+E_KS_RELATION,relation,TAU_KS_EYEWITNESS,"KS01|KS03 endpoints supplied","relevant endpoints","expected primitive relation labels","relation block deliberately fixes discovery to isolate relation reconstruction",FROZEN
+E_COAL_RELATION,relation,TAU_COAL_NOTE,"CL01|CL02 endpoints supplied","relevant endpoints","expected primitive relation labels","same-locus editorial relation task with discovery held fixed",FROZEN
