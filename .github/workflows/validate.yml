@@ -35,3 +35,6 @@ jobs:
 
       - name: Run paper-money interaction dry-run probe
         run: python experiments/pilot_p0_pm_interactions/run.py
+
+      - name: Validate ecological anchoring and claim ceilings
+        run: python validation/validate_ecological_v1.py
