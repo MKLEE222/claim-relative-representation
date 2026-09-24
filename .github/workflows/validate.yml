@@ -94,3 +94,12 @@ jobs:
 
       - name: Run Scrivener EP_EXT_01 pointer holdout
         run: python experiments/ep_ext_01_scrivener_pointer/run.py
+
+      - name: Validate minimal sufficient carrier searches
+        run: python validation/validate_minimal_carriers_v1.py
+      - name: Run Frankenstein C18 minimal-carrier holdout
+        run: python experiments/minimal_carrier_fv_c18/run.py
+      - name: Run Whitman minimal-carrier search
+        run: python experiments/minimal_carrier_whitman/run.py
+      - name: Run Faust minimal-carrier search
+        run: python experiments/minimal_carrier_faust/run.py
