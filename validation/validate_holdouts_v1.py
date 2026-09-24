@@ -17,8 +17,11 @@ roles={"DEV","NEAR_HOLDOUT","BOUNDARY","EXTERNAL_HOLDOUT"}
 for r in manifest:
     if r["role"] not in roles:
         errors.append(f'{r["episode_id"]}: unknown role')
-    if r["role"]!="DEV" and r["outcome_status"]!="SEALED":
-        errors.append(f'{r["episode_id"]}: non-development outcome must be SEALED')
+    if r["role"]!="DEV":
+        if r["outcome_status"] not in {"SEALED","OUTCOME_RECORDED"}:
+            errors.append(f'{r["episode_id"]}: invalid non-development outcome status {r["outcome_status"]}')
+        if r["outcome_status"]=="OUTCOME_RECORDED" and not r["workflow_status"].startswith("EXECUTED"):
+            errors.append(f'{r["episode_id"]}: recorded outcome requires EXECUTED workflow status')
     if r["role"]!="DEV" and r["target_visible_to_workflow"].lower()!="no":
         errors.append(f'{r["episode_id"]}: target visible to holdout workflow')
 
