@@ -44,3 +44,6 @@ jobs:
 
       - name: Run Ecological Anchor E1D retrieval-policy diagnostic
         run: python experiments/ecological_anchor_e1d_retrieval_policy/run.py
+
+      - name: Run Ecological Anchor E1W sequence-guided workflow
+        run: python experiments/ecological_anchor_e1w_sequence_guided/run.py
