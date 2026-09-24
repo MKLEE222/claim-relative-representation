@@ -1,0 +1,5 @@
+policy_id,policy_family,query_source,candidate_unit,ranking_or_filter,budget_rule,target_only_terms_allowed,status
+PI_SEED_SIMILARITY,seed_similarity,"seed passage only","180-word windows","TFxIDF weighted lexical overlap","report Hit@1/5/10/20 and full rank",no,FROZEN_USED_E1
+PI_NAMED_SOURCE_CHAIN,named_source_chain,"explicit named scholar/source in seed","180-word windows","filter windows containing extracted source surname","report candidate count and target ordinal",no,FROZEN_E1D
+PI_NAMED_SOURCE_DOMAIN_FILTER,named_source_domain,"explicit named source + topical seed terms","180-word windows","named-source filter plus at least one seed-derived domain term","report candidate count and target ordinal",no,FROZEN_E1D
+PI_POINTER_FOLLOW,pointer_follow,"explicit pointer in seed/object","pointer target","direct traversal","one/few hops",no,HELD
