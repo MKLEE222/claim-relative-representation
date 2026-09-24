@@ -31,8 +31,7 @@ for x in [
         errors.append(f"mediation contract missing {x}")
 
 cp=(ROOT/"experiments/ep_cl_01_boundary/PROTOCOL.md").read_text(encoding="utf-8")
-for x in ["M_LOCAL_ATTACHMENT","CL-SPAN","CL-LOCAL-LINEAR","CL-ATTACHMENT","CLAIM"]:
-    # CLAIM may occur only in claim ceiling; presence is not outcome opening.
+for x in ["M_LOCAL_ATTACHMENT","CL-SPAN","CL-LOCAL-LINEAR","CL-ATTACHMENT","Claim ceiling"]:
     if x not in cp:
         errors.append(f"coal protocol missing {x}")
 
