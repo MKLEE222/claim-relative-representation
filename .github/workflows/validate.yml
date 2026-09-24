@@ -41,3 +41,6 @@ jobs:
 
       - name: Run Ecological Anchor E1 paper-money access test
         run: python experiments/ecological_anchor_e1_papermoney/run.py
+
+      - name: Run Ecological Anchor E1D retrieval-policy diagnostic
+        run: python experiments/ecological_anchor_e1d_retrieval_policy/run.py
