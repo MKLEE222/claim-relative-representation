@@ -61,3 +61,8 @@ jobs:
         run: python experiments/external_x2_whitman_static/run.py
       - name: Run Faust X3A temporal-provenance audit
         run: python experiments/external_x3_faust_static/run.py
+
+      - name: Run Whitman X2B certainty projection
+        run: python experiments/external_x2b_whitman_cert_projection/run.py
+      - name: Run Faust X3B source-locator projection
+        run: python experiments/external_x3b_faust_source_projection/run.py
