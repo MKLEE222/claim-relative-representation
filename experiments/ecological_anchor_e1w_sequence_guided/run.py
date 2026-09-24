@@ -60,16 +60,16 @@ def extract_surname(context):
     return m.group(1).lower()
 
 def find_addenda(v2):
-    low=v2.lower()
-    needles=[
-        "notes and addenda to sir henry yule",
-        "notes and addenda to sir henry yule's edition",
-        "notes and addenda to sir henry yule’s edition",
-    ]
-    positions=[low.find(n) for n in needles if low.find(n)>=0]
-    if not positions:
+    # Native Gutenberg line wrapping is not semantically meaningful, so match
+    # the printed heading across arbitrary whitespace without changing scope.
+    m=re.search(
+        r"notes\s+and\s+addenda\s+to\s+sir\s+henry\s+yule(?:['’]s)?\s+edition",
+        v2,
+        flags=re.I,
+    )
+    if not m:
         raise RuntimeError("native addenda heading not found")
-    p=min(positions)
+    p=m.start()
     return p,v2[p:]
 
 def find_target_window(ws):
