@@ -77,3 +77,6 @@ jobs:
 
       - name: Run Faust X3D raw assertion conflict ecology
         run: python experiments/external_x3d_faust_raw_conflicts/run.py
+
+      - name: Run Kinsay EP_KS_01 generic access transfer
+        run: python experiments/ep_ks_01_access_transfer/run.py
