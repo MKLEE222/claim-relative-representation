@@ -86,3 +86,8 @@ jobs:
 
       - name: Run Kinsay EP_KS_01D2 native referent bridge repair
         run: python experiments/ep_ks_01d2_native_referent_bridge/run.py
+
+      - name: Validate source-grounded mediation contract
+        run: python validation/validate_mediation_v1.py
+      - name: Run coal EP_CL_01 local-attachment boundary
+        run: python experiments/ep_cl_01_boundary/run.py
