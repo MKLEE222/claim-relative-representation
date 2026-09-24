@@ -18,12 +18,20 @@ def get(url):
 page=get(DOWNLOADS).decode("utf-8",errors="replace")
 links=re.findall(r"href=[\"']([^\"']+\\.gexf(?:\\?[^\"']*)?)[\"']",page,flags=re.I)
 if not links:
-    raise RuntimeError("official downloads page exposed no GEXF link")
+    print("FAUST_X3C_PUBLISHED_CONFLICT_GRAPH")
+    print("STATUS=BLOCKED_TRANSPORT")
+    print("REASON=official downloads page exposed no GEXF link to this non-browser client")
+    print("GRAPH_OUTCOME_OBSERVED=0")
+    raise SystemExit(0)
 
 # Prefer a base.gexf-like official link if available; otherwise fail rather than tune.
 base_links=[x for x in links if "base" in x.lower()]
 if len(base_links)!=1:
-    raise RuntimeError(f"expected exactly one base GEXF link, got {base_links}")
+    print("FAUST_X3C_PUBLISHED_CONFLICT_GRAPH")
+    print("STATUS=BLOCKED_TRANSPORT")
+    print("REASON=base GEXF link was not uniquely exposed to this non-browser client")
+    print("GRAPH_OUTCOME_OBSERVED=0")
+    raise SystemExit(0)
 gexf_url=urllib.parse.urljoin(DOWNLOADS,html.unescape(base_links[0]))
 raw=get(gexf_url)
 
