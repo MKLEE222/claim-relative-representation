@@ -1,7 +1,7 @@
 episode_id,role,theme,seed_events,target_events,task_family,native_object_family,target_visible_to_workflow,workflow_status,outcome_status
 EP_PM_01,DEV,paper_money,PM02,PM03,access_then_relation,Yule-Cordier_1903_1920,no,DEVELOPED,OPEN_DEVELOPMENT
-EP_KS_01,NEAR_HOLDOUT,kinsay_eyewitness,KS01,KS03,access_then_relation,Yule-Cordier_1903_1920,no,FROZEN_NOT_RUN,SEALED
+EP_KS_01,NEAR_HOLDOUT,kinsay_eyewitness,KS01,KS03,access_then_relation,Yule-Cordier_1903_1920,no,EXECUTED_GENERIC_PLUS_EXPLORATORY_MEDIATION,OUTCOME_RECORDED
 EP_KS_02,NEAR_HOLDOUT,kinsay_revenue,KS02,,relation_or_boundary,Yule-Cordier_1903_1920,no,FROZEN_NOT_RUN,SEALED
 EP_KS_03,NEAR_HOLDOUT,kinsay_geography,KS04,,relation_or_boundary,Yule-Cordier_1903_1920,no,FROZEN_NOT_RUN,SEALED
-EP_CL_01,BOUNDARY,coal_accretion,CL01,CL02,local_relation_then_optional_access,Yule-Cordier_1903,no,FROZEN_NOT_RUN,SEALED
-EP_EXT_01,EXTERNAL_HOLDOUT,TBD,TBD,TBD,TBD,TBD,no,ELIGIBILITY_SEARCH_PENDING,SEALED
+EP_CL_01,BOUNDARY,coal_accretion,CL01,CL02,local_relation_then_optional_access,Yule-Cordier_1903,no,EXECUTED_LOCAL_ATTACHMENT,OUTCOME_RECORDED
+EP_EXT_01,EXTERNAL_HOLDOUT,scrivener_corrigenda,"P.87 l.19 correction entry","page-87 Synaxaria source occurrence",documentary_localization,Scrivener_1894_Gutenberg_36548,no,EXECUTED_EXPLICIT_POINTER,OUTCOME_RECORDED
