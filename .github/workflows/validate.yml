@@ -27,3 +27,8 @@ jobs:
 
       - name: Validate interaction preregistration v1
         run: python validation/validate_interactions_v1.py
+
+      - name: Test interaction representation construction
+        run: |
+          cd validation
+          python -m unittest -v test_interaction_construction.py
