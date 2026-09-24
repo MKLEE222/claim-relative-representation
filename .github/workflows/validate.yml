@@ -38,3 +38,6 @@ jobs:
 
       - name: Validate ecological anchoring and claim ceilings
         run: python validation/validate_ecological_v1.py
+
+      - name: Run Ecological Anchor E1 paper-money access test
+        run: python experiments/ecological_anchor_e1_papermoney/run.py
