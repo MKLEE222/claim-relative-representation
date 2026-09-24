@@ -47,3 +47,6 @@ jobs:
 
       - name: Run Ecological Anchor E1W sequence-guided workflow
         run: python experiments/ecological_anchor_e1w_sequence_guided/run.py
+
+      - name: Validate holdout construction and external selection
+        run: python validation/validate_holdouts_v1.py
