@@ -83,3 +83,6 @@ jobs:
 
       - name: Run Kinsay EP_KS_01D native referent bridge diagnostic
         run: python experiments/ep_ks_01d_native_referent_bridge/run.py
+
+      - name: Run Kinsay EP_KS_01D2 native referent bridge repair
+        run: python experiments/ep_ks_01d2_native_referent_bridge/run.py
