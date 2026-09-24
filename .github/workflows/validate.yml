@@ -69,3 +69,8 @@ jobs:
 
       - name: Run Frankenstein X1B sealed C17 holdout
         run: python experiments/external_x1b_frankenstein_holdout/run.py
+
+      - name: Run Whitman X2C printed-locus task audit
+        run: python experiments/external_x2c_whitman_task/run.py
+      - name: Run Faust X3C published conflict graph audit
+        run: python experiments/external_x3c_faust_conflict_graph/run.py
