@@ -74,3 +74,6 @@ jobs:
         run: python experiments/external_x2c_whitman_task/run.py
       - name: Run Faust X3C published conflict graph audit
         run: python experiments/external_x3c_faust_conflict_graph/run.py
+
+      - name: Run Faust X3D raw assertion conflict ecology
+        run: python experiments/external_x3d_faust_raw_conflicts/run.py
