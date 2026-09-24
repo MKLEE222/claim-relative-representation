@@ -171,8 +171,7 @@ next_note=re.search(r"\nNOTE\s+\d+\.—",chapter[note_start+10:],flags=re.I)
 if next_note:
     note_end=note_start+10+next_note.start()
 note_unit=chapter[note_start:note_end]
-target_in_note = TARGET_A.lower() in note_unit.lower() and (
-    TARGET_B.lower() in note_unit.lower() or "world's wealth and power" in note_unit.lower()
-)
+note_tokens=set(toks(note_unit))
+target_in_note = set(toks(TARGET_A)) <= note_tokens and set(toks(TARGET_B)) <= note_tokens
 print(f"RESULT,CL_ATTACHMENT,target_in_scope={int(target_in_note)},candidates=1,target_rank={1 if target_in_note else 'NA'}")
 print("CLAIM_STATE_OPENED=0")
