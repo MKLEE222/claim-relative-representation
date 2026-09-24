@@ -1,0 +1,3 @@
+representation_id,url,sha256,status
+N_GUTENBERG_V1_TEXT,https://www.gutenberg.org/cache/epub/10636/pg10636.txt,7b0cbb0bc47a48d7594314b56d890e3e43ac05666b8c70d98f10719501cf6fb5,FROZEN_MATCHED_E1
+N_GUTENBERG_V2_TEXT,https://www.gutenberg.org/cache/epub/12410/pg12410.txt,c1ce61dd8c6c6a326c42fb7ac3b1a63767bf1685ec88354f83dd321e1748921c,FROZEN_MATCHED_E1
