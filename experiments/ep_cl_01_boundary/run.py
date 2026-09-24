@@ -116,11 +116,15 @@ if seed_end<0:
 seed=chapter[sa:seed_end]
 
 # M_LOCAL_ATTACHMENT support gate.
-marker_match=re.search(r"\{(\d+)\}",seed)
+# The native Gutenberg file may wrap the footnote marker onto the next physical
+# line, so support extraction inspects only the immediate seed tail, not target text.
+marker_region=chapter[sb:min(len(chapter),sb+300)]
+marker_match=re.search(r"\{(\d+)\}",marker_region)
 support_marker=marker_match.group(1) if marker_match else None
 note_match=None
 if support_marker:
-    note_match=re.search(rf"NOTE\s+{re.escape(support_marker)}\.—",chapter[seed_end:],flags=re.I)
+    note_search_start=sb
+    note_match=re.search(rf"NOTE\s+{re.escape(support_marker)}\.—",chapter[note_search_start:],flags=re.I)
 
 support = support_marker is not None and note_match is not None
 print("EP_CL_01_LOCAL_ATTACHMENT_BOUNDARY")
@@ -134,7 +138,7 @@ if not support:
     print("TARGET_OUTCOME_OPENED=0")
     raise SystemExit(0)
 
-note_start=seed_end+note_match.start()
+note_start=note_search_start+note_match.start()
 print("matching_note_label=NOTE_"+support_marker)
 
 local_ws=windows(chapter)
