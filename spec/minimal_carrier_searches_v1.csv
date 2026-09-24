@@ -1,0 +1,4 @@
+search_id,material,role,task,candidate_carriers,reference_output,status
+MC_FV_C18,Frankenstein Variorum,HOLDOUT,"partition witnesses into native reading-equivalence groups within each collation locus","WITNESS_ID|RDGGRP_MEMBERSHIP|READING_TEXT","native rdgGrp witness partition",SEALED
+MC_WW_01,Walt Whitman Archive,MECHANISM,"given printed locus recover linked manuscript file+locus set","PRINT_LOCUS|MS_FILE|MS_LOCUS|CERTAINTY","native endpoint mapping",FROZEN
+MC_FA_01,Digital Faust Edition,MECHANISM,"recover raw precedence edge set and source-qualified conflict audit","ORDERED_ITEMS|SOURCE_URI|SOURCE_LOCATOR|FILE_CONTEXT","native relation-derived edge/source records",FROZEN
