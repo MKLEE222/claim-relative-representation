@@ -16,7 +16,7 @@ def get(url):
         return r.read()
 
 page=get(DOWNLOADS).decode("utf-8",errors="replace")
-links=re.findall(r'href=["\\']([^"\\']+\\.gexf(?:\\?[^"\\']*)?)["\\']',page,flags=re.I)
+links=re.findall(r"href=[\"']([^\"']+\\.gexf(?:\\?[^\"']*)?)[\"']",page,flags=re.I)
 if not links:
     raise RuntimeError("official downloads page exposed no GEXF link")
 
