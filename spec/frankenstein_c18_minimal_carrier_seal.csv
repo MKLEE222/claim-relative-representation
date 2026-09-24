@@ -1,0 +1,2 @@
+material_id,chunk_id,role,external_repo,external_commit,file_path,git_blob_sha,size_bytes,content_opened_by_this_study,status
+P1_FV,C18,HOLDOUT_MINIMAL_CARRIER,FrankensteinVariorum/collationWorkspace,5a208f869ff1213defa000e3181d5315a072a15f,collationChunks/C18/output/Collation_C18-complete.xml,bca0548912ab1d7b2676360d33a6468290296d7e,235462,no,SEALED_BEFORE_MC_FV_C18
