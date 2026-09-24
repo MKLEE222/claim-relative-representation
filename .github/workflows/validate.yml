@@ -91,3 +91,6 @@ jobs:
         run: python validation/validate_mediation_v1.py
       - name: Run coal EP_CL_01 local-attachment boundary
         run: python experiments/ep_cl_01_boundary/run.py
+
+      - name: Run Scrivener EP_EXT_01 pointer holdout
+        run: python experiments/ep_ext_01_scrivener_pointer/run.py
