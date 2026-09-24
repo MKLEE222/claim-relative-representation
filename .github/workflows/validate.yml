@@ -50,3 +50,6 @@ jobs:
 
       - name: Validate holdout construction and external selection
         run: python validation/validate_holdouts_v1.py
+
+      - name: Validate external DH material portfolio
+        run: python validation/validate_external_dh_v1.py
