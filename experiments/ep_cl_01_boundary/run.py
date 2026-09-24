@@ -94,10 +94,22 @@ if not n:
 chapter_end=m.end()+n.start()
 chapter=text[chapter_start:chapter_end]
 
-sa=chapter.lower().find(SEED_A.lower())
-sb=chapter.lower().find(SEED_B.lower(),sa)
-if sa<0 or sb<0:
-    raise RuntimeError("coal seed anchors not found")
+sa_match=re.search(
+    r"black\s+stones\s+existing\s+in\s+beds\s+in\s+the\s+mountains",
+    chapter,
+    flags=re.I,
+)
+if not sa_match:
+    raise RuntimeError("coal seed anchor A not found")
+sb_match=re.search(
+    r"those\s+stones\s+burn\s+better\s+and\s+cost\s+less",
+    chapter[sa_match.start():],
+    flags=re.I,
+)
+if not sb_match:
+    raise RuntimeError("coal seed anchor B not found")
+sa=sa_match.start()
+sb=sa_match.start()+sb_match.start()
 seed_end=chapter.find("\n",sb)
 if seed_end<0:
     seed_end=min(len(chapter),sb+800)
