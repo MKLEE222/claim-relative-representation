@@ -80,3 +80,6 @@ jobs:
 
       - name: Run Kinsay EP_KS_01 generic access transfer
         run: python experiments/ep_ks_01_access_transfer/run.py
+
+      - name: Run Kinsay EP_KS_01D native referent bridge diagnostic
+        run: python experiments/ep_ks_01d_native_referent_bridge/run.py
