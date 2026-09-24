@@ -24,3 +24,6 @@ jobs:
 
       - name: Validate task-adapted design v2
         run: python validation/validate_design_v2.py
+
+      - name: Validate interaction preregistration v1
+        run: python validation/validate_interactions_v1.py
