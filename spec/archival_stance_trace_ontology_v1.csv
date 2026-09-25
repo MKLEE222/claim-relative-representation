@@ -1,0 +1,6 @@
+trace_type,layer,name,definition,allowed_basis,not_equivalent_to
+ST_CRITICISM,ARCHIVAL_TRACE,explicit_criticism,"A historical source actor explicitly marks a proposition/actor as mistaken, doubtful, false, or otherwise defective.","verbatim evaluative wording in source","our E_UNDERCUT adjudication"
+ST_ENDORSEMENT,ARCHIVAL_TRACE,explicit_endorsement,"A historical source actor explicitly marks a proposition/actor as correct, sound, confirmed, or equivalent positive stance.","verbatim evaluative wording in source","our E_SUPPORT adjudication"
+ST_PRIOR_CRITIC_CORRECTION,ARCHIVAL_TRACE,explicit_correction_of_prior_critic,"A historical source actor explicitly states that a prior criticism/error attribution is itself mistaken.","verbatim wording naming or clearly targeting prior critic/criticism","our E_REHABILITATE adjudication"
+ST_UNCERTAINTY,ARCHIVAL_TRACE,explicit_uncertainty,"A historical source actor explicitly marks uncertainty, possibility, conjecture, or doubt.","verbatim modality/evaluative wording","our E_UNRESOLVED adjudication"
+ST_SCOPE_SHIFT,ARCHIVAL_TRACE,explicit_scope_shift,"A historical source actor explicitly moves from a base report to a broader interpretive/historical projection.","verbatim editorial wording showing the broader projected claim","our E_ACCRETION adjudication"
