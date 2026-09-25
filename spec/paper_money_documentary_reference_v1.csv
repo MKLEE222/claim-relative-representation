@@ -1,0 +1,15 @@
+ref_id,event_ref,relation_type,subject,object_or_value,source_anchor,verification_status,ambiguity_set,epistemic_label_present
+PMD01,PM01,D_EDITORIAL_LAYER,PM01,base_narrative,"1903 vol.1 p423 / scan723",PAGE_VERIFIED,,no
+PMD02,PM01,D_ATTRIBUTION,PM01,"Marco Polo / Rustichello account in Yule translation","1903 vol.1 p423 / scan723",PAGE_VERIFIED,,no
+PMD03,PM02,D_EDITORIAL_LAYER,PM02,1903_note_third_edition,"1903 vol.1 p430 / scan732",PAGE_VERIFIED,,no
+PMD04,PM02,D_ATTRIBUTION,PM02,"Henri Cordier citing Emil Bretschneider","1903 vol.1 p430 / scan732",PAGE_VERIFIED,,no
+PMD05,PM02,D_CITATION_DERIVATION,PM02,Emil_Bretschneider,"1903 vol.1 p430 / scan732",PAGE_VERIFIED,,no
+PMD06,PM03,D_EDITORIAL_LAYER,PM03,1920_addendum,"1920 pp70-72 / scan84-86",PAGE_VERIFIED,,no
+PMD07,PM03,D_ATTRIBUTION,PM03,"Henri Cordier transmitting Berthold Laufer","1920 pp70-72 / scan84-86",PAGE_VERIFIED,,no
+PMD08,PM03,D_CITATION_DERIVATION,PM03,Berthold_Laufer,"1920 pp70-72 / scan84-86",PAGE_VERIFIED,,no
+PMD09,PM03,D_EXPLICIT_POINTER,PM03,"Bretschneider statement p430","1920 pp70-72 / scan84-86",PAGE_VERIFIED,,no
+PMD10,PM03,D_ATTACHMENT,PM03,PM02,"1920 text: Regarding Bretschneider's statement p.430",PAGE_VERIFIED,,no
+PMD11,PM02,D_REFERENT_BINDING,PM02,mulberry_material_identification,"1903 vol.1 p430 / scan732",PAGE_VERIFIED,,no
+PMD12,PM03,D_REFERENT_BINDING,PM03,mulberry_material_identification,"1920 pp70-72 / scan84-86",PAGE_VERIFIED,,no
+PMD13,PM02,D_TEMPORAL_SUCCESSION,PM02,PM01_before_PM02,"1903 edition structure",PAGE_VERIFIED,,no
+PMD14,PM03,D_TEMPORAL_SUCCESSION,PM03,PM02_before_PM03,"1903/1920 edition dates + addendum structure",PAGE_VERIFIED,,no
