@@ -1,0 +1,49 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "epistemic_relations",
+    "warrant_state",
+    "decisive_evidence",
+    "rationale",
+    "unresolved_dependency"
+  ],
+  "properties": {
+    "epistemic_relations": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "enum": [
+          "E_SUPPORT",
+          "E_UNDERCUT",
+          "E_QUALIFY_AUTHORITY",
+          "E_REHABILITATE",
+          "E_ACCRETION",
+          "E_IDENTIFICATION_UPDATE",
+          "E_UNRESOLVED"
+        ]
+      }
+    },
+    "warrant_state": {
+      "enum": [
+        "RETAIN",
+        "REVISE",
+        "DEFER",
+        "WITHHOLD"
+      ]
+    },
+    "decisive_evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "maxLength": 1200
+    },
+    "unresolved_dependency": {
+      "type": "string"
+    }
+  }
+}
