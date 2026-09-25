@@ -1,0 +1,8 @@
+relation_id,stage,name,definition,consumes_documentary_state,representation_transformable
+E_SUPPORT,B,support,"The supplied evidence increases entitlement to the frozen claim under the declared adjudication policy.","yes",no
+E_UNDERCUT,B,undercut,"The supplied evidence weakens entitlement to the frozen claim or a premise/source authority on which it depends.","yes",no
+E_QUALIFY_AUTHORITY,B,qualify_authority,"The evidence narrows the authority, eyewitness status, scope, or conditions under which the claim may be used without necessarily negating its descriptive content.","yes",no
+E_REHABILITATE,B,rehabilitate,"Later evidence defeats or substantially weakens an earlier undercutting reason and thereby restores entitlement previously reduced.","yes",no
+E_ACCRETION,B,interpretive_accretion,"An editorial layer adds an interpretation at a broader explanatory/historical scale than is licensed by the base observation alone.","yes",no
+E_IDENTIFICATION_UPDATE,B,identification_update,"Later evidence changes the adjudicated entitlement to a prior identification of place/person/source/referent.","yes",no
+E_UNRESOLVED,B,unresolved,"The available documentary/evidential state permits materially different epistemic assignments under the declared policy.","yes",no
