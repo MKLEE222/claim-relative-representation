@@ -5,6 +5,8 @@ import json
 import math
 import re
 import urllib.request
+import time
+from pathlib import Path
 from collections import Counter
 from dataclasses import dataclass
 
@@ -38,9 +40,17 @@ class W:
     char_end:int
 
 def fetch(url):
-    req=urllib.request.Request(url,headers={"User-Agent":"claim-relative-representation/1.0"})
-    with urllib.request.urlopen(req,timeout=30) as r:
-        return r.read()
+    last=None
+    for attempt in range(5):
+        try:
+            req=urllib.request.Request(url,headers={"User-Agent":"claim-relative-representation/1.0"})
+            with urllib.request.urlopen(req,timeout=45) as r:
+                return r.read()
+        except Exception as e:
+            last=e
+            if attempt<4:
+                time.sleep(2**attempt)
+    raise RuntimeError(f"BLOCKED_TRANSPORT: {url}: {last}")
 
 def token_spans(text):
     ms=list(re.finditer(r"[A-Za-z][A-Za-z'-]{2,}",text))
@@ -183,4 +193,8 @@ print("PACKET_B_CANDIDATES="+str(len(packet_b)))
 print("PACKET_A_TARGET_PRESENT=1")
 print("PACKET_B_TARGET_PRESENT=0")
 print("CODER_POLICY_IDENTITY_EXPOSED=0")
-print("PACKET_JSON="+json.dumps({"fixed":fixed,"PACKET_A":packet_a,"PACKET_B":packet_b},ensure_ascii=False))
+payload={"fixed":fixed,"PACKET_A":packet_a,"PACKET_B":packet_b}
+out=Path("experiments/warrant_closure_pm/generated")
+out.mkdir(parents=True,exist_ok=True)
+(out/"packets_v1.json").write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
+print("PACKET_JSON_PATH="+str(out/"packets_v1.json"))
