@@ -1,0 +1,61 @@
+name: replay-live-source-experiments
+
+on:
+  workflow_dispatch:
+
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Paper-money E1
+        run: python experiments/ecological_anchor_e1_papermoney/run.py
+      - name: Paper-money E1D
+        run: python experiments/ecological_anchor_e1d_retrieval_policy/run.py
+      - name: Paper-money E1W
+        run: python experiments/ecological_anchor_e1w_sequence_guided/run.py
+
+      - name: Frankenstein X1A
+        run: python experiments/external_x1_frankenstein_static/run.py
+      - name: Frankenstein X1B C17
+        run: python experiments/external_x1b_frankenstein_holdout/run.py
+      - name: Frankenstein C18 minimal carriers
+        run: python experiments/minimal_carrier_fv_c18/run.py
+
+      - name: Whitman X2A
+        run: python experiments/external_x2_whitman_static/run.py
+      - name: Whitman X2B
+        run: python experiments/external_x2b_whitman_cert_projection/run.py
+      - name: Whitman X2C
+        run: python experiments/external_x2c_whitman_task/run.py
+      - name: Whitman minimal carriers
+        run: python experiments/minimal_carrier_whitman/run.py
+
+      - name: Faust X3A
+        run: python experiments/external_x3_faust_static/run.py
+      - name: Faust X3B
+        run: python experiments/external_x3b_faust_source_projection/run.py
+      - name: Faust X3C
+        run: python experiments/external_x3c_faust_conflict_graph/run.py
+      - name: Faust X3D
+        run: python experiments/external_x3d_faust_raw_conflicts/run.py
+      - name: Faust minimal carriers
+        run: python experiments/minimal_carrier_faust/run.py
+
+      - name: Kinsay generic access
+        run: python experiments/ep_ks_01_access_transfer/run.py
+      - name: Kinsay referent bridge
+        run: python experiments/ep_ks_01d_native_referent_bridge/run.py
+      - name: Kinsay referent bridge repaired
+        run: python experiments/ep_ks_01d2_native_referent_bridge/run.py
+      - name: Coal local attachment
+        run: python experiments/ep_cl_01_boundary/run.py
+      - name: Scrivener pointer holdout
+        run: python experiments/ep_ext_01_scrivener_pointer/run.py
+
+      - name: Build warrant closure packets
+        run: python experiments/warrant_closure_pm/build_packet.py
