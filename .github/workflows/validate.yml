@@ -55,3 +55,12 @@ jobs:
 
       - name: Validate strict documentary epistemic split
         run: python validation/validate_gd_ge_split_v1.py
+
+      - name: Validate archival stance trace layer
+        run: python validation/validate_archival_trace_v1.py
+
+      - name: Validate retrieval target identity metric
+        run: python validation/validate_target_identity_metric.py
+
+      - name: Compute pre-LLM paper-money active evidence state
+        run: python experiments/warrant_closure_pm/stage_b_active_state.py
