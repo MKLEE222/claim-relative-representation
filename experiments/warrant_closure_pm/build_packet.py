@@ -68,7 +68,7 @@ def normalize_terms(words):
     return out
 
 def find_seed(ws):
-    need1={"dr","bretschneider"}
+    need1={"bretschneider"}
     need2={"broussonetia"}
     for w in ws:
         s=set(w.words)
