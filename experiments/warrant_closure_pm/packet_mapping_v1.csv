@@ -1,0 +1,3 @@
+packet_id,underlying_policy,candidate_budget,target_present,target_rank_or_ordinal,coder_visible
+PACKET_A,PI_SEQUENCE_GUIDED_DOMAIN_CHAIN,12,yes,1,no
+PACKET_B,PI_SEED_SIMILARITY_DECLARED_COLLECTION_TOP12,12,no,">20 (authoritative E1 rank 5835)",no
