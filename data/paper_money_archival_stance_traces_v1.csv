@@ -1,0 +1,4 @@
+trace_id,event_ref,trace_type,historical_actor,target,verbatim_cue,source_anchor,verification_status
+PMT01,PM02,ST_CRITICISM,"Emil Bretschneider as transmitted by Henri Cordier","Marco Polo material identification","He seems to be mistaken.","1903 vol.1 p430 / scan732",PAGE_VERIFIED
+PMT02,PM03,ST_PRIOR_CRITIC_CORRECTION,"Berthold Laufer as transmitted by Henri Cordier","Bretschneider's prior statement","This is a singular error of Bretschneider.","1920 pp70-72 / scan84-86",PAGE_VERIFIED
+PMT03,PM03,ST_ENDORSEMENT,"Berthold Laufer as transmitted by Henri Cordier","Marco Polo material identification","Marco Polo is perfectly correct.","1920 pp70-72 / scan84-86",PAGE_VERIFIED
