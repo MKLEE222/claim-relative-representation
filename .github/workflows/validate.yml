@@ -103,3 +103,8 @@ jobs:
         run: python experiments/minimal_carrier_whitman/run.py
       - name: Run Faust minimal-carrier search
         run: python experiments/minimal_carrier_faust/run.py
+
+      - name: Validate strict documentary epistemic split
+        run: python validation/validate_gd_ge_split_v1.py
+      - name: Build blinded paper-money warrant packets
+        run: python experiments/warrant_closure_pm/build_packet.py
