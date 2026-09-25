@@ -1,0 +1,11 @@
+relation_id,stage,name,definition,admissible_basis,epistemic_status
+D_ATTRIBUTION,A,attribution,"Who is explicitly responsible for a passage, statement, note, citation, or editorial act.","source text|header|signature|resp metadata",DOCUMENTARY_ONLY
+D_ATTACHMENT,A,attachment,"Which documentary unit a note/addendum/pointer explicitly targets or is attached to.","note marker|page pointer|cross-reference|native link",DOCUMENTARY_ONLY
+D_TEMPORAL_SUCCESSION,A,temporal_succession,"Relative documentary/edition order explicitly established by dated/versioned witnesses.","edition date|revision order|addenda heading|version metadata",DOCUMENTARY_ONLY
+D_CITATION_DERIVATION,A,citation_derivation,"Which named source/scholar/document a passage explicitly cites, quotes, transmits, or derives from.","citation|quotation attribution|source pointer",DOCUMENTARY_ONLY
+D_REFERENT_BINDING,A,referent_binding,"Which person/place/object/proposition a native pointer or explicit identity statement designates.","explicit pointer|identity statement|corresp/target|unambiguous local wording",DOCUMENTARY_ONLY
+D_WITNESS_DIFFERENCE,A,witness_difference,"Whether two textual witnesses/editions explicitly contain different readings or reported propositions.","parallel witnesses|editorial comparison|apparatus",DOCUMENTARY_ONLY
+D_EDITORIAL_LAYER,A,editorial_layer,"Which historical/editorial layer a span belongs to.","edition witness|heading|date|editor responsibility",DOCUMENTARY_ONLY
+D_MODALITY_MARKER,A,modality_marker,"Source-explicit uncertainty, possibility, conjecture, or strength marker.","lexical modality|certainty attribute|editorial symbol",DOCUMENTARY_ONLY
+D_DIGITAL_ASSEMBLY,A,digital_assembly,"Which historically distinct components are assembled into a digital object.","file/object structure|project metadata|native concatenation",DOCUMENTARY_ONLY
+D_EXPLICIT_POINTER,A,explicit_pointer,"A source-native page, line, note, hyperlink, or stand-off pointer between documentary loci.","page/line reference|note marker|href|linkGrp",DOCUMENTARY_ONLY
