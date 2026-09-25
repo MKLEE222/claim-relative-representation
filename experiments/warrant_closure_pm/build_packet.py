@@ -147,6 +147,7 @@ domain_vocab={"mulberry","mulberry-trees","bark","broussonetia","papyrifera","ba
 active=sorted(domain_vocab & seed_tokens)
 addenda_char,addenda=find_addenda(text["V2"])
 aws=make_windows("V2",addenda)
+guided_target=find_target(aws)
 guided=[]
 for w in aws:
     norm=normalize_terms(w.words)
@@ -155,7 +156,7 @@ for w in aws:
 
 assert len(guided)==12
 assert not any(abs(w.start-target.start)<STRIDE for w in generic)
-assert any(abs(w.start-target.start)<STRIDE for w in guided)
+assert any(abs(w.start-guided_target.start)<STRIDE for w in guided)
 
 # Fixed exact source context from page-verified alignment.
 fixed={
