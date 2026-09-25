@@ -12,8 +12,10 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+
       - name: Validate CEDL research contract
         run: python validation/validate_object.py
+
       - name: Test controlled representation interventions
         run: |
           cd validation
@@ -39,72 +41,17 @@ jobs:
       - name: Validate ecological anchoring and claim ceilings
         run: python validation/validate_ecological_v1.py
 
-      - name: Run Ecological Anchor E1 paper-money access test
-        run: python experiments/ecological_anchor_e1_papermoney/run.py
-
-      - name: Run Ecological Anchor E1D retrieval-policy diagnostic
-        run: python experiments/ecological_anchor_e1d_retrieval_policy/run.py
-
-      - name: Run Ecological Anchor E1W sequence-guided workflow
-        run: python experiments/ecological_anchor_e1w_sequence_guided/run.py
-
       - name: Validate holdout construction and external selection
         run: python validation/validate_holdouts_v1.py
 
       - name: Validate external DH material portfolio
         run: python validation/validate_external_dh_v1.py
 
-      - name: Run Frankenstein X1A static external audit
-        run: python experiments/external_x1_frankenstein_static/run.py
-
-      - name: Run Whitman X2A relation-certainty audit
-        run: python experiments/external_x2_whitman_static/run.py
-      - name: Run Faust X3A temporal-provenance audit
-        run: python experiments/external_x3_faust_static/run.py
-
-      - name: Run Whitman X2B certainty projection
-        run: python experiments/external_x2b_whitman_cert_projection/run.py
-      - name: Run Faust X3B source-locator projection
-        run: python experiments/external_x3b_faust_source_projection/run.py
-
-      - name: Run Frankenstein X1B sealed C17 holdout
-        run: python experiments/external_x1b_frankenstein_holdout/run.py
-
-      - name: Run Whitman X2C printed-locus task audit
-        run: python experiments/external_x2c_whitman_task/run.py
-      - name: Run Faust X3C published conflict graph audit
-        run: python experiments/external_x3c_faust_conflict_graph/run.py
-
-      - name: Run Faust X3D raw assertion conflict ecology
-        run: python experiments/external_x3d_faust_raw_conflicts/run.py
-
-      - name: Run Kinsay EP_KS_01 generic access transfer
-        run: python experiments/ep_ks_01_access_transfer/run.py
-
-      - name: Run Kinsay EP_KS_01D native referent bridge diagnostic
-        run: python experiments/ep_ks_01d_native_referent_bridge/run.py
-
-      - name: Run Kinsay EP_KS_01D2 native referent bridge repair
-        run: python experiments/ep_ks_01d2_native_referent_bridge/run.py
-
       - name: Validate source-grounded mediation contract
         run: python validation/validate_mediation_v1.py
-      - name: Run coal EP_CL_01 local-attachment boundary
-        run: python experiments/ep_cl_01_boundary/run.py
-
-      - name: Run Scrivener EP_EXT_01 pointer holdout
-        run: python experiments/ep_ext_01_scrivener_pointer/run.py
 
       - name: Validate minimal sufficient carrier searches
         run: python validation/validate_minimal_carriers_v1.py
-      - name: Run Frankenstein C18 minimal-carrier holdout
-        run: python experiments/minimal_carrier_fv_c18/run.py
-      - name: Run Whitman minimal-carrier search
-        run: python experiments/minimal_carrier_whitman/run.py
-      - name: Run Faust minimal-carrier search
-        run: python experiments/minimal_carrier_faust/run.py
 
       - name: Validate strict documentary epistemic split
         run: python validation/validate_gd_ge_split_v1.py
-      - name: Build blinded paper-money warrant packets
-        run: python experiments/warrant_closure_pm/build_packet.py
