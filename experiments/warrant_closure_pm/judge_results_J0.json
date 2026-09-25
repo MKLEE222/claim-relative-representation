@@ -1,0 +1,35 @@
+{
+  "judge_run_id": "J0_SAME_SESSION_2026-09-25",
+  "runtime_model": "GPT-5.6 Sol",
+  "independence_status": "same-session; not independent blinded replication",
+  "packet_A": {
+    "epistemic_relations": [
+      "E_UNDERCUT",
+      "E_REHABILITATE",
+      "E_SUPPORT"
+    ],
+    "warrant_state": "RETAIN",
+    "decisive_evidence": [
+      "PM02",
+      "A-01",
+      "A-02"
+    ],
+    "rationale": "PM02 supplies an explicit challenge to the mulberry-bark identification, but A-01/A-02 directly address that challenge with detailed contrary evidence and explicitly state that Polo is correct about mulberry bark being used for paper and paper-money. Under the supplied editorial record, the earlier undercut is answered rather than merely ignored, so the claim remains usable as stated.",
+    "unresolved_dependency": ""
+  },
+  "packet_B": {
+    "epistemic_relations": [
+      "E_UNDERCUT"
+    ],
+    "warrant_state": "REVISE",
+    "decisive_evidence": [
+      "PM01",
+      "PM02",
+      "B-01",
+      "B-02",
+      "B-03"
+    ],
+    "rationale": "PM01 and the retrieved currency material support the broader existence and scale of Yuan paper-money practice, but PM02 explicitly challenges the specific mulberry-bark identification and the packet supplies no evidence that answers that botanical objection. The record therefore supports a narrower claim about paper-money practice while not licensing the material identification as stated.",
+    "unresolved_dependency": ""
+  }
+}
