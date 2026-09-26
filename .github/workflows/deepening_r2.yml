@@ -17,14 +17,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.11"
-      - uses: actions/setup-java@v4
+      - uses: actions/setup-java@v5
         with:
           distribution: temurin
           java-version: "17"
       - name: Install native replay dependencies
         run: |
           python -m pip install --upgrade pip
-          python -m pip install python-Levenshtein networkx prettytable
+          python -m pip install python-Levenshtein networkx prettytable ClusterShell
       - name: Replay pinned Frankenstein C18 native pipeline
         run: python experiments/deepening_v1/r2_frankenstein_native_replay.py
       - name: Upload machine-readable R2 result
