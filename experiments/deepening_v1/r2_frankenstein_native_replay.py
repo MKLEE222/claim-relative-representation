@@ -110,7 +110,12 @@ with tempfile.TemporaryDirectory(prefix="fv_r2_") as td:
     new_iter="for token_position in self.token_index.get_range_for_witness(witness.sigil).intiter():"
     if old_iter not in aligner_text:
         raise RuntimeError("RangeSet compatibility target not found")
-    aligner.write_text(aligner_text.replace(old_iter,new_iter),encoding="utf-8")
+    aligner_text=aligner_text.replace(old_iter,new_iter)
+    aligner_text=aligner_text.replace(
+        "for p in self.token_index.get_range_for_witness(witness.sigil):",
+        "for p in self.token_index.get_range_for_witness(witness.sigil).intiter():"
+    )
+    aligner.write_text(aligner_text,encoding="utf-8")
 
     tokenindex=root/"python-collation/collatex/tokenindex.py"
     tokenindex_text=tokenindex.read_text(encoding="utf-8")
