@@ -64,3 +64,6 @@ jobs:
 
       - name: Compute pre-LLM paper-money active evidence state
         run: python experiments/warrant_closure_pm/stage_b_active_state.py
+
+      - name: Validate final atomic warrant contract
+        run: python validation/validate_final_warrant_contract.py
