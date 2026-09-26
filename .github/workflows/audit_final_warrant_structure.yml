@@ -1,0 +1,18 @@
+name: audit-final-warrant-structure
+
+on:
+  push:
+    paths:
+      - "experiments/warrant_closure_final/audit_structure.py"
+      - ".github/workflows/audit_final_warrant_structure.yml"
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Audit unique evidence units and rescue construction
+        run: python experiments/warrant_closure_final/audit_structure.py
