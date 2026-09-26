@@ -1,13 +1,7 @@
 name: build-final-warrant-packets
 
 on:
-  push:
-    paths:
-      - "experiments/warrant_closure_final/build_packets.py"
-      - "experiments/warrant_closure_final/prepare_judge_calls.py"
-      - "experiments/warrant_closure_final/judge_prompt_v2.txt"
-      - "experiments/warrant_closure_final/judge_output_schema_v2.json"
-      - ".github/workflows/build_final_warrant_packets.yml"
+  workflow_dispatch:
 
 jobs:
   build:
