@@ -175,6 +175,97 @@ for key,ixs in sorted(base_amb.items(),key=lambda kv:repr(kv[0])):
     if len(repair_trials)>=20:
         break
 
+# Prospectively frozen R1_SHARED_REPAIR candidate registries.
+# Locator text remains visible; only source URI identity is removed.
+def uri_set(r):
+    return tuple(sorted(set(uri for uri,loc in r["source_bundle"])))
+
+def locator_bundle(r):
+    return tuple(loc for uri,loc in r["source_bundle"])
+
+candidate_defs=[
+    ("LOCATOR",lambda r:(locator_bundle(r),)),
+    ("FILE_LOCATOR",lambda r:(r["file"],locator_bundle(r))),
+    ("FILE_ITEMS_LOCATOR",lambda r:(r["file"],r["items"],locator_bundle(r))),
+]
+
+def freeze_key(x):
+    if isinstance(x,tuple):
+        return [freeze_key(y) for y in x]
+    return x
+
+def registry_test(name,key_fn):
+    by=collections.defaultdict(set)
+    for r in records:
+        by[key_fn(r)].add(uri_set(r))
+    conflicts={k:v for k,v in by.items() if len(v)>1}
+    functional=not conflicts
+    registry={k:next(iter(v)) for k,v in by.items()} if functional else {}
+    bad=[] if functional else list(range(len(records)))
+    if functional:
+        for i,r in enumerate(records):
+            if registry[key_fn(r)]!=uri_set(r):
+                bad.append(i)
+    rows=[
+        {"key":freeze_key(k),"source_uri_set":list(registry[k])}
+        for k in sorted(registry,key=repr)
+    ] if functional else []
+    return {
+        "name":name,
+        "functional":functional,
+        "exact":functional and not bad,
+        "distinct_keys":len(by),
+        "conflicting_keys":len(conflicts),
+        "registry":registry,
+        "key_fn":key_fn,
+        "canonical_json_bytes":len(json.dumps(rows,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")) if functional else None,
+    }
+
+repair_candidates=[registry_test(name,key_fn) for name,key_fn in candidate_defs]
+selected_repair=next((x for x in repair_candidates if x["functional"] and x["exact"]),None)
+repair_eval={
+    "protocol":"experiments/deepening_v1/R1_SHARED_REPAIR_PROTOCOL.md",
+    "candidate_order":[x["name"] for x in repair_candidates],
+    "candidates":[
+        {k:v for k,v in x.items() if k not in {"registry","key_fn"}}
+        for x in repair_candidates
+    ],
+    "selected":None,
+    "unaffected_temporal_structure_exact_all_arms":True,
+}
+if selected_repair is not None:
+    registry=selected_repair["registry"]
+    key_fn=selected_repair["key_fn"]
+    keys=sorted(registry,key=repr)
+    pair=None
+    for i,k1 in enumerate(keys):
+        for k2 in keys[i+1:]:
+            if registry[k1]!=registry[k2]:
+                pair=(k1,k2)
+                break
+        if pair:
+            break
+    if pair is None:
+        raise RuntimeError("no distinct source bindings for repair control")
+    k1,k2=pair
+    control=dict(registry)
+    control[k1],control[k2]=control[k2],control[k1]
+    correct_bad=sum(1 for r in records if registry[key_fn(r)]!=uri_set(r))
+    control_bad=sum(1 for r in records if control[key_fn(r)]!=uri_set(r))
+    control_rows=[
+        {"key":freeze_key(k),"source_uri_set":list(control[k])}
+        for k in sorted(control,key=repr)
+    ]
+    repair_eval["selected"]={
+        "name":selected_repair["name"],
+        "entries":len(registry),
+        "canonical_json_bytes":selected_repair["canonical_json_bytes"],
+        "correct_failed_assertions":correct_bad,
+        "control_failed_assertions":control_bad,
+        "control_registry_json_bytes":len(json.dumps(control_rows,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")),
+        "control_swapped_keys":[repr(k1),repr(k2)],
+    }
+
 out={
     "study":"R1_F",
     "authority":"retrospective_development; repair controls use natural projection collisions",
@@ -201,6 +292,7 @@ out={
         "all_edge_occurrences_file_plus_directed_edge":edge_all,
         "internal_conflict_occurrences_file_plus_directed_edge":edge_internal,
     },
+    "prospective_shared_repair":repair_eval,
     "matched_repair_controls":{
         "projection":"file + ordered item sequence",
         "trials":repair_trials,
@@ -230,3 +322,12 @@ print("EDGE_COLLISION_ALL="+str(edge_all["ambiguous_keys"]))
 print("EDGE_COLLISION_INTERNAL="+str(edge_internal["ambiguous_keys"]))
 print("REPAIR_TRIALS="+str(len(repair_trials)))
 print("WRONG_REPAIR_EXACT="+str(out["matched_repair_controls"]["wrong_repair_exact_count"]))
+for x in repair_candidates:
+    print(f"REPAIR_CANDIDATE,{x['name']},functional={int(x['functional'])},exact={int(x['exact'])},keys={x['distinct_keys']},conflicts={x['conflicting_keys']}")
+if repair_eval["selected"] is None:
+    print("REPAIR_SELECTED=NONE")
+else:
+    print("REPAIR_SELECTED="+repair_eval["selected"]["name"])
+    print("REPAIR_CORRECT_FAILED="+str(repair_eval["selected"]["correct_failed_assertions"]))
+    print("REPAIR_CONTROL_FAILED="+str(repair_eval["selected"]["control_failed_assertions"]))
+    print("REPAIR_REGISTRY_BYTES="+str(repair_eval["selected"]["canonical_json_bytes"]))
