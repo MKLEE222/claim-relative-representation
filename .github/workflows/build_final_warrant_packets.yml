@@ -1,0 +1,26 @@
+name: build-final-warrant-packets
+
+on:
+  push:
+    paths:
+      - "experiments/warrant_closure_final/build_packets.py"
+      - ".github/workflows/build_final_warrant_packets.yml"
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build exact deduplicated final packets
+        run: python experiments/warrant_closure_final/build_packets.py
+      - name: Upload final packet bundle
+        uses: actions/upload-artifact@v4
+        with:
+          name: pm-final-warrant-packets-v1
+          path: |
+            experiments/warrant_closure_final/generated/final_packets_v1.json
+            experiments/warrant_closure_final/generated/sealed_mapping_v1.json
+          if-no-files-found: error
