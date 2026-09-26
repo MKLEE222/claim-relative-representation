@@ -292,14 +292,27 @@ pm01_exact=exact_span_regex(
     "1903 vol.1 p423 / scan723",
     "PM01",
 )
-pm02_exact=exact_span_regex(
-    "V1",
-    text["V1"],
-    r"\[Dr\.\s+Bretschneider",
-    r"-{20,}",
-    "1903 vol.1 p430 / scan732",
-    "PM02",
-)
+pm02_anchor=text["V1"].lower().find("broussonetia")
+if pm02_anchor<0:
+    raise RuntimeError("PM02 Broussonetia anchor missing")
+pm02_starts=[m.start() for m in re.finditer(r"\[Dr\.\s+Bretschneider",text["V1"],flags=re.I) if m.start()<pm02_anchor]
+if not pm02_starts:
+    raise RuntimeError("PM02 Bretschneider start missing before botanical anchor")
+pm02_s=pm02_starts[-1]
+pm02_end_match=re.search(r"-{20,}",text["V1"][pm02_anchor:])
+if not pm02_end_match:
+    raise RuntimeError("PM02 closing rule missing")
+pm02_e=pm02_anchor+pm02_end_match.start()
+pm02_excerpt=" ".join(text["V1"][pm02_s:pm02_e].split())
+pm02_exact={
+    "context_id":"PM02",
+    "witness":"V1",
+    "page_anchor":"1903 vol.1 p430 / scan732",
+    "char_start":pm02_s,
+    "char_end":pm02_e,
+    "excerpt_sha256":hashlib.sha256(pm02_excerpt.encode("utf-8")).hexdigest(),
+    "excerpt":pm02_excerpt,
+}
 pm02_terms=set(re.findall(r"[A-Za-z][A-Za-z'-]{2,}",pm02_exact["excerpt"].lower()))
 if not {"broussonetia","papyrifera"} <= pm02_terms:
     raise RuntimeError("PM02 exact source span does not contain botanical objection")
