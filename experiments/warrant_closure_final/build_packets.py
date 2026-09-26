@@ -171,14 +171,20 @@ def unit_from_component(label,ws,c,source_text,ordinal):
         "contains_pm03":any(is_pm03(w) for w in members),
     }
 
-def exact_context(label,w,source_text,page_anchor):
-    excerpt=" ".join(source_text[w.doc][w.char_start:w.char_end].split())
+def exact_span(doc,text,start_marker,end_marker,page_anchor,label):
+    s=text.find(start_marker)
+    if s<0:
+        raise RuntimeError(f"{label}: start marker not found")
+    e=text.find(end_marker,s+len(start_marker))
+    if e<0:
+        raise RuntimeError(f"{label}: end marker not found")
+    excerpt=" ".join(text[s:e].split())
     return {
         "context_id":label,
-        "witness":w.doc,
+        "witness":doc,
         "page_anchor":page_anchor,
-        "char_start":w.char_start,
-        "char_end":w.char_end,
+        "char_start":s,
+        "char_end":e,
         "excerpt_sha256":hashlib.sha256(excerpt.encode("utf-8")).hexdigest(),
         "excerpt":excerpt,
     }
@@ -276,12 +282,31 @@ for pid,units in conditions.items():
     if len(hashes)!=len(set(hashes)):
         raise RuntimeError(f"{pid}: duplicate exact evidence unit")
 
+pm01_exact=exact_span(
+    "V1",
+    text["V1"],
+    "He makes them take of the bark of a certain tree",
+    "All these pieces of paper are",
+    "1903 vol.1 p423 / scan723",
+    "PM01",
+)
+pm02_exact=exact_span(
+    "V1",
+    text["V1"],
+    "[Dr. Bretschneider",
+    "----------------------------------------------------------------------",
+    "1903 vol.1 p430 / scan732",
+    "PM02",
+)
+if "Broussonetia papyrifera" not in pm02_exact["excerpt"]:
+    raise RuntimeError("PM02 exact source span does not contain botanical objection")
+
 fixed={
     "claim_id":"C_PM_ATOMIC",
     "claim":ATOMIC_CLAIM,
     "admissible_warrant_states":["RETAIN","DEFER","WITHHOLD"],
-    "PM01":exact_context("PM01",pm01w,source_text,"1903 vol.1 p423 / scan723"),
-    "PM02":exact_context("PM02",pm02w,source_text,"1903 vol.1 p430 / scan732"),
+    "PM01":pm01_exact,
+    "PM02":pm02_exact,
     "source_sha256":EXPECTED,
     "unique_unit_budget":B_FINAL,
 }
@@ -359,12 +384,12 @@ audit_manifest={
 
 out=Path("experiments/warrant_closure_final/generated")
 out.mkdir(parents=True,exist_ok=True)
-judge_path=out/"judge_bundle_v2.json"
-audit_path=out/"audit_manifest_v2.json"
+judge_path=out/"judge_bundle_v3.json"
+audit_path=out/"audit_manifest_v3.json"
 judge_path.write_text(json.dumps(judge_payload,ensure_ascii=False,indent=2),encoding="utf-8")
 audit_path.write_text(json.dumps(audit_manifest,ensure_ascii=False,indent=2),encoding="utf-8")
 
-print("FINAL_WARRANT_PACKET_BUILD_V2")
+print("FINAL_WARRANT_PACKET_BUILD_V3")
 print("B_FINAL="+str(B_FINAL))
 for pid in judge_packets:
     canonical=judge_packets[pid]["canonical"]
