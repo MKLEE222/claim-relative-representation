@@ -1,0 +1,4 @@
+argument_id,event_ref,argument_role,source_basis,verification_status
+A0_PM01_ASSERTION,PM01,FOCAL_ASSERTION,"1903 vol.1 p423 / scan723",PAGE_VERIFIED
+A1_PM02_OBJECTION,PM02,OBJECTION,"PMT01: He seems to be mistaken.",PAGE_VERIFIED
+A2_PM03_CORRECTION,PM03,COUNTER_OBJECTION,"PMT02: This is a singular error of Bretschneider. | PMT03: Marco Polo is perfectly correct.",PAGE_VERIFIED
