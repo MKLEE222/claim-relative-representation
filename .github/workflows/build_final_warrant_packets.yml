@@ -4,6 +4,9 @@ on:
   push:
     paths:
       - "experiments/warrant_closure_final/build_packets.py"
+      - "experiments/warrant_closure_final/prepare_judge_calls.py"
+      - "experiments/warrant_closure_final/judge_prompt_v2.txt"
+      - "experiments/warrant_closure_final/judge_output_schema_v2.json"
       - ".github/workflows/build_final_warrant_packets.yml"
 
 jobs:
@@ -16,15 +19,25 @@ jobs:
           python-version: "3.12"
       - name: Build exact deduplicated final packets
         run: python experiments/warrant_closure_final/build_packets.py
+      - name: Prepare isolated stateless judge calls
+        run: python experiments/warrant_closure_final/prepare_judge_calls.py
       - name: Upload judge-visible packet bundle
         uses: actions/upload-artifact@v4
         with:
           name: pm-final-judge-bundle-v3
           path: experiments/warrant_closure_final/generated/judge_bundle_v3.json
           if-no-files-found: error
-      - name: Upload audit-only manifest
+      - name: Upload judge call bundle
         uses: actions/upload-artifact@v4
         with:
-          name: pm-final-audit-manifest-v3
-          path: experiments/warrant_closure_final/generated/audit_manifest_v3.json
+          name: pm-final-judge-calls-v1
+          path: experiments/warrant_closure_final/generated/judge_calls_v1.jsonl
+          if-no-files-found: error
+      - name: Upload audit-only manifests
+        uses: actions/upload-artifact@v4
+        with:
+          name: pm-final-audit-manifests-v3
+          path: |
+            experiments/warrant_closure_final/generated/audit_manifest_v3.json
+            experiments/warrant_closure_final/generated/judge_call_audit_map_v1.json
           if-no-files-found: error
