@@ -112,6 +112,14 @@ with tempfile.TemporaryDirectory(prefix="fv_r2_") as td:
         raise RuntimeError("RangeSet compatibility target not found")
     aligner.write_text(aligner_text.replace(old_iter,new_iter),encoding="utf-8")
 
+    tokenindex=root/"python-collation/collatex/tokenindex.py"
+    tokenindex_text=tokenindex.read_text(encoding="utf-8")
+    old_start="return self.get_range_for_witness(witness.sigil)[0]"
+    new_start="return next(self.get_range_for_witness(witness.sigil).intiter())"
+    if old_start not in tokenindex_text:
+        raise RuntimeError("RangeSet start-position compatibility target not found")
+    tokenindex.write_text(tokenindex_text.replace(old_start,new_start),encoding="utf-8")
+
     target_path=root/TARGET_REL
     target_raw=target_path.read_bytes()
     target_blob=git_blob_sha1(target_raw)
