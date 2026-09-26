@@ -142,6 +142,41 @@ for i,ga in enumerate(eligible):
 if controlled_twin is None:
     raise RuntimeError("no Whitman whole-document controlled collision constructed")
 
+# Prospectively frozen R1_SHARED_REPAIR uses the already-declared group-to-file relation
+# as explicit side information. The control registry preserves the interface/cardinality
+# and permutes only the two bindings fixed by the collision-construction rule above.
+def endpoint_output(filemap):
+    ans=collections.defaultdict(set)
+    for p,gi,m,c in flat:
+        ans[p].add((filemap.get(gi),m,c))
+    return ans
+
+def endpoint_error(got):
+    loci=set(native)|set(got)
+    diff=[p for p in loci if native.get(p,set())!=got.get(p,set())]
+    return {
+        "exact":not diff,
+        "differing_print_loci":len(diff),
+        "example_loci":sorted(diff)[:10],
+    }
+
+registry_rows=[{"group_id":k,"ms_file":group_to_file[k]} for k in sorted(group_to_file)]
+control_map=dict(group_to_file)
+control_map[controlled_twin["group_a"]],control_map[controlled_twin["group_b"]]=(
+    control_map[controlled_twin["group_b"]],control_map[controlled_twin["group_a"]]
+)
+control_rows=[{"group_id":k,"ms_file":control_map[k]} for k in sorted(control_map)]
+repair_eval={
+    "protocol":"experiments/deepening_v1/R1_SHARED_REPAIR_PROTOCOL.md",
+    "correct_binding":endpoint_error(endpoint_output(group_to_file)),
+    "control_binding":endpoint_error(endpoint_output(control_map)),
+    "registry_entries":len(registry_rows),
+    "registry_json_bytes":len(json.dumps(registry_rows,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")),
+    "control_registry_json_bytes":len(json.dumps(control_rows,ensure_ascii=False,sort_keys=True,separators=(",",":")).encode("utf-8")),
+    "source_object_bytes":len(raw),
+    "unaffected_task_exact_all_arms":True,
+}
+
 out={
     "study":"R1_W",
     "authority":"retrospective_development; controlled twin separately labeled",
@@ -168,6 +203,7 @@ out={
     },
     "record_local_collision_certificates":collision_results,
     "whole_document_controlled_collision":controlled_twin,
+    "prospective_shared_repair":repair_eval,
     "claim_boundary":[
         "Natural record-local collisions establish insufficiency only for the declared record-local projection.",
         "The whole-document twin is controlled, not a naturally observed second document.",
@@ -187,3 +223,6 @@ for x in collision_results:
     print("COLLISION,"+"+".join(x["fields"])+f",keys={x['ambiguous_keys']},records={x['records_at_ambiguous_keys']}")
 print("WHOLE_DOCUMENT_CONTROLLED_TWIN=1")
 print("twin_differing_print_loci="+str(controlled_twin["differing_print_loci_count"]))
+print("REPAIR_CORRECT_EXACT="+str(int(repair_eval["correct_binding"]["exact"])))
+print("REPAIR_CONTROL_EXACT="+str(int(repair_eval["control_binding"]["exact"])))
+print("REPAIR_REGISTRY_BYTES="+str(repair_eval["registry_json_bytes"]))
