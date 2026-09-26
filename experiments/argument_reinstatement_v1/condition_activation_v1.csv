@@ -1,0 +1,6 @@
+opaque_packet,scientific_condition,pm03_argument_active,frozen_basis
+K4N,GENERIC_BASE,no,"final audit mapping; PM03 unique unit absent"
+R8Q,GUIDED_BASE,yes,"final audit mapping; PM03 unique unit present"
+M3V,GENERIC_RESCUE_PM03,yes,"final audit mapping; PM03 unique unit added"
+H7C,GENERIC_SHAM,no,"final audit mapping; non-PM03 donor added"
+T2P,GUIDED_REMOVE_PM03,no,"final audit mapping; PM03 removed and donor substituted"
