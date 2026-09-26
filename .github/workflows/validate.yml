@@ -67,3 +67,6 @@ jobs:
 
       - name: Validate final atomic warrant contract
         run: python validation/validate_final_warrant_contract.py
+
+      - name: Validate archival argument reinstatement
+        run: python validation/validate_argument_reinstatement_v1.py
