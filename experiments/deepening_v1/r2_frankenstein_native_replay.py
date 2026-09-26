@@ -101,6 +101,17 @@ with tempfile.TemporaryDirectory(prefix="fv_r2_") as td:
         raise RuntimeError(f"unexpected extracted roots: {roots}")
     root=roots[0]
 
+    # Compatibility shim only: ClusterShell >=1.9 iterates RangeSet as strings,
+    # while vendored CollateX 2.2 was written against integer iteration.
+    # Use the documented intiter() API to preserve the historical integer-position semantics.
+    tokenindex=root/"python-collation/collatex/tokenindex.py"
+    tokenindex_text=tokenindex.read_text(encoding="utf-8")
+    old_iter="for token_position in self.token_index.get_range_for_witness(witness.sigil):"
+    new_iter="for token_position in self.token_index.get_range_for_witness(witness.sigil).intiter():"
+    if old_iter not in tokenindex_text:
+        raise RuntimeError("RangeSet compatibility target not found")
+    tokenindex.write_text(tokenindex_text.replace(old_iter,new_iter),encoding="utf-8")
+
     target_path=root/TARGET_REL
     target_raw=target_path.read_bytes()
     target_blob=git_blob_sha1(target_raw)
