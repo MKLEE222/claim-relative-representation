@@ -16,11 +16,15 @@ jobs:
           python-version: "3.12"
       - name: Build exact deduplicated final packets
         run: python experiments/warrant_closure_final/build_packets.py
-      - name: Upload final packet bundle
+      - name: Upload judge-visible packet bundle
         uses: actions/upload-artifact@v4
         with:
-          name: pm-final-warrant-packets-v1
-          path: |
-            experiments/warrant_closure_final/generated/final_packets_v1.json
-            experiments/warrant_closure_final/generated/sealed_mapping_v1.json
+          name: pm-final-judge-bundle-v2
+          path: experiments/warrant_closure_final/generated/judge_bundle_v2.json
+          if-no-files-found: error
+      - name: Upload audit-only manifest
+        uses: actions/upload-artifact@v4
+        with:
+          name: pm-final-audit-manifest-v2
+          path: experiments/warrant_closure_final/generated/audit_manifest_v2.json
           if-no-files-found: error
