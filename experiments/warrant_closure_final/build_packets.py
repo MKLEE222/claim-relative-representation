@@ -295,7 +295,6 @@ for pid,units in conditions.items():
         "relabel_only":[dict(u,unit_id=f"X{i:02d}") for i,u in enumerate(units,1)],
     }
 
-payload={"fixed":fixed,"packets":variants}
 mapping={
     "K4N":"GENERIC_BASE",
     "R8Q":"GUIDED_BASE",
@@ -304,19 +303,76 @@ mapping={
     "T2P":"GUIDED_REMOVE_PM03",
 }
 
+def judge_unit(u):
+    return {
+        "unit_id":u["unit_id"],
+        "witness":u["witness"],
+        "excerpt":u["excerpt"],
+    }
+
+judge_fixed={
+    "claim_id":fixed["claim_id"],
+    "claim":fixed["claim"],
+    "admissible_warrant_states":fixed["admissible_warrant_states"],
+    "PM01":{
+        "context_id":"PM01",
+        "witness":fixed["PM01"]["witness"],
+        "excerpt":fixed["PM01"]["excerpt"],
+    },
+    "PM02":{
+        "context_id":"PM02",
+        "witness":fixed["PM02"]["witness"],
+        "excerpt":fixed["PM02"]["excerpt"],
+    },
+}
+
+judge_packets={}
+for pid,vset in variants.items():
+    judge_packets[pid]={}
+    for variant_name,units in vset.items():
+        judge_packets[pid][variant_name]=[judge_unit(u) for u in units]
+
+judge_payload={"fixed":judge_fixed,"packets":judge_packets}
+
+forbidden={"contains_pm03","member_token_starts","char_start","char_end","coord","excerpt_sha256"}
+serialized=json.dumps(judge_payload,ensure_ascii=False)
+if any(f'"{x}"' in serialized for x in forbidden):
+    raise RuntimeError("judge-visible leakage field present")
+
+audit_manifest={
+    "source_sha256":EXPECTED,
+    "unique_unit_budget":B_FINAL,
+    "mapping":mapping,
+    "fixed_context_audit":{
+        "PM01":fixed["PM01"],
+        "PM02":fixed["PM02"],
+    },
+    "packet_audit":variants,
+    "canonical_judge_packet_sha256":{
+        pid:hashlib.sha256(
+            json.dumps(judge_packets[pid]["canonical"],ensure_ascii=False,sort_keys=True).encode("utf-8")
+        ).hexdigest()
+        for pid in judge_packets
+    },
+    "donor_audit":donor,
+}
+
 out=Path("experiments/warrant_closure_final/generated")
 out.mkdir(parents=True,exist_ok=True)
-packet_path=out/"final_packets_v1.json"
-mapping_path=out/"sealed_mapping_v1.json"
-packet_path.write_text(json.dumps(payload,ensure_ascii=False,indent=2),encoding="utf-8")
-mapping_path.write_text(json.dumps(mapping,ensure_ascii=False,indent=2),encoding="utf-8")
+judge_path=out/"judge_bundle_v2.json"
+audit_path=out/"audit_manifest_v2.json"
+judge_path.write_text(json.dumps(judge_payload,ensure_ascii=False,indent=2),encoding="utf-8")
+audit_path.write_text(json.dumps(audit_manifest,ensure_ascii=False,indent=2),encoding="utf-8")
 
-print("FINAL_WARRANT_PACKET_BUILD_V1")
+print("FINAL_WARRANT_PACKET_BUILD_V2")
 print("B_FINAL="+str(B_FINAL))
-for pid,variants_ in variants.items():
-    canonical=variants_["canonical"]
-    print(f"PACKET,{pid},units={len(canonical)},pm03_units={sum(int(u['contains_pm03']) for u in canonical)},packet_sha256={hashlib.sha256(json.dumps(canonical,ensure_ascii=False,sort_keys=True).encode()).hexdigest()}")
+for pid in judge_packets:
+    canonical=judge_packets[pid]["canonical"]
+    audit_units=variants[pid]["canonical"]
+    print(f"PACKET,{pid},units={len(canonical)},pm03_units={sum(int(u['contains_pm03']) for u in audit_units)},judge_packet_sha256={audit_manifest['canonical_judge_packet_sha256'][pid]}")
 print("PM01_EXACT_SHA256="+fixed["PM01"]["excerpt_sha256"])
 print("PM02_EXACT_SHA256="+fixed["PM02"]["excerpt_sha256"])
 print("DONOR_SHA256="+donor["excerpt_sha256"])
+print("JUDGE_VISIBLE_MAPPING=0")
+print("JUDGE_VISIBLE_PM03_FLAG=0")
 print("FINAL_LLM_EXECUTED=0")
