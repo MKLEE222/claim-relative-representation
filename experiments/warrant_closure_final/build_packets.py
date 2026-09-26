@@ -171,13 +171,15 @@ def unit_from_component(label,ws,c,source_text,ordinal):
         "contains_pm03":any(is_pm03(w) for w in members),
     }
 
-def exact_span(doc,text,start_marker,end_marker,page_anchor,label):
-    s=text.find(start_marker)
-    if s<0:
+def exact_span_regex(doc,text,start_pattern,end_pattern,page_anchor,label):
+    sm=re.search(start_pattern,text,flags=re.I|re.S)
+    if not sm:
         raise RuntimeError(f"{label}: start marker not found")
-    e=text.find(end_marker,s+len(start_marker))
-    if e<0:
+    em=re.search(end_pattern,text[sm.end():],flags=re.I|re.S)
+    if not em:
         raise RuntimeError(f"{label}: end marker not found")
+    s=sm.start()
+    e=sm.end()+em.start()
     excerpt=" ".join(text[s:e].split())
     return {
         "context_id":label,
@@ -282,19 +284,19 @@ for pid,units in conditions.items():
     if len(hashes)!=len(set(hashes)):
         raise RuntimeError(f"{pid}: duplicate exact evidence unit")
 
-pm01_exact=exact_span(
+pm01_exact=exact_span_regex(
     "V1",
     text["V1"],
-    "He makes them take of the bark of a certain tree",
-    "All these pieces of paper are",
+    r"He\s+makes\s+them\s+take\s+of\s+the\s+bark\s+of\s+a\s+certain\s+tree",
+    r"All\s+these\s+pieces\s+of\s+paper\s+are",
     "1903 vol.1 p423 / scan723",
     "PM01",
 )
-pm02_exact=exact_span(
+pm02_exact=exact_span_regex(
     "V1",
     text["V1"],
-    "[Dr. Bretschneider",
-    "----------------------------------------------------------------------",
+    r"\[Dr\.\s+Bretschneider",
+    r"-{20,}",
     "1903 vol.1 p430 / scan732",
     "PM02",
 )
