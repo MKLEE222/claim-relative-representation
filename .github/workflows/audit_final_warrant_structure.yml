@@ -1,10 +1,7 @@
 name: audit-final-warrant-structure
 
 on:
-  push:
-    paths:
-      - "experiments/warrant_closure_final/audit_structure.py"
-      - ".github/workflows/audit_final_warrant_structure.yml"
+  workflow_dispatch:
 
 jobs:
   audit:
