@@ -1,0 +1,30 @@
+name: deepening-r1-recovery-certificates
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/r1_whitman_recovery.py"
+      - "experiments/deepening_v1/r1_faust_recovery.py"
+      - ".github/workflows/deepening_r1.yml"
+  workflow_dispatch:
+
+jobs:
+  r1:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Whitman native recovery and collision certificates
+        run: python experiments/deepening_v1/r1_whitman_recovery.py
+      - name: Faust complete provenance recovery and collision certificates
+        run: python experiments/deepening_v1/r1_faust_recovery.py
+      - name: Upload machine-readable results
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r1-results
+          path: experiments/deepening_v1/results/*.json
+          if-no-files-found: error

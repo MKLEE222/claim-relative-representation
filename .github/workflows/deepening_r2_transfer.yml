@@ -1,0 +1,37 @@
+name: deepening-r2-frankenstein-transfer
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/r2_frankenstein_transfer.py"
+      - "experiments/deepening_v1/R2_TRANSFER_PROTOCOL.md"
+      - ".github/workflows/deepening_r2_transfer.yml"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Install native CollateX Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install python-Levenshtein networkx prettytable ClusterShell
+      - name: Run frozen five-chunk transfer
+        run: python experiments/deepening_v1/r2_frankenstein_transfer.py
+      - name: Upload transfer result
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r2-transfer
+          path: experiments/deepening_v1/results/r2_frankenstein_transfer.json
+          if-no-files-found: error
