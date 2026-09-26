@@ -19,12 +19,12 @@ jobs:
       - name: Upload judge-visible packet bundle
         uses: actions/upload-artifact@v4
         with:
-          name: pm-final-judge-bundle-v2
-          path: experiments/warrant_closure_final/generated/judge_bundle_v2.json
+          name: pm-final-judge-bundle-v3
+          path: experiments/warrant_closure_final/generated/judge_bundle_v3.json
           if-no-files-found: error
       - name: Upload audit-only manifest
         uses: actions/upload-artifact@v4
         with:
-          name: pm-final-audit-manifest-v2
-          path: experiments/warrant_closure_final/generated/audit_manifest_v2.json
+          name: pm-final-audit-manifest-v3
+          path: experiments/warrant_closure_final/generated/audit_manifest_v3.json
           if-no-files-found: error
