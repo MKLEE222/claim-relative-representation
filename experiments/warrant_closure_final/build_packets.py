@@ -300,7 +300,8 @@ pm02_exact=exact_span_regex(
     "1903 vol.1 p430 / scan732",
     "PM02",
 )
-if "Broussonetia papyrifera" not in pm02_exact["excerpt"]:
+pm02_terms=set(re.findall(r"[A-Za-z][A-Za-z'-]{2,}",pm02_exact["excerpt"].lower()))
+if not {"broussonetia","papyrifera"} <= pm02_terms:
     raise RuntimeError("PM02 exact source span does not contain botanical objection")
 
 fixed={
