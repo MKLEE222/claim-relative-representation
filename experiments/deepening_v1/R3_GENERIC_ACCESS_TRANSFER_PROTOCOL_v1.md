@@ -93,7 +93,7 @@ Evaluation-only carrier group:
 ### Tun-o-Kain
 
 Seed anchor:
-"reached the Province of TUN-O-KAIN"
+"No city in particular is indicated as visited by the traveller"
 
 Access task:
 "Find later editorial treatment bearing on the route through Tun-o-Kain in the earlier note and determine whether later discussion settles or preserves competing positions."
@@ -144,3 +144,5 @@ If chunking prevents complete carrier exposure while the underlying Addenda reta
 ## Implementation note
 
 The first CI attempt stopped before opening any outcome because the longer Tun-o-Kain seed anchor crossed Gutenberg emphasis markup around the place name. The seed anchor was shortened to the same source locus (`reached the Province of TUN-O-KAIN`) without changing the seed passage, task, workflow parameters, evaluation anchors, or success rules.
+
+Implementation note 2: the shorter place-name anchor was still interrupted by Gutenberg emphasis markup. It was replaced with a format-stable sentence from the same 1903 Tun-o-Kain paragraph. No scientific input, task, parameter, evaluation anchor, or success rule changed.
