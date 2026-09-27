@@ -114,10 +114,28 @@ All five have now been taken into the real Project Gutenberg research object and
 
 When the relevant later passage is supplied, all five historical distinctions remain recoverable in the natural text.
 
+Review-material engineering is now complete.
+
+Authoritative blinded source bundle:
+- GitHub Actions run 36313791906;
+- artifact r3-independent-second-pass-review-bundle-v1;
+- artifact ID 10929598975;
+- ZIP SHA-256 c3fa24cd4ef6098e0699be6e3d165664dc7ed00843f7628d78d3c73e66b6599d;
+- 18 unique rendered source pages;
+- registered-answer files included = 0;
+- answer-side leakage scan = PASS;
+- visual QA of representative 1903/1920 pages = PASS.
+
+Therefore:
+
+REVIEW_MATERIAL_ENGINEERING = COMPLETE
+
+INDEPENDENT_SECOND_PASS = PENDING
+
 Still mandatory before manuscript claim freeze:
 
-1. a qualifying independent reviewer completes the blinded second-pass package;
-2. disagreements are adjudicated transparently;
+1. a qualifying independent reviewer completes the sealed blinded package;
+2. disagreements are adjudicated transparently under the predeclared atomic comparison rule;
 3. any changed historical reading propagates into the claim ledger and affected experiments.
 
 No AI self-review counts as independent historical adjudication.
@@ -349,10 +367,10 @@ For practical researchability, (B) is part of the evaluation contract.
 
 ## Mandatory
 
-1. execute the independent second-pass historical review of all five load-bearing Yule-Cordier inquiries;
-2. adjudicate any disagreement;
+1. obtain a qualifying independent review return for all five sealed Yule-Cordier inquiries; the blinded source bundle is already complete;
+2. adjudicate any disagreement under the frozen atomic comparison rule;
 3. propagate changes, if any, into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3 and affected result files;
-4. synchronize manuscript and PR language to ledger v3;
+4. synchronize manuscript core language to ledger v3 after adjudication;
 5. preserve all positive, negative and null results.
 
 ## Optional extension — required only for Track-B prevalence claims
@@ -378,4 +396,4 @@ For practical researchability, (B) is part of the evaluation contract.
 
 The computational/mechanistic core is now closed at its evidence-supported claim ceiling.
 
-The next hard blocker is the independent historical second pass.
+The next hard blocker is **reviewer execution and return**, not further material preparation or computational experimentation.
