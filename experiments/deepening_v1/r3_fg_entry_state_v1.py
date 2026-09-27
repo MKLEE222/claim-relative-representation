@@ -139,10 +139,12 @@ def head_pages(head):
     return nums
 
 def seed_window(text,anchor):
-    pos=text.find(anchor)
-    if pos<0:
+    words=re.findall(r"[^\\W\\d_]+",anchor,flags=re.UNICODE)
+    pat=r"\\W+".join(re.escape(w) for w in words)
+    m=re.search(pat,text,re.I|re.UNICODE)
+    if not m:
         raise RuntimeError(f"1903 anchor not found: {anchor}")
-    return text[max(0,pos-900):min(len(text),pos+len(anchor)+900)]
+    return text[max(0,m.start()-900):min(len(text),m.end()+900)]
 
 raw1=fetch(URL_V1)
 raw2=fetch(URL_V2)
