@@ -141,7 +141,7 @@ def pages(head):
 
 def seed_window(text,anchor):
     words=re.findall(r"[^\W\d_]+",anchor,flags=re.UNICODE)
-    pat=r"\W+".join(re.escape(w) for w in words)
+    pat=r"(?:\W|_)+".join(re.escape(w) for w in words)
     m=re.search(pat,text,re.I|re.UNICODE)
     if not m:
         raise RuntimeError(f"1903 anchor not found: {anchor}")
