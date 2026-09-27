@@ -33,7 +33,7 @@ CASES={
     "target_sha256":"afc27e9a3ee1b998adfad87c449649e362bddfcf869aa1b3fd92517b3ea00ef4",
     "chapter":"LVIII",
     "page":283,
-    "anchor":"Cunningham also mentions camlets of camel's hair, under the name of Suklat",
+    "anchor":"Cunningham also mentions camlets of camel's hair, under the name of Suḳlát",
 },
 }
 
