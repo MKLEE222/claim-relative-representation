@@ -191,6 +191,8 @@ These validate audit distinctions, not one pooled effect size.
 Retain explicitly:
 
 - 45-call LLM selective warrant restoration: not supported / model-sensitive;
+- 45-call blinded historical adjudication: BOUNDED_PARTIAL; 45/45 executed, 9 citation-valid, 21/21 strict atomic results NO_CONSENSUS, with no strict source-valid contradiction;
+- post-freeze value-only sensitivity is diagnostic only and cannot be promoted to confirmation; the Urumtsi direction-label disagreement is retained as an output-consistency warning;
 - natural Gutenberg proposition-binding attrition: not observed;
 - simple Faust ignore/delete filtering -> DAG: not observed;
 - 223 as whole-book denominator: retired;
@@ -260,14 +262,22 @@ Independent DH infrastructures instantiate related distinctions among native str
 
 ---
 
-# Mandatory before manuscript claim freeze
+# Post-execution manuscript claim-freeze rule
 
-1. execute the frozen 45-call source-only three-model historical adjudication across all five Yule-Cordier inquiries;
-2. run the pre-frozen 21-component analyzer and accept its PASS / BOUNDED_PARTIAL / HISTORICAL_READING_REOPENED disposition without prompt or model retuning;
-3. propagate any contradiction, no-consensus, or unresolved component into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3 and dependent historical/mechanistic interpretations;
-4. then rewrite manuscript_v0_1_core.md around this architecture.
+The frozen three-model adjudication has executed and returned BOUNDED_PARTIAL.
 
-If the model replication passes, the manuscript may state that the historical readings were reproduced under sealed, source-only, answer-blinded adjudication by three heterogeneous local models with perturbation-stability checks. It must not describe that result as independent human validation or historian consensus.
+The manuscript must therefore freeze the historical layer at the following ceiling:
+
+- five load-bearing readings are author/source-verified and case-bounded;
+- successful independent/model-separated replication is **not** claimed;
+- the 21-component strict audit is reported as NO_CONSENSUS rather than converted into positive support;
+- the 36 citation-invalid calls remain invalid under the frozen validator;
+- post-freeze value-only sensitivity remains diagnostic only;
+- no human historian agreement or inter-rater reliability is claimed.
+
+This bounded outcome does not invalidate the already executed E1-E5 mechanism/access results. It limits the strength of the historical corroboration language attached to them.
+
+With that downgrade propagated, Track A may proceed to manuscript-core rewrite at the bounded claim ceiling. Any future attempt to obtain stronger historical corroboration must be a separately frozen study, not a repair or rerun of this experiment.
 
 Do **not** reopen computational search merely to obtain a more dramatic positive effect.
 
