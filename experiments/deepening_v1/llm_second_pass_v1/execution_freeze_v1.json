@@ -1,0 +1,141 @@
+{
+  "protocol": "R3_BLINDED_THREE_MODEL_HISTORICAL_ADJUDICATION_PROTOCOL_v1",
+  "models": [
+    "qwen2.5:7b",
+    "gemma3:12b",
+    "llama3.1:8b"
+  ],
+  "perturbations": [
+    "P0_CANONICAL",
+    "P1_SOURCES_FIRST",
+    "P2_REVERSE_PAGE_ORDER"
+  ],
+  "temperature": 0,
+  "seed": 20260927,
+  "num_ctx": 16384,
+  "num_predict": 1600,
+  "source_meta": {
+    "1903": {
+      "url": "https://archive.org/download/bookofsermarcopo001polo/bookofsermarcopo001polo.pdf",
+      "sha256": "6f1d7f6040bf2e3333405f604f3231d1b97a4bb6c405343a28bc2d9fb335a3f7",
+      "page_count": 790
+    },
+    "1920": {
+      "url": "https://resources.warburg.sas.ac.uk/pdf/ndb90b2753728.pdf",
+      "sha256": "dfa29f55b41714d79ac2c3107e3e23094e9dfc27114f53e7bf4a20147ba71941",
+      "page_count": 180
+    }
+  },
+  "unique_source_pages": {
+    "S1903_PRINTED_113_PDFINDEX_408": {
+      "source_id": "1903",
+      "pdf_index": 408,
+      "printed_page": "113",
+      "text_sha256": "bd47b05f3bee2fce2e29f05640b8aa0d172999f34b046e0d1c3efaff604da8b1"
+    },
+    "S1903_PRINTED_128_PDFINDEX_425": {
+      "source_id": "1903",
+      "pdf_index": 425,
+      "printed_page": "128",
+      "text_sha256": "cf1bb8b3c501a4b6b147fde3d53e7e7a02bfe914d1a3752336336545fa938b7e"
+    },
+    "S1903_PRINTED_164_PDFINDEX_461": {
+      "source_id": "1903",
+      "pdf_index": 461,
+      "printed_page": "164",
+      "text_sha256": "76ac19bd98bc53c374e9c0d8125a45b9f40cbe28cf54ba7838016f5695cf339b"
+    },
+    "S1903_PRINTED_165_PDFINDEX_462": {
+      "source_id": "1903",
+      "pdf_index": 462,
+      "printed_page": "165",
+      "text_sha256": "8e6e6483dd11af0c058d2dcf03759dc8fbe75cadf16374ac0ce4268b7defa0bb"
+    },
+    "S1903_PRINTED_201_PDFINDEX_500": {
+      "source_id": "1903",
+      "pdf_index": 500,
+      "printed_page": "201",
+      "text_sha256": "215da52615500a575898f0718c084415f6c23b7cf8a88b44b1b79080d28a0439"
+    },
+    "S1903_PRINTED_202_PDFINDEX_501": {
+      "source_id": "1903",
+      "pdf_index": 501,
+      "printed_page": "202",
+      "text_sha256": "7782131da0f4b4091ada4bb2c677da18b37252f03b4300ae108110ca96022fdf"
+    },
+    "S1920_PRINTED_25_PDFINDEX_38": {
+      "source_id": "1920",
+      "pdf_index": 38,
+      "printed_page": "25",
+      "text_sha256": "02660f905deb910888be83b882031f94962834aa0d3df32b8075284d4003a5e3"
+    },
+    "S1920_PRINTED_26_PDFINDEX_39": {
+      "source_id": "1920",
+      "pdf_index": 39,
+      "printed_page": "26",
+      "text_sha256": "a2430663f0a0ce7b10f77a862b3d9c1ff998219153f1a9576a90ef90bd2a9678"
+    },
+    "S1920_PRINTED_27_PDFINDEX_40": {
+      "source_id": "1920",
+      "pdf_index": 40,
+      "printed_page": "27",
+      "text_sha256": "40334b2fbc948ce5e269281587c2451985fc4635d4ead5a40172ba322c875f8b"
+    },
+    "S1920_PRINTED_28_PDFINDEX_41": {
+      "source_id": "1920",
+      "pdf_index": 41,
+      "printed_page": "28",
+      "text_sha256": "283b1d6fa42d95df2fcb3d94a5a91755424de654e31ccfacd36bee8d540a611a"
+    },
+    "S1920_PRINTED_29_PDFINDEX_42": {
+      "source_id": "1920",
+      "pdf_index": 42,
+      "printed_page": "29",
+      "text_sha256": "7ed8ba588d9afeff324f41040c5ac93ff9bd896b0b98a54aadcebee16f296d7d"
+    },
+    "S1920_PRINTED_30_PDFINDEX_43": {
+      "source_id": "1920",
+      "pdf_index": 43,
+      "printed_page": "30",
+      "text_sha256": "2f161112f4efde9dbb735a817580eccf4309c4d6bb9db47b2e82a801016ee64b"
+    },
+    "S1920_PRINTED_31_PDFINDEX_44": {
+      "source_id": "1920",
+      "pdf_index": 44,
+      "printed_page": "31",
+      "text_sha256": "9a1a4e8707af50bc66f008613c640b71f6444ce167df4a5f91f84d75282920e1"
+    },
+    "S1920_PRINTED_34_PDFINDEX_47": {
+      "source_id": "1920",
+      "pdf_index": 47,
+      "printed_page": "34",
+      "text_sha256": "e819d41355dba09e39abd3ce281b2634ede380a5c3bf4326db19e41aee61d017"
+    },
+    "S1920_PRINTED_35_PDFINDEX_48": {
+      "source_id": "1920",
+      "pdf_index": 48,
+      "printed_page": "35",
+      "text_sha256": "21b695922d91dec21fd7b19d74ec778ea18108f37112a3ef8c9f4a7bd88d9723"
+    },
+    "S1920_PRINTED_48_PDFINDEX_61": {
+      "source_id": "1920",
+      "pdf_index": 61,
+      "printed_page": "48",
+      "text_sha256": "ca6c770a980f9ae246bfb62b66a57907ea96bc4944af07552c10b97f51c1c4d1"
+    },
+    "S1920_PRINTED_49_PDFINDEX_62": {
+      "source_id": "1920",
+      "pdf_index": 62,
+      "printed_page": "49",
+      "text_sha256": "c17ddf62c3dcf10c3f5bcca3943a59f92e0a37d226f29221088d145ee9f58959"
+    },
+    "S1920_PRINTED_50_PDFINDEX_63": {
+      "source_id": "1920",
+      "pdf_index": 63,
+      "printed_page": "50",
+      "text_sha256": "ce5331c5c0d80a56dd8a842f72697343ebb0cf58549f44f8df70da17ed761eeb"
+    }
+  },
+  "calls_sha256": "32271b6ed8db5c1fbc2bbafa2e9e5d3eab6b2bf1a3ddb9ee1dc0e3bdca8c8799",
+  "registered_answer_loaded_by_runner": false
+}

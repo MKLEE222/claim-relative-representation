@@ -1,7 +1,7 @@
 # Mother-Problem Scientific Closure Status v3
 
 Date: 2026-09-27
-Status: TRACK-A COMPUTATIONAL/MECHANISTIC CORE CLOSED AT A BOUNDED CLAIM CEILING; BLINDED THREE-MODEL HISTORICAL ADJUDICATION PENDING. TRACK-B PREVALENCE OPEN.
+Status: TRACK-A COMPUTATIONAL/MECHANISTIC CORE CLOSED AT A BOUNDED CLAIM CEILING; FROZEN THREE-MODEL HISTORICAL ADJUDICATION EXECUTED WITH BOUNDED_PARTIAL, SO GATE II REMAINS OPEN. TRACK-B PREVALENCE OPEN.
 
 Mother question:
 
@@ -41,7 +41,7 @@ A whole-book L6 denominator is required for Track B, not for Track A unless the 
 
 Status:
 
-**BOUNDED PASS, SUBJECT TO THE FROZEN BLINDED MODEL-SEPARATED HISTORICAL ADJUDICATION OF LOAD-BEARING READINGS.**
+**BOUNDED SOURCE-VERIFIED CASE EVIDENCE; THE FROZEN BLINDED MODEL-SEPARATED HISTORICAL ADJUDICATION DID NOT CLOSE GATE II.**
 
 Supported:
 
@@ -98,7 +98,7 @@ No replacement whole-book denominator is authorized.
 
 Status:
 
-**SCIENTIFIC TASK-DESIGN PASS / BLINDED THREE-MODEL HISTORICAL ADJUDICATION PENDING.**
+**SCIENTIFIC TASK-DESIGN PASS / BLINDED THREE-MODEL HISTORICAL ADJUDICATION EXECUTED: BOUNDED_PARTIAL; GATE II OPEN.**
 
 Frozen source-derived inquiries:
 
@@ -166,14 +166,24 @@ HUMAN_REVIEW_MATERIAL_ENGINEERING = COMPLETE
 
 OPTIONAL_EXTERNAL_HUMAN_VALIDATION = AVAILABLE
 
-BLINDED_MODEL_SEPARATED_HISTORICAL_ADJUDICATION = PENDING_EXECUTION
+BLINDED_MODEL_SEPARATED_HISTORICAL_ADJUDICATION = BOUNDED_PARTIAL
+
+Frozen local execution on 2026-09-27:
+
+- all 45 stateless calls recorded; all 45 ended normally and parsed as JSON;
+- 9 calls passed the preregistered source-citation validation, 36 did not;
+- the unchanged analyzer found 21/21 atomic components with NO_CONSENSUS under the strict evidence-validity gate;
+- no positive replication or source-valid contradiction is established by this run;
+- raw result SHA-256: `d648a61b6ef6ecaaf50e0d25de27538233a0eff68c869750338aaba82fb4e248`.
+
+See `llm_second_pass_v1/RESULTS_v1.md` and `llm_second_pass_v1/LOCAL_EXECUTION_REPORT_2026-09-27.md`. Citation failures and label-only diagnostics are retained without changing the frozen outcome.
 
 Still mandatory before manuscript claim freeze:
 
-1. execute the frozen 45-call three-model historical adjudication;
-2. run the pre-frozen analyzer against all 21 atomic components;
-3. propagate any contradiction or unresolved/no-consensus component according to the frozen rule;
-4. synchronize the claim ledger and manuscript to the resulting Gate-II disposition.
+1. retain and report the 21 NO_CONSENSUS results without retroactive validation changes;
+2. keep the affected historical readings at their source-verified, non-independently-replicated claim ceiling;
+3. synchronize the claim ledger and manuscript to the BOUNDED_PARTIAL Gate-II disposition;
+4. specify any future adjudication as a separately frozen study rather than a repair of this run.
 
 No post-outcome prompt retuning, model substitution, source-page substitution, atomic-field change, or answer-key change is permitted.
 
@@ -404,11 +414,10 @@ For practical researchability, (B) is part of the evaluation contract.
 
 ## Mandatory
 
-1. execute the frozen blinded three-model historical adjudication: 45 stateless source-only calls;
-2. run the pre-frozen 21-component analyzer and accept PASS / BOUNDED_PARTIAL / HISTORICAL_READING_REOPENED without retuning;
-3. propagate any contradiction, no-consensus, or unresolved component into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3 and dependent interpretations;
-4. synchronize manuscript core language to the final Gate-II disposition;
-5. preserve all positive, negative and null results.
+1. propagate the frozen 21-component NO_CONSENSUS result into the claim ledger and dependent interpretations;
+2. keep the manuscript's historical readings explicitly source-verified and case-bounded, with model-separated replication unresolved;
+3. preserve all positive, negative and null results;
+4. preregister any future adjudication separately if stronger historical corroboration is required.
 
 ## Optional extension — required only for Track-B prevalence claims
 
@@ -433,4 +442,4 @@ For practical researchability, (B) is part of the evaluation contract.
 
 The computational/mechanistic core is now closed at its evidence-supported claim ceiling.
 
-The next hard blocker is **execution of the already-frozen three-model blind historical adjudication**, not additional experiment design. A second human reader is optional rather than mandatory.
+The frozen three-model blind historical adjudication has executed and returned **BOUNDED_PARTIAL**. The current blocker is corroboration of the load-bearing historical readings at the intended evidence standard, together with claim-ceiling synchronization. A second human reader remains optional rather than mandatory.

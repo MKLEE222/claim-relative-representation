@@ -1,0 +1,2723 @@
+{
+  "protocol": "R3_BLINDED_THREE_MODEL_HISTORICAL_ADJUDICATION_PROTOCOL_v1",
+  "sealed_panel_blob_sha": "f1ffa2aefde17f731fc9d0a19781aed81c94622c",
+  "raw_results_sha256": "d648a61b6ef6ecaaf50e0d25de27538233a0eff68c869750338aaba82fb4e248",
+  "models": [
+    "qwen2.5:7b",
+    "gemma3:12b",
+    "llama3.1:8b"
+  ],
+  "perturbations": [
+    "P0_CANONICAL",
+    "P1_SOURCES_FIRST",
+    "P2_REVERSE_PAGE_ORDER"
+  ],
+  "component_count": 21,
+  "comparison_counts": {
+    "NO_CONSENSUS": 21
+  },
+  "model_stable_component_counts": {
+    "qwen2.5:7b": 1
+  },
+  "model_sensitive_or_invalid_component_counts": {
+    "qwen2.5:7b": 20,
+    "gemma3:12b": 21,
+    "llama3.1:8b": 21
+  },
+  "gate_disposition": "BOUNDED_PARTIAL",
+  "claim_ceiling": "Source-grounded answer-blinded three-model replication only; not human historian validation.",
+  "components": [
+    {
+      "case_id": "R3R2-01",
+      "component": "corroborated_target_identity",
+      "sealed_value": "SOURCE_ATTRIBUTION_NON_EYEWITNESS",
+      "sealed_proposition_rows": [
+        "R3OBJ-PASH-01",
+        "R3OBJ-PASH-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1903_PRINTED_165']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "challenge_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-01",
+      "component": "corroboration_relation_direction",
+      "sealed_value": "CORROBORATES",
+      "sealed_proposition_rows": [
+        "R3OBJ-PASH-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1903_PRINTED_165']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "challenge_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-01",
+      "component": "challenged_target_identity",
+      "sealed_value": "ROUTE_NECESSITY",
+      "sealed_proposition_rows": [
+        "R3OBJ-PASH-03",
+        "R3OBJ-PASH-04"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1903_PRINTED_165']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "challenge_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-01",
+      "component": "challenge_relation_direction",
+      "sealed_value": "CRITICIZES",
+      "sealed_proposition_rows": [
+        "R3OBJ-PASH-04"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1903_PRINTED_165']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "challenge_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-01",
+      "component": "alternative_modality",
+      "sealed_value": "POSSIBLE",
+      "sealed_proposition_rows": [
+        "R3OBJ-PASH-04"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1903_PRINTED_165']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "challenge_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-01",
+      "component": "later_actor_responsibility",
+      "sealed_value": "STEIN_AS_REPORTED_BY_CORDIER",
+      "sealed_proposition_rows": [
+        "R3OBJ-PASH-02",
+        "R3OBJ-PASH-04"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1920_PRINTED_35']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1920_PRINTED_35']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: unknown evidence pages ['S1903_PRINTED_165']",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "challenged_target_identity: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenged_target_identity: quote not found in cited page text",
+                "challenge_relation_direction: unknown evidence pages ['S1903_PRINTED_164']",
+                "challenge_relation_direction: quote not found in cited page text",
+                "alternative_modality: unknown evidence pages ['S1903_PRINTED_165']",
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: unknown evidence pages ['S1920_PRINTED_35']",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "alternative_modality: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "corroborated_target_identity: quote not found in cited page text",
+                "corroboration_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "challenge_relation_direction: quote not found in cited page text",
+                "later_actor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-02",
+      "component": "cypress_commitment_holder",
+      "sealed_value": "HOUTUM_SCHINDLER",
+      "sealed_proposition_rows": [
+        "R3OBJ-ARBR-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: unknown evidence pages ['S1920_PRINTED_31']",
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: unknown evidence pages ['S1920_PRINTED_31']",
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "HOUTUM_SCHINDLER",
+              "evidence_pages": [
+                "S1920_PRINTED_31_PDFINDEX_44"
+              ],
+              "supporting_quote": "Marco Polo's arbre sol and arbre seul stand for the Persian dirakht i sol, i.e. the cypress-tree.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-02",
+      "component": "cordier_transmission_reply_role",
+      "sealed_value": "TRANSMITS_AND_REPLIES",
+      "sealed_proposition_rows": [
+        "R3OBJ-ARBR-02",
+        "R3OBJ-ARBR-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: unknown evidence pages ['S1920_PRINTED_31']",
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: unknown evidence pages ['S1920_PRINTED_31']",
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "TRANSMITS_AND_REPLIES",
+              "evidence_pages": [
+                "S1920_PRINTED_31_PDFINDEX_44"
+              ],
+              "supporting_quote": "If General Houtum Schindler had seen the third edition of the Book of Ser Marco Polo, I., p. 113, he would have found that I read his paper of the/. R. A. S., of January, 1898.",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-02",
+      "component": "cordier_adoption_status",
+      "sealed_value": "NOT_ESTABLISHED",
+      "sealed_proposition_rows": [
+        "R3OBJ-ARBR-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: unknown evidence pages ['S1920_PRINTED_31']",
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: unknown evidence pages ['S1920_PRINTED_31']",
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: unknown evidence pages ['S1920_PRINTED_31']",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "cypress_commitment_holder: quote not found in cited page text",
+                "cordier_transmission_reply_role: quote not found in cited page text",
+                "cordier_adoption_status: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "NOT_ESTABLISHED",
+              "evidence_pages": [
+                "S1920_PRINTED_31_PDFINDEX_44"
+              ],
+              "supporting_quote": "If General Houtum Schindler had seen the third edition of the Book of Ser Marco Polo, I., p. 113, he would have found that I read his paper of the/. R. A. S., of January, 1898.",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "cordier_transmission_reply_role: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-03",
+      "component": "distance_marches_evidence_assignment",
+      "sealed_value": "SURVEY_MEASUREMENTS",
+      "sealed_proposition_rows": [
+        "R3OBJ-DES-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "SURVEY_MEASUREMENTS",
+              "evidence_pages": [
+                "S1920_PRINTED_49_PDFINDEX_62"
+              ],
+              "supporting_quote": "an aggregate marching distance of close on 380 miles.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1903_PRINTED_202', 'S1920_PRINTED_49']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_48']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1920_PRINTED_48', 'S1903_PRINTED_202']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_49', 'S1903_PRINTED_202']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "SURVEY_MEASUREMENTS",
+              "evidence_pages": [
+                "S1920_PRINTED_49_PDFINDEX_62"
+              ],
+              "supporting_quote": "For the route from Charklik, his 'town of Lop,' to the 'City of Sachiu,' i.e. Sha-chou or Tun-huang, our plane-table survey, checked by cyclometer readings, showed an aggregate marching distance of close on 380 miles.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "SURVEY_MEASUREMENTS",
+              "evidence_pages": [
+                "S1920_PRINTED_49_PDFINDEX_62"
+              ],
+              "supporting_quote": "For the route from Charklik, his 'town of Lop,' to the 'City of Sachiu,' i.e. Sha-chou or Tun-huang, our plane-table survey, checked by cyclometer readings, showed an aggregate marching distance of close on 380 miles.",
+              "confidence": "HIGH"
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-03",
+      "component": "folklore_source_evidence_assignment",
+      "sealed_value": "LOCAL_FOLKLORE",
+      "sealed_proposition_rows": [
+        "R3OBJ-DES-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "LOCAL_FOLKLORE",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61",
+                "S1903_PRINTED_202_PDFINDEX_501"
+              ],
+              "supporting_quote": "These Goblins are not peculiar to the Gobi, though that appears to be their most favoured haunt.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1903_PRINTED_202', 'S1920_PRINTED_49']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_48']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1920_PRINTED_48', 'S1903_PRINTED_202']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_49', 'S1903_PRINTED_202']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "LOCAL_FOLKLORE",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61"
+              ],
+              "supporting_quote": "It did not need my journey to convince me that what Marco here tells us about the risks of the desert was but a faithful reflex of old folklore beliefs he must have heard on the spot.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "LOCAL_FOLKLORE",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61"
+              ],
+              "supporting_quote": "It did not need my journey to convince me that what Marco here tells us about the risks of the desert was but a faithful reflex of old folklore beliefs he must have heard on the spot.",
+              "confidence": "HIGH"
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-03",
+      "component": "later_actor_source_responsibility",
+      "sealed_value": "STEIN_AS_REPORTED_BY_CORDIER",
+      "sealed_proposition_rows": [
+        "R3OBJ-DES-02",
+        "R3OBJ-DES-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "STEIN_AS_REPORTED_BY_CORDIER",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61"
+              ],
+              "supporting_quote": "It did not need my journey to convince me that what Marco here tells us about the risks of the desert was but a faithful reflex of old folklore beliefs he must have heard on the spot.",
+              "confidence": "MEDIUM"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1903_PRINTED_202', 'S1920_PRINTED_49']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_48']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1920_PRINTED_48', 'S1903_PRINTED_202']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_49', 'S1903_PRINTED_202']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "STEIN_AS_REPORTED_BY_CORDIER",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61"
+              ],
+              "supporting_quote": "Thus, too, the description we receive through the Chinese historiographer, Ma Tuan-lin, of the shortest route from China towards Kara-shahr, undoubtedly corresponding to the present track to Lop-nor, reads almost like a version from Marco's book, though its compiler, a contemporary of the Venetian traveller, must have extracted it from some earlier",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "STEIN_AS_REPORTED_BY_CORDIER",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61"
+              ],
+              "supporting_quote": "Stein adds, Ruins of Desert Cathay, I., p. 5i8:",
+              "confidence": "MEDIUM"
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-03",
+      "component": "proposition_specific_evidence_distinction",
+      "sealed_value": "DISTINCT_BINDINGS",
+      "sealed_proposition_rows": [
+        "R3OBJ-DES-02",
+        "R3OBJ-DES-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "SAME_EVIDENCE_FOR_BOTH",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61",
+                "S1903_PRINTED_202_PDFINDEX_501"
+              ],
+              "supporting_quote": "These Goblins are not peculiar to the Gobi, though that appears to be their most favoured haunt.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1903_PRINTED_202', 'S1920_PRINTED_49']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_48']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "distance_marches_evidence_assignment: unknown evidence pages ['S1920_PRINTED_49']",
+                "distance_marches_evidence_assignment: quote not found in cited page text",
+                "folklore_source_evidence_assignment: unknown evidence pages ['S1920_PRINTED_48', 'S1903_PRINTED_202']",
+                "folklore_source_evidence_assignment: quote not found in cited page text",
+                "later_actor_source_responsibility: unknown evidence pages ['S1920_PRINTED_48']",
+                "later_actor_source_responsibility: quote not found in cited page text",
+                "proposition_specific_evidence_distinction: unknown evidence pages ['S1920_PRINTED_49', 'S1903_PRINTED_202']",
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "DISTINCT_BINDINGS",
+              "evidence_pages": [
+                "S1920_PRINTED_48_PDFINDEX_61"
+              ],
+              "supporting_quote": "Thus, too, the description we receive through the Chinese historiographer, Ma Tuan-lin, of the shortest route from China towards Kara-shahr, undoubtedly corresponding to the present track to Lop-nor, reads almost like a version from Marco's book, though its compiler, a contemporary of the Venetian traveller, must have extracted it from some earlier",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "proposition_specific_evidence_distinction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "DISTINCT_BINDINGS",
+              "evidence_pages": [
+                "S1920_PRINTED_49_PDFINDEX_62"
+              ],
+              "supporting_quote": "Anticipating my subsequent observations, I may state here at once that Marco's estimate of the distance and the number of marches on this desert crossing proved perfectly correct.",
+              "confidence": "HIGH"
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-04",
+      "component": "earlier_action_reading",
+      "sealed_value": "FOUND",
+      "sealed_proposition_rows": [
+        "R3OBJ-URM-01"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "UNRESOLVED",
+              "evidence_pages": [
+                "S1903_PRINTED_201_PDFINDEX_500"
+              ],
+              "supporting_quote": "The Chinese Governor of Urumtsi found some years ago to the north-west of the Lob-nor, on the banks of the Tarim, and within five days of Charkalyk, a town bearing the same name, though not on the same site as the Lop of Marco Polo.",
+              "confidence": "LOW"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "FOUNDED",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: unknown evidence pages ['S1903_PRINTED_201']",
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: unknown evidence pages ['S1920_PRINTED_50']",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: unknown evidence pages ['S1920_PRINTED_50']",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-04",
+      "component": "replacement_action_reading",
+      "sealed_value": "FOUNDED",
+      "sealed_proposition_rows": [
+        "R3OBJ-URM-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "FOUNDED",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "FOUNDED",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: unknown evidence pages ['S1903_PRINTED_201']",
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: unknown evidence pages ['S1920_PRINTED_50']",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: unknown evidence pages ['S1920_PRINTED_50']",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "FOUNDED",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "FOUNDED",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-04",
+      "component": "correction_direction",
+      "sealed_value": "FOUND_TO_FOUNDED",
+      "sealed_proposition_rows": [
+        "R3OBJ-URM-01",
+        "R3OBJ-URM-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": true,
+          "stable_value": "FOUNDED_TO_FOUND",
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": true,
+              "value": "FOUNDED_TO_FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "FOUNDED_TO_FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "FOUNDED_TO_FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: unknown evidence pages ['S1903_PRINTED_201']",
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: unknown evidence pages ['S1920_PRINTED_50']",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: unknown evidence pages ['S1920_PRINTED_50']",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": true,
+              "value": "FOUND_TO_FOUNDED",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "HIGH"
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text",
+                "replacement_action_reading: quote not found in cited page text",
+                "correction_direction: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": true,
+              "value": "FOUNDED_TO_FOUND",
+              "evidence_pages": [
+                "S1920_PRINTED_50_PDFINDEX_63"
+              ],
+              "supporting_quote": "Read the Governor of Urumtsi founded instead offound.",
+              "confidence": "MEDIUM"
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "earlier_action_reading: quote not found in cited page text"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {
+        "FOUNDED_TO_FOUND": 1
+      },
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-05",
+      "component": "controversy_resolution_state",
+      "sealed_value": "COMPETING_POSITIONS",
+      "sealed_proposition_rows": [
+        "R3OBJ-TUN-01",
+        "R3OBJ-TUN-02",
+        "R3OBJ-TUN-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_29', 'S1920_PRINTED_30']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing",
+                "hedin_modality: supporting_quote missing",
+                "quoted_scholar_vs_editor_responsibility: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-05",
+      "component": "sykes_relation_direction",
+      "sealed_value": "REVISES_OR_CRITICIZES_YULE",
+      "sealed_proposition_rows": [
+        "R3OBJ-TUN-02"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_29', 'S1920_PRINTED_30']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing",
+                "hedin_modality: supporting_quote missing",
+                "quoted_scholar_vs_editor_responsibility: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-05",
+      "component": "hedin_relation_direction",
+      "sealed_value": "SUPPORTS_YULE",
+      "sealed_proposition_rows": [
+        "R3OBJ-TUN-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_29', 'S1920_PRINTED_30']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing",
+                "hedin_modality: supporting_quote missing",
+                "quoted_scholar_vs_editor_responsibility: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-05",
+      "component": "hedin_modality",
+      "sealed_value": "EXTREMELY_PROBABLE",
+      "sealed_proposition_rows": [
+        "R3OBJ-TUN-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_29', 'S1920_PRINTED_30']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing",
+                "hedin_modality: supporting_quote missing",
+                "quoted_scholar_vs_editor_responsibility: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    },
+    {
+      "case_id": "R3R2-05",
+      "component": "quoted_scholar_vs_editor_responsibility",
+      "sealed_value": "SCHOLARS_AS_REPORTED_BY_CORDIER",
+      "sealed_proposition_rows": [
+        "R3OBJ-TUN-02",
+        "R3OBJ-TUN-03"
+      ],
+      "models": {
+        "qwen2.5:7b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "gemma3:12b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_29']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_26', 'S1920_PRINTED_27', 'S1920_PRINTED_28']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_29', 'S1920_PRINTED_30']",
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: unknown evidence pages ['S1920_PRINTED_28']",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: unknown evidence pages ['S1920_PRINTED_28', 'S1920_PRINTED_30']",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            }
+          ]
+        },
+        "llama3.1:8b": {
+          "stable": false,
+          "stable_value": null,
+          "perturbations": [
+            {
+              "perturbation": "P0_CANONICAL",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing"
+              ]
+            },
+            {
+              "perturbation": "P1_SOURCES_FIRST",
+              "schema_valid": false,
+              "validation_errors": [
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: quote not found in cited page text",
+                "hedin_modality: quote not found in cited page text",
+                "quoted_scholar_vs_editor_responsibility: quote not found in cited page text"
+              ]
+            },
+            {
+              "perturbation": "P2_REVERSE_PAGE_ORDER",
+              "schema_valid": false,
+              "validation_errors": [
+                "controversy_resolution_state: quote not found in cited page text",
+                "sykes_relation_direction: quote not found in cited page text",
+                "hedin_relation_direction: supporting_quote missing",
+                "hedin_modality: supporting_quote missing",
+                "quoted_scholar_vs_editor_responsibility: supporting_quote missing"
+              ]
+            }
+          ]
+        }
+      },
+      "stable_value_counts": {},
+      "consensus": null,
+      "consensus_kind": "NO_CONSENSUS",
+      "comparison": "NO_CONSENSUS"
+    }
+  ]
+}

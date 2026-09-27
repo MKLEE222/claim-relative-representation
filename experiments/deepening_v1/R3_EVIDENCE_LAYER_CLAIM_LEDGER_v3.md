@@ -378,7 +378,7 @@ Substantially satisfied computational/scientific evidence:
 - independent external pipeline-stage separation.
 
 Remaining hard blocker:
-- qualifying independent second-pass historical review of the five load-bearing Yule-Cordier readings, followed by propagation of any disagreement.
+- the replacement blinded three-model historical adjudication executed on 2026-09-27 with `BOUNDED_PARTIAL`: 45/45 calls, 9 citation-valid, and 21/21 atomic components `NO_CONSENSUS` under the frozen analyzer. It supplies no successful model-separated replication of the five load-bearing readings. Keep those readings source-verified and case-bounded; do not claim independent human validation or a closed Gate II. See `llm_second_pass_v1/RESULTS_v1.md` and `llm_second_pass_v1/LOCAL_EXECUTION_REPORT_2026-09-27.md`.
 
 A whole-book prevalence denominator is not required for Track A if no frequency claim is made.
 

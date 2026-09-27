@@ -1,7 +1,7 @@
 # Manuscript Architecture v2 — Humanities-First, Mechanism-Bounded
 
 Date: 2026-09-27
-Status: ALIGNED TO R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3; BLINDED THREE-MODEL HISTORICAL ADJUDICATION PENDING
+Status: ALIGNED TO R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3; FROZEN THREE-MODEL HISTORICAL ADJUDICATION EXECUTED WITH BOUNDED_PARTIAL
 
 ## Proposed title direction
 
@@ -58,7 +58,7 @@ The five load-bearing episodes are:
 - Urumtsi;
 - Tun-o-Kain.
 
-The historical claim is case-bounded pending the frozen source-only three-model blinded adjudication. A second human reviewer is not a mandatory Track-A condition in this single-researcher study; the existing human-review bundle is retained as an optional future validation layer.
+The historical claim remains case-bounded and source-verified. The frozen source-only three-model blinded adjudication returned `BOUNDED_PARTIAL`: citation-valid stable ensemble consensus was absent for all 21 atomic components. The manuscript cannot claim successful model-separated historical replication from this run. A second human reviewer is not a mandatory Track-A condition in this single-researcher study; the existing human-review bundle remains an optional future validation layer.
 
 ## 2. Scope correction before computation
 
