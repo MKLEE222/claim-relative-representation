@@ -1,7 +1,7 @@
 # R3 Great Desert Exact-Start Generic-Access Replication Protocol v1
 
 Date frozen: 2026-09-27
-Status: PRE-OUTCOME ENTRY-STATE FIDELITY REPLICATION
+Status: EXECUTED; POST-RUN AUDIT CLASSIFIES THIS AS LOCAL-CONTEXT SENSITIVITY, NOT STRICT EXACT-START
 
 ## Reason for this replication
 
@@ -94,3 +94,28 @@ If exact-start remains difficult, the project gains an entry-state-faithful ecol
 If exact-start improves materially, retain that result: the broader-start burden was partly an entry-state effect.
 
 If exact-start fully resolves the inquiry at a small budget, retain the null for strong workflow impairment.
+
+
+---
+
+## Post-run implementation audit and disposition
+
+The seed anchor itself correctly identifies the opening of 1903 I p.202 Note 2.
+
+However, the generic `seed_span` helper could not obtain a clean blank-line paragraph boundary at that locus and invoked its bounded local-context fallback. The resulting query contains adjacent p.201 terms including `Urumtsi` and `Charkalyk`.
+
+Therefore the run did **not** isolate the exact p.202 start as intended.
+
+Final classification:
+
+[
+STRICT_EXACT_START_IMPLEMENTATION = 0
+]
+
+[
+LOCAL_CONTEXT_SENSITIVITY = RETAINED
+]
+
+No outcome is deleted, but no strict entry-state claim is licensed from this run.
+
+The authoritative Great Desert ecological ranking remains R3-AW1, and its proposition-carrier decomposition is reported in `R3_AW1_GREAT_DESERT_COMPONENT_AUDIT_RESULTS_v1.md`.
