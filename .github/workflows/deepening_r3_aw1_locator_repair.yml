@@ -1,0 +1,22 @@
+name: R3 AW1 stopped-case locator repair
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - 'experiments/deepening_v1/R3_AW1_LOCATOR_REPAIR_MEMO_v1.md'
+      - 'experiments/deepening_v1/r3_aw1_locator_repair_v1.py'
+      - '.github/workflows/deepening_r3_aw1_locator_repair.yml'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Execute locator-only repair
+        run: python experiments/deepening_v1/r3_aw1_locator_repair_v1.py | tee r3_aw1_locator_repair_results.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: r3-aw1-locator-repair-results
+          path: r3_aw1_locator_repair_results.txt
