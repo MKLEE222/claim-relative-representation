@@ -1,7 +1,7 @@
 # R3 Evidence-Layer Claim Ledger v3
 
 Date: 2026-09-27
-Status: AUTHORITATIVE CLAIM-SEPARATION LEDGER AFTER AW1 CARRIER-COMPONENT AUDIT
+Status: AUTHORITATIVE CLAIM-SEPARATION LEDGER AFTER AW1 CARRIER-COMPONENT AUDIT AND GATE-II BOUNDED_PARTIAL
 Supersedes: R3_EVIDENCE_LAYER_CLAIM_LEDGER_v2.md
 
 ## Purpose
@@ -377,8 +377,13 @@ Substantially satisfied computational/scientific evidence:
 - source-native selective access repair;
 - independent external pipeline-stage separation.
 
-Remaining hard blocker:
-- the replacement blinded three-model historical adjudication executed on 2026-09-27 with `BOUNDED_PARTIAL`: 45/45 calls, 9 citation-valid, and 21/21 atomic components `NO_CONSENSUS` under the frozen analyzer. It supplies no successful model-separated replication of the five load-bearing readings. Keep those readings source-verified and case-bounded; do not claim independent human validation or a closed Gate II. See `llm_second_pass_v1/RESULTS_v1.md` and `llm_second_pass_v1/LOCAL_EXECUTION_REPORT_2026-09-27.md`.
+Gate-II corroboration outcome:
+- the replacement blinded three-model historical adjudication executed on 2026-09-27 with `BOUNDED_PARTIAL`: 45/45 calls, 9 citation-valid, and 21/21 atomic components `NO_CONSENSUS` under the frozen analyzer.
+- it supplies no successful model-separated replication of the five load-bearing readings and no strict source-valid contradiction.
+- the historical readings therefore remain source-verified and case-bounded, not independently replicated.
+- this blocks the stronger corroboration claim but does not erase E1-E5 or require reopening the computational search space.
+- post-freeze value-only sensitivity is diagnostic only; it cannot replace the frozen evidence-validity gate.
+- see `llm_second_pass_v1/RESULTS_v1.md` and `llm_second_pass_v1/LOCAL_EXECUTION_REPORT_2026-09-27.md`.
 
 A whole-book prevalence denominator is not required for Track A if no frequency claim is made.
 
