@@ -27,3 +27,5 @@ jobs:
           name: deepening-r3-carrier-composition-v3
           path: experiments/deepening_v1/results/r3_carrier_composition_replication_v3.json
           if-no-files-found: error
+
+# syntax-fix rerun; frozen scientific inputs unchanged
