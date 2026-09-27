@@ -212,7 +212,8 @@ for cid,cfg in CASES.items():
             "order":comp_order,
             "target_rank1":comp_pos==1,
         },
-        "composition_support":len(pointer)>1 and comp_pos==1,\n        "category":("STRONG_COMPLEMENTARITY" if len(pointer)>1 and global_pos>1 and comp_pos==1 else ("REDUNDANT_WITH_COMPOSITION" if len(pointer)>1 and global_pos==1 and comp_pos==1 else "COMPOSITION_FAILURE")),
+        "composition_support":len(pointer)>1 and comp_pos==1,
+        "category":("STRONG_COMPLEMENTARITY" if len(pointer)>1 and global_pos>1 and comp_pos==1 else ("REDUNDANT_WITH_COMPOSITION" if len(pointer)>1 and global_pos==1 and comp_pos==1 else "COMPOSITION_FAILURE")),
     })
 
 out={
