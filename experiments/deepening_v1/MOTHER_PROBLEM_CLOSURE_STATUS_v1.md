@@ -328,7 +328,7 @@ The natural Gutenberg null is a valid result.
 
 Searching specifically for a positive Yule-Cordier binding deletion after that null would be outcome-driven.
 
-No additional computational experiment is a Track-A closure requirement unless independent historical review changes a load-bearing reading or a specific manuscript claim creates a new evidentiary obligation.
+No additional computational experiment is a Track-A closure requirement unless a separately frozen future adjudication materially changes a load-bearing reading or a specific manuscript claim creates a new evidentiary obligation.
 
 ---
 
@@ -410,14 +410,20 @@ For practical researchability, (B) is part of the evaluation contract.
 
 ---
 
-# What remains before Track-A manuscript claim freeze
+# Track-A manuscript claim freeze
 
-## Mandatory
+## Current disposition
 
-1. propagate the frozen 21-component NO_CONSENSUS result into the claim ledger and dependent interpretations;
-2. keep the manuscript's historical readings explicitly source-verified and case-bounded, with model-separated replication unresolved;
-3. preserve all positive, negative and null results;
-4. preregister any future adjudication separately if stronger historical corroboration is required.
+The frozen 21-component NO_CONSENSUS result has been propagated into the claim ledger and manuscript architecture.
+
+Track A can now be frozen at a lower but internally consistent claim ceiling:
+
+1. historical readings are source-verified and case-bounded;
+2. model-separated replication remains unresolved and is not presented as corroboration;
+3. all positive, negative and null results are preserved;
+4. any future stronger adjudication must be separately frozen and cannot retroactively repair this run.
+
+The BOUNDED_PARTIAL result therefore blocks only the stronger independent-replication claim, not manuscript construction at the bounded source-verified ceiling.
 
 ## Optional extension — required only for Track-B prevalence claims
 
@@ -442,4 +448,4 @@ For practical researchability, (B) is part of the evaluation contract.
 
 The computational/mechanistic core is now closed at its evidence-supported claim ceiling.
 
-The frozen three-model blind historical adjudication has executed and returned **BOUNDED_PARTIAL**. The current blocker is corroboration of the load-bearing historical readings at the intended evidence standard, together with claim-ceiling synchronization. A second human reader remains optional rather than mandatory.
+The frozen three-model blind historical adjudication has executed and returned **BOUNDED_PARTIAL**. Claim-ceiling synchronization is complete: Track A may proceed at the source-verified, non-independently-replicated ceiling. Stronger corroboration remains optional future work rather than a hidden prerequisite. A second human reader remains optional rather than mandatory.
