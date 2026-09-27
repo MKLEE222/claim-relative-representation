@@ -1,7 +1,7 @@
 # Mother-Problem Scientific Closure Status v3
 
 Date: 2026-09-27
-Status: TRACK-A COMPUTATIONAL/MECHANISTIC CORE CLOSED AT A BOUNDED CLAIM CEILING; INDEPENDENT HISTORICAL REVIEW PENDING. TRACK-B PREVALENCE OPEN.
+Status: TRACK-A COMPUTATIONAL/MECHANISTIC CORE CLOSED AT A BOUNDED CLAIM CEILING; BLINDED THREE-MODEL HISTORICAL ADJUDICATION PENDING. TRACK-B PREVALENCE OPEN.
 
 Mother question:
 
@@ -41,7 +41,7 @@ A whole-book L6 denominator is required for Track B, not for Track A unless the 
 
 Status:
 
-**BOUNDED PASS, SUBJECT TO INDEPENDENT REVIEW OF LOAD-BEARING READINGS.**
+**BOUNDED PASS, SUBJECT TO THE FROZEN BLINDED MODEL-SEPARATED HISTORICAL ADJUDICATION OF LOAD-BEARING READINGS.**
 
 Supported:
 
@@ -98,7 +98,7 @@ No replacement whole-book denominator is authorized.
 
 Status:
 
-**SCIENTIFIC TASK-DESIGN PASS / INDEPENDENT HISTORICAL SECOND PASS PENDING.**
+**SCIENTIFIC TASK-DESIGN PASS / BLINDED THREE-MODEL HISTORICAL ADJUDICATION PENDING.**
 
 Frozen source-derived inquiries:
 
@@ -114,39 +114,68 @@ All five have now been taken into the real Project Gutenberg research object and
 
 When the relevant later passage is supplied, all five historical distinctions remain recoverable in the natural text.
 
-Review-material engineering is now complete.
+The project is executed by one human researcher. A second independent human historical reviewer is not available. Gate II therefore no longer treats a second person as a mandatory Track-A closure condition.
 
-Authoritative blinded source bundle:
+Resource-constraint supersession:
+
+R3_GATE_II_RESOURCE_CONSTRAINT_SUPERSESSION_v1.md
+
+Replacement gate:
+
+R3_BLINDED_THREE_MODEL_HISTORICAL_ADJUDICATION_PROTOCOL_v1.md
+
+Frozen model panel:
+
+- qwen2.5:7b;
+- gemma3:12b;
+- llama3.1:8b.
+
+Frozen execution:
+
+- 5 historical cases;
+- 3 semantically equivalent prompt/order perturbations;
+- 3 heterogeneous local models;
+- 45 stateless source-only calls;
+- 21 predeclared atomic components;
+- temperature 0;
+- no registered answer loaded by the runner;
+- sealed answer key opened only by the post-run analyzer.
+
+Gate outcomes are predeclared:
+
+- BLINDED_MODEL_REPLICATION_PASS;
+- BOUNDED_PARTIAL;
+- HISTORICAL_READING_REOPENED.
+
+A pass supports only source-grounded, answer-blinded model-separated replication. It does not support human historian agreement or inter-rater reliability.
+
+The earlier human-review materials remain preserved as an optional future external validation layer.
+
+Human-review source bundle:
 - GitHub Actions run 36313791906;
 - artifact r3-independent-second-pass-review-bundle-v1;
 - artifact ID 10929598975;
 - ZIP SHA-256 c3fa24cd4ef6098e0699be6e3d165664dc7ed00843f7628d78d3c73e66b6599d;
 - 18 unique rendered source pages;
 - registered-answer files included = 0;
-- answer-side leakage scan = PASS;
-- visual QA of representative 1903/1920 pages = PASS.
+- answer-side leakage scan = PASS.
 
 Therefore:
 
-REVIEW_MATERIAL_ENGINEERING = COMPLETE
+HUMAN_REVIEW_MATERIAL_ENGINEERING = COMPLETE
 
-Post-return adjudication design is also sealed before any reviewer response:
-- 21 predeclared atomic comparison components;
-- registered-answer source remains the sealed proposition-panel blob rather than duplicated reviewer-facing text;
-- five allowed comparison statuses only;
-- disagreement propagation targets frozen in advance.
+OPTIONAL_EXTERNAL_HUMAN_VALIDATION = AVAILABLE
 
-ATOMIC_ADJUDICATION_DESIGN = COMPLETE
-
-INDEPENDENT_SECOND_PASS = PENDING
+BLINDED_MODEL_SEPARATED_HISTORICAL_ADJUDICATION = PENDING_EXECUTION
 
 Still mandatory before manuscript claim freeze:
 
-1. a qualifying independent reviewer completes the sealed blinded package;
-2. disagreements are adjudicated transparently under the predeclared atomic comparison rule;
-3. any changed historical reading propagates into the claim ledger and affected experiments.
+1. execute the frozen 45-call three-model historical adjudication;
+2. run the pre-frozen analyzer against all 21 atomic components;
+3. propagate any contradiction or unresolved/no-consensus component according to the frozen rule;
+4. synchronize the claim ledger and manuscript to the resulting Gate-II disposition.
 
-No AI self-review counts as independent historical adjudication.
+No post-outcome prompt retuning, model substitution, source-page substitution, atomic-field change, or answer-key change is permitted.
 
 ---
 
@@ -375,10 +404,10 @@ For practical researchability, (B) is part of the evaluation contract.
 
 ## Mandatory
 
-1. obtain a qualifying independent review return for all five sealed Yule-Cordier inquiries; the blinded source bundle is already complete;
-2. adjudicate any disagreement under the frozen atomic comparison rule;
-3. propagate changes, if any, into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3 and affected result files;
-4. synchronize manuscript core language to ledger v3 after adjudication;
+1. execute the frozen blinded three-model historical adjudication: 45 stateless source-only calls;
+2. run the pre-frozen 21-component analyzer and accept PASS / BOUNDED_PARTIAL / HISTORICAL_READING_REOPENED without retuning;
+3. propagate any contradiction, no-consensus, or unresolved component into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3 and dependent interpretations;
+4. synchronize manuscript core language to the final Gate-II disposition;
 5. preserve all positive, negative and null results.
 
 ## Optional extension — required only for Track-B prevalence claims
@@ -404,4 +433,4 @@ For practical researchability, (B) is part of the evaluation contract.
 
 The computational/mechanistic core is now closed at its evidence-supported claim ceiling.
 
-The next hard blocker is **reviewer execution and return**, not further material preparation or computational experimentation.
+The next hard blocker is **execution of the already-frozen three-model blind historical adjudication**, not additional experiment design. A second human reader is optional rather than mandatory.
