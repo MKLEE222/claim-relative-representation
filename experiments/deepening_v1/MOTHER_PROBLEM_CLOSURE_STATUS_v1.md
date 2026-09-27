@@ -8,7 +8,7 @@ Mother question:
 
 ## Gate I — Historical object closure
 
-Status: PARTIAL / NOT CLOSED.
+Status: MATERIAL ADVANCE / STRUCTURAL FRAME EXECUTED; HUMAN HISTORICAL REVIEW AND L5/L6 CLOSURE PENDING.
 
 Now supported:
 - proposition-level direction of change;
@@ -18,15 +18,22 @@ Now supported:
 - page-verified panel across Pashai, Arbre Sec, Tun-o-Kain, Great Desert and Urumtsi;
 - old 223 frame shown not to be a valid whole-book denominator;
 - the 223/229/244/276 counts are now explicitly supersession-scoped rather than treated as one population;
-- a hierarchical frame contract now distinguishes publication section, top-level entry, contribution, page-addressed subnote, transmitted quotation/source passage, and proposition-level intervention act.
+- a hierarchical frame contract now distinguishes publication section, top-level entry, contribution, page-addressed subnote, transmitted quotation/source passage, and proposition-level intervention act;
+- hierarchical frame v3 has now been executed on the frozen 1920 object with structural sanity PASS;
+- publication sections are separated into Addenda body, bibliography, Supplementary Note, index, and post-END wrapper;
+- v3 recovers all eight Introduction headings, the Urumtsi bare P.201 target heading, and the indented Ceylon XIV p.313 heading;
+- pre-existing false-head rules exclude five Roman-looking citation/source subitems;
+- the Temple contribution is represented as one L3 responsibility wrapper with ten nested L4 page-addressed subnotes;
+- the earlier 244 provisional spans are now structurally explained as 233 L2 candidates + 1 Addenda explicit target L4 + 10 nested Temple L4, rather than a homogeneous sample.
 
 Still required:
-- execute and review the corrected hierarchical whole-object frame;
-- complete boundary review across section/contribution/subnote/quotation and unheaded-act classes;
+- human review of the 233 L2 candidates and the one Addenda L4 parent/independence decision;
+- explicit L5 quotation/transmitted-source boundary review;
+- proposition-level L6 act segmentation and review where denominator-bearing claims are desired;
 - broaden the proposition-level inventory beyond the purposive verified panel;
 - inspect 1871/1875 genealogy only where first-appearance/longitudinal claims require it.
 
-No replacement whole-book denominator is currently authorized.
+No replacement whole-book denominator is currently authorized; v3 explicitly leaves L5/L6 counts and denominator authorization open.
 
 ## Gate II — Inquiry closure
 
@@ -152,8 +159,8 @@ We still do not have a general result that plain text, TEI, graphs, RAG systems,
 
 ## Immediate closure priority
 
-1. finish and review the hierarchical historical frame;
+1. review the executed v3 hierarchical frame at the intellectual-unit / L5 / L6 levels; the structural skeleton itself is no longer missing;
 2. obtain the independent second-pass review of the five frozen inquiries;
-3. consolidate the claim ledger so controlled binding loss, natural-object recoverability, workflow discoverability, and carrier-specific access repair are four distinct evidence layers;
+3. use R3_EVIDENCE_LAYER_CLAIM_LEDGER_v1 as the authoritative four-layer claim separation;
 4. audit whether any already-existing external workflow provides a natural proposition-binding non-determinacy witness; do not manufacture one if none exists;
 5. then reassess whether the bounded mother-problem answer is strong enough for claim freeze or whether one further independent natural workflow is required.
