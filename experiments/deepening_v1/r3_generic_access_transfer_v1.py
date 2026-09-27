@@ -69,7 +69,7 @@ CASES = [
     },
     {
         "id": "R3Q-TUN-CONTROVERSY",
-        "seed_anchor": "reached the Province of TUN-O-KAIN about Tabbas",
+        "seed_anchor": "reached the Province of TUN-O-KAIN",
         "task": "Find later editorial treatment bearing on the route through Tun-o-Kain in the earlier note and determine whether later discussion settles or preserves competing positions.",
         "groups": {
             "SYKES_REVISION": "Major Sykes had adopted Sir Henry Yule's theory",
