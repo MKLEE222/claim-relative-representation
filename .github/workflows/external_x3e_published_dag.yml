@@ -1,0 +1,22 @@
+name: Faust X3E published DAG stage
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - 'experiments/external_x3e_faust_published_dag/PROTOCOL.md'
+      - 'experiments/external_x3e_faust_published_dag/run.py'
+      - '.github/workflows/external_x3e_published_dag.yml'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Audit separately published DAG stage
+        run: python experiments/external_x3e_faust_published_dag/run.py | tee x3e_results.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x3e-faust-published-dag-results
+          path: x3e_results.txt
