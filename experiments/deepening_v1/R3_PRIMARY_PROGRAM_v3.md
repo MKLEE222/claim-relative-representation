@@ -31,6 +31,21 @@ Record recoverability class, minimum evidence boundary, carrier basis family, as
 
 For a supported separation or burden increase, test correct bridge, matched wrong bridge, unaffected task, and explicit information footprint.
 
-## Inventory relation
+## Inventory relation — corrected after frame-scope audit
 
-The 223-entry inventory remains the denominator-bearing humanities study. Its schema may add carrier/path fields discovered here because no final intervention-frequency distribution has yet been opened. Existing relation labels are not changed merely to create a representation effect.
+The legacy 223-entry object is **not** the denominator for whole-book historical or prevalence claims.
+
+It remains only the frozen retrieval universe for experiments that were already executed on those exact intervals. Its reproducibility is preserved, but it is not promoted into a validated population of retrospective interventions.
+
+Any new denominator-bearing humanities result must use a separately versioned hierarchical frame that distinguishes at minimum:
+
+- publication section;
+- top-level Addenda entry;
+- named or signed contribution;
+- page-addressed subnote;
+- embedded quotation or transmitted source passage;
+- proposition-level intervention target.
+
+Nested units are not pooled as equivalent top-level observations. Bibliography, index, Gutenberg wrapper material, and other publication sections may be historically relevant but may not silently inherit the identity of the preceding Addenda entry.
+
+No replacement denominator is authorized until the hierarchical frame has been source-audited and frozen. Existing legacy relation labels, retrieval ranks, seeds, negative LLM results, and completed experimental objects remain unchanged.
