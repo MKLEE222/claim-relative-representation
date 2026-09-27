@@ -1,7 +1,7 @@
 # Manuscript Architecture v2 — Humanities-First, Mechanism-Bounded
 
 Date: 2026-09-27
-Status: ALIGNED TO R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3; INDEPENDENT HISTORICAL REVIEW STILL PENDING
+Status: ALIGNED TO R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3; BLINDED THREE-MODEL HISTORICAL ADJUDICATION PENDING
 
 ## Proposed title direction
 
@@ -58,7 +58,7 @@ The five load-bearing episodes are:
 - Urumtsi;
 - Tun-o-Kain.
 
-The historical claim is case-bounded pending independent second-pass review.
+The historical claim is case-bounded pending the frozen source-only three-model blinded adjudication. A second human reviewer is not a mandatory Track-A condition in this single-researcher study; the existing human-review bundle is retained as an optional future validation layer.
 
 ## 2. Scope correction before computation
 
@@ -262,10 +262,12 @@ Independent DH infrastructures instantiate related distinctions among native str
 
 # Mandatory before manuscript claim freeze
 
-1. complete the independent blinded second-pass review of the five Yule-Cordier inquiries;
-2. adjudicate any disagreement;
-3. propagate changes into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3;
+1. execute the frozen 45-call source-only three-model historical adjudication across all five Yule-Cordier inquiries;
+2. run the pre-frozen 21-component analyzer and accept its PASS / BOUNDED_PARTIAL / HISTORICAL_READING_REOPENED disposition without prompt or model retuning;
+3. propagate any contradiction, no-consensus, or unresolved component into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3 and dependent historical/mechanistic interpretations;
 4. then rewrite manuscript_v0_1_core.md around this architecture.
+
+If the model replication passes, the manuscript may state that the historical readings were reproduced under sealed, source-only, answer-blinded adjudication by three heterogeneous local models with perturbation-stability checks. It must not describe that result as independent human validation or historian consensus.
 
 Do **not** reopen computational search merely to obtain a more dramatic positive effect.
 
