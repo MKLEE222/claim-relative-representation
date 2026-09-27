@@ -1,0 +1,22 @@
+name: Faust X3C transport repair
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - 'experiments/external_x3c_faust_conflict_graph/TRANSPORT_REPAIR_v1.md'
+      - 'experiments/external_x3c_faust_conflict_graph/run_transport_repair_v1.py'
+      - '.github/workflows/external_x3c_transport_repair.yml'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Execute frozen X3C through official base.gexf URL
+        run: python experiments/external_x3c_faust_conflict_graph/run_transport_repair_v1.py | tee x3c_transport_repair_results.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x3c-faust-published-graph-results
+          path: x3c_transport_repair_results.txt
