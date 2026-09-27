@@ -1,0 +1,22 @@
+name: Faust X3E DOT parser repair
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - 'experiments/external_x3e_faust_published_dag/PARSER_REPAIR_v1.md'
+      - 'experiments/external_x3e_faust_published_dag/run_parser_repair_v1.py'
+      - '.github/workflows/external_x3e_parser_repair.yml'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Parse frozen official DAG DOT with repaired lexer
+        run: python experiments/external_x3e_faust_published_dag/run_parser_repair_v1.py | tee x3e_parser_repair_results.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: x3e-faust-dag-parser-repair-results
+          path: x3e_parser_repair_results.txt
