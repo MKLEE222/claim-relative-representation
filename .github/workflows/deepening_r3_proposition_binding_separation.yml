@@ -1,0 +1,31 @@
+name: deepening-r3-proposition-binding-separation-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "data/r3_verified_proposition_panel_v1.csv"
+      - "experiments/deepening_v1/R3_SCHOLARLY_INQUIRY_PANEL_v1.csv"
+      - "experiments/deepening_v1/R3_PROPOSITION_BINDING_SEPARATION_PROTOCOL_v1.md"
+      - "experiments/deepening_v1/r3_proposition_binding_separation_v1.py"
+      - ".github/workflows/deepening_r3_proposition_binding_separation.yml"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run proposition-binding separation
+        run: python experiments/deepening_v1/r3_proposition_binding_separation_v1.py
+      - name: Upload result
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r3-proposition-binding-separation-v1
+          path: experiments/deepening_v1/results/r3_proposition_binding_separation_v1.json
+          if-no-files-found: error
