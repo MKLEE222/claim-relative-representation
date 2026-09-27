@@ -130,6 +130,14 @@ Therefore:
 
 REVIEW_MATERIAL_ENGINEERING = COMPLETE
 
+Post-return adjudication design is also sealed before any reviewer response:
+- 21 predeclared atomic comparison components;
+- registered-answer source remains the sealed proposition-panel blob rather than duplicated reviewer-facing text;
+- five allowed comparison statuses only;
+- disagreement propagation targets frozen in advance.
+
+ATOMIC_ADJUDICATION_DESIGN = COMPLETE
+
 INDEPENDENT_SECOND_PASS = PENDING
 
 Still mandatory before manuscript claim freeze:
