@@ -1,68 +1,272 @@
-# Manuscript architecture v1 — Humanities-first
+# Manuscript Architecture v2 — Humanities-First, Mechanism-Bounded
 
 Date: 2026-09-27
+Status: ALIGNED TO R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3; INDEPENDENT HISTORICAL REVIEW STILL PENDING
 
 ## Proposed title direction
 
-**When Does a Scholarly Edition Preserve Its Own History?**
-### Task-Relative Recovery of Editorial Knowledge in Digital Humanities
+**When Does a Scholarly Edition Preserve Its Own History?**  
+### Source-Bound Researchability Across Digital Representations
 
 Alternative:
-**Recovering Editorial Knowledge**
-### Source-Bound Relations and Task-Relative Representation in Digital Scholarship
+
+**Recovering Editorial Knowledge**  
+### Proposition-Level Relations, Access Workflows, and Researchability in Digital Scholarship
 
 ## Central paper question
 
-When scholarly editions accumulate criticism, correction, reattribution and new evidence across generations, what must a digital representation preserve or make recoverable for later researchers to reconstruct that history responsibly?
+When scholarly editions accumulate criticism, correction, reattribution and new evidence across generations, what must a digital representation preserve, expose, or make lawfully recoverable for later researchers to reconstruct that history responsibly from a realistic research starting point?
 
-## Narrative order
+## Scope decision
 
-### 1. Historical problem
-Yule -> Cordier -> later research:
-a scholarly edition changes through time and carries the history of why claims were accepted, challenged or reformulated.
+The manuscript has two explicitly separated tracks.
 
-### 2. R3 historical findings
-Complete 1920 retrospective inventory; intervention distribution; five deep genealogies.
+### Track A — main paper
 
-### 3. Computational problem derived from the history
-Text co-presence is not necessarily responsibility/attachment/trajectory recoverability.
+A bounded proposition-level historical and computational study of researchability.
 
-Define H1/H2/H3 from the historical study.
+Track A does **not** require a whole-book intervention denominator and makes no prevalence/frequency claim.
 
-### 4. Method
-Consumer-bound recovery contract:
-native recovery -> collision/separation witness -> source-bound repair -> wrong-binding control.
+### Track B — optional extension
 
-### 5. R3 representation experiment
-FULL_LAYERED vs LINEAR_TEXT vs TOPIC_BAG on verified historical tasks.
+A whole-object prevalence study of intervention/researchability profiles.
 
-### 6. External methodological validation
-Whitman, Faust, Frankenstein, Scrivener.
+Track B requires reviewed L5/L6 segmentation and an authorized denominator.
+It is not a hidden prerequisite for Track A.
 
-These show the method is not peculiar to one old edition; they are not the humanistic center of gravity.
+---
 
-### 7. Boundary results
-45-call LLM negative result; conditional formal argument analysis; C08 native replay support stop.
+# Narrative order
 
-### 8. Discussion
-- editions preserve not only text but histories of scholarly responsibility;
-- task-relative adequacy;
-- re-expandability/future researchability;
-- relation availability vs relation use;
-- limits: no human behavior claim, no universal ideal representation.
+## 1. Historical problem: editorial knowledge has internal structure
 
-## Contribution ordering
+Yule -> Cordier -> later scholarship is not one scalar sequence of "corrections."
 
-1. Empirical humanities contribution:
-a denominator-bearing account of how Cordier's 1920 Addenda revises and extends the earlier Yule-Cordier scholarly object.
+The verified episodes establish that historical reconstruction requires distinctions such as:
 
-2. Methodological contribution:
-an auditable test for whether the source-bound relations needed for a declared historical task remain recoverable after representation change.
+- agreement with one proposition while challenging another;
+- cited scholar versus transmitting editor;
+- transmission versus adoption;
+- evidence for one proposition versus evidence for another;
+- qualified/competing positions rather than forced settlement;
+- explicit textual correction as a simple control.
 
-3. Constructive contribution:
-source-bound repair with matched wrong-binding and unaffected-task controls.
+The five load-bearing episodes are:
+- Pashai;
+- Arbre Sec;
+- Great Desert;
+- Urumtsi;
+- Tun-o-Kain.
 
-4. Transfer contribution:
-the same audit pattern survives independent DH infrastructures under native baselines.
+The historical claim is case-bounded pending independent second-pass review.
 
-The LLM result is a boundary/stress-test contribution, not a headline contribution.
+## 2. Scope correction before computation
+
+The legacy 223 intervals remain the frozen universe of completed retrieval experiments, not a whole-book historical denominator.
+
+Hierarchical frame v3 explains the source structure:
+
+- 233 L2 candidates;
+- one Addenda L4 explicit target;
+- ten nested Temple L4 subnotes;
+- one L3 responsibility wrapper;
+- publication sections separated;
+- L5/L6 denominator still unauthorized.
+
+This is a methodological safeguard, not the paper's headline result.
+
+## 3. Computational question derived from the history
+
+The paper does **not** ask whether one representation is globally richer or better.
+
+It asks whether a declared historical inquiry remains researchable through a declared representation and workflow.
+
+The evidence requires separating:
+
+1. scope inclusion;
+2. target/source-unit discoverability;
+3. task-required carrier-set exposure/completeness;
+4. relation determinacy;
+5. responsibility/provenance traceability;
+6. uncertainty/resolution-state fidelity;
+7. composability/executability.
+
+## 4. Controlled mechanism: proposition determinacy
+
+R3 controlled projections establish same-visible-input/different-required-output witnesses for:
+
+- stance -> target;
+- responsibility/transmission/adoption;
+- evidence -> proposition.
+
+Matched source-grounded repairs:
+- correct binding recovers the registered inquiry;
+- equally shaped wrong binding does not;
+- unaffected control remains stable.
+
+Claim ceiling:
+task-specific information obligation under the declared projection.
+
+## 5. Natural-object null: plain text retains alternative carriers
+
+The real Project Gutenberg object does not instantiate the controlled binding deletions.
+
+When the later passage is supplied, all five historical distinctions remain recoverable.
+
+This null is retained prominently:
+
+NATURAL_GUTENBERG_PLAINTEXT_BINDING_ATTRITION = NOT OBSERVED.
+
+The paper must not claim that plain text intrinsically destroys scholarly relations.
+
+## 6. Ecological workflow: research access is multi-stage
+
+R3-AW1 applies an access policy frozen before the R3 inquiry outcomes.
+
+Native later-layer target-entry ranks:
+
+- Great Desert 1 / 482;
+- Arbre Sec 2 / 482;
+- Pashai 4 / 482;
+- Tun-o-Kain 13 / 482;
+- Urumtsi 65 / 482.
+
+Therefore:
+
+relation recoverability != target-entry discoverability.
+
+### 6.1 New carrier-completeness separation
+
+The AW1 Great Desert component audit replays the same authoritative ranking.
+
+Later layer:
+- target entry rank = 1;
+- folklore carrier rank = 1;
+- measurement carrier rank = 35;
+- one 180-word unit does not contain both;
+- both are complete only within B50.
+
+Therefore:
+
+target-entry discovery != task-required carrier-set exposure.
+
+This is a central result because a document-level Hit@K can succeed while the evidence basis required by the historical question remains only partially exposed.
+
+## 7. Constructive access repair
+
+Urumtsi is outside B50 under generic lexical AW1 access.
+
+The same historical entry state exposes native page identifier p.201.
+
+A pre-existing native-pointer rule:
+- p.201 -> exact erratum;
+- sham p.200 -> no target;
+- sham p.202 -> different unit.
+
+This is selective access repair, not repair of a naturally deleted proposition edge.
+
+## 8. External pressure tests
+
+### Digital Faust
+
+A real scholarly infrastructure separates:
+- relation presence;
+- conflict/status;
+- downstream executable DAG.
+
+The published pipeline is not reproduced by simple ignore/delete filtering.
+
+### Whitman / Frankenstein / Scrivener
+
+Use as targeted pressure tests for:
+- endpoint versus certainty;
+- task-facing versus source-native structure;
+- normalization/decoder sensitivity;
+- productive compression/minimal local carriers.
+
+These validate audit distinctions, not one pooled effect size.
+
+## 9. Boundary and negative results
+
+Retain explicitly:
+
+- 45-call LLM selective warrant restoration: not supported / model-sensitive;
+- natural Gutenberg proposition-binding attrition: not observed;
+- simple Faust ignore/delete filtering -> DAG: not observed;
+- 223 as whole-book denominator: retired;
+- one global minimal carrier: retired.
+
+These results define the claim boundary rather than weakening it.
+
+## 10. Discussion
+
+Main conceptual result:
+
+> Researchability is not equivalent to content survival or target retrieval. A representation/workflow must keep a sufficient source-grounded carrier system available and expose enough of that system for the declared inquiry to determine and compose its historical relations.
+
+Use the index:
+
+Researchability(R, tau, S, K, pi; B)
+
+where:
+- R = representation;
+- tau = scholarly task;
+- S = research entry state;
+- K = admissible source/carrier contract;
+- pi = transformation/access workflow, including unitization and navigation/ranking;
+- B = inspection budget for practical access/exposure claims.
+
+Discuss:
+- proposition-level responsibility and evidence;
+- entry state;
+- carrier substitution and complementarity;
+- target discovery versus carrier completeness;
+- relation availability versus relation use;
+- uncertainty/status;
+- staged executability;
+- no global representation leaderboard.
+
+---
+
+# Contribution ordering
+
+## 1. Humanities contribution
+
+A source-verified proposition-level account showing that editorial maintenance can combine corroboration, criticism, competing identifications, differentiated evidence, qualified controversy and explicit correction.
+
+The contribution is **not** a whole-book prevalence estimate.
+
+## 2. Researchability/mechanism contribution
+
+An auditable decomposition showing that:
+
+content presence
+!= target discovery
+!= carrier-set completeness
+!= relation determinacy
+!= downstream executability.
+
+The controlled and ecological results occupy different evidence layers and are not conflated.
+
+## 3. Constructive contribution
+
+Source-bound alternative carriers can selectively restore a failed research capability under matched controls:
+- controlled binding repair for determinacy;
+- native page-pointer repair for access.
+
+## 4. External validation contribution
+
+Independent DH infrastructures instantiate related distinctions among native structure, certainty/status, provenance, task-facing representations and executable downstream states.
+
+---
+
+# Mandatory before manuscript claim freeze
+
+1. complete the independent blinded second-pass review of the five Yule-Cordier inquiries;
+2. adjudicate any disagreement;
+3. propagate changes into R3_EVIDENCE_LAYER_CLAIM_LEDGER_v3;
+4. then rewrite manuscript_v0_1_core.md around this architecture.
+
+Do **not** reopen computational search merely to obtain a more dramatic positive effect.
+
+Track B prevalence work remains optional unless the manuscript later chooses to make frequency claims.
