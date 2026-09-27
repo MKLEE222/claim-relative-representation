@@ -56,13 +56,17 @@ anchors = {
     "MEASUREMENT": "plane-table survey, checked by cyclometer readings",
 }
 
-v2_low = text["V2"].lower()
+v2_tokens = ns["token_stream"](text["V2"])
 
 def find_span(anchor):
-    p = v2_low.find(anchor.lower())
-    if p < 0:
-        raise RuntimeError(f"component anchor missing: {anchor}")
-    return p, p + len(anchor)
+    # Evaluation-only locator: exact token sequence, insensitive to Gutenberg
+    # line wrapping, punctuation and emphasis markup.
+    need = ns["toks"](anchor)
+    vals = [x for x, _, __ in v2_tokens]
+    for i in range(0, len(vals) - len(need) + 1):
+        if vals[i:i + len(need)] == need:
+            return v2_tokens[i][1], v2_tokens[i + len(need) - 1][2]
+    raise RuntimeError(f"component anchor missing: {anchor}")
 
 spans = {k: find_span(v) for k, v in anchors.items()}
 
