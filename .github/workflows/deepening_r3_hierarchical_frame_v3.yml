@@ -1,0 +1,26 @@
+name: R3 hierarchical frame v3
+on:
+  workflow_dispatch:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - 'experiments/deepening_v1/R3_HIERARCHICAL_FRAME_V3_PROTOCOL.md'
+      - 'experiments/deepening_v1/r3_hierarchical_frame_v3.py'
+      - '.github/workflows/deepening_r3_hierarchical_frame_v3.yml'
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: {python-version: '3.12'}
+      - name: Build hierarchical frame v3
+        run: python experiments/deepening_v1/r3_hierarchical_frame_v3.py | tee hierarchical_frame_v3_stdout.txt
+      - uses: actions/upload-artifact@v4
+        with:
+          name: r3-hierarchical-frame-v3
+          path: |
+            experiments/deepening_v1/results/hierarchical_frame_candidates_v3.csv
+            experiments/deepening_v1/results/hierarchical_frame_excluded_v3.csv
+            experiments/deepening_v1/results/hierarchical_frame_meta_v3.json
+            hierarchical_frame_v3_stdout.txt
