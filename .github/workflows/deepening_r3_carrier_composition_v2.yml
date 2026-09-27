@@ -1,0 +1,29 @@
+name: deepening-r3-carrier-composition-v2
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/r3_carrier_composition_replication_v2.py"
+      - "experiments/deepening_v1/R3_CARRIER_COMPOSITION_REPLICATION_PROTOCOL_v2.md"
+      - ".github/workflows/deepening_r3_carrier_composition_v2.yml"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run frozen composition replication
+        run: python experiments/deepening_v1/r3_carrier_composition_replication_v2.py
+      - name: Upload replication result
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r3-carrier-composition-v2
+          path: experiments/deepening_v1/results/r3_carrier_composition_replication_v2.json
+          if-no-files-found: error
