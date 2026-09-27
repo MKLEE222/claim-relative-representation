@@ -93,7 +93,7 @@ Evaluation-only carrier group:
 ### Tun-o-Kain
 
 Seed anchor:
-"reached the Province of TUN-O-KAIN about Tabbas"
+"reached the Province of TUN-O-KAIN"
 
 Access task:
 "Find later editorial treatment bearing on the route through Tun-o-Kain in the earlier note and determine whether later discussion settles or preserves competing positions."
@@ -139,3 +139,8 @@ If all five cases remain discoverable and carrier-complete, retain the null: thi
 If discoverability fails while the later carrier remains globally present, classify it as access/retrieval failure, not binding deletion.
 
 If chunking prevents complete carrier exposure while the underlying Addenda retains the carriers, classify it as workflow-level exposure/profile change, not source-level deletion.
+
+
+## Implementation note
+
+The first CI attempt stopped before opening any outcome because the longer Tun-o-Kain seed anchor crossed Gutenberg emphasis markup around the place name. The seed anchor was shortened to the same source locus (`reached the Province of TUN-O-KAIN`) without changing the seed passage, task, workflow parameters, evaluation anchors, or success rules.
