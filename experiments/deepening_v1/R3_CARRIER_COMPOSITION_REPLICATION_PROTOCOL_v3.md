@@ -18,7 +18,7 @@ C05 -> YC1920E-0082:
 `Among the names of these were Sling, Shirum, Gurun, and Khoza`
 
 C06 -> YC1920E-0083:
-`Cunningham also mentions camlets of camel's hair, under the name of Suklat`
+`Cunningham also mentions camlets of camel's hair, under the name of Suḳlát`
 
 Orthographic normalization is limited to Unicode/casefold and punctuation/whitespace handling already used by the frozen tokenizer. No later-only form such as sa-ha-la or saghlat is injected into C06.
 
@@ -45,3 +45,7 @@ These categories are frozen before outcome.
 ## Claim ceiling
 
 This within-corpus replication characterizes carrier-system heterogeneity. It is not a prevalence estimate.
+
+## Pre-outcome implementation repair
+
+The first execution stopped before ranking because Gutenberg emphasis markup places underscores between anchor words and the C06 source spelling is Suḳlát. No target outcome was observed. The anchor matcher is therefore allowed to treat underscores as punctuation separators, and C06 is corrected to the source-exact orthography. Scientific cases, pointer group, scoring rule, and success categories are unchanged.
