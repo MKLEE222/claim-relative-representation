@@ -138,11 +138,17 @@ def locate_addenda(text: str) -> int:
 
 
 def seed_span(text: str, anchor: str) -> str:
-    low = normalize_text(text).lower()
-    a = normalize_text(anchor).lower()
-    p = low.find(a)
-    if p < 0:
+    # Format-insensitive locator: preserve anchor word order while allowing
+    # Gutenberg emphasis markers, punctuation, and line wrapping between words.
+    norm = normalize_text(text)
+    words = re.findall(r"[A-Za-z]+", normalize_text(anchor))
+    if not words:
+        raise RuntimeError(f"empty seed anchor: {anchor}")
+    pat = r"\\b" + r"[^A-Za-z0-9]+".join(re.escape(w) for w in words) + r"\\b"
+    m = re.search(pat, norm, flags=re.I)
+    if not m:
         raise RuntimeError(f"seed anchor not found: {anchor}")
+    p = m.start()
 
     # Native paragraph first; deterministic bounded fallback if Gutenberg wrapping lacks blank lines.
     left = text.rfind("\n\n", max(0, p - 2200), p)
