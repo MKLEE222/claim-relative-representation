@@ -144,7 +144,7 @@ def seed_span(text: str, anchor: str) -> str:
     words = re.findall(r"[A-Za-z]+", normalize_text(anchor))
     if not words:
         raise RuntimeError(f"empty seed anchor: {anchor}")
-    pat = r"\\b" + r"[^A-Za-z0-9]+".join(re.escape(w) for w in words) + r"\\b"
+    pat = r"\b" + r"[^A-Za-z0-9]+".join(re.escape(w) for w in words) + r"\b"
     m = re.search(pat, norm, flags=re.I)
     if not m:
         raise RuntimeError(f"seed anchor not found: {anchor}")
