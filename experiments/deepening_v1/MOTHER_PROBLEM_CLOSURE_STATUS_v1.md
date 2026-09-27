@@ -103,25 +103,29 @@ Still open:
 
 ## Gate IV — Constructive closure
 
-Status: PARTIAL / CONTROLLED REPAIR ESTABLISHED; ECOLOGICAL CONSTRUCTIVE TEST NOW IDENTIFIED.
+Status: MATERIAL ADVANCE / CONTROLLED BINDING REPAIR + ECOLOGICAL ACCESS REPAIR ESTABLISHED; NATURAL BINDING REPAIR OPEN.
 
 Executed controlled repair:
 - correct source-bound repair exactly recovers all three registered proposition-level outputs;
 - equally shaped wrong repair fails in all three;
 - Urumtsi unaffected control remains stable.
 
-New ecological repair opportunity:
-- R3-AW1 leaves Urumtsi outside B50 despite a determinate target;
+Executed ecological access repair:
+- R3-AW1 leaves Urumtsi outside B50 despite a determinate target: rank 65/482;
 - the frozen historical entry state is 1903 p.201;
-- the native 1920 erratum heading explicitly addresses p.201 and line 12;
-- Generic Access Workflow v1 and Source-Grounded Mediation Contract v1, both frozen on 2026-09-24, already permit native document-local identifiers / explicit pointer carriers when source-supported.
+- the native 1920 Addenda contains the explicit pointer heading `P. 201, Line 12...`;
+- under the pre-existing native document-identifier / explicit-pointer rule, page 201 returns exactly one pointer unit and that unit is the frozen Urumtsi erratum;
+- adjacent sham page 200 returns no target;
+- adjacent sham page 202 returns a different pointer unit and no target;
+- `SELECTIVE_REPAIR_PASS = 1`.
 
-Therefore a source-grounded native-pointer recovery test can be run without inventing a new post-outcome semantic mechanism.
+Thus a real access failure under one lawful route is selectively repaired by another source-native carrier available from the historical entry state.
 
-Still required:
-- execute that pre-existing pointer/identifier primitive with a matched sham identifier control;
-- keep the lexical AW1 null/poor rank unchanged;
-- if successful, show that recovery is carrier-specific rather than a consequence of adding arbitrary information;
+This closes the ecological constructive requirement at the **access/discoverability layer**.
+
+Still required for a stronger proposition-binding generalization:
+- do not redescribe AW2 as a natural repair of stance-to-target, commitment/adoption, or evidence-to-proposition binding;
+- a natural/workflow case where one of those proposition bindings becomes non-determinate and is selectively repaired remains open;
 - no claim of global minimality unless all lawful alternative carrier families are exhausted.
 
 ## Current scientific answer that is already supported
@@ -148,8 +152,8 @@ We still do not have a general result that plain text, TEI, graphs, RAG systems,
 
 ## Immediate closure priority
 
-1. execute the native-pointer/document-identifier repair on the Urumtsi AW1 failure with a matched sham control;
-2. finish and review the hierarchical historical frame;
-3. obtain the independent second-pass review of the five frozen inquiries;
-4. consolidate the claim ledger so controlled binding loss, natural-object recoverability, and workflow discoverability are reported as distinct evidence layers;
+1. finish and review the hierarchical historical frame;
+2. obtain the independent second-pass review of the five frozen inquiries;
+3. consolidate the claim ledger so controlled binding loss, natural-object recoverability, workflow discoverability, and carrier-specific access repair are four distinct evidence layers;
+4. audit whether any already-existing external workflow provides a natural proposition-binding non-determinacy witness; do not manufacture one if none exists;
 5. then reassess whether the bounded mother-problem answer is strong enough for claim freeze or whether one further independent natural workflow is required.
