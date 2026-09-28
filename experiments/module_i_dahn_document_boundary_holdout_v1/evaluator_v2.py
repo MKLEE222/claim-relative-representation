@@ -106,7 +106,7 @@ def evaluate_trace(trace, oracle_doc, runtime_doc):
     neutral_event_agreement = (
         neutral is not None
         and neutral_transition is not None
-        and neutral_transition.get("event_id") == f"NEUTRAL::{neutral['event_key']}"
+        and neutral_transition.get("event_id") == (neutral.get("event_id") or f"NEUTRAL::{neutral['event_key']}")
         and neutral_transition.get("target_document") == oracle_doc.get("path")
     )
     null_event_stable = all([
