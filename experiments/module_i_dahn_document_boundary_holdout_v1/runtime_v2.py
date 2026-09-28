@@ -247,7 +247,7 @@ def make_claim(path, role, idx, el, tree, locator):
 def choose_origin(root):
     origins = root.xpath("//*[local-name()='history']/*[local-name()='origin']")
     if not origins:
-        return None, ""
+        return [], ""
     origin = origins[0]
     ps = origin.xpath("./*[local-name()='p']")
     if ps:
@@ -264,11 +264,11 @@ def choose_origin(root):
         if chosen is None:
             chosen = ps[0]
             lang = (chosen.get(XML_LANG) or "").lower()
-        ods = chosen.xpath(".//*[local-name()='origDate']")
-        return (ods[0] if ods else None), lang
+        ods = [x for x in chosen.xpath(".//*[local-name()='origDate']") if date_attrs(x)]
+        return ods, lang
 
-    ods = origin.xpath(".//*[local-name()='origDate']")
-    return (ods[0] if ods else None), ""
+    ods = [x for x in origin.xpath(".//*[local-name()='origDate']") if date_attrs(x)]
+    return ods, ""
 
 
 def parse_revisions(root):
@@ -358,10 +358,13 @@ def parse_document(path: str, raw: bytes, fault: str | None = None):
     if fault == "annex_contamination" and annex_claims:
         claims.append(copy.deepcopy(annex_claims[0]))
 
-    od, lang = choose_origin(root)
+    origin_els, lang = choose_origin(root)
     origin_claim = None
     origin_handle = None
-    if od is not None and date_attrs(od):
+    origin_contract_status = "NO_ORIGIN_EVIDENCE"
+    origin_element_count = len(origin_els)
+    if origin_element_count == 1:
+        od = origin_els[0]
         origin_claim = make_claim(
             path, "origDate", 1, od, tree,
             contract_locator("history_origin_origDate", 1, lang or "none")
@@ -380,6 +383,9 @@ def parse_document(path: str, raw: bytes, fault: str | None = None):
             "source_locator_contract": origin_claim["source_locator_contract"],
             "source_locator_xpath": origin_claim["source_locator_xpath"],
         }
+        origin_contract_status = "SINGLE_ORIGIN_ADMISSIBLE"
+    elif origin_element_count > 1:
+        origin_contract_status = "COMPOSITE_ORIGIN_UNRESOLVED"
 
     revisions = parse_revisions(root)
     natural_neutral_diagnostic = choose_neutral_runtime(revisions)
@@ -419,6 +425,8 @@ def parse_document(path: str, raw: bytes, fault: str | None = None):
         "annex_claims": annex_claims,
         "origin_claim": origin_claim,
         "origin_handle": origin_handle,
+        "origin_contract_status": origin_contract_status,
+        "origin_element_count": origin_element_count,
         "neutral_event": neutral,
         "natural_neutral_revision_diagnostic": natural_neutral_diagnostic,
         "refs": refs,
