@@ -120,7 +120,7 @@ def verify_parent_fields(page201_norm: str):
 
 def verify_erratum(page50_norm: str):
     pat = re.compile(
-        r"P\.\s*201,\s*Line\s*12\.\s*Read\s+the\s+Governor\s+of\s+Urumtsi\s+founded\s+instead\s+of\s+found\.",
+        r"P\.\s*201,\s*Line\s*12\.\s*Read\s+the\s+Governor\s+of\s+Urumtsi\s+founded\s+instead\s+of\s*found\.",
         re.I,
     )
     if not pat.search(page50_norm):
