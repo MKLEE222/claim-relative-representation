@@ -99,6 +99,17 @@ def _inside_annex(el, pmap, stop=None) -> bool:
 
 
 def _object_selection(root, pmap):
+    if any(
+        _local(x.tag) == "revisionDesc"
+        and (x.attrib.get("status") or "").strip().lower() == "placeholder"
+        for x in root.iter()
+    ):
+        return {
+            "status": "NO_PRIMARY_DOCUMENT_OBJECT",
+            "candidates": [],
+            "boundary_kind": None,
+            "reason": "PLACEHOLDER_DOCUMENT",
+        }
     bodies = [x for x in root.iter() if _local(x.tag) == "body"]
     if not bodies:
         return {
