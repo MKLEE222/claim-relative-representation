@@ -118,9 +118,9 @@ def parse_journal(raw: bytes):
     # H0 therefore extracts only complete literal persName fragments from immutable
     # source text. No recovery tree or source rewrite is used.
     text = raw.decode("utf-8")
-    pers_re = re.compile(r"<persName\\b([^>]*)>([\\s\\S]*?)</persName\\s*>")
-    ref_re = re.compile(r"\\bref\\s*=\\s*([\"'])(.*?)\\1", re.S)
-    comment_re = re.compile(r"<!--[\\s\\S]*?-->")
+    pers_re = re.compile(r"<persName\b([^>]*)>([\s\S]*?)</persName\s*>")
+    ref_re = re.compile(r"\bref\s*=\s*([\"'])(.*?)\1", re.S)
+    comment_re = re.compile(r"<!--[\s\S]*?-->")
     mentions = []
     by_id = defaultdict(list)
     by_surface = defaultdict(list)
