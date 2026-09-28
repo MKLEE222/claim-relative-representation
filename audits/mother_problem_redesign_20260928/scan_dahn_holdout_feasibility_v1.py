@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import calendar
 import collections
 import hashlib
 import io
@@ -7,6 +8,7 @@ import json
 import re
 import tarfile
 import urllib.request
+from datetime import date
 from pathlib import Path
 import xml.etree.ElementTree as ET
 
@@ -16,8 +18,10 @@ PREFIX = "Correspondence/Berlin_Intellectuals/Corpus/"
 XML_NS = "{http://www.w3.org/XML/1998/namespace}"
 
 DATE_ATTRS = (
-    "when", "when-iso", "notBefore", "notAfter", "from", "to",
-    "from-iso", "to-iso", "min", "max"
+    "when", "when-iso",
+    "notBefore", "notAfter", "notBefore-iso", "notAfter-iso",
+    "from", "to", "from-iso", "to-iso",
+    "min", "max"
 )
 UNCERTAINTY_ATTRS = ("cert", "precision", "evidence", "resp")
 NOTE_KEYWORDS = (
@@ -42,6 +46,99 @@ def local(tag: str) -> str:
 def norm_text(s: str) -> str:
     return " ".join((s or "").split())
 
+def _month_bounds(y, m):
+    return date(y, m, 1), date(y, m, calendar.monthrange(y, m)[1])
+
+def _parse_single_partial(v):
+    v = (v or "").strip()
+    m = re.fullmatch(r"(\d{4})", v)
+    if m:
+        y = int(m.group(1))
+        return date(y, 1, 1), date(y, 12, 31)
+    m = re.fullmatch(r"(\d{4})-(\d{1,2})", v)
+    if m:
+        y, mo = map(int, m.groups())
+        if 1 <= mo <= 12:
+            return _month_bounds(y, mo)
+        return None
+    m = re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})", v)
+    if m:
+        y, mo, d = map(int, m.groups())
+        try:
+            x = date(y, mo, d)
+            return x, x
+        except ValueError:
+            return None
+    return None
+
+def parse_temporal_value(v):
+    v = (v or "").strip()
+    if not v:
+        return None
+
+    # Year range: 1804/1806
+    m = re.fullmatch(r"(\d{4})/(\d{4})", v)
+    if m:
+        y1, y2 = map(int, m.groups())
+        return date(y1, 1, 1), date(y2, 12, 31)
+
+    # Month range: 1805-03/05
+    m = re.fullmatch(r"(\d{4})-(\d{1,2})/(\d{1,2})", v)
+    if m:
+        y, m1, m2 = map(int, m.groups())
+        if 1 <= m1 <= 12 and 1 <= m2 <= 12:
+            lo = _month_bounds(y, m1)[0]
+            hi = _month_bounds(y, m2)[1]
+            return lo, hi
+
+    # Day range in same month: 1805-04-7/28
+    m = re.fullmatch(r"(\d{4})-(\d{1,2})-(\d{1,2})/(\d{1,2})", v)
+    if m:
+        y, mo, d1, d2 = map(int, m.groups())
+        try:
+            return date(y, mo, d1), date(y, mo, d2)
+        except ValueError:
+            return None
+
+    return _parse_single_partial(v)
+
+def carrier_bounds(attrs):
+    when = attrs.get("when-iso") or attrs.get("when")
+    if when:
+        return parse_temporal_value(when)
+
+    lowv = (
+        attrs.get("notBefore-iso") or attrs.get("notBefore")
+        or attrs.get("from-iso") or attrs.get("from") or attrs.get("min")
+    )
+    highv = (
+        attrs.get("notAfter-iso") or attrs.get("notAfter")
+        or attrs.get("to-iso") or attrs.get("to") or attrs.get("max")
+    )
+
+    low = parse_temporal_value(lowv) if lowv else None
+    high = parse_temporal_value(highv) if highv else None
+    if not low and not high:
+        return None
+    lo = low[0] if low else date.min
+    hi = high[1] if high else date.max
+    return lo, hi
+
+def bounds_json(bounds):
+    if not bounds:
+        return None
+    lo, hi = bounds
+    return [
+        None if lo == date.min else lo.isoformat(),
+        None if hi == date.max else hi.isoformat(),
+    ]
+
+def bounds_disjoint(a, b):
+    return bool(a and b and (a[1] < b[0] or b[1] < a[0]))
+
+def bounds_overlap_nonidentical(a, b):
+    return bool(a and b and not bounds_disjoint(a, b) and a != b)
+
 def attrs_date(el):
     return {k: el.attrib[k] for k in DATE_ATTRS if k in el.attrib}
 
@@ -54,7 +151,10 @@ def extract_exact_dates(attrs):
     return tuple(sorted(set(vals)))
 
 def interval_signature(attrs):
-    keys = ("notBefore", "notAfter", "from", "to", "from-iso", "to-iso", "min", "max")
+    keys = (
+        "notBefore", "notAfter", "notBefore-iso", "notAfter-iso",
+        "from", "to", "from-iso", "to-iso", "min", "max"
+    )
     return tuple((k, attrs[k]) for k in keys if k in attrs)
 
 def carrier_role(el, ancestors):
@@ -107,12 +207,15 @@ def parse_document(path, raw):
         if role is None:
             continue
         text = norm_text("".join(el.itertext()))
+        b = carrier_bounds(attrs)
         carriers.append({
             "role": role,
             "tag": tag,
             "attrs": attrs,
             "exact_dates": extract_exact_dates(attrs),
             "interval": interval_signature(attrs),
+            "bounds": bounds_json(b),
+            "_bounds": b,
             "text": text,
             "cert": el.attrib.get("cert"),
             "precision": el.attrib.get("precision"),
@@ -143,20 +246,38 @@ def parse_document(path, raw):
             role_exact[c["role"]].add(v)
 
     disagreements = []
-    roles = sorted(role_exact)
-    for i, ra in enumerate(roles):
-        for rb in roles[i+1:]:
-            va, vb = role_exact[ra], role_exact[rb]
-            if va and vb and va.isdisjoint(vb):
+    for i, a in enumerate(carriers):
+        for j in range(i + 1, len(carriers)):
+            b = carriers[j]
+            if bounds_disjoint(a.get("_bounds"), b.get("_bounds")):
                 disagreements.append({
-                    "role_a": ra, "values_a": sorted(va),
-                    "role_b": rb, "values_b": sorted(vb),
+                    "carrier_a": i,
+                    "role_a": a["role"],
+                    "bounds_a": a["bounds"],
+                    "attrs_a": a["attrs"],
+                    "carrier_b": j,
+                    "role_b": b["role"],
+                    "bounds_b": b["bounds"],
+                    "attrs_b": b["attrs"],
                 })
 
     uncertain = []
     for c in carriers:
         if c["interval"] or (c["cert"] and c["cert"].lower() not in ("high", "certain")) or c["precision"]:
             uncertain.append(c)
+
+    narrowing_or_competing = []
+    for u in uncertain:
+        for o in carriers:
+            if o is u:
+                continue
+            if bounds_overlap_nonidentical(u.get("_bounds"), o.get("_bounds")):
+                narrowing_or_competing.append({
+                    "uncertain_role": u["role"],
+                    "uncertain_bounds": u["bounds"],
+                    "other_role": o["role"],
+                    "other_bounds": o["bounds"],
+                })
 
     note_hits = []
     for el in root.iter():
@@ -208,16 +329,20 @@ def parse_document(path, raw):
                 "text": norm_text(" ".join(el.itertext()))[:500],
             })
 
+    has_corresp_desc = any(local(el.tag) == "correspDesc" for el in root.iter())
+    corresp_actions = sum(local(el.tag) == "correspAction" for el in root.iter())
+    is_correspondence = has_corresp_desc and corresp_actions > 0
+
     triggers = []
-    if disagreements:
+    if is_correspondence and disagreements:
         triggers.append("D1")
-    # D2 requires non-singleton/uncertain carrier PLUS another temporal carrier.
-    if uncertain and len(role_exact) >= 2:
+    # D2 requires source-native uncertainty plus another compatible but non-identical constraint.
+    if is_correspondence and uncertain and narrowing_or_competing:
         triggers.append("D2")
-    if note_hits:
+    if is_correspondence and note_hits:
         triggers.append("D3")
     # D4 cannot create eligibility without a separately validated temporal relation.
-    d4_candidate = bool(relations and role_exact)
+    d4_candidate = bool(is_correspondence and relations and role_exact)
 
     evidence_layers = 0
     if role_exact:
@@ -235,10 +360,12 @@ def parse_document(path, raw):
         "role_exact_dates": {k: sorted(v) for k, v in role_exact.items()},
         "disagreements": disagreements,
         "uncertain_carriers": uncertain,
+        "narrowing_or_competing_constraints": narrowing_or_competing,
         "date_note_hits": note_hits,
         "facs": facs,
         "relations": relations,
         "d4_candidate": d4_candidate,
+        "is_correspondence": is_correspondence,
         "revisionDesc": revisions,
         "triggers": triggers,
         "evidence_layer_count": evidence_layers,
@@ -268,6 +395,12 @@ def main():
                 docs.append(parse_document(rel, raw))
             except Exception as e:
                 parse_errors.append({"path": rel, "error": repr(e)})
+
+    for d in docs:
+        for carrier in d["carriers"]:
+            carrier.pop("_bounds", None)
+        for carrier in d["uncertain_carriers"]:
+            carrier.pop("_bounds", None)
 
     docs.sort(key=lambda x: x["path"])
     eligible = [d for d in docs if d["triggers"]]
@@ -327,6 +460,8 @@ def main():
             "D4_CANDIDATE is not yet a validated temporal constraint; explicit related-document semantics require a later protocol.",
             "revisionDesc is not historical evidence and is used only as a candidate irrelevant/null event source.",
             "Repeated multilingual origDate prose with identical machine date values is deduplicated.",
+            "Date disagreement is based on disjoint normalized temporal intervals, not raw string inequality.",
+            "Only XML documents with correspDesc and correspAction can become holdout episodes.",
             "This scan identifies source-feasible episodes only; it does not test discovery or warrant.",
         ],
     }
@@ -348,6 +483,7 @@ def main():
                 "roles": d["role_exact_dates"],
                 "disagreements": d["disagreements"],
                 "uncertain": len(d["uncertain_carriers"]),
+                "narrowing_or_competing": len(d["narrowing_or_competing_constraints"]),
                 "note_hits": len(d["date_note_hits"]),
                 "facs": len(d["facs"]),
                 "relations": len(d["relations"]),
