@@ -110,6 +110,19 @@ STRUCTURAL_B = b"""<?xml version="1.0" encoding="UTF-8"?>
 </TEI>"""
 
 
+COMMENT_NEUTRAL_A = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader><profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-01"/></correspAction></correspDesc></profileDesc></teiHeader>
+ <text><body><div type="letter"><p>Alpha beta <hi>gamma</hi> delta.</p></div></body></text>
+</TEI>"""
+
+COMMENT_NEUTRAL_B = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader><profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-01"/></correspAction></correspDesc></profileDesc></teiHeader>
+ <text><body><div type="letter"><p>Alpha<!-- editorial comment --> beta <?review ignore?> <hi>gamma</hi> delta.</p></div></body></text>
+</TEI>"""
+
+
 def require(cond, message):
     if not cond:
         raise AssertionError(message)
@@ -303,6 +316,25 @@ def main():
         "oracle_b": o26b["object_contract"],
         "runtime_a": r26a["object_contract"],
         "runtime_b": r26b["object_contract"],
+    })
+
+    # F27: comments/PIs must not change scholarly-object identity across parsers.
+    o27a = oracle_l.parse_document("SYNTHETIC/comment.xml", COMMENT_NEUTRAL_A, CTX)
+    o27b = oracle_l.parse_document("SYNTHETIC/comment.xml", COMMENT_NEUTRAL_B, CTX)
+    r27a = runtime_l.parse_document("SYNTHETIC/comment.xml", COMMENT_NEUTRAL_A, CTX)
+    r27b = runtime_l.parse_document("SYNTHETIC/comment.xml", COMMENT_NEUTRAL_B, CTX)
+    results["F27_COMMENT_PI_SIGNATURE_NEUTRAL"] = all([
+        o27a["primary_boundary_signature"] == o27b["primary_boundary_signature"],
+        r27a["primary_boundary_signature"] == r27b["primary_boundary_signature"],
+        o27a["primary_boundary_signature"] == r27a["primary_boundary_signature"],
+        o27b["primary_boundary_signature"] == r27b["primary_boundary_signature"],
+        o27a["object_id"] == o27b["object_id"] == r27a["object_id"] == r27b["object_id"],
+    ])
+    require(results["F27_COMMENT_PI_SIGNATURE_NEUTRAL"], {
+        "oracle_plain": o27a["object_contract"],
+        "oracle_commented": o27b["object_contract"],
+        "runtime_plain": r27a["object_contract"],
+        "runtime_commented": r27b["object_contract"],
     })
 
     print({
