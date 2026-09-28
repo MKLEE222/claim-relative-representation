@@ -1,0 +1,32 @@
+name: module-b2-whitman-source-route-v2
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_b2_whitman_certainty_continuation_v1/audit_source_routes_v2.py"
+      - "experiments/module_b2_whitman_certainty_continuation_v1/SOURCE_ROUTE_REPAIR_v2.md"
+      - ".github/workflows/module_b2_whitman_source_route_v2.yml"
+  workflow_dispatch:
+
+jobs:
+  audit-route:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile
+        run: python -m py_compile experiments/module_b2_whitman_certainty_continuation_v1/audit_source_routes_v2.py
+      - name: Execute source-route v2 audit
+        run: python experiments/module_b2_whitman_certainty_continuation_v1/audit_source_routes_v2.py
+      - name: Upload route audit
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-b2-whitman-source-route-v2
+          path: |
+            experiments/module_b2_whitman_certainty_continuation_v1/results_route_v2
+            experiments/module_b2_whitman_certainty_continuation_v1/SOURCE_ROUTE_REPAIR_v2.md
+            experiments/module_b2_whitman_certainty_continuation_v1/audit_source_routes_v2.py
