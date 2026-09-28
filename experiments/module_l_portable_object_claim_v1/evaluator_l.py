@@ -27,7 +27,6 @@ def _proof_map(claims):
             "population_scope": c.get("population_scope"),
             "source_file": c.get("source_file"),
             "source_locator_contract": c.get("source_locator_contract"),
-            "source_locator_xpath": c.get("source_locator_xpath"),
         }
         for c in claims
         if c.get("claim_key")
@@ -115,7 +114,6 @@ def evaluate_trace(trace, oracle_doc, runtime_doc):
                 "population_scope": c.get("population_scope"),
                 "source_file": c.get("source_file"),
                 "source_locator_contract": c.get("source_locator_contract"),
-                "source_locator_xpath": c.get("source_locator_xpath"),
             } == rproof.get(c.get("claim_key"))
             for c in payload_claims
         )
