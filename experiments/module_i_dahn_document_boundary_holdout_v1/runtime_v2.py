@@ -28,6 +28,19 @@ TEMPORAL_RE = re.compile(
     re.I,
 )
 
+CONTROL_NULL_EVENT = {
+    "event_key": "CONTROL_NULL_V1",
+    "event_id": "CONTROL_NULL_V1",
+    "event_class": "NON_TEMPORAL_MAINTENANCE",
+    "operation": "REFRESH_NON_TEMPORAL_METADATA_INDEX",
+    "temporal_targets": [],
+    "payload": {"index_family": "presentation-metadata", "revision": "v1"},
+    "when": None,
+    "who": "CONTROL",
+    "text": "Controlled non-temporal presentation metadata index refresh.",
+    "attrs": {},
+}
+
 INTERFACES = (
     "I_NATIVE",
     "I_RSTAR",
@@ -369,7 +382,8 @@ def parse_document(path: str, raw: bytes, fault: str | None = None):
         }
 
     revisions = parse_revisions(root)
-    neutral = choose_neutral_runtime(revisions)
+    natural_neutral_diagnostic = choose_neutral_runtime(revisions)
+    neutral = copy.deepcopy(CONTROL_NULL_EVENT)
 
     is_correspondence = bool(
         root.xpath("//*[local-name()='correspDesc']")
@@ -406,6 +420,7 @@ def parse_document(path: str, raw: bytes, fault: str | None = None):
         "origin_claim": origin_claim,
         "origin_handle": origin_handle,
         "neutral_event": neutral,
+        "natural_neutral_revision_diagnostic": natural_neutral_diagnostic,
         "refs": refs,
         "facs": facs,
         "has_annex": has_annex,
@@ -747,7 +762,7 @@ def apply_neutral_event(state, neutral_event, fault=None):
         return state, None, False
 
     event = {
-        "event_id": f"NEUTRAL::{neutral_event['event_key']}",
+        "event_id": neutral_event.get("event_id") or f"NEUTRAL::{neutral_event['event_key']}",
         "event_key": neutral_event["event_key"],
         "event_class": "NON_TEMPORAL_MAINTENANCE",
         "target_document": state["document"],
