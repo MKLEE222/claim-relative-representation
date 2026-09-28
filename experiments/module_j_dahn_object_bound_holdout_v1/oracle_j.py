@@ -57,6 +57,25 @@ def _object_selection(root):
         if _local(x.tag) == "div" and x.attrib.get("type") == "transcription"
     ]
     if not transcriptions:
+        direct_divs = [x for x in list(first_body) if _local(x.tag) == "div"]
+        corresp_desc = [x for x in root.iter() if _local(x.tag) == "correspDesc"]
+        sent_actions = [
+            x for x in root.iter()
+            if _local(x.tag) == "correspAction" and (x.attrib.get("type") or "").lower() == "sent"
+        ]
+        if len(direct_divs) == 1 and len(corresp_desc) == 1 and sent_actions:
+            candidate = direct_divs[0]
+            letter_markers = {
+                _local(x.tag)
+                for x in candidate.iter()
+                if _local(x.tag) in {"opener", "closer", "salute", "signed", "dateline"}
+            }
+            if letter_markers:
+                return {
+                    "status": "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+                    "candidates": [candidate],
+                    "boundary_kind": "UNTYPED_BODY_LETTER",
+                }
         return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
 
     t = transcriptions[0]
