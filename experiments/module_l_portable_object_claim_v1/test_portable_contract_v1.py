@@ -164,6 +164,31 @@ EXPLICIT_PLACEHOLDER = b"""<?xml version="1.0" encoding="UTF-8"?>
  </body></text>
 </TEI>"""
 
+EMBEDDED_LETTER = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1900-01-01"/></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1900-01-02"/></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-03"/></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body>
+  <div type="letter">
+   <opener><dateline><date when="1900-01-01"/></dateline></opener>
+   <p>Primary text before embedded correspondence.</p>
+   <p><floatingText><body>
+    <div type="letter">
+     <opener><dateline><date when="2099-01-01">embedded-only date</date></dateline></opener>
+     <p>Embedded letter.</p>
+    </div>
+   </body></floatingText></p>
+   <closer><signed>Primary author</signed></closer>
+  </div>
+ </body></text>
+</TEI>"""
+
+
 
 
 def require(cond, message):
@@ -425,6 +450,43 @@ def main():
     require(results["F29_EXPLICIT_PLACEHOLDER_REJECTED"], {
         "oracle": o29["object_contract"],
         "runtime": r29["object_contract"],
+    })
+
+    # F30: a letter inside floatingText is embedded, not a competing primary object.
+    o30 = oracle_l.parse_document("SYNTHETIC/embedded_letter.xml", EMBEDDED_LETTER, CTX)
+    r30 = runtime_l.parse_document("SYNTHETIC/embedded_letter.xml", EMBEDDED_LETTER, CTX)
+    embedded_interval = ["2099-01-01", "2099-01-01"]
+    t30 = runtime_l.execute(r30, "I_RSTAR")
+    e30 = evaluator_l.evaluate_trace(t30, o30, r30)
+    results["F30_EMBEDDED_LETTER_SCOPED_OUT"] = all([
+        o30["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        r30["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        o30["object_contract"]["candidate_count"] == 1,
+        r30["object_contract"]["candidate_count"] == 1,
+        all(c.get("interval") != embedded_interval for c in o30["claims"]),
+        all(c.get("interval") != embedded_interval for c in r30["claims"]),
+        any(
+            x.get("applicability_class") == "EXCLUDED_EMBEDDED_OBJECT"
+            and x.get("raw_attrs", {}).get("when") == "2099-01-01"
+            for x in o30.get("excluded_temporal_claims", [])
+        ),
+        any(
+            x.get("applicability_class") == "EXCLUDED_EMBEDDED_OBJECT"
+            and x.get("raw_attrs", {}).get("when") == "2099-01-01"
+            for x in r30.get("excluded_temporal_claims", [])
+        ),
+        o30["full_trajectory_eligible"],
+        r30["full_trajectory_eligible"],
+        e30["end_to_end_pass"],
+    ])
+    require(results["F30_EMBEDDED_LETTER_SCOPED_OUT"], {
+        "oracle_object": o30["object_contract"],
+        "runtime_object": r30["object_contract"],
+        "oracle_claims": o30["claims"],
+        "runtime_claims": r30["claims"],
+        "oracle_excluded": o30.get("excluded_temporal_claims"),
+        "runtime_excluded": r30.get("excluded_temporal_claims"),
+        "evaluation": e30,
     })
 
     print({
