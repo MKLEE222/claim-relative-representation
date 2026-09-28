@@ -1,0 +1,14 @@
+{
+  "ci_run_id": 36371723674,
+  "ci_artifact_id": 10949253175,
+  "ci_artifact_sha256": "3805156e376bca6f536f15a5b70c1f251d58e120ebd48d411047bcf44cc6c5d6",
+  "code_bytes_identical": false,
+  "code_difference": "One checkpoint-cost bookkeeping expression: canonical(packet[open_scopes]) locally vs canonical(contexts[i]) in CI. Packet is a JSON roundtrip of the same context. All 493 checkpoint records agree byte-for-byte.",
+  "local_pilot_code_sha256": "724beaf78b86abedb24ac23fbb1b62b5aa7822bf8b1c32445b8552edcc013fa8",
+  "ci_pilot_code_sha256": "684312f7aae5e37c6e791a057bf53e33e236dcae4012384f179822d2cdd59d40",
+  "scientific_payload_identical": true,
+  "all_checkpoint_records_byte_identical": true,
+  "source_trace_bytes_identical": true,
+  "scientific_payload_sha256": "5d25cd1bd505d6d916aeb602407337f89608a729ddddb77a76b59470171ae3fb",
+  "authority": "Computational reproducibility only; NOT independent historical validation"
+}
