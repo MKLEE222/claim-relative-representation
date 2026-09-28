@@ -148,3 +148,21 @@ This repair is allowed because:
 The repaired implementation must be rerun on Berlin.
 
 Only after it passes implementation checks may the exact frozen evaluator be executed once on Paul.
+
+
+## 8. Operational clarification: Q0 is not the root warrant
+
+Q0 remains the edition-facing current chronology output used for current-answer equivalence.
+
+The evidence-effect test does NOT compare Q0 directly to the post-origin state.
+
+Define:
+
+    W_root = contracted warrant from visible t0 root carriers
+    W_post = contracted warrant after OPEN_ORIGIN appends the canonical origin claim
+
+FULL_TRAJECTORY E3 requires:
+
+    W_root != W_post
+
+This ensures the later evidence operation changes the research warrant state itself, rather than merely differing from a narrower display-level Q0.
