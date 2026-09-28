@@ -35,6 +35,20 @@ def _object_selection(root):
     body = bodies[0]
     trans = body.xpath(".//*[local-name()='div' and @type='transcription']")
     if not trans:
+        direct_divs = body.xpath("./*[local-name()='div']")
+        corresp_desc = root.xpath("//*[local-name()='correspDesc']")
+        sent_actions = root.xpath("//*[local-name()='correspAction' and @type='sent']")
+        if len(direct_divs) == 1 and len(corresp_desc) == 1 and sent_actions:
+            candidate = direct_divs[0]
+            markers = candidate.xpath(
+                ".//*[local-name()='opener' or local-name()='closer' or local-name()='salute' or local-name()='signed' or local-name()='dateline']"
+            )
+            if markers:
+                return {
+                    "status": "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+                    "candidates": [candidate],
+                    "boundary_kind": "UNTYPED_BODY_LETTER",
+                }
         return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
 
     t = trans[0]
