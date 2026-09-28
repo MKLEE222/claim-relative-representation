@@ -86,7 +86,8 @@ def _inside_annex(el, stop=None) -> bool:
 
 def _object_selection(root):
     if any(
-        _local(x) == "revisionDesc"
+        isinstance(x.tag, str)
+        and _local(x) == "revisionDesc"
         and (x.get("status") or "").strip().lower() == "placeholder"
         for x in root.iter()
     ):
