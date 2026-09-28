@@ -1,0 +1,43 @@
+name: module-i-dahn-boundary-development-verification-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_i_dahn_document_boundary_holdout_v1/**"
+      - ".github/workflows/module_i_dahn_boundary_development_verification_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  berlin:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - run: python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+      - name: Verify Berlin exposed development corpus
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/run.py --mode development --prefix Correspondence/Berlin_Intellectuals/Corpus/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-i-berlin-development-v1
+          path: experiments/module_i_dahn_document_boundary_holdout_v1/development_results
+
+  paul:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - run: python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+      - name: Verify exposed Paul development corpus with repaired boundary
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/run.py --mode development --prefix Correspondence/Paul_d_Estournelles_de_Constant/Corpus/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-i-paul-development-v1
+          path: experiments/module_i_dahn_document_boundary_holdout_v1/development_results
