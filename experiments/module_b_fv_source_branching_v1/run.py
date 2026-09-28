@@ -5,6 +5,7 @@ import collections
 import hashlib
 import json
 import re
+import html
 import urllib.request
 from pathlib import Path
 
@@ -186,18 +187,31 @@ def build_source_scope_index(source_raw):
             if eid not in starts:
                 raise RuntimeError("raw source unbound close " + eid)
             lo, attrs, marker_start = starts.pop(eid)
-            inner = text[lo : m.start()]
-            frag = xmlparse(("<fragment>" + inner + "</fragment>").encode())
+            hi = m.start()
+            inner = text[lo:hi]
             cancellations = []
-            for n in frag.iter():
-                if name(n) in {"del", "mdel"}:
-                    t = " ".join("".join(n.itertext()).split())
-                    if t:
-                        cancellations.append({"element": name(n), "text": t})
+            # sga-add is milestone-style markup: its boundaries may occur inside
+            # ordinary XML elements (for example longToken). Therefore the byte
+            # range between markers is not necessarily a standalone XML fragment.
+            # Detect only cancellation elements fully contained in the scope.
+            cancel_re = re.compile(
+                r"<(del|mdel)\\b[^>]*>(.*?)</\\1\\s*>",
+                re.DOTALL,
+            )
+            for cm in cancel_re.finditer(text):
+                if cm.start() < lo or cm.end() > hi:
+                    continue
+                raw_inner = cm.group(2)
+                stripped = re.sub(r"<[^>]+>", "", raw_inner)
+                t = " ".join(html.unescape(stripped).split())
+                if t:
+                    cancellations.append({"element": cm.group(1), "text": t})
+            scope_text = re.sub(r"<[^>]+>", "", inner)
+            scope_text = " ".join(html.unescape(scope_text).split())
             spans[eid] = {
                 "sid": eid,
                 "attrs": attrs,
-                "text": " ".join("".join(frag.itertext()).split()),
+                "text": scope_text,
                 "cancellations": cancellations,
                 "source_char_span": [marker_start, m.end()],
             }
