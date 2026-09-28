@@ -85,6 +85,17 @@ def _inside_annex(el, stop=None) -> bool:
 
 
 def _object_selection(root):
+    if any(
+        _local(x) == "revisionDesc"
+        and (x.get("status") or "").strip().lower() == "placeholder"
+        for x in root.iter()
+    ):
+        return {
+            "status": "NO_PRIMARY_DOCUMENT_OBJECT",
+            "candidates": [],
+            "boundary_kind": None,
+            "reason": "PLACEHOLDER_DOCUMENT",
+        }
     bodies = root.xpath("//*[local-name()='body']")
     if not bodies:
         return {
