@@ -363,6 +363,32 @@ def extract_etree_independent(path: str, raw: bytes):
     return sorted((role, tuple(sorted(attrs.items()))) for role, attrs in rows)
 
 
+def extract_primary_origdate_etree(raw: bytes):
+    """Independent stdlib selection of the later primary origin-date evidence."""
+    root = ET.fromstring(raw)
+    origin = next((x for x in root.iter() if local(x.tag) == "origin"), None)
+    if origin is None:
+        return None
+
+    ps = [x for x in list(origin) if local(x.tag) == "p"]
+    chosen = None
+    for wanted in ("en", "de", "fr"):
+        for p in ps:
+            if (p.attrib.get(XML_LANG) or "").lower() == wanted:
+                chosen = p
+                break
+        if chosen is not None:
+            break
+    if chosen is None and ps:
+        chosen = ps[0]
+
+    search_root = chosen if chosen is not None else origin
+    od = next((x for x in search_root.iter() if local(x.tag) == "origDate"), None)
+    if od is None or not attrs_date(od):
+        return None
+    return tuple(sorted(attrs_date(od).items()))
+
+
 def public_claim(c):
     return {k: v for k, v in c.items() if k != "_bounds"}
 
@@ -637,6 +663,17 @@ def parse_corpus(prefix, archive_raw):
                 )
                 if pcmp != indep:
                     raise RuntimeError(f"independent current-carrier parser mismatch: {pcmp} != {indep}")
+
+                indep_origin = extract_primary_origdate_etree(raw)
+                primary_origin = (
+                    tuple(sorted(p["origin_claim"]["raw_attrs"].items()))
+                    if p["origin_claim"] is not None
+                    else None
+                )
+                if primary_origin != indep_origin:
+                    raise RuntimeError(
+                        f"independent primary-origDate parser mismatch: {primary_origin} != {indep_origin}"
+                    )
 
                 d1, d2 = eligibility(p["claims"])
                 q0 = q0_from_claims(p["claims"], p["origin_claim"])
