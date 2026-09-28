@@ -262,6 +262,32 @@ def _rekey_claim(c, object_id: str, boundary_signature: str, applicability_class
     return x
 
 
+def _portable_runtime_eligibility(claims):
+    """Runtime-side complete eligibility record for the portable contract."""
+    d1_pairs = []
+    d2_pairs = []
+    usable = [c for c in claims if c.get("_bounds")]
+    for i, a in enumerate(usable):
+        for b in usable[i + 1:]:
+            if base.is_disjoint(a["_bounds"], b["_bounds"]):
+                d1_pairs.append((a.get("claim_key"), b.get("claim_key")))
+            elif (
+                (a.get("uncertain") or b.get("uncertain"))
+                and base.overlaps_but_diff(a["_bounds"], b["_bounds"])
+            ):
+                d2_pairs.append((a.get("claim_key"), b.get("claim_key")))
+    trigger = "D1" if d1_pairs else "D2" if d2_pairs else None
+    active_pairs = d1_pairs if d1_pairs else d2_pairs
+    keys = sorted({k for pair in active_pairs for k in pair if k})
+    return {
+        "eligible": bool(trigger),
+        "trigger": trigger,
+        "live_claim_keys": keys,
+        "d1_pairs": d1_pairs,
+        "d2_pairs": d2_pairs,
+    }
+
+
 def _selected_dateline_elements(candidate):
     if candidate is None:
         return []
@@ -417,7 +443,7 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
         root.xpath("//*[local-name()='correspDesc']")
         and root.xpath("//*[local-name()='correspAction']")
     )
-    eligibility = base.runtime_eligibility(claims)
+    eligibility = _portable_runtime_eligibility(claims)
     root_warrant = base.runtime_warrant(claims)
     post_claims = claims + ([origin] if origin is not None else [])
     post_warrant = base.runtime_warrant(post_claims) if origin is not None else root_warrant
@@ -485,10 +511,15 @@ def discover(claims, expected_object_id=None):
         for c in claims
     ):
         return None
-    q = base.discover(claims)
-    if q:
-        q["object_id"] = expected_object_id
-    return q
+    eligibility = _portable_runtime_eligibility(claims)
+    if not eligibility["eligible"]:
+        return None
+    return {
+        "type": "TEMPORAL_WARRANT_QUERY",
+        "trigger": eligibility["trigger"],
+        "disputed_claim_keys": eligibility["live_claim_keys"],
+        "object_id": expected_object_id,
+    }
 
 
 def make_interface(doc, arm):
