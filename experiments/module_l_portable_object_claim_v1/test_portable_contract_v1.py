@@ -146,6 +146,25 @@ ANNEXE_NESTED_LETTER = b"""<?xml version="1.0" encoding="UTF-8"?>
  </body></text>
 </TEI>"""
 
+EXPLICIT_PLACEHOLDER = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1900-01-01"/></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1900-01-02"/></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-03"/></correspAction></correspDesc></profileDesc>
+  <revisionDesc status="placeholder"><change when="2026-01-01">Metadata-only placeholder.</change></revisionDesc>
+ </teiHeader>
+ <text><body>
+  <div type="letter">
+   <opener><dateline><date when="1900-01-01"/></dateline></opener>
+   <p><gap reason="untranscribed"/></p>
+  </div>
+ </body></text>
+</TEI>"""
+
+
 
 def require(cond, message):
     if not cond:
@@ -386,6 +405,26 @@ def main():
     require(results["F28_ANNEXE_NESTED_LETTER_EXCLUDED"], {
         "oracle": o28,
         "runtime": r28,
+    })
+
+    # F29: an explicit Route-A-shaped placeholder is rejected before object selection.
+    o29 = oracle_l.parse_document("SYNTHETIC/explicit_placeholder.xml", EXPLICIT_PLACEHOLDER, CTX)
+    r29 = runtime_l.parse_document("SYNTHETIC/explicit_placeholder.xml", EXPLICIT_PLACEHOLDER, CTX)
+    results["F29_EXPLICIT_PLACEHOLDER_REJECTED"] = all([
+        o29["object_contract"]["status"] == "NO_PRIMARY_DOCUMENT_OBJECT",
+        r29["object_contract"]["status"] == "NO_PRIMARY_DOCUMENT_OBJECT",
+        o29["object_contract"]["reason"] == "PLACEHOLDER_DOCUMENT",
+        r29["object_contract"]["reason"] == "PLACEHOLDER_DOCUMENT",
+        not o29["eligibility"]["eligible"],
+        not r29["eligibility"]["eligible"],
+        o29["expected_question"] is None,
+        r29["expected_question"] is None,
+        not o29["claims"],
+        not r29["claims"],
+    ])
+    require(results["F29_EXPLICIT_PLACEHOLDER_REJECTED"], {
+        "oracle": o29["object_contract"],
+        "runtime": r29["object_contract"],
     })
 
     print({
