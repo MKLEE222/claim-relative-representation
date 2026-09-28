@@ -28,6 +28,13 @@ jobs:
           python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/audit_origin_sets_v2.py
       - name: Run adversarial fault-injection tests
         run: python experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+      - name: Record frozen evaluator SHA-256 identities
+        run: |
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/oracle_v2.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/runtime_v2.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/evaluator_v2.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
       - name: Audit multi-origDate composition on exposed Berlin
         run: python experiments/module_i_dahn_document_boundary_holdout_v1/audit_origin_sets_v2.py --prefix Correspondence/Berlin_Intellectuals/Corpus/
       - name: Audit multi-origDate composition on exposed Paul
