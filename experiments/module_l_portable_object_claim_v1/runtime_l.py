@@ -27,8 +27,22 @@ def _sha(raw: bytes) -> str:
 
 
 def _boundary_signature(el) -> str:
-    """Hash the selected XML boundary structurally, not just its visible text."""
-    return _sha(LET.tostring(el, method="c14n", exclusive=True, with_comments=False))
+    """Runtime implementation of the frozen structural boundary signature."""
+    def emit(node):
+        attrs = sorted((_local(k), v) for k, v in node.attrib.items())
+        parts = [["tag", _local(node)], ["attrs", attrs]]
+        text = _norm(node.text or "")
+        if text:
+            parts.append(["text", text])
+        for child in list(node):
+            parts.append(["child", emit(child)])
+            tail = _norm(child.tail or "")
+            if tail:
+                parts.append(["tail", tail])
+        return parts
+    return _sha(
+        json.dumps(emit(el), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    )
 
 
 def _norm(s: str) -> str:
@@ -163,6 +177,7 @@ def _object_contract(path: str, raw: bytes, source_context: dict):
             "reason": sel.get("reason"),
             "source_repository": source_context["source_repository"],
             "source_version": source_context["source_version"],
+            "population_scope": source_context["population_scope"],
         }
 
     candidate = candidates[0]
@@ -187,6 +202,7 @@ def _object_contract(path: str, raw: bytes, source_context: dict):
         "reason": None,
         "source_repository": source_context["source_repository"],
         "source_version": source_context["source_version"],
+        "population_scope": source_context["population_scope"],
     }
 
 
