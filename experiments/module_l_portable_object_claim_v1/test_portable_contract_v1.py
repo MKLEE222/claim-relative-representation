@@ -123,6 +123,30 @@ COMMENT_NEUTRAL_B = b"""<?xml version="1.0" encoding="UTF-8"?>
 </TEI>"""
 
 
+ANNEXE_NESTED_LETTER = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1900-01-01"/></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1900-01-02"/></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-03"/></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body>
+  <div type="letter">
+   <opener><dateline><date when="1900-01-01"/></dateline></opener>
+   <p>Primary object.</p>
+  </div>
+  <div type="annexe">
+   <div type="letter">
+    <opener><dateline><date when="2099-01-01">annex-only date</date></dateline></opener>
+    <p>Enclosed object that must not become primary.</p>
+   </div>
+  </div>
+ </body></text>
+</TEI>"""
+
+
 def require(cond, message):
     if not cond:
         raise AssertionError(message)
@@ -335,6 +359,33 @@ def main():
         "oracle_commented": o27b["object_contract"],
         "runtime_plain": r27a["object_contract"],
         "runtime_commented": r27b["object_contract"],
+    })
+
+    # F28: exposed DAHN spelling "annexe" is the same exclusion class as "annex".
+    o28 = oracle_l.parse_document("SYNTHETIC/annexe_nested.xml", ANNEXE_NESTED_LETTER, CTX)
+    r28 = runtime_l.parse_document("SYNTHETIC/annexe_nested.xml", ANNEXE_NESTED_LETTER, CTX)
+    annex_interval = ["2099-01-01", "2099-01-01"]
+    results["F28_ANNEXE_NESTED_LETTER_EXCLUDED"] = all([
+        o28["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        r28["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        o28["object_contract"]["candidate_count"] == 1,
+        r28["object_contract"]["candidate_count"] == 1,
+        all(c.get("interval") != annex_interval for c in o28["claims"]),
+        all(c.get("interval") != annex_interval for c in r28["claims"]),
+        any(
+            x.get("applicability_class") == "EXCLUDED_ANNEX"
+            and x.get("raw_attrs", {}).get("when") == "2099-01-01"
+            for x in o28.get("excluded_temporal_claims", [])
+        ),
+        any(
+            x.get("applicability_class") == "EXCLUDED_ANNEX"
+            and x.get("raw_attrs", {}).get("when") == "2099-01-01"
+            for x in r28.get("excluded_temporal_claims", [])
+        ),
+    ])
+    require(results["F28_ANNEXE_NESTED_LETTER_EXCLUDED"], {
+        "oracle": o28,
+        "runtime": r28,
     })
 
     print({
