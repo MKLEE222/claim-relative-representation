@@ -26,6 +26,19 @@ TEMPORAL_RE = re.compile(
     re.I,
 )
 
+CONTROL_NULL_EVENT = {
+    "event_key": "CONTROL_NULL_V1",
+    "event_id": "CONTROL_NULL_V1",
+    "event_class": "NON_TEMPORAL_MAINTENANCE",
+    "operation": "REFRESH_NON_TEMPORAL_METADATA_INDEX",
+    "temporal_targets": [],
+    "payload": {"index_family": "presentation-metadata", "revision": "v1"},
+    "when": None,
+    "who": "CONTROL",
+    "text": "Controlled non-temporal presentation metadata index refresh.",
+    "attrs": {},
+}
+
 
 def _local(tag: str) -> str:
     return tag.rsplit("}", 1)[-1]
@@ -501,7 +514,8 @@ def parse_document(path: str, raw: bytes):
     root_warrant = _warrant(claims)
     post_warrant = _warrant(claims, origin_claim) if origin_claim else root_warrant
     revisions = _extract_revisions(root, pmap)
-    neutral = _neutral_event(revisions)
+    natural_neutral_diagnostic = _neutral_event(revisions)
+    neutral = dict(CONTROL_NULL_EVENT)
     q0 = _q0(sent_claims, origin_claim)
 
     full_reasons = []
@@ -511,9 +525,6 @@ def parse_document(path: str, raw: bytes):
         full_reasons.append("NO_ORIGIN_EVIDENCE")
     if root_warrant == post_warrant:
         full_reasons.append("NO_WARRANT_STATE_CHANGE")
-    if neutral is None:
-        full_reasons.append("NO_NULL_EVENT")
-
     required_live = _required_live_after(claims, origin_claim, post_warrant)
     expected_question = None
     if eligibility["eligible"]:
@@ -553,6 +564,7 @@ def parse_document(path: str, raw: bytes):
         "warrant_after": post_warrant,
         "required_live_claim_keys_after": required_live,
         "neutral_event": neutral,
+        "natural_neutral_revision_diagnostic": natural_neutral_diagnostic,
         "full_trajectory_eligible": not full_reasons,
         "full_trajectory_exclusion_reasons": full_reasons,
         "audit_packet": audit_packet,
