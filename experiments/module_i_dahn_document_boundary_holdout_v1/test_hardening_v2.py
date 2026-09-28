@@ -140,6 +140,26 @@ def main():
     detections["F8_WRONG_DOCUMENT_BOUNDARY"] = not ev["boundary_exact"]
     require(detections["F8_WRONG_DOCUMENT_BOUNDARY"], f"wrong boundary escaped: {ev}")
 
+    # F9 / contract control: composite chosen origin statement must not be simplified.
+    composite = SYNTHETIC.replace(
+        b'Editorial origin <origDate when="1900-01-02">2 Jan 1900</origDate>.',
+        b'Editorial origin <origDate when="1900-01-02">2 Jan 1900</origDate> or '
+        b'<origDate when="1900-01-04">4 Jan 1900</origDate>.',
+    )
+    odc = oracle_v2.parse_document("SYNTHETIC/composite.xml", composite)
+    rdc = runtime_v2.parse_document("SYNTHETIC/composite.xml", composite)
+    detections["F9_COMPOSITE_ORIGIN_REJECTED"] = all([
+        odc["origin_contract_status"] == "COMPOSITE_ORIGIN_UNRESOLVED",
+        rdc["origin_contract_status"] == "COMPOSITE_ORIGIN_UNRESOLVED",
+        odc["origin_element_count"] == 2,
+        rdc["origin_element_count"] == 2,
+        odc["origin_claim"] is None,
+        rdc["origin_claim"] is None,
+        not odc["full_trajectory_eligible"],
+        "COMPOSITE_ORIGIN_UNRESOLVED" in odc["full_trajectory_exclusion_reasons"],
+    ])
+    require(detections["F9_COMPOSITE_ORIGIN_REJECTED"], "composite origin was silently simplified")
+
     # Negative control: compatible dates should not invent a live question.
     compatible = SYNTHETIC.replace(b'when="1900-01-03"', b'when="1900-01-01"', 1)
     compatible = compatible.replace(b'when="1900-01-02"', b'when="1900-01-01"', 1)
