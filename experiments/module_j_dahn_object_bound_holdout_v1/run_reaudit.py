@@ -331,6 +331,16 @@ def main():
             "contract_unresolved_full": sum(not r["contract"]["ok"] for r in full_rows),
         },
         "aggregates": aggregates,
+        "object_status_manifest": [
+            {
+                "path": r["path"],
+                "status": r["oracle"]["object_contract"]["status"],
+                "candidate_count": r["oracle"]["object_contract"]["candidate_count"],
+                "boundary_kind": r["oracle"]["object_contract"].get("boundary_kind"),
+            }
+            for r in rows
+            if r["oracle"]["object_contract"]["status"] != "SINGLE_PRIMARY_DOCUMENT_OBJECT"
+        ],
         "development_mechanism_checks": {
             "RSTAR_all_full_trajectories": rstar_all,
             "NATIVE_all_full_trajectories": native_all,
