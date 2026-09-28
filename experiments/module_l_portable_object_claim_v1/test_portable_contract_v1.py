@@ -79,6 +79,37 @@ MULTIPLE_DIRECT = b"""<?xml version="1.0" encoding="UTF-8"?>
 </TEI>"""
 
 
+ANNEX_INSIDE_SELECTED = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1900-01-01"/></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1900-01-02"/></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-03"/></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body>
+  <div type="letter">
+   <opener><dateline><date when="1900-01-01"/></dateline></opener>
+   <p>Primary letter.</p>
+   <div type="annex"><opener><dateline><date when="2099-01-01">annex date</date></dateline></opener></div>
+  </div>
+ </body></text>
+</TEI>"""
+
+STRUCTURAL_A = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader><profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-01"/></correspAction></correspDesc></profileDesc></teiHeader>
+ <text><body><div type="letter"><p>Same visible text</p></div></body></text>
+</TEI>"""
+
+STRUCTURAL_B = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader><profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-01"/></correspAction></correspDesc></profileDesc></teiHeader>
+ <text><body><div type="letter"><p><hi>Same visible text</hi></p></div></body></text>
+</TEI>"""
+
+
 def require(cond, message):
     if not cond:
         raise AssertionError(message)
@@ -189,6 +220,89 @@ def main():
     require(results["F22_MULTIPLE_DIRECT_EXPLICIT_REJECTED"], {
         "oracle": o22["object_contract"],
         "runtime": r22["object_contract"],
+    })
+
+    # F23: an annex date inside the selected letter is explicitly diagnosed and never activated.
+    o23 = oracle_l.parse_document("SYNTHETIC/annex_inside.xml", ANNEX_INSIDE_SELECTED, CTX)
+    r23 = runtime_l.parse_document("SYNTHETIC/annex_inside.xml", ANNEX_INSIDE_SELECTED, CTX)
+    annex_interval = ["2099-01-01", "2099-01-01"]
+    results["F23_ANNEX_INSIDE_SELECTED_EXCLUDED"] = all([
+        all(c.get("interval") != annex_interval for c in o23["claims"]),
+        all(c.get("interval") != annex_interval for c in r23["claims"]),
+        any(
+            x.get("applicability_class") == "EXCLUDED_ANNEX"
+            and x.get("raw_attrs", {}).get("when") == "2099-01-01"
+            for x in o23.get("excluded_temporal_claims", [])
+        ),
+        any(
+            x.get("applicability_class") == "EXCLUDED_ANNEX"
+            and x.get("raw_attrs", {}).get("when") == "2099-01-01"
+            for x in r23.get("excluded_temporal_claims", [])
+        ),
+    ])
+    require(results["F23_ANNEX_INSIDE_SELECTED_EXCLUDED"], {
+        "oracle": o23.get("excluded_temporal_claims"),
+        "runtime": r23.get("excluded_temporal_claims"),
+    })
+
+    # F24: every origin-handle proof dimension rejects before state mutation.
+    binding_faults = (
+        "source_context_mismatch",
+        "object_context_mismatch",
+        "claim_context_mismatch",
+        "boundary_context_mismatch",
+    )
+    fault_rows = {}
+    for fault_type in binding_faults:
+        tr = runtime_l.execute(r17, "I_RSTAR", fault={"type": fault_type})
+        fault_rows[fault_type] = tr
+    results["F24_ORIGIN_HANDLE_FULL_BINDING"] = all(
+        (not tr["open_origin_applicable"])
+        and tr["post_origin_warrant"] == r17["warrant_root"]
+        and tr["origin_transition"].get("evidence_key") is None
+        and tr["origin_transition"].get("changed_paths") == []
+        and tr["origin_transition"].get("collateral_temporal_paths")
+            == ["ORIGIN_HANDLE_BINDING_MISMATCH"]
+        for tr in fault_rows.values()
+    )
+    require(results["F24_ORIGIN_HANDLE_FULL_BINDING"], {
+        k: v["origin_transition"] for k, v in fault_rows.items()
+    })
+
+    # F25: the no-binding arm must not leak claim/object binding through its payload.
+    s25, p25 = runtime_l.make_interface(r17, "I_NO_BINDING")
+    results["F25_NO_BINDING_PAYLOAD_CLEAN"] = all([
+        s25.get("object_id") is None,
+        p25.get("object_id") is None,
+        p25.get("object_boundary_signature") is None,
+        p25.get("origin_handle") is None,
+        all(
+            c.get("object_id") is None
+            and c.get("object_boundary_signature") is None
+            and c.get("applicability_class") is None
+            for c in p25.get("claims", [])
+        ),
+    ])
+    require(results["F25_NO_BINDING_PAYLOAD_CLEAN"], p25)
+
+    # F26: boundary identity is structural, not a visible-text hash.
+    o26a = oracle_l.parse_document("SYNTHETIC/structural.xml", STRUCTURAL_A, CTX)
+    o26b = oracle_l.parse_document("SYNTHETIC/structural.xml", STRUCTURAL_B, CTX)
+    r26a = runtime_l.parse_document("SYNTHETIC/structural.xml", STRUCTURAL_A, CTX)
+    r26b = runtime_l.parse_document("SYNTHETIC/structural.xml", STRUCTURAL_B, CTX)
+    results["F26_STRUCTURAL_BOUNDARY_SIGNATURE"] = all([
+        o26a["primary_boundary_signature"] == r26a["primary_boundary_signature"],
+        o26b["primary_boundary_signature"] == r26b["primary_boundary_signature"],
+        o26a["primary_boundary_signature"] != o26b["primary_boundary_signature"],
+        r26a["object_id"] != r26b["object_id"],
+        o26a["object_id"] == r26a["object_id"],
+        o26b["object_id"] == r26b["object_id"],
+    ])
+    require(results["F26_STRUCTURAL_BOUNDARY_SIGNATURE"], {
+        "oracle_a": o26a["object_contract"],
+        "oracle_b": o26b["object_contract"],
+        "runtime_a": r26a["object_contract"],
+        "runtime_b": r26b["object_contract"],
     })
 
     print({
