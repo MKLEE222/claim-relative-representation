@@ -92,6 +92,31 @@ def main():
 
     detections = {}
 
+    # Branch coverage: natural Berlin/Paul full trajectories do not expose an
+    # EXACT post-origin warrant. Exercise INTERVAL -> EXACT independently here.
+    exact_fixture = SYNTHETIC.replace(
+        b'<msItem><docDate when="1900-01-01">1 Jan 1900</docDate></msItem>',
+        b'<msItem><docDate from="1900-01-01" to="1900-01-31">January 1900</docDate></msItem>',
+    ).replace(
+        b'<correspAction type="sent"><date when="1900-01-03">3 Jan 1900</date></correspAction>',
+        b'<correspAction type="sent"><date from="1900-01-01" to="1900-01-15">early January 1900</date></correspAction>',
+    ).replace(
+        b'<opener><dateline><date when="1900-01-01">1 Jan 1900</date></dateline></opener>',
+        b'<opener><dateline><date from="1900-01-01" to="1900-01-31">January 1900</date></dateline></opener>',
+    ).replace(
+        b'<origDate when="1900-01-02">2 Jan 1900</origDate>',
+        b'<origDate when="1900-01-03">3 Jan 1900</origDate>',
+    )
+    exact_oracle = oracle_v2.parse_document("SYNTHETIC/exact.xml", exact_fixture)
+    exact_runtime = runtime_v2.parse_document("SYNTHETIC/exact.xml", exact_fixture)
+    require(exact_oracle["eligibility"]["trigger"] == "D2", f"exact fixture trigger drift: {exact_oracle['eligibility']}")
+    require(exact_oracle["warrant_root"]["type"] == "INTERVAL", f"exact fixture root drift: {exact_oracle['warrant_root']}")
+    require(exact_oracle["warrant_after"]["type"] == "EXACT", f"exact fixture post drift: {exact_oracle['warrant_after']}")
+    require(exact_oracle["full_trajectory_eligible"], "exact fixture must be full-trajectory eligible")
+    exact_trace = runtime_v2.execute(exact_runtime, "I_RSTAR")
+    exact_eval = evaluator_v2.evaluate_trace(exact_trace, exact_oracle, exact_runtime)
+    require(exact_eval["end_to_end_pass"], f"exact branch failed: {exact_eval}")
+
     # F1 annex contamination
     rt_annex = runtime_v2.parse_document(path, SYNTHETIC, fault="annex_contamination")
     tr, ev = evaluate(rt_annex, oracle_doc)
@@ -172,6 +197,7 @@ def main():
         "baseline_pass": baseline["end_to_end_pass"],
         "fault_detection": detections,
         "all_faults_detected": all(detections.values()),
+        "exact_branch_coverage": exact_eval["end_to_end_pass"],
         "negative_control_no_question": True,
     })
 
