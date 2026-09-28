@@ -1,0 +1,32 @@
+name: module-h0-digital-mitford-population-freeze-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py"
+      - "experiments/module_h_digital_mitford_end_to_end_holdout_v1/PROTOCOL.md"
+      - "audits/mother_problem_redesign_20260928/FRESH_HOLDOUT_SELECTION_DIGITAL_MITFORD_v1.md"
+      - ".github/workflows/module_h0_digital_mitford_population_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  freeze-population:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependency
+        run: python -m pip install lxml==5.4.0
+      - name: Compile
+        run: python -m py_compile experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py
+      - name: Extract frozen population
+        run: python experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py
+      - name: Upload population
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-h0-digital-mitford-population-v1
+          path: experiments/module_h_digital_mitford_end_to_end_holdout_v1/results_population
