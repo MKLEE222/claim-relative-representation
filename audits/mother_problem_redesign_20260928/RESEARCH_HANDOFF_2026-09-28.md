@@ -72,4 +72,8 @@ C. 唯一无类型正文 div，须有 correspondence 记录、sent action 和 op
 - 先前 I 硬化：[报告 v2](https://github.com/MKLEE222/claim-relative-representation/blob/48f8010cb269642df753f966f051cd2878e5a3d7/audits/mother_problem_redesign_20260928/MODULE_I_HARDENING_VALIDATION_REPORT_v2.md)，hardening run 36417199855。
 - 旧 Gate II：[MOTHER_PROBLEM_CLOSURE_STATUS_v1.md](https://github.com/MKLEE222/claim-relative-representation/blob/48f8010cb269642df753f966f051cd2878e5a3d7/experiments/deepening_v1/MOTHER_PROBLEM_CLOSURE_STATUS_v1.md)。
 
+## 7. 本机工作区注意事项（2026-09-28 验收快照）
+
+本机 `D:\TRAE\claim-relative-representation-r3-review` 的 HEAD 仍为 `2e96976a`，落后于远端本交接提交。验收时还存在未提交的 `data/r3_verified_proposition_panel_v1.csv` 修改，以及 `.deps/`、`__pycache__/`、Ollama 日志等未跟踪文件。此工作区没有被本次远端交接写入、重置或清理。下一位接手者应先分别核对这些本地内容的来源和价值，再选择安全同步方式；不要直接以远端内容覆盖本地修改，也不要把缓存/模型日志误当研究证据提交。
+
 最后一句交接：**Module J 已把已知对象边界假阳性清零，并在开发数据上保留机制；下一轮若要升级实证等级，必须先找到真正未暴露的研究对象并冻结一次性检验。**
