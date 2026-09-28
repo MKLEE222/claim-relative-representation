@@ -89,7 +89,10 @@ def _ancestors(el, pmap):
 def _inside_annex(el, pmap, stop=None) -> bool:
     cur = pmap.get(el)
     while cur is not None and cur is not stop:
-        if _local(cur.tag) == "div" and cur.attrib.get("type") == "annex":
+        if (
+            _local(cur.tag) == "div"
+            and (cur.attrib.get("type") or "").strip().lower() in {"annex", "annexe"}
+        ):
             return True
         cur = pmap.get(cur)
     return False
