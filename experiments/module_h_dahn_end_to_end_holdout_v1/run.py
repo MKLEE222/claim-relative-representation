@@ -252,10 +252,11 @@ def extract_lxml(path: str, raw: bytes):
         if attrs_date(el):
             claims.append(make_claim("docDate", el, tree, path, i))
 
-    # canonical current-document origDate
+    # Canonical current-document origDate is later evidence, not a t0 root claim.
     od, origin = choose_primary_origin_lxml(root)
+    origin_claim = None
     if od is not None and attrs_date(od):
-        claims.append(make_claim("origDate", od, tree, path, 1))
+        origin_claim = make_claim("origDate", od, tree, path, 1)
 
     # sent dates
     sent = root.xpath("//*[local-name()='correspAction' and @type='sent']/*[local-name()='date']")
@@ -314,6 +315,7 @@ def extract_lxml(path: str, raw: bytes):
 
     return {
         "claims": claims,
+        "origin_claim": origin_claim,
         "is_correspondence": corresp_desc and corresp_actions > 0,
         "origin_payload": origin_payload,
         "refs": refs,
@@ -356,27 +358,7 @@ def extract_etree_independent(path: str, raw: bytes):
             if role and attrs_date(el):
                 rows.append((role, attrs_date(el)))
 
-    # Canonical origDate in stdlib, using same declared language priority but independent traversal.
-    origin = next(
-        (x for x in root.iter() if local(x.tag) == "origin"),
-        None,
-    )
-    if origin is not None:
-        ps = [x for x in list(origin) if local(x.tag) == "p"]
-        chosen = None
-        for wanted in ("en", "de", "fr"):
-            for p in ps:
-                if (p.attrib.get(XML_LANG) or "").lower() == wanted:
-                    chosen = p
-                    break
-            if chosen is not None:
-                break
-        if chosen is None and ps:
-            chosen = ps[0]
-        search_root = chosen if chosen is not None else origin
-        od = next((x for x in search_root.iter() if local(x.tag) == "origDate"), None)
-        if od is not None and attrs_date(od):
-            rows.append(("origDate", attrs_date(od)))
+    # origDate is intentionally excluded from the independent t0 carrier cross-check.
 
     return sorted((role, tuple(sorted(attrs.items()))) for role, attrs in rows)
 
@@ -403,9 +385,9 @@ def eligibility(claims):
     return d1, d2
 
 
-def q0_from_claims(claims):
+def q0_from_claims(claims, origin_claim=None):
     sent = [c for c in claims if c["role"] == "sent" and c.get("_bounds")]
-    orig = [c for c in claims if c["role"] == "origDate" and c.get("_bounds")]
+    orig = [origin_claim] if origin_claim and origin_claim.get("_bounds") else []
     chosen = sent if sent else orig
     return {
         "source": "sent" if sent else "origDate" if orig else "none",
@@ -484,9 +466,9 @@ def full_trajectory_eligibility(doc):
     if not (d1 or d2):
         return False, []
     reasons = []
-    if doc["origin_payload"] is None:
-        reasons.append("NO_ORIGIN_HANDLE")
-    if doc["q0_warrant"] == doc["warrant_after"]:
+    if doc["origin_payload"] is None or doc["origin_claim"] is None:
+        reasons.append("NO_ORIGIN_EVIDENCE")
+    if doc["warrant_root"] == doc["warrant_after"]:
         reasons.append("NO_WARRANT_STATE_CHANGE")
     if doc["neutral_event"] is None:
         reasons.append("NO_NULL_EVENT")
@@ -500,9 +482,11 @@ def make_interface(doc, arm):
     elif arm == "I_NO_ALTERNATIVES":
         # Preserve Q0 only.
         qsource = doc["q0"]["source"]
-        role = "sent" if qsource == "sent" else "origDate"
-        claims = [dict(c) for c in doc["claims"] if c["role"] == role]
-        origin = doc["origin_payload"] if role == "origDate" else None
+        role = "sent" if qsource == "sent" else None
+        claims = [dict(c) for c in doc["claims"] if role and c["role"] == role]
+        # The opaque origin handle may exist independently of the removed alternatives,
+        # but cannot be opened until this arm forms a valid question.
+        origin = doc["origin_payload"]
     elif arm == "I_NO_BINDING":
         claims = []
         for c in doc["claims"]:
@@ -557,17 +541,21 @@ def run_arm(doc, arm):
             route_ok = False
 
     if arm == "I_NO_BINDING":
-        # Without role/source binding the frozen warrant contract cannot privilege
-        # a source-origin carrier. Preserve ambiguity rather than guess.
+        # Without role/source binding the frozen warrant contract cannot identify
+        # which later origin evidence belongs to which temporal claim.
         post = {
             "type": "UNRESOLVED",
             "reason": "TEMPORAL_VALUES_UNBOUND_TO_SOURCE_ROLES",
-        } if q else q0_as_warrant(doc["q0"])
+        } if q else warrant_from_claims(claims)
+    elif route_ok and doc["origin_claim"] is not None:
+        post_claims = list(claims) + [dict(doc["origin_claim"])]
+        post = warrant_from_claims(post_claims)
     else:
+        # No lawful evidence release occurred.
         post = warrant_from_claims(claims)
 
     warrant_exact = post == doc["warrant_after"]
-    relevant_update_changed = doc["q0_warrant"] != doc["warrant_after"]
+    relevant_update_changed = doc["warrant_root"] != doc["warrant_after"]
     selective_update = warrant_exact and relevant_update_changed
     collateral_revision_count = 0 if selective_update else (0 if not relevant_update_changed else 1)
 
@@ -651,9 +639,11 @@ def parse_corpus(prefix, archive_raw):
                     raise RuntimeError(f"independent current-carrier parser mismatch: {pcmp} != {indep}")
 
                 d1, d2 = eligibility(p["claims"])
-                q0 = q0_from_claims(p["claims"])
+                q0 = q0_from_claims(p["claims"], p["origin_claim"])
                 qw = q0_as_warrant(q0)
-                wa = warrant_from_claims(p["claims"])
+                wr = warrant_from_claims(p["claims"])
+                post_claims = list(p["claims"]) + ([p["origin_claim"]] if p["origin_claim"] is not None else [])
+                wa = warrant_from_claims(post_claims)
                 neutral = choose_neutral_revision(p["revisions"])
                 doc = {
                     "path": rel,
@@ -663,6 +653,7 @@ def parse_corpus(prefix, archive_raw):
                     "d2": d2,
                     "q0": q0,
                     "q0_warrant": qw,
+                    "warrant_root": wr,
                     "warrant_after": wa,
                     "neutral_event": neutral,
                 }
@@ -721,6 +712,7 @@ def main():
             "d2": d["d2"],
             "q0": d["q0"],
             "q0_warrant": d["q0_warrant"],
+            "warrant_root": d["warrant_root"],
             "warrant_after": d["warrant_after"],
             "neutral_event": d["neutral_event"],
             "arms": arms,
@@ -818,6 +810,7 @@ def main():
                 "d1": d["d1"],
                 "d2": d["d2"],
                 "q0": d["q0"],
+                "warrant_root": d["warrant_root"],
                 "warrant_after": d["warrant_after"],
                 "full_trajectory_eligible": d["full_trajectory_eligible"],
                 "exclusion_reasons": d["full_trajectory_exclusion_reasons"],
@@ -850,6 +843,7 @@ def main():
             {
                 "path": e["path"],
                 "q0": e["q0"],
+                "warrant_root": e["warrant_root"],
                 "warrant_after": e["warrant_after"],
                 "rstar": next(a for a in e["arms"] if a["arm"] == "I_RSTAR"),
             }
