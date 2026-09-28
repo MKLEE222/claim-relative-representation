@@ -23,6 +23,25 @@ def _sha(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+def _boundary_signature(el) -> str:
+    """Independent structural signature for the selected ElementTree boundary."""
+    def emit(node):
+        attrs = sorted((_local(k), v) for k, v in node.attrib.items())
+        parts = [["tag", _local(node.tag)], ["attrs", attrs]]
+        text = _norm(node.text or "")
+        if text:
+            parts.append(["text", text])
+        for child in list(node):
+            parts.append(["child", emit(child)])
+            tail = _norm(child.tail or "")
+            if tail:
+                parts.append(["tail", tail])
+        return parts
+    return _sha(
+        json.dumps(emit(el), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
+    )
+
+
 def _norm(s: str) -> str:
     return " ".join((s or "").split())
 
@@ -187,10 +206,11 @@ def _object_contract(path: str, raw: bytes, source_context: dict):
         }
 
     candidate = candidates[0]
-    sig = _sha(_norm(" ".join(candidate.itertext())).encode("utf-8"))
+    sig = _boundary_signature(candidate)
     payload = {
         "source_repository": source_context["source_repository"],
         "source_version": source_context["source_version"],
+        "population_scope": source_context["population_scope"],
         "source_file": path,
         "boundary_kind": sel["boundary_kind"],
         "primary_boundary_signature": sig,
@@ -219,12 +239,14 @@ def _rekey_claim(c, object_id: str, boundary_signature: str, applicability_class
     x["applicability_class"] = applicability_class
     x["source_repository"] = source_context["source_repository"]
     x["source_version"] = source_context["source_version"]
+    x["population_scope"] = source_context["population_scope"]
     payload = {
         "object_id": object_id,
         "object_boundary_signature": boundary_signature,
         "applicability_class": applicability_class,
         "source_repository": source_context["source_repository"],
         "source_version": source_context["source_version"],
+        "population_scope": source_context["population_scope"],
         "role": x.get("role"),
         "interval": x.get("interval"),
         "source_file": x.get("source_file"),
@@ -269,9 +291,14 @@ def _excluded_body_dates(root, pmap, candidate):
         if _local(x.tag) != "date":
             continue
         attrs = base._attrs(x)
-        if not attrs or x in candidate_nodes:
+        if not attrs:
             continue
-        cls = "EXCLUDED_ANNEX" if _inside_annex(x, pmap, stop=body) else "EXCLUDED_OUTSIDE_SELECTED_OBJECT"
+        if _inside_annex(x, pmap, stop=body):
+            cls = "EXCLUDED_ANNEX"
+        elif x in candidate_nodes:
+            continue
+        else:
+            cls = "EXCLUDED_OUTSIDE_SELECTED_OBJECT"
         rows.append({
             "applicability_class": cls,
             "raw_attrs": attrs,
@@ -375,6 +402,7 @@ def parse_document(path: str, raw: bytes, source_context: dict):
         audit_packet = {
             "document": path,
             "object_id": oid,
+            "object_boundary_signature": sig,
             "source_context": ctx,
             "current_warrant": post_warrant,
             "origin_event_id": f"OPEN_ORIGIN::{path}",
