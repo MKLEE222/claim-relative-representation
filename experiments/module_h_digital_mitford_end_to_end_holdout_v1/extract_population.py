@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import html
 import json
 import re
 import unicodedata
@@ -113,28 +114,40 @@ def lname(el) -> str:
 
 
 def parse_journal(raw: bytes):
-    root = ET.fromstring(raw, ET.XMLParser(resolve_entities=False, no_network=True, recover=False, collect_ids=False))
-    tree = root.getroottree()
+    # The frozen Journal snapshots contain malformed outer XML in some checkpoints.
+    # H0 therefore extracts only complete literal persName fragments from immutable
+    # source text. No recovery tree or source rewrite is used.
+    text = raw.decode("utf-8")
+    pers_re = re.compile(r"<persName\\b([^>]*)>([\\s\\S]*?)</persName\\s*>")
+    ref_re = re.compile(r"\\bref\\s*=\\s*([\"'])(.*?)\\1", re.S)
+    comment_re = re.compile(r"<!--[\\s\\S]*?-->")
     mentions = []
     by_id = defaultdict(list)
     by_surface = defaultdict(list)
-    for el in root.iter():
-        if lname(el) != "persName":
-            continue
-        surface = " ".join(" ".join(el.itertext()).split())
+    ordinal = 0
+    for m in pers_re.finditer(text):
+        ordinal += 1
+        attrs = m.group(1)
+        inner = comment_re.sub(" ", m.group(2))
+        surface = html.unescape(TAG_RE.sub(" ", inner))
+        surface = " ".join(surface.split())
         if not surface:
             continue
-        ref = strip_ref(el.get("ref"))
+        rm = ref_re.search(attrs)
+        ref = strip_ref(rm.group(2) if rm else None)
         rec = {
             "surface": surface,
             "surface_norm": norm(surface),
             "ref": ref,
-            "path": tree.getpath(el),
+            "path": f"raw_char:{m.start()}-{m.end()}",
+            "ordinal": ordinal,
         }
         mentions.append(rec)
         if ref:
             by_id[ref.casefold()].append(rec)
         by_surface[rec["surface_norm"]].append(rec)
+    if not mentions:
+        raise RuntimeError("Journal raw-span parser found no complete persName fragments")
     return {
         "mentions": mentions,
         "by_id": dict(by_id),
