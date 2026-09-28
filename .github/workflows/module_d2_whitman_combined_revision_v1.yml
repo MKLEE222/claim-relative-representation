@@ -1,0 +1,31 @@
+name: module-d2-whitman-combined-revision-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_d2_whitman_combined_revision_v1/**"
+      - ".github/workflows/module_d2_whitman_combined_revision_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile
+        run: python -m py_compile experiments/module_d2_whitman_combined_revision_v1/run.py
+      - name: Execute frozen combined-revision experiment
+        run: python experiments/module_d2_whitman_combined_revision_v1/run.py
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-d2-whitman-combined-revision-v1
+          path: |
+            experiments/module_d2_whitman_combined_revision_v1/results
+            experiments/module_d2_whitman_combined_revision_v1/PROTOCOL.md
+            experiments/module_d2_whitman_combined_revision_v1/run.py
