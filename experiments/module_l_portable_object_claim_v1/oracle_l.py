@@ -343,10 +343,13 @@ def _excluded_body_dates(root, pmap, candidate):
             continue
         if _inside_annex(x, pmap, stop=body):
             cls = "EXCLUDED_ANNEX"
-        elif _inside_embedded_text(x, pmap, stop=candidate):
-            cls = "EXCLUDED_EMBEDDED_OBJECT"
         elif x in candidate_nodes:
-            continue
+            if _inside_embedded_text(x, pmap, stop=candidate):
+                cls = "EXCLUDED_EMBEDDED_OBJECT"
+            else:
+                continue
+        elif _inside_embedded_text(x, pmap, stop=body):
+            cls = "EXCLUDED_EMBEDDED_OBJECT"
         else:
             cls = "EXCLUDED_OUTSIDE_SELECTED_OBJECT"
         rows.append({
