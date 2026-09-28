@@ -75,7 +75,10 @@ def _freeze_source_context(source_context: dict) -> dict:
 def _inside_annex(el, stop=None) -> bool:
     cur = el.getparent()
     while cur is not None and cur is not stop:
-        if _local(cur) == "div" and cur.get("type") == "annex":
+        if (
+            _local(cur) == "div"
+            and (cur.get("type") or "").strip().lower() in {"annex", "annexe"}
+        ):
             return True
         cur = cur.getparent()
     return False
