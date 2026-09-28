@@ -26,6 +26,11 @@ def _sha(raw: bytes) -> str:
     return hashlib.sha256(raw).hexdigest()
 
 
+def _boundary_signature(el) -> str:
+    """Hash the selected XML boundary structurally, not just its visible text."""
+    return _sha(LET.tostring(el, method="c14n", exclusive=True, with_comments=False))
+
+
 def _norm(s: str) -> str:
     return " ".join((s or "").split())
 
@@ -161,10 +166,11 @@ def _object_contract(path: str, raw: bytes, source_context: dict):
         }
 
     candidate = candidates[0]
-    sig = _sha(_norm(" ".join(candidate.itertext())).encode("utf-8"))
+    sig = _boundary_signature(candidate)
     payload = {
         "source_repository": source_context["source_repository"],
         "source_version": source_context["source_version"],
+        "population_scope": source_context["population_scope"],
         "source_file": path,
         "boundary_kind": sel["boundary_kind"],
         "primary_boundary_signature": sig,
@@ -193,12 +199,14 @@ def _rekey_claim(c, object_id: str, boundary_signature: str, applicability_class
     x["applicability_class"] = applicability_class
     x["source_repository"] = source_context["source_repository"]
     x["source_version"] = source_context["source_version"]
+    x["population_scope"] = source_context["population_scope"]
     payload = {
         "object_id": object_id,
         "object_boundary_signature": boundary_signature,
         "applicability_class": applicability_class,
         "source_repository": source_context["source_repository"],
         "source_version": source_context["source_version"],
+        "population_scope": source_context["population_scope"],
         "role": x.get("role"),
         "interval": x.get("interval"),
         "source_file": x.get("source_file"),
@@ -244,9 +252,12 @@ def _excluded_body_dates(root, candidate):
         attrs = base.date_attrs(x)
         if not attrs:
             continue
-        if x in candidate_nodes:
+        if _inside_annex(x, stop=body):
+            cls = "EXCLUDED_ANNEX"
+        elif x in candidate_nodes:
             continue
-        cls = "EXCLUDED_ANNEX" if _inside_annex(x, stop=body) else "EXCLUDED_OUTSIDE_SELECTED_OBJECT"
+        else:
+            cls = "EXCLUDED_OUTSIDE_SELECTED_OBJECT"
         rows.append({
             "applicability_class": cls,
             "raw_attrs": attrs,
@@ -317,6 +328,11 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
             "document": path,
             "source_repository": ctx["source_repository"],
             "source_version": ctx["source_version"],
+            "population_scope": ctx["population_scope"],
+            "object_id": oid,
+            "object_boundary_signature": sig,
+            "claim_key": origin["claim_key"],
+            "applicability_class": origin["applicability_class"],
             "locator_contract": origin["source_locator_contract"],
             "xpath": origin.get("source_locator_xpath"),
         }
@@ -328,10 +344,13 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
             "source_repository": ctx["source_repository"],
             "source_commit": ctx["source_version"],
             "source_version": ctx["source_version"],
+            "population_scope": ctx["population_scope"],
             "source_file": path,
             "source_locator_contract": origin["source_locator_contract"],
             "source_locator_xpath": origin.get("source_locator_xpath"),
             "object_id": oid,
+            "object_boundary_signature": sig,
+            "applicability_class": origin["applicability_class"],
             "claim_key": origin["claim_key"],
         }
 
@@ -380,6 +399,8 @@ def make_interface(doc, arm):
             "object_id": None,
             "source_commit": ctx["source_version"],
             "source_repository": ctx["source_repository"],
+            "population_scope": ctx["population_scope"],
+            "object_boundary_signature": None,
             "q0": {"source": "none", "intervals": []},
             "claims": {},
             "current_warrant": {"type": "UNRESOLVED", "reason": doc["object_contract"]["status"]},
@@ -397,6 +418,8 @@ def make_interface(doc, arm):
             "object_status": doc["object_contract"]["status"],
             "source_commit": ctx["source_version"],
             "source_repository": ctx["source_repository"],
+            "population_scope": ctx["population_scope"],
+            "object_boundary_signature": None,
             "q0": state["q0"],
             "claims": [],
             "origin_handle": None,
@@ -408,10 +431,14 @@ def make_interface(doc, arm):
     ctx = doc["source_context"]
     state["source_commit"] = ctx["source_version"]
     state["source_repository"] = ctx["source_repository"]
+    state["population_scope"] = ctx["population_scope"]
     state["object_id"] = doc["object_id"]
+    state["object_boundary_signature"] = doc["primary_boundary_signature"]
     payload["source_commit"] = ctx["source_version"]
     payload["source_repository"] = ctx["source_repository"]
+    payload["population_scope"] = ctx["population_scope"]
     payload["object_id"] = doc["object_id"]
+    payload["object_boundary_signature"] = doc["primary_boundary_signature"]
     payload["object_status"] = doc["object_contract"]["status"]
 
     if state.get("origin_handle") is not None:
@@ -421,89 +448,129 @@ def make_interface(doc, arm):
     if payload.get("origin_handle") is not None:
         payload["origin_handle"]["source_commit"] = ctx["source_version"]
         payload["origin_handle"]["source_repository"] = ctx["source_repository"]
+        payload["origin_handle"]["source_version"] = ctx["source_version"]
+        payload["origin_handle"]["population_scope"] = ctx["population_scope"]
+        payload["origin_handle"]["object_id"] = state["origin_handle"].get("object_id")
+        payload["origin_handle"]["object_boundary_signature"] = state["origin_handle"].get("object_boundary_signature")
+        payload["origin_handle"]["applicability_class"] = state["origin_handle"].get("applicability_class")
+        payload["origin_handle"]["claim_key"] = state["origin_handle"].get("claim_key")
 
     if arm == "I_NO_BINDING":
         state["object_id"] = None
+        state["object_boundary_signature"] = None
         payload["object_id"] = None
+        payload["object_boundary_signature"] = None
         for c in state["claims"].values():
             c["object_id"] = None
             c["object_boundary_signature"] = None
+            c["applicability_class"] = None
+        for c in payload.get("claims", []):
+            c["object_id"] = None
+            c["object_boundary_signature"] = None
+            c["applicability_class"] = None
 
     return state, payload
 
 
+def _reject_origin_transition(state, reason):
+    """Reject an evidence release before any temporal state mutation occurs."""
+    before = copy.deepcopy(state)
+    event_id = f"OPEN_ORIGIN::{state['document']}"
+    state["event_ledger"].append({
+        "event_id": event_id,
+        "event_class": "EVIDENCE_RELEASE",
+        "target_document": state["document"],
+        "applicable": False,
+        "reason": reason,
+    })
+    transition = {
+        "event_id": event_id,
+        "event_class": "OPEN_ORIGIN",
+        "target_document": state["document"],
+        "object_id": state.get("object_id"),
+        "applicable": False,
+        "evidence_key": None,
+        "before_warrant": before["current_warrant"],
+        "after_warrant": state["current_warrant"],
+        "before_temporal_digest": base.temporal_digest(before),
+        "after_temporal_digest": base.temporal_digest(state),
+        "changed_paths": [],
+        "collateral_temporal_paths": [reason] if reason else [],
+    }
+    state["transition_ledger"].append(copy.deepcopy(transition))
+    return state, transition
+
+
+def _origin_binding_ok(state, doc, question):
+    handle = state.get("origin_handle")
+    origin = doc.get("origin_claim")
+    if not question or not handle or not origin:
+        return False
+    return all([
+        question.get("object_id") == state.get("object_id"),
+        handle.get("target_document") == state.get("document"),
+        handle.get("source_file") == state.get("document"),
+        handle.get("source_repository") == state.get("source_repository"),
+        handle.get("source_commit") == state.get("source_commit"),
+        handle.get("source_version") == state.get("source_commit"),
+        handle.get("population_scope") == state.get("population_scope"),
+        handle.get("object_id") == state.get("object_id"),
+        handle.get("object_boundary_signature") == state.get("object_boundary_signature"),
+        handle.get("object_boundary_signature") == origin.get("object_boundary_signature"),
+        handle.get("applicability_class") == "FILE_LEVEL_UNIQUE_OBJECT",
+        origin.get("applicability_class") == "FILE_LEVEL_UNIQUE_OBJECT",
+        handle.get("claim_key") == origin.get("claim_key"),
+        handle.get("source_locator_contract") == origin.get("source_locator_contract"),
+        handle.get("source_locator_xpath") == origin.get("source_locator_xpath"),
+        origin.get("object_id") == state.get("object_id"),
+        origin.get("source_repository") == state.get("source_repository"),
+        origin.get("source_version") == state.get("source_commit"),
+        origin.get("population_scope") == state.get("population_scope"),
+    ])
+
+
 def apply_open_origin(state, doc, question, fault=None):
     if state.get("object_id") is None or doc.get("object_id") is None:
-        before = copy.deepcopy(state)
-        event_id = f"OPEN_ORIGIN::{state['document']}"
-        state["event_ledger"].append({
-            "event_id": event_id,
-            "event_class": "EVIDENCE_RELEASE",
-            "target_document": state["document"],
-            "applicable": False,
-        })
-        transition = {
-            "event_id": event_id,
-            "event_class": "OPEN_ORIGIN",
-            "target_document": state["document"],
-            "object_id": state.get("object_id"),
-            "applicable": False,
-            "evidence_key": None,
-            "before_warrant": before["current_warrant"],
-            "after_warrant": state["current_warrant"],
-            "before_temporal_digest": base.temporal_digest(before),
-            "after_temporal_digest": base.temporal_digest(state),
-            "changed_paths": [],
-            "collateral_temporal_paths": [],
-        }
-        state["transition_ledger"].append(copy.deepcopy(transition))
-        return state, transition
+        return _reject_origin_transition(state, "NO_BOUND_OBJECT")
 
     if any(
         c.get("object_id") != state["object_id"]
+        or c.get("object_boundary_signature") != state.get("object_boundary_signature")
         or c.get("applicability_class") not in ALLOWED_ACTIVE_APPLICABILITY
+        or c.get("source_repository") != state.get("source_repository")
+        or c.get("source_version") != state.get("source_commit")
+        or c.get("population_scope") != state.get("population_scope")
         for c in state["claims"].values()
     ):
-        before = copy.deepcopy(state)
-        event_id = f"OPEN_ORIGIN::{state['document']}"
-        transition = {
-            "event_id": event_id,
-            "event_class": "OPEN_ORIGIN",
-            "target_document": state["document"],
-            "object_id": state.get("object_id"),
-            "applicable": False,
-            "evidence_key": None,
-            "before_warrant": before["current_warrant"],
-            "after_warrant": state["current_warrant"],
-            "before_temporal_digest": base.temporal_digest(before),
-            "after_temporal_digest": base.temporal_digest(state),
-            "changed_paths": [],
-            "collateral_temporal_paths": ["INVALID_OBJECT_OR_APPLICABILITY_BINDING"],
-        }
-        state["transition_ledger"].append(copy.deepcopy(transition))
-        return state, transition
+        return _reject_origin_transition(state, "INVALID_OBJECT_OR_APPLICABILITY_BINDING")
 
-    if question is not None and question.get("object_id") != state["object_id"]:
-        question = None
-
-    if fault and fault.get("type") == "source_context_mismatch":
+    if fault and fault.get("type") in {
+        "source_context_mismatch",
+        "object_context_mismatch",
+        "claim_context_mismatch",
+        "boundary_context_mismatch",
+    }:
         state = copy.deepcopy(state)
-        if state.get("origin_handle") is not None:
-            state["origin_handle"]["source_commit"] = "MISMATCHED_SOURCE_VERSION"
+        handle = state.get("origin_handle")
+        if handle is not None:
+            if fault.get("type") == "source_context_mismatch":
+                handle["source_commit"] = "MISMATCHED_SOURCE_VERSION"
+            elif fault.get("type") == "object_context_mismatch":
+                handle["object_id"] = "FOREIGN_OBJECT"
+            elif fault.get("type") == "claim_context_mismatch":
+                handle["claim_key"] = "FOREIGN_CLAIM"
+            elif fault.get("type") == "boundary_context_mismatch":
+                handle["object_boundary_signature"] = "FOREIGN_BOUNDARY"
+
+    if not _origin_binding_ok(state, doc, question):
+        return _reject_origin_transition(state, "ORIGIN_HANDLE_BINDING_MISMATCH")
 
     state, transition = base.apply_open_origin(state, doc, question, fault=fault)
     transition["object_id"] = state.get("object_id")
     transition["source_repository"] = state.get("source_repository")
-
-    origin = doc.get("origin_claim")
-    if origin and (
-        origin.get("object_id") != state.get("object_id")
-        or origin.get("applicability_class") != "FILE_LEVEL_UNIQUE_OBJECT"
-        or origin.get("source_repository") != state.get("source_repository")
-        or origin.get("source_version") != state.get("source_commit")
-    ):
-        transition["applicable"] = False
-
+    transition["source_version"] = state.get("source_commit")
+    transition["population_scope"] = state.get("population_scope")
+    transition["object_boundary_signature"] = state.get("object_boundary_signature")
     return state, transition
 
 
