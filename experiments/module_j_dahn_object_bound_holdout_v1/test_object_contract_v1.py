@@ -49,6 +49,33 @@ MULTIPLE = b"""<?xml version="1.0" encoding="UTF-8"?>
  </div></body></text>
 </TEI>"""
 
+DIRECT_TRANSCRIPTION = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1804-01-01">1 Jan 1804</docDate></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1804-01-02">2 Jan 1804</origDate></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1804-01-03">3 Jan 1804</date></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body><div type="transcription">
+   <opener><dateline><date when="1804-01-01">1 Jan 1804</date></dateline></opener>
+   <p>Direct transcription letter content.</p>
+ </div></body></text>
+</TEI>"""
+
+TWO_TRANSCRIPTIONS = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc><msContents><msItem><docDate when="1900">1900</docDate></msItem></msContents></msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-01">1900</date></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body>
+  <div type="transcription"><p>Document A.</p></div>
+  <div type="transcription"><p>Document B.</p></div>
+ </body></text>
+</TEI>"""
+
 
 def require(cond, message):
     if not cond:
@@ -110,6 +137,36 @@ def main():
         and not e12["end_to_end_pass"]
     )
     require(detections["F12_CROSS_OBJECT_INJECTION_DETECTED"], e12)
+
+    # F13 positive contract control: direct transcription can itself be one letter object.
+    o13 = oracle_j.parse_document("SYNTHETIC/direct.xml", DIRECT_TRANSCRIPTION)
+    r13 = runtime_j.parse_document("SYNTHETIC/direct.xml", DIRECT_TRANSCRIPTION)
+    detections["F13_TRANSCRIPTION_AS_LETTER_ACCEPTED"] = all([
+        o13["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        r13["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        o13["object_contract"]["boundary_kind"] == "TRANSCRIPTION_AS_LETTER",
+        r13["object_contract"]["boundary_kind"] == "TRANSCRIPTION_AS_LETTER",
+        o13["object_id"] == r13["object_id"],
+    ])
+    require(detections["F13_TRANSCRIPTION_AS_LETTER_ACCEPTED"], {
+        "oracle": o13["object_contract"],
+        "runtime": r13["object_contract"],
+    })
+
+    # F14: multiple transcription containers cannot be silently collapsed.
+    o14 = oracle_j.parse_document("SYNTHETIC/two_transcriptions.xml", TWO_TRANSCRIPTIONS)
+    r14 = runtime_j.parse_document("SYNTHETIC/two_transcriptions.xml", TWO_TRANSCRIPTIONS)
+    detections["F14_MULTIPLE_TRANSCRIPTIONS_REJECTED"] = all([
+        o14["object_contract"]["status"] == "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+        r14["object_contract"]["status"] == "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+        o14["object_contract"]["candidate_count"] == 2,
+        r14["object_contract"]["candidate_count"] == 2,
+        not o14["eligibility"]["eligible"],
+    ])
+    require(detections["F14_MULTIPLE_TRANSCRIPTIONS_REJECTED"], {
+        "oracle": o14["object_contract"],
+        "runtime": r14["object_contract"],
+    })
 
     # Annex remains excluded from the single primary object.
     annex_interval = ["1905-01-01", "1905-01-01"]
