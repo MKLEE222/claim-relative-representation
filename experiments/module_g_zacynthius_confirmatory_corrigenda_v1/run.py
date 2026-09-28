@@ -296,7 +296,7 @@ def locator_group(event, comments, rubrics):
         matches = [
             r for r in rubrics
             if r["folio"] == event["folio"]
-            and event_value_key(a["text"], "word_base") in r["word_base"]
+            and event_value_key(a["text"], "plain_base") in r["plain_base"]
             and (r["attrs"].get("rend") or "").casefold() == a["rend"]
         ]
         return [tuple(sorted(r["id"] for r in matches))] if matches else []
@@ -465,7 +465,7 @@ def verify_source_contract(events, comments, rubrics):
         records = [by_id[x] for x in groups[0]]
 
         if event_id == "CZ-C1":
-            if len(records) != 1 or "ευαγγελιον" not in records[0]["word_base"]:
+            if len(records) != 1 or "ευαγγελιον" not in records[0]["plain_base"]:
                 raise RuntimeError("CZ-C1 source-contract drift")
             facts[event_id] = {
                 "classification": "OLD_OMISSION_STATE_COMPATIBLE",
