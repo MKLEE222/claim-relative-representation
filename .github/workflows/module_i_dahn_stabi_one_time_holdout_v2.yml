@@ -1,0 +1,45 @@
+name: module-i-dahn-stabi-one-time-holdout-v2
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - ".github/workflows/module_i_dahn_stabi_one_time_holdout_v2.yml"
+
+jobs:
+  holdout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Verify frozen evaluator identities before source access
+        run: |
+          cat > /tmp/module_i_frozen.sha256 <<'EOF'
+          e6ea25a48a93735446f537022935ac6f91ee23594d845277e30e787dbb950923  experiments/module_i_dahn_document_boundary_holdout_v1/oracle_v2.py
+          a5c6d6f7da6da7a82f08a0d93963391659a01bc2100a42b542677e0faa6c601c  experiments/module_i_dahn_document_boundary_holdout_v1/runtime_v2.py
+          d6ea112af6d765720350c86858f4622c8b403fd6e1668674587e276fe90ac9a0  experiments/module_i_dahn_document_boundary_holdout_v1/evaluator_v2.py
+          a86a4ac67b9fbabce21d4e7d2b84c20641c9b01c9597a74d4867dfe5877a756d  experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+          ceab53bc483a34f08f559c00729463226b632cb7ad6c955602fe9ba0bc654772  experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+          EOF
+          sha256sum -c /tmp/module_i_frozen.sha256
+      - name: Install frozen runtime dependency
+        run: python -m pip install lxml==5.4.0
+      - name: Compile frozen evaluator
+        run: |
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/oracle_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/runtime_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/evaluator_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+      - name: Execute StaBi prospective holdout exactly once
+        run: |
+          python experiments/module_i_dahn_document_boundary_holdout_v1/run.py \
+            --mode holdout \
+            --prefix Correspondence/Nachlassprojekt/StaBi/Correspondence/
+      - name: Upload complete holdout output
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-i-dahn-stabi-holdout-v2
+          path: experiments/module_i_dahn_document_boundary_holdout_v1/holdout_results_v2
