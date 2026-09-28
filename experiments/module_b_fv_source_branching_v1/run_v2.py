@@ -195,7 +195,7 @@ def build_source_scope_index(source_raw):
             # range between markers is not necessarily a standalone XML fragment.
             # Detect only cancellation elements fully contained in the scope.
             cancel_re = re.compile(
-                r"<(del|mdel)\\b[^>]*>(.*?)</\\1\\s*>",
+                r"<(del|mdel)\b[^>]*>(.*?)</\1\s*>",
                 re.DOTALL,
             )
             for cm in cancel_re.finditer(text):
