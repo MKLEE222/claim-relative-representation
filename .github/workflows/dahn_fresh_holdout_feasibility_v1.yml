@@ -1,0 +1,32 @@
+name: dahn-fresh-holdout-feasibility-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "audits/mother_problem_redesign_20260928/DAHN_FRESH_HOLDOUT_FEASIBILITY_CONTRACT_v1.md"
+      - "audits/mother_problem_redesign_20260928/scan_dahn_holdout_feasibility_v1.py"
+      - ".github/workflows/dahn_fresh_holdout_feasibility_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile
+        run: python -m py_compile audits/mother_problem_redesign_20260928/scan_dahn_holdout_feasibility_v1.py
+      - name: Execute frozen feasibility scan
+        run: python audits/mother_problem_redesign_20260928/scan_dahn_holdout_feasibility_v1.py
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: dahn-fresh-holdout-feasibility-v1
+          path: |
+            audits/mother_problem_redesign_20260928/dahn_feasibility_results
+            audits/mother_problem_redesign_20260928/DAHN_FRESH_HOLDOUT_FEASIBILITY_CONTRACT_v1.md
+            audits/mother_problem_redesign_20260928/scan_dahn_holdout_feasibility_v1.py
