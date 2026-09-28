@@ -27,21 +27,30 @@ def _sha(raw: bytes) -> str:
 
 
 def _boundary_signature(el) -> str:
-    """Runtime implementation of the frozen structural boundary signature."""
+    """Runtime implementation of the parser-neutral structural boundary signature."""
     def emit(node):
         attrs = sorted((_local(k), v) for k, v in node.attrib.items())
         parts = [["tag", _local(node)], ["attrs", attrs]]
-        text = _norm(node.text or "")
-        if text:
-            parts.append(["text", text])
+
+        # Canonicalize text between element children. Comments and processing
+        # instructions are semantically ignored, but their tails remain part
+        # of the surrounding text segment. This makes lxml and ElementTree
+        # agree on the same TEI object.
+        text_buf = [node.text or ""]
         for child in list(node):
-            if not isinstance(child.tag, str):
-                continue
-            parts.append(["child", emit(child)])
-            tail = _norm(child.tail or "")
-            if tail:
-                parts.append(["tail", tail])
+            if isinstance(child.tag, str):
+                segment = _norm("".join(text_buf))
+                if segment:
+                    parts.append(["text", segment])
+                parts.append(["child", emit(child)])
+                text_buf = [child.tail or ""]
+            else:
+                text_buf.append(child.tail or "")
+        segment = _norm("".join(text_buf))
+        if segment:
+            parts.append(["text", segment])
         return parts
+
     return _sha(
         json.dumps(emit(el), ensure_ascii=False, sort_keys=True, separators=(",", ":")).encode("utf-8")
     )
