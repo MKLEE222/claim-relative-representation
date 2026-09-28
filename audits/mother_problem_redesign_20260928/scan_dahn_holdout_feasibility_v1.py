@@ -64,7 +64,7 @@ def carrier_role(el, ancestors):
     if tag == "origDate":
         return "origDate"
     if tag == "date":
-        # detect correspAction type
+        # Only declared document-dating contexts count.
         for a in reversed(ancestors):
             if local(a.tag) == "correspAction":
                 t = a.attrib.get("type", "")
@@ -72,8 +72,8 @@ def carrier_role(el, ancestors):
         for a in reversed(ancestors):
             if local(a.tag) in ("opener", "dateline"):
                 return "body_or_dateline_date"
-        return "date_other"
-    return tag
+        return None
+    return None
 
 def build_parent_map(root):
     parent = {}
@@ -104,6 +104,8 @@ def parse_document(path, raw):
             continue
         anc = ancestors_of(el, parent_map)
         role = carrier_role(el, anc)
+        if role is None:
+            continue
         text = norm_text("".join(el.itertext()))
         carriers.append({
             "role": role,
@@ -159,7 +161,12 @@ def parse_document(path, raw):
     note_hits = []
     for el in root.iter():
         tag = local(el.tag)
-        if tag not in ("note", "p", "origin", "history"):
+        if tag not in ("note", "p"):
+            continue
+        anc = ancestors_of(el, parent_map)
+        anc_tags = {local(a.tag) for a in anc}
+        # Restrict commentary to declared dating/history/correspondence contexts.
+        if not (anc_tags & {"history", "origin", "msDesc", "correspDesc", "opener", "dateline"}):
             continue
         txt = norm_text(" ".join(el.itertext()))
         low = txt.casefold()
@@ -209,9 +216,8 @@ def parse_document(path, raw):
         triggers.append("D2")
     if note_hits:
         triggers.append("D3")
-    # D4 is only a feasibility flag here; explicit relation + at least one machine date.
-    if relations and role_exact:
-        triggers.append("D4_CANDIDATE")
+    # D4 cannot create eligibility without a separately validated temporal relation.
+    d4_candidate = bool(relations and role_exact)
 
     evidence_layers = 0
     if role_exact:
@@ -232,6 +238,7 @@ def parse_document(path, raw):
         "date_note_hits": note_hits,
         "facs": facs,
         "relations": relations,
+        "d4_candidate": d4_candidate,
         "revisionDesc": revisions,
         "triggers": triggers,
         "evidence_layer_count": evidence_layers,
@@ -344,6 +351,7 @@ def main():
                 "note_hits": len(d["date_note_hits"]),
                 "facs": len(d["facs"]),
                 "relations": len(d["relations"]),
+                "d4_candidate": d["d4_candidate"],
                 "evidence_layers": d["evidence_layer_count"],
             }
             for d in eligible[:30]
