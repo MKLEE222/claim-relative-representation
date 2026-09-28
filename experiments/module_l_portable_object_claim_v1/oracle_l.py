@@ -203,6 +203,7 @@ def _object_contract(path: str, raw: bytes, source_context: dict):
             "reason": sel.get("reason"),
             "source_repository": source_context["source_repository"],
             "source_version": source_context["source_version"],
+            "population_scope": source_context["population_scope"],
         }
 
     candidate = candidates[0]
@@ -227,6 +228,7 @@ def _object_contract(path: str, raw: bytes, source_context: dict):
         "reason": None,
         "source_repository": source_context["source_repository"],
         "source_version": source_context["source_version"],
+        "population_scope": source_context["population_scope"],
     }
 
 
