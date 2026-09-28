@@ -45,56 +45,85 @@ def _sha(raw):
     return hashlib.sha256(raw).hexdigest()
 
 
-def _candidate_letters(root):
+def _object_selection(root):
     pmap = _parents(root)
-    transcriptions = []
-    for x in root.iter():
-        if _local(x.tag) == "div" and x.attrib.get("type") == "transcription":
-            transcriptions.append(x)
+    bodies = [x for x in root.iter() if _local(x.tag) == "body"]
+    if not bodies:
+        return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
+
+    first_body = bodies[0]
+    transcriptions = [
+        x for x in first_body.iter()
+        if _local(x.tag) == "div" and x.attrib.get("type") == "transcription"
+    ]
     if not transcriptions:
-        return []
+        return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
 
     t = transcriptions[0]
     direct = [
         x for x in list(t)
         if _local(x.tag) == "div" and x.attrib.get("type") == "letter"
     ]
-    if direct:
-        return direct
+    if len(direct) == 1:
+        return {"status": "SINGLE_PRIMARY_DOCUMENT_OBJECT", "candidates": direct, "boundary_kind": "EXPLICIT_LETTER_DIV"}
+    if len(direct) > 1:
+        return {"status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS", "candidates": direct, "boundary_kind": None}
 
-    out = []
+    desc = []
     for x in t.iter():
-        if _local(x.tag) != "div" or x.attrib.get("type") != "letter":
+        if x is t or _local(x.tag) != "div" or x.attrib.get("type") != "letter":
             continue
         anc = _ancestors(x, pmap)
         if any(_local(a.tag) == "div" and a.attrib.get("type") == "annex" for a in anc):
             continue
-        out.append(x)
-    return out
+        desc.append(x)
+    if len(desc) == 1:
+        return {"status": "SINGLE_PRIMARY_DOCUMENT_OBJECT", "candidates": desc, "boundary_kind": "EXPLICIT_LETTER_DIV"}
+    if len(desc) > 1:
+        return {"status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS", "candidates": desc, "boundary_kind": None}
+
+    # Route B: the sole transcription container is itself one scholarly letter.
+    if len(transcriptions) != 1:
+        return {
+            "status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+            "candidates": transcriptions,
+            "boundary_kind": None,
+        }
+
+    corresp_desc = [x for x in root.iter() if _local(x.tag) == "correspDesc"]
+    sent_actions = [
+        x for x in root.iter()
+        if _local(x.tag) == "correspAction" and (x.attrib.get("type") or "").lower() == "sent"
+    ]
+    substantive = bool(_norm(" ".join(t.itertext())))
+    if len(corresp_desc) == 1 and sent_actions and substantive:
+        return {
+            "status": "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+            "candidates": [t],
+            "boundary_kind": "TRANSCRIPTION_AS_LETTER",
+        }
+
+    return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
 
 
 def object_contract(path, raw):
     root = ET.fromstring(raw)
-    candidates = _candidate_letters(root)
-    if len(candidates) == 0:
+    sel = _object_selection(root)
+    candidates = sel["candidates"]
+    if sel["status"] != "SINGLE_PRIMARY_DOCUMENT_OBJECT":
         return {
-            "status": "NO_PRIMARY_DOCUMENT_OBJECT",
-            "object_id": None,
-            "candidate_count": 0,
-            "boundary_signature": None,
-        }
-    if len(candidates) > 1:
-        return {
-            "status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+            "status": sel["status"],
             "object_id": None,
             "candidate_count": len(candidates),
             "boundary_signature": None,
+            "boundary_kind": sel["boundary_kind"],
         }
 
     sig = _sha(_norm(" ".join(candidates[0].itertext())).encode("utf-8"))
     payload = {
         "source_file": path,
         "source_version": UPSTREAM_COMMIT,
+        "boundary_kind": sel["boundary_kind"],
         "primary_boundary_signature": sig,
     }
     oid = _sha(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8"))
@@ -103,6 +132,7 @@ def object_contract(path, raw):
         "object_id": oid,
         "candidate_count": 1,
         "boundary_signature": sig,
+        "boundary_kind": sel["boundary_kind"],
     }
 
 
