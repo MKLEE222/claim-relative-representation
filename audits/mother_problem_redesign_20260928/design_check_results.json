@@ -1,0 +1,63 @@
+{
+  "authority": "SYNTHETIC_DESIGN_UNIT_TEST_NOT_EMPIRICAL_RESULT",
+  "check_count": 10,
+  "checks": {
+    "same_current_answer_and_identical_retained_payload": true,
+    "same_withdrawal_different_informative_output": true,
+    "no_uniform_informative_answer_without_more_information": true,
+    "safe_abstention_is_not_informative_completion": true,
+    "correct_source_binding_repairs_both_worlds": true,
+    "equally_shaped_wrong_binding_fails_both_worlds": true,
+    "irrelevant_withdrawal_is_a_null": true,
+    "one_charged_source_reopen_restores_continuation": true,
+    "anchor_overlap_is_not_full_span_coverage": true,
+    "multi_span_coverage_detects_gaps": true
+  },
+  "worlds": [
+    {
+      "supports": [
+        [
+          "s1",
+          "A"
+        ],
+        [
+          "s2",
+          "B"
+        ]
+      ],
+      "current": {
+        "A": "SUPPORTED",
+        "B": "SUPPORTED"
+      },
+      "after_withdraw_s1": {
+        "A": "NO_REMAINING_SUPPORT",
+        "B": "SUPPORTED"
+      }
+    },
+    {
+      "supports": [
+        [
+          "s1",
+          "B"
+        ],
+        [
+          "s2",
+          "A"
+        ]
+      ],
+      "current": {
+        "A": "SUPPORTED",
+        "B": "SUPPORTED"
+      },
+      "after_withdraw_s1": {
+        "A": "SUPPORTED",
+        "B": "NO_REMAINING_SUPPORT"
+      }
+    }
+  ],
+  "retained_payload_sha256": "4e707da607f22f4904bcf11c435327898bcd9fc851d8fdb4a365043bfe874a4e",
+  "scope": "Closed snapshot; no new probes. Reopening is tested separately at cost 1.",
+  "semantic_limit": "NO_REMAINING_SUPPORT is not FALSE; all rules are declared toy rules.",
+  "novelty": "None claimed; this is an elementary determinacy/truth-maintenance witness.",
+  "old_metrics": "No old experimental output, validity rule, or rank was changed."
+}
