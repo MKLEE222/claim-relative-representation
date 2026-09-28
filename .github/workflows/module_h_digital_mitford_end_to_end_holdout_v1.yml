@@ -1,0 +1,49 @@
+name: module-h-digital-mitford-end-to-end-holdout-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_h_digital_mitford_end_to_end_holdout_v1/run.py"
+      - "experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py"
+      - "experiments/module_h_digital_mitford_end_to_end_holdout_v1/PROTOCOL.md"
+      - "experiments/module_h_digital_mitford_end_to_end_holdout_v1/SOURCE_CONTRACT_v1.md"
+      - ".github/workflows/module_h_digital_mitford_end_to_end_holdout_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependency
+        run: python -m pip install lxml==5.4.0
+      - name: Compile
+        run: |
+          python -m py_compile experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py
+          python -m py_compile experiments/module_h_digital_mitford_end_to_end_holdout_v1/run.py
+      - name: Recreate frozen H0 population
+        run: python experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py
+      - name: Execute end-to-end holdout
+        run: python experiments/module_h_digital_mitford_end_to_end_holdout_v1/run.py
+      - name: Upload H results
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-h-digital-mitford-end-to-end-holdout-v1
+          path: |
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/results
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/results_population
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/PROTOCOL.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/SOURCE_CONTRACT_v1.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/H0_RESULTS.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/H0_EVALUATOR_REPAIR_v1.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/H0_EVALUATOR_REPAIR_v2.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/H0_EVALUATOR_REPAIR_v3.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/H0_EVALUATOR_REPAIR_v4.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/H0_ACCIDENTAL_GOLD_EXPOSURE_v1.md
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/run.py
+            experiments/module_h_digital_mitford_end_to_end_holdout_v1/extract_population.py
