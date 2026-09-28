@@ -184,6 +184,19 @@ This additional binding is charged information.
 
 All are controlled projections of the same natural 1920 erratum.
 
+### Provenance envelope held constant
+
+Every event arm is delivered in an immutable envelope identifying the correction witness as:
+
+- 1920 addenda/errata layer;
+- printed p.50 / PDF index 63;
+- pinned 1920 source hash from section 2.
+
+The ablation changes only the event's correction payload.
+It does not erase knowledge of which published correction source delivered the event.
+
+This prevents correction-source provenance from being confounded with correction-to-target binding.
+
 ### E_NATIVE_FULL
 
 Retain:
