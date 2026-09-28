@@ -41,6 +41,8 @@ def strip_runtime_doc(doc):
         "primary_boundary_signature": doc["primary_boundary_signature"],
         "claims": [runtime_v2.public_claim(c) for c in doc["claims"]],
         "origin_claim": runtime_v2.public_claim(doc["origin_claim"]) if doc.get("origin_claim") else None,
+        "origin_contract_status": doc.get("origin_contract_status"),
+        "origin_element_count": doc.get("origin_element_count"),
         "neutral_event": doc.get("neutral_event"),
         "has_annex": doc.get("has_annex"),
     }
@@ -71,6 +73,11 @@ def semantic_contract_check(runtime_doc, oracle_doc):
     o_origin = (oracle_doc.get("origin_claim") or {}).get("claim_key")
     if r_origin != o_origin:
         reasons.append("ORIGIN_CLAIM_MISMATCH")
+
+    if runtime_doc.get("origin_contract_status") != oracle_doc.get("origin_contract_status"):
+        reasons.append("ORIGIN_CONTRACT_STATUS_MISMATCH")
+    if runtime_doc.get("origin_element_count") != oracle_doc.get("origin_element_count"):
+        reasons.append("ORIGIN_ELEMENT_COUNT_MISMATCH")
 
     r_neutral = (runtime_doc.get("neutral_event") or {}).get("event_key")
     o_neutral = (oracle_doc.get("neutral_event") or {}).get("event_key")
@@ -192,6 +199,8 @@ def run_episode(row):
             "neutral_event": o["neutral_event"],
             "primary_boundary_signature": o["primary_boundary_signature"],
             "origin_claim": o["origin_claim"],
+            "origin_contract_status": o.get("origin_contract_status"),
+            "origin_element_count": o.get("origin_element_count"),
         },
         "runtime_source": strip_runtime_doc(r),
         "arms": arms,
@@ -397,6 +406,8 @@ def main():
                 "q0": r["oracle"]["q0"],
                 "warrant_root": r["oracle"]["warrant_root"],
                 "warrant_after": r["oracle"]["warrant_after"],
+                "origin_contract_status": r["oracle"].get("origin_contract_status"),
+                "origin_element_count": r["oracle"].get("origin_element_count"),
                 "full_trajectory_eligible": r["oracle"]["full_trajectory_eligible"],
                 "exclusion_reasons": r["oracle"]["full_trajectory_exclusion_reasons"],
                 "contract": r["contract"],
