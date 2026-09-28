@@ -271,14 +271,14 @@ def _claim(path, role, idx, el, locator):
 def _choose_origin(root):
     histories = [x for x in root.iter() if _local(x.tag) == "history"]
     if not histories:
-        return None, None, None
+        return [], None, None
     origin = None
     for x in list(histories[0]):
         if _local(x.tag) == "origin":
             origin = x
             break
     if origin is None:
-        return None, None, None
+        return [], None, None
 
     ps = [x for x in list(origin) if _local(x.tag) == "p"]
     chosen = None
@@ -295,15 +295,11 @@ def _choose_origin(root):
         if chosen is None:
             chosen = ps[0]
             chosen_lang = (chosen.attrib.get(XML_LANG) or "").lower()
-        for x in chosen.iter():
-            if _local(x.tag) == "origDate":
-                return x, origin, chosen_lang
-        return None, origin, chosen_lang
+        ods = [x for x in chosen.iter() if _local(x.tag) == "origDate" and _attrs(x)]
+        return ods, origin, chosen_lang
 
-    for x in origin.iter():
-        if _local(x.tag) == "origDate":
-            return x, origin, ""
-    return None, origin, ""
+    ods = [x for x in origin.iter() if _local(x.tag) == "origDate" and _attrs(x)]
+    return ods, origin, ""
 
 
 def _extract_revisions(root, pmap):
@@ -501,13 +497,19 @@ def parse_document(path: str, raw: bytes):
     for i, x in enumerate(dateline_els, 1):
         claims.append(_claim(path, "dateline", i, x, _locator_token("primary_letter_dateline_date", i)))
 
-    od, origin_el, origin_lang = _choose_origin(root)
+    origin_els, origin_el, origin_lang = _choose_origin(root)
     origin_claim = None
-    if od is not None and _attrs(od):
+    origin_contract_status = "NO_ORIGIN_EVIDENCE"
+    origin_element_count = len(origin_els)
+    if origin_element_count == 1:
+        od = origin_els[0]
         origin_claim = _claim(
             path, "origDate", 1, od,
             _locator_token("history_origin_origDate", 1, origin_lang or "none")
         )
+        origin_contract_status = "SINGLE_ORIGIN_ADMISSIBLE"
+    elif origin_element_count > 1:
+        origin_contract_status = "COMPOSITE_ORIGIN_UNRESOLVED"
 
     sent_claims = [c for c in claims if c["role"] == "sent"]
     eligibility = _eligibility(claims)
@@ -521,8 +523,10 @@ def parse_document(path: str, raw: bytes):
     full_reasons = []
     if not is_correspondence or not eligibility["eligible"]:
         full_reasons.append("NOT_PRIMARY_ELIGIBLE")
-    if origin_claim is None:
+    if origin_contract_status == "NO_ORIGIN_EVIDENCE":
         full_reasons.append("NO_ORIGIN_EVIDENCE")
+    elif origin_contract_status == "COMPOSITE_ORIGIN_UNRESOLVED":
+        full_reasons.append("COMPOSITE_ORIGIN_UNRESOLVED")
     if root_warrant == post_warrant:
         full_reasons.append("NO_WARRANT_STATE_CHANGE")
     required_live = _required_live_after(claims, origin_claim, post_warrant)
@@ -557,6 +561,8 @@ def parse_document(path: str, raw: bytes):
         "_claims_private": claims,
         "origin_claim": _strip_private_claim(origin_claim) if origin_claim else None,
         "_origin_private": origin_claim,
+        "origin_contract_status": origin_contract_status,
+        "origin_element_count": origin_element_count,
         "eligibility": eligibility,
         "expected_question": expected_question,
         "q0": q0,
