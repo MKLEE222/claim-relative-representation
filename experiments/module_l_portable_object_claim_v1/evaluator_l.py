@@ -150,6 +150,27 @@ def evaluate_trace(trace, oracle_doc, runtime_doc):
 
     excluded_temporal_claims_exact = excluded_core(oracle_doc) == excluded_core(runtime_doc)
 
+    def eligibility_core(doc):
+        e = doc.get("eligibility") or {}
+        return {
+            "eligible": bool(e.get("eligible")),
+            "trigger": e.get("trigger"),
+            "live_claim_keys": sorted(e.get("live_claim_keys") or []),
+            "d1_pairs": sorted(tuple(x) for x in (e.get("d1_pairs") or [])),
+            "d2_pairs": sorted(tuple(x) for x in (e.get("d2_pairs") or [])),
+        }
+
+    eligibility_contract_exact = eligibility_core(oracle_doc) == eligibility_core(runtime_doc)
+    full_trajectory_contract_exact = (
+        bool(oracle_doc.get("full_trajectory_eligible"))
+            == bool(runtime_doc.get("full_trajectory_eligible"))
+        and sorted(oracle_doc.get("full_trajectory_exclusion_reasons") or [])
+            == sorted(runtime_doc.get("full_trajectory_exclusion_reasons") or [])
+        and oracle_doc.get("warrant_root") == runtime_doc.get("warrant_root")
+        and oracle_doc.get("warrant_after") == runtime_doc.get("warrant_after")
+        and oracle_doc.get("q0") == runtime_doc.get("q0")
+    )
+
     ev.update({
         "source_context_exact": source_context_exact,
         "active_claim_applicability_exact": active_claim_applicability_exact,
@@ -158,6 +179,8 @@ def evaluate_trace(trace, oracle_doc, runtime_doc):
         "payload_binding_contract_exact": payload_binding_contract_exact,
         "origin_handle_binding_exact": origin_handle_binding_exact,
         "excluded_temporal_claims_exact": excluded_temporal_claims_exact,
+        "eligibility_contract_exact": eligibility_contract_exact,
+        "full_trajectory_contract_exact": full_trajectory_contract_exact,
     })
     ev["end_to_end_pass"] = bool(
         ev.get("end_to_end_pass")
@@ -168,6 +191,8 @@ def evaluate_trace(trace, oracle_doc, runtime_doc):
         and payload_binding_contract_exact
         and origin_handle_binding_exact
         and excluded_temporal_claims_exact
+        and eligibility_contract_exact
+        and full_trajectory_contract_exact
     )
     return ev
 
@@ -182,6 +207,8 @@ def failed_metrics(evaluation):
         "payload_binding_contract_exact",
         "origin_handle_binding_exact",
         "excluded_temporal_claims_exact",
+        "eligibility_contract_exact",
+        "full_trajectory_contract_exact",
     ):
         if not evaluation.get(k):
             out.append(k)
