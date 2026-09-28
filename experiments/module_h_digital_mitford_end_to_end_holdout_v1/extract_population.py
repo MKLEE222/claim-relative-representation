@@ -113,7 +113,7 @@ def lname(el) -> str:
 
 
 def parse_journal(raw: bytes):
-    root = ET.fromstring(raw, ET.XMLParser(resolve_entities=False, no_network=True, recover=False))
+    root = ET.fromstring(raw, ET.XMLParser(resolve_entities=False, no_network=True, recover=False, collect_ids=False))
     tree = root.getroottree()
     mentions = []
     by_id = defaultdict(list)
@@ -143,7 +143,7 @@ def parse_journal(raw: bytes):
 
 
 def parse_si(raw: bytes):
-    root = ET.fromstring(raw, ET.XMLParser(resolve_entities=False, no_network=True, recover=False))
+    root = ET.fromstring(raw, ET.XMLParser(resolve_entities=False, no_network=True, recover=False, collect_ids=False))
     persons = {}
     name_index = defaultdict(set)
     for el in root.iter():
