@@ -62,7 +62,6 @@ def proof_core(c):
         "population_scope": c.get("population_scope"),
         "source_file": c.get("source_file"),
         "source_locator_contract": c.get("source_locator_contract"),
-        "source_locator_xpath": c.get("source_locator_xpath"),
     }
 
 
