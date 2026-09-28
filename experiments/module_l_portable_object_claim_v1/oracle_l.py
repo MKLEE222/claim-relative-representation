@@ -98,6 +98,16 @@ def _inside_annex(el, pmap, stop=None) -> bool:
     return False
 
 
+def _inside_embedded_text(el, pmap, stop=None) -> bool:
+    cur = pmap.get(el)
+    while cur is not None and cur is not stop:
+        if _local(cur.tag) == "floatingText":
+            return True
+        if _local(cur.tag) == "body":
+            return True
+        cur = pmap.get(cur)
+    return False
+
 def _object_selection(root, pmap):
     if any(
         _local(x.tag) == "revisionDesc"
@@ -125,7 +135,10 @@ def _object_selection(root, pmap):
     for x in body.iter():
         if x is body or _local(x.tag) != "div" or x.attrib.get("type") != "letter":
             continue
-        if not _inside_annex(x, pmap, stop=body):
+        if (
+            not _inside_annex(x, pmap, stop=body)
+            and not _inside_embedded_text(x, pmap, stop=body)
+        ):
             explicit.append(x)
 
     if len(explicit) == 1:
@@ -145,7 +158,13 @@ def _object_selection(root, pmap):
 
     trans = [
         x for x in body.iter()
-        if x is not body and _local(x.tag) == "div" and x.attrib.get("type") == "transcription"
+        if (
+            x is not body
+            and _local(x.tag) == "div"
+            and x.attrib.get("type") == "transcription"
+            and not _inside_annex(x, pmap, stop=body)
+            and not _inside_embedded_text(x, pmap, stop=body)
+        )
     ]
     if len(trans) > 1:
         return {
@@ -296,6 +315,8 @@ def _selected_dateline_elements(candidate, pmap):
             continue
         if _inside_annex(x, pmap, stop=candidate):
             continue
+        if _inside_embedded_text(x, pmap, stop=candidate):
+            continue
         anc = _ancestors(x, pmap)
         inside_marker = False
         for a in reversed(anc):
@@ -322,6 +343,8 @@ def _excluded_body_dates(root, pmap, candidate):
             continue
         if _inside_annex(x, pmap, stop=body):
             cls = "EXCLUDED_ANNEX"
+        elif _inside_embedded_text(x, pmap, stop=candidate):
+            cls = "EXCLUDED_EMBEDDED_OBJECT"
         elif x in candidate_nodes:
             continue
         else:
