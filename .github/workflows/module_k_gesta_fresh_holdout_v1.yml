@@ -1,0 +1,57 @@
+name: module-k-gesta-fresh-holdout-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_k_gesta_fresh_holdout_v1/**"
+      - ".github/workflows/module_k_gesta_fresh_holdout_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  preregistered-hardening-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - name: Compile frozen engines and Module K wrapper
+        run: |
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/oracle_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/runtime_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/evaluator_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+          python -m py_compile experiments/module_j_dahn_object_bound_holdout_v1/oracle_j.py
+          python -m py_compile experiments/module_j_dahn_object_bound_holdout_v1/runtime_j.py
+          python -m py_compile experiments/module_j_dahn_object_bound_holdout_v1/evaluator_j.py
+          python -m py_compile experiments/module_j_dahn_object_bound_holdout_v1/test_object_contract_v1.py
+          python -m py_compile experiments/module_k_gesta_fresh_holdout_v1/run_holdout.py
+      - name: Verify frozen Module J engine blobs
+        run: |
+          test "$(git hash-object experiments/module_j_dahn_object_bound_holdout_v1/runtime_j.py)" = "002a5a5f9c4253a6bf1ee90bde4b7b4727636146"
+          test "$(git hash-object experiments/module_j_dahn_object_bound_holdout_v1/oracle_j.py)" = "282b8db3cc44c3d23aaa15b0bf59f84676eef0e9"
+          test "$(git hash-object experiments/module_j_dahn_object_bound_holdout_v1/evaluator_j.py)" = "6c588f3c1f723f33020e050fc35af7931fb8eb2e"
+          test "$(git hash-object experiments/module_j_dahn_object_bound_holdout_v1/test_object_contract_v1.py)" = "d7ecddea804e73f53048bfdfc91b84d21eba8c09"
+      - name: Run inherited F1-F9 hardening tests
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+      - name: Run frozen object-bound F10-F16 tests
+        run: python experiments/module_j_dahn_object_bound_holdout_v1/test_object_contract_v1.py
+
+  authoritative-holdout:
+    needs: preregistered-hardening-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - name: Run first preregistered GeStA holdout
+        run: python experiments/module_k_gesta_fresh_holdout_v1/run_holdout.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-k-gesta-fresh-holdout-v1
+          path: experiments/module_k_gesta_fresh_holdout_v1/results
