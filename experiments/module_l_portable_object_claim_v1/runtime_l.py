@@ -84,6 +84,17 @@ def _inside_annex(el, stop=None) -> bool:
     return False
 
 
+def _inside_embedded_text(el, stop=None) -> bool:
+    cur = el.getparent()
+    while cur is not None and cur is not stop:
+        if _local(cur) == "floatingText":
+            return True
+        if _local(cur) == "body":
+            return True
+        cur = cur.getparent()
+    return False
+
+
 def _object_selection(root):
     if any(
         isinstance(x.tag, str)
@@ -110,7 +121,10 @@ def _object_selection(root):
 
     explicit = []
     for x in body.xpath(".//*[local-name()='div' and @type='letter']"):
-        if not _inside_annex(x, stop=body):
+        if (
+            not _inside_annex(x, stop=body)
+            and not _inside_embedded_text(x, stop=body)
+        ):
             explicit.append(x)
 
     if len(explicit) == 1:
@@ -128,7 +142,13 @@ def _object_selection(root):
             "reason": "MULTIPLE_EXPLICIT_LETTERS",
         }
 
-    trans = body.xpath(".//*[local-name()='div' and @type='transcription']")
+    trans = [
+        x for x in body.xpath(".//*[local-name()='div' and @type='transcription']")
+        if (
+            not _inside_annex(x, stop=body)
+            and not _inside_embedded_text(x, stop=body)
+        )
+    ]
     if len(trans) > 1:
         return {
             "status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
@@ -297,6 +317,8 @@ def _selected_dateline_elements(candidate):
             continue
         if _inside_annex(x, stop=candidate):
             continue
+        if _inside_embedded_text(x, stop=candidate):
+            continue
         ancestors = []
         cur = x.getparent()
         while cur is not None:
@@ -322,6 +344,8 @@ def _excluded_body_dates(root, candidate):
             continue
         if _inside_annex(x, stop=body):
             cls = "EXCLUDED_ANNEX"
+        elif _inside_embedded_text(x, stop=candidate):
+            cls = "EXCLUDED_EMBEDDED_OBJECT"
         elif x in candidate_nodes:
             continue
         else:
