@@ -115,11 +115,11 @@ Before continuation:
 After legal branch execution, update only fields for which source evidence was inspected.
 
 Allowed field states:
-- insertion_scope: INSIDE / OUTSIDE / UNRESOLVED
+- insertion_scope: INSIDE / OUTSIDE / MIXED / NO_TEXT / UNRESOLVED
 - predecessor_relation: PRESENT / ABSENT_AFTER_INSPECTION / NOT_ASSESSED / UNRESOLVED
 - internal_cancellation: PRESENT / ABSENT_AFTER_INSPECTION / NOT_ASSESSED / UNRESOLVED
 
-A missing branch is not automatically evidence of ABSENT. Absence is licensed only after the relevant source span/relation domain has been inspected.
+A missing branch is not automatically evidence of ABSENT. Absence is licensed only after the relevant source span/relation domain has been inspected. MIXED means the app contains nonempty manuscript text both inside and outside encoded addition scopes; NO_TEXT is retained as a control rather than coerced into OUTSIDE.
 
 Q0_ALIGNMENT must remain unchanged.
 
