@@ -27,47 +27,72 @@ def _norm(s):
     return " ".join((s or "").split())
 
 
-def _candidate_letters(root):
-    trans = root.xpath("//*[local-name()='body']//*[local-name()='div' and @type='transcription']")
+def _object_selection(root):
+    bodies = root.xpath("//*[local-name()='body']")
+    if not bodies:
+        return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
+
+    body = bodies[0]
+    trans = body.xpath(".//*[local-name()='div' and @type='transcription']")
     if not trans:
-        return []
+        return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
+
     t = trans[0]
     direct = t.xpath("./*[local-name()='div' and @type='letter']")
-    if direct:
-        return direct
-    return t.xpath(
+    if len(direct) == 1:
+        return {"status": "SINGLE_PRIMARY_DOCUMENT_OBJECT", "candidates": direct, "boundary_kind": "EXPLICIT_LETTER_DIV"}
+    if len(direct) > 1:
+        return {"status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS", "candidates": direct, "boundary_kind": None}
+
+    desc = t.xpath(
         ".//*[local-name()='div' and @type='letter' and "
         "not(ancestor::*[local-name()='div' and @type='annex'])]"
     )
+    if len(desc) == 1:
+        return {"status": "SINGLE_PRIMARY_DOCUMENT_OBJECT", "candidates": desc, "boundary_kind": "EXPLICIT_LETTER_DIV"}
+    if len(desc) > 1:
+        return {"status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS", "candidates": desc, "boundary_kind": None}
+
+    if len(trans) != 1:
+        return {"status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS", "candidates": trans, "boundary_kind": None}
+
+    corresp_desc = root.xpath("//*[local-name()='correspDesc']")
+    sent_actions = root.xpath("//*[local-name()='correspAction' and @type='sent']")
+    substantive = bool(_norm(" ".join(t.itertext())))
+    if len(corresp_desc) == 1 and sent_actions and substantive:
+        return {
+            "status": "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+            "candidates": [t],
+            "boundary_kind": "TRANSCRIPTION_AS_LETTER",
+        }
+
+    return {"status": "NO_PRIMARY_DOCUMENT_OBJECT", "candidates": [], "boundary_kind": None}
 
 
 def object_contract(path, raw, fault=None):
     parser = LET.XMLParser(resolve_entities=False, no_network=True, recover=False)
     root = LET.fromstring(raw, parser)
-    candidates = _candidate_letters(root)
+    sel = _object_selection(root)
+    candidates = sel["candidates"]
 
     if fault == "force_first_object" and len(candidates) > 1:
         candidates = [candidates[0]]
+        sel = {"status": "SINGLE_PRIMARY_DOCUMENT_OBJECT", "candidates": candidates, "boundary_kind": "FAULT_FORCED_FIRST"}
 
-    if len(candidates) == 0:
+    if sel["status"] != "SINGLE_PRIMARY_DOCUMENT_OBJECT":
         return {
-            "status": "NO_PRIMARY_DOCUMENT_OBJECT",
-            "object_id": None,
-            "candidate_count": 0,
-            "boundary_signature": None,
-        }
-    if len(candidates) > 1:
-        return {
-            "status": "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+            "status": sel["status"],
             "object_id": None,
             "candidate_count": len(candidates),
             "boundary_signature": None,
+            "boundary_kind": sel["boundary_kind"],
         }
 
     sig = _sha(_norm(" ".join(candidates[0].itertext())).encode("utf-8"))
     payload = {
         "source_file": path,
         "source_version": UPSTREAM_COMMIT,
+        "boundary_kind": sel["boundary_kind"],
         "primary_boundary_signature": sig,
     }
     oid = _sha(json.dumps(payload, sort_keys=True, separators=(",", ":")).encode("utf-8"))
@@ -76,6 +101,7 @@ def object_contract(path, raw, fault=None):
         "object_id": oid,
         "candidate_count": 1,
         "boundary_signature": sig,
+        "boundary_kind": sel["boundary_kind"],
     }
 
 
