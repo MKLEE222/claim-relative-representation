@@ -1,0 +1,129 @@
+from __future__ import annotations
+
+import sys
+from pathlib import Path
+
+HERE = Path(__file__).resolve().parent
+if str(HERE) not in sys.path:
+    sys.path.insert(0, str(HERE))
+
+import oracle_j
+import runtime_j
+import evaluator_j
+
+SINGLE = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1900-01-01">1 Jan 1900</docDate></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1900-01-02">2 Jan 1900</origDate></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-03">3 Jan 1900</date></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body><div type="transcription">
+   <div type="letter"><opener><dateline><date when="1900-01-01">1 Jan 1900</date></dateline></opener><p>Primary.</p></div>
+   <div type="annex"><div type="letter"><opener><dateline><date when="1905-01-01">1 Jan 1905</date></dateline></opener></div></div>
+ </div></body></text>
+</TEI>"""
+
+NO_PRIMARY = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc><msContents><msItem><docDate when="1832">1832</docDate></msItem></msContents></msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent">
+    <date when="1832-01-01">1832</date><date when="1849-01-01">1849</date>
+  </correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body><p>Aggregate correspondence extracts; no letter object.</p></body></text>
+</TEI>"""
+
+MULTIPLE = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc><msContents><msItem><docDate when="1900">1900</docDate></msItem></msContents></msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1900-01-01">1900</date></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body><div type="transcription">
+   <div type="letter"><opener><dateline><date when="1900-01-02">2 Jan</date></dateline></opener><p>Letter A.</p></div>
+   <div type="letter"><opener><dateline><date when="1901-01-02">2 Jan 1901</date></dateline></opener><p>Letter B.</p></div>
+ </div></body></text>
+</TEI>"""
+
+
+def require(cond, message):
+    if not cond:
+        raise AssertionError(message)
+
+
+def main():
+    detections = {}
+
+    # Baseline single scholarly object.
+    o = oracle_j.parse_document("SYNTHETIC/single.xml", SINGLE)
+    r = runtime_j.parse_document("SYNTHETIC/single.xml", SINGLE)
+    require(o["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT", o["object_contract"])
+    require(r["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT", r["object_contract"])
+    require(o["object_id"] == r["object_id"], "independent object IDs disagree")
+    require(o["full_trajectory_eligible"], o["full_trajectory_exclusion_reasons"])
+    trace = runtime_j.execute(r, "I_RSTAR")
+    ev = evaluator_j.evaluate_trace(trace, o, r)
+    require(ev["end_to_end_pass"], ev)
+
+    # F10: aggregate metadata with two sent dates but no letter object.
+    o10 = oracle_j.parse_document("SYNTHETIC/no_primary.xml", NO_PRIMARY)
+    r10 = runtime_j.parse_document("SYNTHETIC/no_primary.xml", NO_PRIMARY)
+    detections["F10_AGGREGATE_WITHOUT_PRIMARY_REJECTED"] = all([
+        o10["object_contract"]["status"] == "NO_PRIMARY_DOCUMENT_OBJECT",
+        r10["object_contract"]["status"] == "NO_PRIMARY_DOCUMENT_OBJECT",
+        not o10["eligibility"]["eligible"],
+        o10["expected_question"] is None,
+        runtime_j.discover(r10["claims"], expected_object_id=r10.get("object_id")) is None,
+    ])
+    require(detections["F10_AGGREGATE_WITHOUT_PRIMARY_REJECTED"], {
+        "oracle": o10["object_contract"],
+        "runtime": r10["object_contract"],
+        "eligibility": o10["eligibility"],
+    })
+
+    # F11: multiple sibling primary letters must not silently select the first.
+    o11 = oracle_j.parse_document("SYNTHETIC/multiple.xml", MULTIPLE)
+    r11 = runtime_j.parse_document("SYNTHETIC/multiple.xml", MULTIPLE)
+    detections["F11_MULTIPLE_PRIMARY_REJECTED"] = all([
+        o11["object_contract"]["status"] == "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+        r11["object_contract"]["status"] == "MULTIPLE_PRIMARY_DOCUMENT_OBJECTS",
+        o11["object_contract"]["candidate_count"] == 2,
+        r11["object_contract"]["candidate_count"] == 2,
+        not o11["eligibility"]["eligible"],
+        runtime_j.discover(r11["claims"], expected_object_id=r11.get("object_id")) is None,
+    ])
+    require(detections["F11_MULTIPLE_PRIMARY_REJECTED"], {
+        "oracle": o11["object_contract"],
+        "runtime": r11["object_contract"],
+    })
+
+    # F12: cross-object claim injection must break discovery/object contract.
+    r12 = runtime_j.parse_document("SYNTHETIC/single.xml", SINGLE, fault="cross_object_claim")
+    t12 = runtime_j.execute(r12, "I_RSTAR")
+    e12 = evaluator_j.evaluate_trace(t12, o, r12)
+    detections["F12_CROSS_OBJECT_INJECTION_DETECTED"] = (
+        not e12["object_claim_binding_exact"]
+        and not e12["end_to_end_pass"]
+    )
+    require(detections["F12_CROSS_OBJECT_INJECTION_DETECTED"], e12)
+
+    # Annex remains excluded from the single primary object.
+    annex_interval = ["1905-01-01", "1905-01-01"]
+    detections["ANNEX_EXCLUDED"] = all(
+        c.get("interval") != annex_interval for c in o["claims"]
+    )
+    require(detections["ANNEX_EXCLUDED"], o["claims"])
+
+    print({
+        "baseline_end_to_end": ev["end_to_end_pass"],
+        "fault_detection": detections,
+        "all_object_faults_detected": all(detections.values()),
+    })
+
+
+if __name__ == "__main__":
+    main()
