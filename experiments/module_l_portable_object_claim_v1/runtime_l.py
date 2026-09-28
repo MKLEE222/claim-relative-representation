@@ -297,6 +297,23 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
         base_doc["claims"] = []
         base_doc["origin_claim"] = None
         base_doc["origin_handle"] = None
+        base_doc["eligibility"] = {
+            "eligible": False,
+            "trigger": None,
+            "live_claim_keys": [],
+            "d1_pairs": [],
+            "d2_pairs": [],
+        }
+        base_doc["expected_question"] = None
+        base_doc["q0"] = {"source": "none", "intervals": []}
+        base_doc["warrant_root"] = {
+            "type": "UNRESOLVED",
+            "reason": obj["status"],
+        }
+        base_doc["warrant_after"] = copy.deepcopy(base_doc["warrant_root"])
+        base_doc["required_live_claim_keys_after"] = []
+        base_doc["full_trajectory_eligible"] = False
+        base_doc["full_trajectory_exclusion_reasons"] = [obj["status"]]
         base_doc["excluded_temporal_claims"] = []
         base_doc["neutral_event"] = copy.deepcopy(base.CONTROL_NULL_EVENT)
         return base_doc
@@ -370,14 +387,55 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
             "claim_key": origin["claim_key"],
         }
 
-    base_doc["claims"] = claims
-    base_doc["origin_claim"] = origin
-    base_doc["origin_handle"] = origin_handle
-    base_doc["excluded_temporal_claims"] = _excluded_body_dates(root, candidate)
-    base_doc["is_correspondence"] = bool(
+    is_correspondence = bool(
         root.xpath("//*[local-name()='correspDesc']")
         and root.xpath("//*[local-name()='correspAction']")
     )
+    eligibility = base.runtime_eligibility(claims)
+    root_warrant = base.runtime_warrant(claims)
+    post_claims = claims + ([origin] if origin is not None else [])
+    post_warrant = base.runtime_warrant(post_claims) if origin is not None else root_warrant
+
+    sent_claims = [c for c in claims if c.get("role") == "sent" and c.get("_bounds")]
+    if sent_claims:
+        q0 = {"source": "sent", "intervals": [c["interval"] for c in sent_claims]}
+    elif origin is not None and origin.get("_bounds"):
+        q0 = {"source": "origDate", "intervals": [origin["interval"]]}
+    else:
+        q0 = {"source": "none", "intervals": []}
+
+    expected_question = None
+    if eligibility.get("trigger"):
+        expected_question = {
+            "type": "TEMPORAL_WARRANT_QUERY",
+            "trigger": eligibility["trigger"],
+            "disputed_claim_keys": eligibility["live_claim_keys"],
+            "object_id": oid,
+        }
+
+    reasons = []
+    if not is_correspondence or not eligibility.get("eligible"):
+        reasons.append("NOT_PRIMARY_ELIGIBLE")
+    if base_doc.get("origin_contract_status") == "NO_ORIGIN_EVIDENCE":
+        reasons.append("NO_ORIGIN_EVIDENCE")
+    elif base_doc.get("origin_contract_status") == "COMPOSITE_ORIGIN_UNRESOLVED":
+        reasons.append("COMPOSITE_ORIGIN_UNRESOLVED")
+    if root_warrant == post_warrant:
+        reasons.append("NO_WARRANT_STATE_CHANGE")
+
+    base_doc["claims"] = claims
+    base_doc["origin_claim"] = origin
+    base_doc["origin_handle"] = origin_handle
+    base_doc["is_correspondence"] = is_correspondence
+    base_doc["eligibility"] = eligibility
+    base_doc["expected_question"] = expected_question
+    base_doc["q0"] = q0
+    base_doc["warrant_root"] = root_warrant
+    base_doc["warrant_after"] = post_warrant
+    base_doc["required_live_claim_keys_after"] = base.live_keys_from_warrant(post_warrant)
+    base_doc["full_trajectory_eligible"] = not reasons
+    base_doc["full_trajectory_exclusion_reasons"] = reasons
+    base_doc["excluded_temporal_claims"] = _excluded_body_dates(root, candidate)
     return base_doc
 
 
