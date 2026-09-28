@@ -77,6 +77,36 @@ TWO_TRANSCRIPTIONS = b"""<?xml version="1.0" encoding="UTF-8"?>
 </TEI>"""
 
 
+UNTYPED_LETTER = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc>
+   <msContents><msItem><docDate when="1810-01-01">1 Jan 1810</docDate></msItem></msContents>
+   <history><origin><p xml:lang="en"><origDate when="1810-01-02">2 Jan 1810</origDate></p></origin></history>
+  </msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent"><date when="1810-01-03">3 Jan 1810</date></correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body>
+   <div>
+     <opener><salute>Dear friend,</salute><dateline><date when="1810-01-01">1 Jan 1810</date></dateline></opener>
+     <p>Untyped body letter.</p>
+     <closer><signed>A.</signed></closer>
+   </div>
+ </body></text>
+</TEI>"""
+
+UNTYPED_PLACEHOLDER = b"""<?xml version="1.0" encoding="UTF-8"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0">
+ <teiHeader>
+  <fileDesc><sourceDesc><msDesc><msContents><msItem><docDate when="1832">1832</docDate></msItem></msContents></msDesc></sourceDesc></fileDesc>
+  <profileDesc><correspDesc><correspAction type="sent">
+    <date when="1832-01-01">1832</date><date when="1849-01-01">1849</date>
+  </correspAction></correspDesc></profileDesc>
+ </teiHeader>
+ <text><body><div><p>[Transcription to come - See metadata]</p></div></body></text>
+</TEI>"""
+
+
 def require(cond, message):
     if not cond:
         raise AssertionError(message)
@@ -166,6 +196,38 @@ def main():
     require(detections["F14_MULTIPLE_TRANSCRIPTIONS_REJECTED"], {
         "oracle": o14["object_contract"],
         "runtime": r14["object_contract"],
+    })
+
+
+    # F15: one untyped body letter with letter-specific structure is a valid single object.
+    o15 = oracle_j.parse_document("SYNTHETIC/untyped_letter.xml", UNTYPED_LETTER)
+    r15 = runtime_j.parse_document("SYNTHETIC/untyped_letter.xml", UNTYPED_LETTER)
+    detections["F15_UNTYPED_BODY_LETTER_ACCEPTED"] = all([
+        o15["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        r15["object_contract"]["status"] == "SINGLE_PRIMARY_DOCUMENT_OBJECT",
+        o15["object_contract"]["boundary_kind"] == "UNTYPED_BODY_LETTER",
+        r15["object_contract"]["boundary_kind"] == "UNTYPED_BODY_LETTER",
+        o15["object_id"] == r15["object_id"],
+    ])
+    require(detections["F15_UNTYPED_BODY_LETTER_ACCEPTED"], {
+        "oracle": o15["object_contract"],
+        "runtime": r15["object_contract"],
+    })
+
+    # F16: metadata plus placeholder body is not a scholarly letter object.
+    o16 = oracle_j.parse_document("SYNTHETIC/untyped_placeholder.xml", UNTYPED_PLACEHOLDER)
+    r16 = runtime_j.parse_document("SYNTHETIC/untyped_placeholder.xml", UNTYPED_PLACEHOLDER)
+    detections["F16_PLACEHOLDER_NOT_OBJECT"] = all([
+        o16["object_contract"]["status"] == "NO_PRIMARY_DOCUMENT_OBJECT",
+        r16["object_contract"]["status"] == "NO_PRIMARY_DOCUMENT_OBJECT",
+        not o16["eligibility"]["eligible"],
+        o16["expected_question"] is None,
+        runtime_j.discover(r16["claims"], expected_object_id=r16.get("object_id")) is None,
+    ])
+    require(detections["F16_PLACEHOLDER_NOT_OBJECT"], {
+        "oracle": o16["object_contract"],
+        "runtime": r16["object_contract"],
+        "eligibility": o16["eligibility"],
     })
 
     # Annex remains excluded from the single primary object.
