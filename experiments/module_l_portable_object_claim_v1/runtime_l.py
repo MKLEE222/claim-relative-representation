@@ -35,6 +35,8 @@ def _boundary_signature(el) -> str:
         if text:
             parts.append(["text", text])
         for child in list(node):
+            if not isinstance(child.tag, str):
+                continue
             parts.append(["child", emit(child)])
             tail = _norm(child.tail or "")
             if tail:
