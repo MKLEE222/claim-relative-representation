@@ -30,13 +30,17 @@ jobs:
           python -m py_compile experiments/module_l_portable_object_claim_v1/runtime_l.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/evaluator_l.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/test_portable_contract_v1.py
+          python -m py_compile experiments/module_l_portable_object_claim_v1/test_inherited_obligations_v1.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/run_exposed_regression.py
+          python -m py_compile experiments/module_l_portable_object_claim_v1/run_exposed_delta_audit.py
       - name: Run inherited F1-F9 hardening
         run: python experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
       - name: Run inherited F10-F16 object contract
         run: python experiments/module_j_dahn_object_bound_holdout_v1/test_object_contract_v1.py
-      - name: Run portable F17-F28 controls
+      - name: Run portable F17-F29 controls
         run: python experiments/module_l_portable_object_claim_v1/test_portable_contract_v1.py
+      - name: Replay inherited I-J obligations on portable engine
+        run: python experiments/module_l_portable_object_claim_v1/test_inherited_obligations_v1.py
 
   exposed-regression:
     needs: synthetic-contract-gate
