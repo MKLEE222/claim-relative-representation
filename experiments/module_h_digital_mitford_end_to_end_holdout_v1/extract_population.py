@@ -52,6 +52,12 @@ CHECKPOINTS = {
     },
 }
 
+POST_FREEZE_ACCIDENTAL = [
+    "shaw_sam", "shaw sam",
+    "sidney_sirp", "sir philip sidney",
+    "smith_james", "james smith",
+]
+
 EXPOSED = [
     "lovejoy_martha", "martha lovejoy",
     "parry_mrs", "mrs. parry", "mrs parry",
@@ -110,7 +116,9 @@ def strip_ref(v: str | None) -> str | None:
 
 
 def lname(el) -> str:
-    return ET.QName(el).localname
+    if not isinstance(el.tag, str):
+        return ""
+    return ET.QName(el.tag).localname
 
 
 def parse_journal(raw: bytes):
@@ -219,6 +227,11 @@ def parse_gold(raw: bytes):
 def exposed(row) -> bool:
     h = norm(row["body"])
     return any(norm(x) in h for x in EXPOSED)
+
+
+def post_freeze_accidental(row) -> bool:
+    h = norm(row["body"])
+    return any(norm(x) in h for x in POST_FREEZE_ACCIDENTAL)
 
 
 def candidate_source_matches(row, journal, si):
@@ -373,6 +386,7 @@ def main():
             "first_checked": first_row["checked"],
             "trajectory": trajectory,
             "pre_freeze_exposed": exposed(first_row),
+            "post_freeze_accidental_exposure": post_freeze_accidental(first_row),
             "gold_key_ambiguous": ambiguous,
             "source_matches": {},
             "eligible": False,
@@ -422,7 +436,12 @@ def main():
         episodes.append(rec)
 
     eligible = [x for x in episodes if x["eligible"]]
+    eligible_clean = [
+        x for x in eligible
+        if not x["post_freeze_accidental_exposure"]
+    ]
     final_status = Counter(x["trajectory"]["T3"]["status"] for x in eligible)
+    final_status_clean = Counter(x["trajectory"]["T3"]["status"] for x in eligible_clean)
 
     result = {
         "study": "MODULE_H0_DIGITAL_MITFORD_POPULATION_FREEZE_V1",
@@ -431,8 +450,13 @@ def main():
         "checkpoints": {k: v["meta"] for k, v in cps.items()},
         "gold_line_counts": {k: len(v["gold_rows"]) for k, v in cps.items()},
         "episode_counts": dict(counts),
-        "eligible_count": len(eligible),
-        "eligible_final_gold_status": dict(final_status),
+        "eligible_count_all": len(eligible),
+        "eligible_count_clean_confirmatory": len(eligible_clean),
+        "post_freeze_accidental_eligible_count": sum(
+            x["post_freeze_accidental_exposure"] for x in eligible
+        ),
+        "eligible_final_gold_status_all": dict(final_status),
+        "eligible_final_gold_status_clean": dict(final_status_clean),
         "episodes": episodes,
         "claim_boundary": [
             "PossibleMissingSI.md is used only by this evaluator, never as system input.",
@@ -445,13 +469,15 @@ def main():
     out = outdir / "population.json"
     out.write_text(json.dumps(result, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
-    # Console intentionally emits aggregates and stable texts only for eligible episodes.
+    # Keep stdout aggregate-only until the scientific evaluator runs.
     print(json.dumps({
         "gold_line_counts": result["gold_line_counts"],
         "episode_counts": result["episode_counts"],
-        "eligible_count": result["eligible_count"],
-        "eligible_final_gold_status": result["eligible_final_gold_status"],
-        "eligible_stable_texts": [x["stable_text"] for x in eligible],
+        "eligible_count_all": result["eligible_count_all"],
+        "eligible_count_clean_confirmatory": result["eligible_count_clean_confirmatory"],
+        "post_freeze_accidental_eligible_count": result["post_freeze_accidental_eligible_count"],
+        "eligible_final_gold_status_all": result["eligible_final_gold_status_all"],
+        "eligible_final_gold_status_clean": result["eligible_final_gold_status_clean"],
         "population_sha256": sha256(out.read_bytes()),
     }, ensure_ascii=False, indent=2))
 
