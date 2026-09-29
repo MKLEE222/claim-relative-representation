@@ -154,7 +154,7 @@ def main():
         len(oidoc) == len(ridoc) == 1,
         oidoc[0]["interval"] is None,
         ridoc[0]["interval"] is None,
-        oidoc[0]["status"] == ridoc[0]["status"] == "MISSING",
+        oidoc[0]["status"] == ridoc[0]["status"] == "UNPARSED",
     ])
     require(results["F35_ISO_DATETIME_INVALID_REJECTED"], {
         "oracle": oidoc,
