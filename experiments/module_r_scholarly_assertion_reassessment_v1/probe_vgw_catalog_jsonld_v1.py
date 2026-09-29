@@ -55,6 +55,7 @@ KEEP_KEYS = {
     "modified", "issued", "publisher", "creator",
     "distribution", "mediatype", "format",
     "accessurl", "downloadurl", "bytesize",
+    "contenturl", "encodingformat", "contentsize",
     "license", "rights", "identifier",
 }
 
@@ -74,7 +75,10 @@ def sanitize_metadata(node):
             out[k] = sanitize_metadata(v)
         elif "distribution" in lk:
             out[k] = sanitize_metadata(v)
-        elif any(x in lk for x in ("accessurl", "downloadurl", "mediatype", "bytesize")):
+        elif any(x in lk for x in (
+            "accessurl", "downloadurl", "mediatype", "bytesize",
+            "contenturl", "encodingformat", "contentsize",
+        )):
             out[k] = sanitize_metadata(v)
     return out
 
