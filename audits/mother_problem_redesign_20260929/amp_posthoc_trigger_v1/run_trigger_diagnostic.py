@@ -6,7 +6,7 @@ from collections import Counter
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
-EXP = HERE.parents[1] / "experiments"
+EXP = HERE.parents[2] / "experiments"
 O_DIR = EXP / "module_o_amp_fresh_holdout_v1"
 L_DIR = EXP / "module_l_portable_object_claim_v1"
 
