@@ -1,0 +1,50 @@
+{
+  "study": "MODULE_R_VGW_HEAD_METADATA_ANCHORS_V1",
+  "captured_from_run": 36527870153,
+  "request_method": "HEAD",
+  "request_accept": "application/n-triples",
+  "response_body_bytes_read": 0,
+  "provider_distribution_content_opened": false,
+  "datasets": [
+    {
+      "slug": "de_la_faille_1970",
+      "status": 200,
+      "content_type": "application/ld+json",
+      "content_length": "1596",
+      "etag": "W/\"1596-1779788015919\"",
+      "last_modified": "Tue, 26 May 2026 09:33:35 GMT"
+    },
+    {
+      "slug": "works_after_1970",
+      "status": 200,
+      "content_type": "application/ld+json",
+      "content_length": "1428",
+      "etag": "W/\"1428-1747653830116\"",
+      "last_modified": "Mon, 19 May 2025 11:23:50 GMT"
+    },
+    {
+      "slug": "van_gogh_museum",
+      "status": 200,
+      "content_type": "application/ld+json",
+      "content_length": "1520",
+      "etag": "W/\"1520-1782123280395\"",
+      "last_modified": "Mon, 22 Jun 2026 10:14:40 GMT"
+    },
+    {
+      "slug": "krollermuller_museum",
+      "status": 200,
+      "content_type": "application/ld+json",
+      "content_length": "1546",
+      "etag": "W/\"1546-1786438542851\"",
+      "last_modified": "Tue, 11 Aug 2026 08:55:42 GMT"
+    },
+    {
+      "slug": "rkd_collections",
+      "status": 200,
+      "content_type": "application/ld+json",
+      "content_length": "1503",
+      "etag": "W/\"1503-1747653831591\"",
+      "last_modified": "Mon, 19 May 2025 11:23:51 GMT"
+    }
+  ]
+}
