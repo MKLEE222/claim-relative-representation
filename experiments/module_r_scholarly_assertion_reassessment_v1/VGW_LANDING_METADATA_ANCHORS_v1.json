@@ -1,0 +1,53 @@
+{
+  "study": "MODULE_R_VGW_LANDING_METADATA_ANCHORS_V1",
+  "captured_from_run": 36527721561,
+  "provider_distribution_opened": false,
+  "provider_ntriples_followed": false,
+  "datasets": [
+    {
+      "slug": "de_la_faille_1970",
+      "landing_url": "https://data.spinque.com/ld/data/vangoghworldwide/de_la_faille_1970/",
+      "content_type": "text/html",
+      "content_length": "1914",
+      "etag": "W/\"1914-1779788015920\"",
+      "last_modified": "Tue, 26 May 2026 09:33:35 GMT",
+      "sha256": "96753479e3d1b1da5a87b91e2dc82d39dcdd27eb7397ab9142b3d435344e44c5"
+    },
+    {
+      "slug": "works_after_1970",
+      "landing_url": "https://data.spinque.com/ld/data/vangoghworldwide/works_after_1970/",
+      "content_type": "text/html",
+      "content_length": "1746",
+      "etag": "W/\"1746-1747653830117\"",
+      "last_modified": "Mon, 19 May 2025 11:23:50 GMT",
+      "sha256": "e34f8a6f24abae396faa85d6a6b4c709b8c6762d7cd22cb0d24e6169536f9bd5"
+    },
+    {
+      "slug": "van_gogh_museum",
+      "landing_url": "https://data.spinque.com/ld/data/vangoghworldwide/van_gogh_museum/",
+      "content_type": "text/html",
+      "content_length": "1838",
+      "etag": "W/\"1838-1782123280395\"",
+      "last_modified": "Mon, 22 Jun 2026 10:14:40 GMT",
+      "sha256": "a200d00a5dc64e99c3706b0fb16aaa69d046bc6509ab355ef61ea3b51b8f73dd"
+    },
+    {
+      "slug": "krollermuller_museum",
+      "landing_url": "https://data.spinque.com/ld/data/vangoghworldwide/krollermuller_museum/",
+      "content_type": "text/html",
+      "content_length": "1864",
+      "etag": "W/\"1864-1786438542852\"",
+      "last_modified": "Tue, 11 Aug 2026 08:55:42 GMT",
+      "sha256": "02c9a046caf05dcaf722961b9cfb0788a6f3f0bc447547ad958df6326c600ce5"
+    },
+    {
+      "slug": "rkd_collections",
+      "landing_url": "https://data.spinque.com/ld/data/vangoghworldwide/rkd_collections/",
+      "content_type": "text/html",
+      "content_length": "1821",
+      "etag": "W/\"1821-1747653831592\"",
+      "last_modified": "Mon, 19 May 2025 11:23:51 GMT",
+      "sha256": "6ef846da27cf90234c123c52b6a4456cb27b1591535d8999cdb6e5a54966dbc3"
+    }
+  ]
+}
