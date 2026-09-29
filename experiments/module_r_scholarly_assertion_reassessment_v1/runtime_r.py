@@ -16,12 +16,15 @@ def psi(state):
                 "value": copy.deepcopy(a.get("value")),
                 "status": a.get("status"),
             })
-        vals = sorted(vals, key=lambda x: (
-            str(x.get("target_property")),
-            str(x.get("value")),
-            str(x.get("status")),
-            str(x.get("object_id")),
-        ))
+        vals = sorted(
+            vals,
+            key=lambda x: json.dumps(
+                x,
+                ensure_ascii=False,
+                sort_keys=True,
+                separators=(",", ":"),
+            ),
+        )
         buckets.append({"target_property": key, "assertions": vals})
     return {"object_id": state.get("object_id"), "targets": buckets}
 
