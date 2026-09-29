@@ -17,7 +17,7 @@ def psi(state):
     rows = []
     for target in sorted(state.get("assertions", {})):
         vals = [_proj_assertion(x) for x in state["assertions"][target]]
-        vals.sort(key=lambda x: json.dumps(x, sort_keys=True, ensure_ascii=False))
+        vals.sort(key=lambda x: json.dumps(x, sort_keys=True, ensure_ascii=False, separators=(",", ":")))
         rows.append({"target_property": target, "assertions": vals})
     return {
         "object_id": state.get("object_id"),
