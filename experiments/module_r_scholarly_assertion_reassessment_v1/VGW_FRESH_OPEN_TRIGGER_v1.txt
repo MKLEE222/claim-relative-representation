@@ -1,0 +1,13 @@
+Module R / VGW fresh opening trigger v1
+Date: 2026-09-29
+Protocol: VGW_FRESH_REASSESSMENT_PROTOCOL_v1.md
+Execution contract: VGW_CONFIRMATORY_EXECUTION_CONTRACT_v1.md
+PRE_DATA gate: workflow 36553781176 = SUCCESS
+Frozen source slugs:
+- de_la_faille_1970
+- works_after_1970
+- van_gogh_museum
+- krollermuller_museum
+- rkd_collections
+Scientific engine changes after this trigger: none permitted for the authoritative fresh result.
+At first provider-distribution GET, VGW freshness is irreversibly consumed.
