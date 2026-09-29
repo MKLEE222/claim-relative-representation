@@ -21,12 +21,21 @@ class LinkCollector(HTMLParser):
     def __init__(self):
         super().__init__()
         self.links = []
+        self.link_tags = []
+        self.scripts = []
         self._current = None
+        self._script = None
 
     def handle_starttag(self, tag, attrs):
+        d = dict(attrs)
+        if tag.lower() == "link" and d.get("href"):
+            self.link_tags.append(d)
+            return
+        if tag.lower() == "script":
+            self._script = {"attrs": d, "text": ""}
+            return
         if tag.lower() != "a":
             return
-        d = dict(attrs)
         href = d.get("href")
         if href:
             self._current = {"href": href, "text": "", "attrs": d}
@@ -34,11 +43,16 @@ class LinkCollector(HTMLParser):
     def handle_data(self, data):
         if self._current is not None:
             self._current["text"] += data
+        if self._script is not None:
+            self._script["text"] += data
 
     def handle_endtag(self, tag):
         if tag.lower() == "a" and self._current is not None:
             self.links.append(self._current)
             self._current = None
+        if tag.lower() == "script" and self._script is not None:
+            self.scripts.append(self._script)
+            self._script = None
 
 
 def sha256(raw: bytes) -> str:
@@ -62,12 +76,75 @@ def candidate_distribution_links(base_url: str, html: str):
             or "distribution" in href.lower()
         ):
             out.append({
+                "source": "anchor",
                 "href": urljoin(base_url, href),
                 "text": " ".join(row["text"].split()),
                 "type": attrs.get("type"),
                 "rel": attrs.get("rel"),
             })
-    return out
+
+    for attrs in parser.link_tags:
+        signal = json.dumps(attrs, sort_keys=True).lower()
+        href = attrs.get("href")
+        if href and (
+            "n-triple" in signal
+            or "application/n-triples" in signal
+            or href.lower().endswith(".nt")
+            or "download" in href.lower()
+            or "distribution" in href.lower()
+        ):
+            out.append({
+                "source": "link-tag",
+                "href": urljoin(base_url, href),
+                "type": attrs.get("type"),
+                "rel": attrs.get("rel"),
+            })
+
+    url_re = re.compile(r"https?://[^\\s\\\"'<>]+")
+    for script in parser.scripts:
+        stype = str(script["attrs"].get("type") or "").lower()
+        text = script["text"]
+        if "json" not in stype and not any(
+            k in text.lower() for k in ("n-triple", "distribution", "download")
+        ):
+            continue
+        for url in url_re.findall(text):
+            signal = url.lower()
+            if (
+                "n-triple" in signal
+                or signal.endswith(".nt")
+                or "download" in signal
+                or "distribution" in signal
+                or "/ld/data/" in signal
+            ):
+                out.append({
+                    "source": "script",
+                    "href": url,
+                    "script_type": stype,
+                })
+
+    for url in url_re.findall(html):
+        signal = url.lower()
+        if (
+            "n-triple" in signal
+            or signal.endswith(".nt")
+            or "download" in signal
+            or "distribution" in signal
+        ):
+            out.append({
+                "source": "raw-html-url",
+                "href": url,
+            })
+
+    dedup = []
+    seen = set()
+    for row in out:
+        key = (row.get("source"), row.get("href"))
+        if key in seen:
+            continue
+        seen.add(key)
+        dedup.append(row)
+    return dedup
 
 
 def fetch_metadata(slug: str):
