@@ -1,0 +1,64 @@
+name: module-r-vgw-corrected-reproduction-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_r_scholarly_assertion_reassessment_v1/VGW_CORRECTED_REPRO_TRIGGER_v1.txt"
+
+jobs:
+  corrected-reproduction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install RDF dependency
+        run: python -m pip install rdflib==7.1.4
+
+      - name: Verify post-fresh scientific engine state
+        run: |
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_contract_constants.py)" = "acac49b2312131100e3f47d5ac258697cb8e4afc"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_oracle.py)" = "57796319953fb6639f8789fbf62f81a82e571472"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_runtime.py)" = "95e84d6227f2bbb16256e2f03ffaa73c4d344b16"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/oracle_r.py)" = "f5cefb84d8957b5e887fd133ef1122213b2419dd"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/runtime_r.py)" = "52ea3ebb788b414036d3f086aa0d51c0dba424f7"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/evaluator_r.py)" = "370b92f3934577af21a318797e75d177ece32097"
+
+      - name: Compile corrected reproduction layer
+        run: |
+          python -m py_compile experiments/module_r_scholarly_assertion_reassessment_v1/run_vgw_corrected_reproduction_v1.py
+          python -m py_compile experiments/module_r_scholarly_assertion_reassessment_v1/audit_vgw_corrected_reproduction_v1.py
+          python -m py_compile experiments/module_r_scholarly_assertion_reassessment_v1/finalize_vgw_corrected_reproduction_v1.py
+          python -m py_compile experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_nt_terminator_regression_v1.py
+
+      - name: Re-run frozen Module R synthetic controls
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_reassessment_contract_v1.py
+
+      - name: Re-run VGW-shaped synthetic gate after lexer correction
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_prefresh_synthetic_v1.py
+
+      - name: Run exposed lexical regression
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_nt_terminator_regression_v1.py
+
+      - name: Run corrected reproduction on exact frozen source URLs
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/run_vgw_corrected_reproduction_v1.py
+
+      - name: Run independent documentary audit
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/audit_vgw_corrected_reproduction_v1.py
+
+      - name: Finalize corrected reproduction
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/finalize_vgw_corrected_reproduction_v1.py
+
+      - name: Remove transient provider RDF bytes
+        if: always()
+        run: rm -rf experiments/module_r_scholarly_assertion_reassessment_v1/results/vgw_corrected_source_cache_v1
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: module-r-vgw-corrected-reproduction-v1
+          path: experiments/module_r_scholarly_assertion_reassessment_v1/results/vgw_corrected_reproduction_v1
