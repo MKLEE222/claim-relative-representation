@@ -109,6 +109,7 @@ def candidate_outcomes(state, event_without_operation):
         if transition.get("applicable"):
             out[op] = {
                 "after_state": transition.get("after_state"),
+                "after_full_state": transition.get("state"),
                 "substantive": transition.get("substantive"),
                 "transition_class": transition.get("transition_class"),
             }
@@ -129,8 +130,14 @@ def recovery_record(state, frozen_event):
     e = strip_operation(frozen_event)
     frozen_transition = oracle_r.apply_event(state, frozen_event)
     gamma = structural_candidates(state, e)
-    matches = phenotype_matches(
-        state, e, frozen_transition.get("after_state")
+    outcomes = candidate_outcomes(state, e)
+    matches = sorted(
+        op for op, row in outcomes.items()
+        if row.get("after_state") == frozen_transition.get("after_state")
+    )
+    full_matches = sorted(
+        op for op, row in outcomes.items()
+        if row.get("after_full_state") == frozen_transition.get("state")
     )
     return {
         "held_out_operation": held_out_operation,
@@ -153,5 +160,15 @@ def recovery_record(state, frozen_event):
             else "UNDERIDENTIFIED_PHENOTYPE"
         ),
         "held_out_recovered_from_phenotype": matches == [held_out_operation],
-        "candidate_outcomes": candidate_outcomes(state, e),
+        "gamma_full_state_match": full_matches,
+        "gamma_full_state_match_count": len(full_matches),
+        "full_state_recovery_class": (
+            "NO_MATCH" if len(full_matches) == 0
+            else "UNIQUE_FULL_STATE" if len(full_matches) == 1
+            else "UNDERIDENTIFIED_FULL_STATE"
+        ),
+        "held_out_recovered_from_full_state": (
+            full_matches == [held_out_operation]
+        ),
+        "candidate_outcomes": outcomes,
     }
