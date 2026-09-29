@@ -14,7 +14,7 @@ for p in (HERE, R_DIR):
 import generator_audit as G
 import oracle_r
 import runtime_r
-import test_reassessment_contract as synth
+import test_reassessment_contract_v1 as synth
 import run_historical_exposed as hist
 
 
