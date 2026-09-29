@@ -25,7 +25,11 @@ def corrected_marker(anchor_rows):
         "scientific_status": "POSTFRESH_CORRECTED_REPRODUCTION_ONLY",
         "authoritative_fresh_run": 36553853190,
         "original_fresh_disposition": "INVALID",
-        "repair": "NTRIPLES_BLANK_NODE_TERMINATOR_LEXER_ONLY",
+        "repairs": [
+            "NTRIPLES_BLANK_NODE_TERMINATOR_LEXER",
+            "NTRIPLES_LANGTAG_TERMINATOR_LEXER",
+            "INVALID_RECORD_BLANK_NODE_COMPARISON_NORMALIZATION"
+        ],
         "source_urls": {
             slug: anchor_rows[slug]["content_url"]
             for slug in base.EXPECTED_SLUGS
