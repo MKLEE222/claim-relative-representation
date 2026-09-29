@@ -176,3 +176,96 @@ The project remains valuable future development/comparative evidence.
 The public distribution route also remains insufficiently clear for a frozen automated XML
 population: current public documentation clearly offers the edition and plain-text distributions,
 while bulk source-XML availability is not established by the inspected distribution pages.
+
+
+### Edirom/WeGA-ODD / WeGA correspondence ecology
+
+Only the generic ODD/customization repository was inspected.
+
+Screening ODD commit:
+
+    9d5b3343ce753cb53c218088636d7ab867671a54
+
+Project-level schema establishes:
+- one TEI letter resource with project-native text type=letter semantics;
+- body divisions typed writingSession;
+- exactly one correspDesc in profileDesc;
+- required correspAction typing;
+- strong source/facsimile/editorial metadata.
+
+A future object adapter could be designed prospectively from the generic ODD because the project
+does not use the frozen A/B/C serialization directly.
+
+However generic ODD search did not establish:
+- origDate as a project letter carrier;
+- a postmark-versus-handwritten-date layer;
+- another independent later evidence carrier satisfying Module-Q ERIR.
+
+Current status:
+
+    PROVISIONAL / OBJECT ADAPTER FEASIBLE / LATER-EVIDENCE GATE NOT ESTABLISHED
+
+No WeGA episode XML has been opened.
+
+### HistoryAtState/frus
+
+Only repository metadata, README and schema/frus.odd were inspected.
+
+Screening commit:
+
+    8e5da08c1d99bbcdf69c34cef8c15dff91f95cf9
+
+Closed repository metadata:
+- volumes/ contains 744 XML files;
+- README states one XML file per FRUS volume;
+- each volume contains explicitly identified div type=document scholarly document units.
+
+Generic ODD establishes a rich editorial provenance ecology:
+- revisionDesc/change as a major revision log;
+- editorialDecl/correction for corrections to source text and known issues;
+- document datelines as source-visible origin-date text;
+- machine date values that may be added or corrected;
+- closed date/@ana categories documenting the evidence used in editorial dating.
+
+Prospectively documented evidence categories include:
+- correction from document content;
+- correction from scanned original;
+- correction from outside research;
+- correction from sibling dates;
+- compiler/editor correction;
+- inference from document head;
+- inference from editorial annotation;
+- inference from editorial consultation;
+- inference from related sources;
+- inferred dates for otherwise undated documents.
+
+This is stronger than a second serialization of the same date: the project explicitly records
+the scholarly basis by which a date value was inferred or corrected.
+
+Freshness status:
+
+    FRESH — NO volumes/*.xml FILE HAS BEEN OPENED
+
+Module-Q temporal status:
+
+    HOLD / DO NOT OPEN
+
+Reason:
+the current Module-P temporal implementation assumes a machine-addressable S0 warrant and an
+independent later evidence claim. FRUS instead prospectively exposes a different structure:
+
+    source-visible documentary date/status
+    -> editorial assessment / evidence category
+    -> normalized or corrected scholarly date
+
+Mapping this into Module P would require a new prospectively frozen adapter/event model rather
+than simply reusing the AMP origDate release mechanism.
+
+Scientific routing:
+
+    RESERVED HIGH-VALUE CANDIDATE FOR SECOND EVENT FAMILY
+    OR FOR A SEPARATELY FROZEN EDITORIAL-ASSESSMENT ERIR STUDY
+
+Do not consume FRUS episode XML while Module-Q fresh temporal confirmation remains unresolved.
+The project is especially valuable because its generic model approaches the E13/CRMinf
+assertion/evidence pattern identified in the near-neighbor design audit.
