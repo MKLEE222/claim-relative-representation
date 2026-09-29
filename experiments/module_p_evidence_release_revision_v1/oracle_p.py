@@ -37,7 +37,12 @@ def warrant_projection(warrant):
                 "role": x.get("role"),
                 "interval": copy.deepcopy(x.get("interval")),
             })
-        alts.sort(key=lambda x: json.dumps(x, sort_keys=True, ensure_ascii=False))
+        alts.sort(
+            key=lambda x: (
+                str(x.get("role")),
+                json.dumps(x.get("interval"), ensure_ascii=False, sort_keys=True),
+            )
+        )
         return {"type": "ALTERNATIVE_SET", "alternatives": alts}
 
     if kind == "UNRESOLVED":
