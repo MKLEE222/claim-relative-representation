@@ -321,10 +321,15 @@ Freshness:
 
     EXPOSED DEVELOPMENT ONLY
 
-Fresh reserved candidate:
+Former reserved candidate:
 
     HistoryAtState/frus
-    no volumes/*.xml opened
+    STRICT FRESHNESS LOST on 2026-09-29 after one incidental repository-search snippet from
+    volumes/frus1977-80v09.xml.
+
+No target reassessment episode was surfaced, but the literal no-volumes exposure rule was
+violated. FRUS is therefore disqualified from fresh Module-R confirmation and retained only for
+exposed design/development.
 
 ## 4. What is now actually established
 
@@ -398,17 +403,20 @@ Why:
 - a fresh non-temporal result would test whether target/provenance/history obligations survive
   beyond date/warrant updates.
 
-Reserved candidate:
+Previously reserved candidate:
 
-    FRUS
+    FRUS — NOW DISQUALIFIED FROM STRICT FRESH USE.
 
-Freshness must be preserved until:
-- FRUS-specific object/assertion adapter is frozen from ODD only;
-- full document population/denominator is frozen;
-- event/evidence semantics are frozen;
-- null rules are frozen;
-- independent source-audit logic is frozen;
-- failure-injection support predicates are frozen.
+A replacement fresh non-temporal corpus must be screened under a path allowlist that prevents
+repository-wide search from surfacing episode/data files.
+
+Before any replacement corpus opening:
+- object/assertion adapter must be frozen from allowed project-level files only;
+- full population/denominator must be frozen;
+- event/evidence semantics must be frozen;
+- null rules must be frozen;
+- independent source-audit logic must be frozen;
+- failure-injection support predicates must be frozen.
 
 ### Burden 2 — cross-encoding temporal confirmation
 
@@ -458,22 +466,13 @@ Do not:
 
 ## 9. Next authorized engineering step
 
-Before opening FRUS:
+FRUS is no longer authorized for a fresh opening.
 
-    Module R / FRUS pre-fresh design only
+Next authorized step:
 
-Allowed inputs:
-- FRUS README;
-- frus.odd;
-- repository directory metadata;
-- already inspected project-level documentation.
+    screen a replacement Module-R fresh corpus using project-level path allowlists only.
 
-Forbidden until protocol freeze:
-- volumes/*.xml;
-- episode-specific search;
-- favorable-date/correction hunting.
-
-The pre-fresh design must explicitly distinguish:
+The replacement pre-fresh design must explicitly distinguish:
 
     source-visible statement/value
     editorial assessment/evidence
