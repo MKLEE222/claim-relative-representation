@@ -4,3 +4,5 @@ Purpose: verify that the pre-data import-path repair reproduces the same scienti
 Scientific status: CORRECTED_REPRODUCTION_AFTER_EXPOSURE, not fresh confirmation.
 Scientific contract changes: none.
 Execution repair: add module_p_evidence_release_revision_v1 to sys.path.
+
+Diagnostic rerun: field-level eligible-manifest consistency check.
