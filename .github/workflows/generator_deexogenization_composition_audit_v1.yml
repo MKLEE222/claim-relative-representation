@@ -1,0 +1,36 @@
+name: generator-deexogenization-composition-audit-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/generator_deexogenization_v1/**"
+      - "audits/mother_problem_redesign_20260929/GENERATOR_DEEXOGENIZATION_COMPOSITION_AUDIT_v1.md"
+      - ".github/workflows/generator_deexogenization_composition_audit_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile audit
+        run: |
+          python -m py_compile experiments/generator_deexogenization_v1/generator_audit.py
+          python -m py_compile experiments/generator_deexogenization_v1/run_generator_audit_v1.py
+
+      - name: Re-run Module R synthetic contract
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_reassessment_contract_v1.py
+
+      - name: Run generator audit
+        run: python experiments/generator_deexogenization_v1/run_generator_audit_v1.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: generator-deexogenization-composition-audit-v1
+          path: experiments/generator_deexogenization_v1/results
