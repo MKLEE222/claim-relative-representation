@@ -343,3 +343,177 @@ Next:
    - future-action-null or future-action-non-null.
 
 No fresh data is required for these steps.
+
+
+## 12. Module-P cross-audit
+
+A separate synthetic cross-audit was added after the Module-R generator result.
+
+Workflow:
+
+    generator-deexogenization-composition-audit-v1
+
+Successful cross-audit run:
+
+    36562856755
+
+Artifact:
+
+    11030642414
+
+Artifact ZIP SHA-256:
+
+    342ebad7d9a59ee77195f1f0a98eba6c929b037a708ba76b176f91a2d4c962c3
+
+### P differs structurally from R
+
+Module P does NOT place:
+
+    REPLACE / ADD_ALTERNATIVE / REVISE_STATUS / RESOLVE
+
+inside the event request.
+
+For all three synthetic audit cases:
+- conflict formation;
+- unresolved -> exact acquisition;
+- basis-only null;
+
+the event surface is only:
+
+    EVIDENCE_RELEASE_REVISION
+    / EVIDENCE_RELEASE
+
+with no operation field.
+
+The transition class is a pure function of:
+
+    Phi(S0), Phi(S1)
+
+under the frozen classifier.
+
+Thus P-U1/P-U2/P-U3/P-U4 are transition phenotypes rather than externally supplied operation
+labels.
+
+### What remains exogenous in P
+
+The release event itself remains externally declared.
+
+The wrapper:
+- constructs one OPEN_ORIGIN event;
+- opens the already frozen origin handle;
+- executes one neutral event;
+- returns.
+
+Its public signature is:
+
+    execute(doc, fault=None, drop_history=False)
+
+There is no prior-state or event-sequence input.
+
+Therefore P currently has:
+
+    fixed first-order evidence-admission generator
+    + endogenous warrant phenotype
+
+but not:
+
+    endogenous event activation
+    or
+    multi-generator composition.
+
+### Post-state dependence
+
+P declares substantive ERIR eligibility only after:
+
+    Phi(W_root) != Phi(W_post)
+
+is observed.
+
+Therefore P can identify whether a fixed evidence-admission action changed the scholarly state,
+but it does not define a pre-execution qualification rule that distinguishes in advance:
+
+    state-changing action
+    from
+    admissible state-null action.
+
+### P null
+
+The basis-only synthetic event has:
+
+    Phi(S0) == Phi(S1)
+
+while:
+- event applies;
+- evidence ledger changes;
+- event ledger changes;
+- transition ledger changes.
+
+Thus P independently confirms:
+
+    scholarly-state null
+    !=
+    action/history null.
+
+This matches the deeper concern exposed by the R null audit.
+
+## 13. Integrated diagnosis across P and R
+
+The two modules fail at different layers.
+
+### Module R
+
+Current form:
+
+    state + evidence + externally supplied operation
+    -> next state
+
+Problem:
+
+    generator identity is not generally recoverable from state/evidence,
+    and often not even from complete before/after state.
+
+### Module P
+
+Current form:
+
+    state + externally released evidence
+    -> fixed evidence-admission action
+    -> endogenous warrant phenotype
+
+Problem:
+
+    activation is externally supplied;
+    state-changing vs null status is known post hoc;
+    sequential composition is absent.
+
+Therefore the deeper project-level problem is not simply:
+
+    remove operation labels from R.
+
+It is:
+
+> Define a state- and evidence-dependent qualification relation for scholarly actions, and study
+> how executing one qualified action changes the set of actions available next.
+
+A natural formal object is:
+
+    Q(S,e,g)
+
+with:
+
+    Gamma(S,e) = { g : Q(S,e,g) }
+
+and a composition layer where:
+
+    g1 in Gamma(S0,e1)
+
+changes both:
+
+    S1 = g1(S0)
+
+and potentially:
+
+    Gamma(S1, .)
+
+The current evidence now supports treating this as the next mother-problem layer rather than as
+an implementation detail.
