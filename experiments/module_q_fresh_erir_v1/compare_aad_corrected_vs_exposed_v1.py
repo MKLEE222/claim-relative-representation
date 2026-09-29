@@ -43,6 +43,40 @@ def slim_nulls(rows):
     ]
 
 
+def first_diff(a, b, path="$"):
+    if type(a) is not type(b):
+        return {"path": path, "left": a, "right": b, "reason": "type"}
+    if isinstance(a, dict):
+        if set(a) != set(b):
+            return {
+                "path": path,
+                "left_keys": sorted(a),
+                "right_keys": sorted(b),
+                "reason": "keys",
+            }
+        for k in sorted(a):
+            d = first_diff(a[k], b[k], path + "." + str(k))
+            if d:
+                return d
+        return None
+    if isinstance(a, list):
+        if len(a) != len(b):
+            return {
+                "path": path,
+                "left_len": len(a),
+                "right_len": len(b),
+                "reason": "length",
+            }
+        for i, (x, y) in enumerate(zip(a, b)):
+            d = first_diff(x, y, path + f"[{i}]")
+            if d:
+                return d
+        return None
+    if a != b:
+        return {"path": path, "left": a, "right": b, "reason": "value"}
+    return None
+
+
 def main():
     a = load(CORRECTED)
     b = load(EXPOSED)
@@ -75,12 +109,17 @@ def main():
         ),
     }
 
+    left_manifest = slim_manifest(a["eligible_manifest"])
+    right_manifest = slim_manifest(b["eligible_manifest"])
+    manifest_first_diff = first_diff(left_manifest, right_manifest)
+
     report = {
         "study": "AAD_CORRECTED_REPRODUCTION_CONSISTENCY_V1",
         "corrected_status": a.get("data_status"),
         "exposed_status": b.get("data_status"),
         "checks": checks,
         "all_scientific_outputs_match": all(checks.values()),
+        "eligible_manifest_first_diff": manifest_first_diff,
         "note": (
             "source_context.population_scope and study/data-status labels are intentionally "
             "different and excluded from equality; scientific population/outcome surfaces "
