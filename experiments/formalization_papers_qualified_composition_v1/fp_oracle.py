@@ -11,6 +11,13 @@ def _v(x):
     return str(x)
 
 
+def _canon_time(value):
+    s = str(value)
+    if s.endswith("+00:00"):
+        return s[:-6] + "Z"
+    return s
+
+
 def parse_trig(raw: bytes):
     ds = Dataset()
     ds.parse(data=raw.decode("utf-8"), format="trig")
@@ -58,7 +65,7 @@ def _extract(by_graph, all_triples):
                 if s == np and p == C.DCT_CREATOR:
                     creators[np] = o
                 if s == np and p == C.DCT_CREATED:
-                    created[np] = o
+                    created[np] = _canon_time(o)
                 if s == np and p == C.LF_IS_UPDATE_OF:
                     updates.append((np, o))
                 if s == np and p == C.NPX_SUPERSEDES:
