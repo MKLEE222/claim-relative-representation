@@ -115,7 +115,11 @@ def parse_nt(raw: bytes):
         if obj[0] == "L":
             if line.startswith("@", p2):
                 p2 += 1
-                while p2 < len(line) and not line[p2].isspace():
+                while (
+                    p2 < len(line)
+                    and not line[p2].isspace()
+                    and line[p2] != "."
+                ):
                     p2 += 1
             elif line.startswith("^^", p2):
                 p2 += 2
