@@ -309,9 +309,9 @@ def _rekey_claim(c, object_id: str, boundary_signature: str, applicability_class
 
 
 _ISO_DATETIME_RE = re.compile(
-    r"^(\\d{4})-(\\d{2})-(\\d{2})T"
-    r"(\\d{2}):(\\d{2}):(\\d{2})(?:\\.\\d+)?"
-    r"(Z|[+-]\\d{2}:\\d{2})$"
+    r"^(\d{4})-(\d{2})-(\d{2})T"
+    r"(\d{2}):(\d{2}):(\d{2})(?:\.\d+)?"
+    r"(Z|[+-]\d{2}:\d{2})$"
 )
 
 
