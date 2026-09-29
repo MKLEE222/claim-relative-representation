@@ -169,6 +169,12 @@ def main():
             "max_duplicate_multiplicity": max(counts.values()) if counts else 0,
         }
 
+    o_full = dict(o)
+    r_full = dict(r)
+    o_full.pop("engine", None)
+    r_full.pop("engine", None)
+    full_first_diff = first_dict_diff(o_full, r_full)
+
     report = {
         "study": "VGW_POSTFRESH_ORACLE_RUNTIME_DIFF_V1",
         "source_sha256": EXPECTED_SHA,
@@ -198,6 +204,7 @@ def main():
             "runtime": len(r["post1970_role_exclusions"]),
         },
         "runtime_duplicate_triple_stats": triple_stats,
+        "full_extraction_first_diff": full_first_diff,
     }
     print(json.dumps(report, ensure_ascii=False, indent=2))
 
