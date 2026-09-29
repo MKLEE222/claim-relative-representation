@@ -1,0 +1,55 @@
+{
+  "study": "MODULE_R_VGW_DISTRIBUTION_METADATA_ANCHORS_V1",
+  "catalog_run": 36528091412,
+  "distribution_url_followed": false,
+  "provider_distribution_content_opened": false,
+  "docs_repo": "vangoghworldwide/linkedart",
+  "docs_commit": "9323e453939476640889da932058c73b3f29a286",
+  "datasets": [
+    {
+      "slug": "de_la_faille_1970",
+      "catalog_body_sha256": "edd539d6be63643866db156c71b6f6c52fbb02af84d08649c96f75892171c022",
+      "etag": "W/\"1596-1779788015919\"",
+      "last_modified": "Tue, 26 May 2026 09:33:35 GMT",
+      "encoding_format": "application/n-triples",
+      "content_url": "https://data.spinque.com/ld/data/vangoghworldwide/de_la_faille_1970/data/export.nt",
+      "content_size": 13922330
+    },
+    {
+      "slug": "works_after_1970",
+      "catalog_body_sha256": "df4be8d60ba944f64d4f85cdd10b0a57f10fa86fa5286e3c954a485a577f2fa7",
+      "etag": "W/\"1428-1747653830116\"",
+      "last_modified": "Mon, 19 May 2025 11:23:50 GMT",
+      "encoding_format": "application/n-triples",
+      "content_url": "https://data.spinque.com/ld/data/vangoghworldwide/works_after_1970/data/export.nt",
+      "content_size": 34201
+    },
+    {
+      "slug": "van_gogh_museum",
+      "catalog_body_sha256": "449815839e82ab7d1e02e93ecaf023195ed6bdc835a1cf9a80cbcc605c9542ce",
+      "etag": "W/\"1520-1782123280395\"",
+      "last_modified": "Mon, 22 Jun 2026 10:14:40 GMT",
+      "encoding_format": "application/n-triples",
+      "content_url": "https://data.spinque.com/ld/data/vangoghworldwide/van_gogh_museum/data/export.nt",
+      "content_size": 50924777
+    },
+    {
+      "slug": "krollermuller_museum",
+      "catalog_body_sha256": "8acc0ccc057c5b78de977ff2fcdbfde89834b8a264c54a0941a37c80e690c379",
+      "etag": "W/\"1546-1786438542851\"",
+      "last_modified": "Tue, 11 Aug 2026 08:55:42 GMT",
+      "encoding_format": "application/n-triples",
+      "content_url": "https://data.spinque.com/ld/data/vangoghworldwide/krollermuller_museum/data/export.nt",
+      "content_size": 16976964
+    },
+    {
+      "slug": "rkd_collections",
+      "catalog_body_sha256": "a88729c0c41fa00c05238c4fb2c893a4c5ba373d8a4ba12705ddf5b9e9433f0e",
+      "etag": "W/\"1503-1747653831591\"",
+      "last_modified": "Mon, 19 May 2025 11:23:51 GMT",
+      "encoding_format": "application/n-triples",
+      "content_url": "https://data.spinque.com/ld/data/vangoghworldwide/rkd_collections/data/export.nt",
+      "content_size": 3565304
+    }
+  ]
+}
