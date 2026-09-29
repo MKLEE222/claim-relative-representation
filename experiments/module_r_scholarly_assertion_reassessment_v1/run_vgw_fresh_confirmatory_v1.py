@@ -120,9 +120,31 @@ def download_one(slug: str, row: dict) -> bytes:
     return raw
 
 
+def _normalize_invalid_node_id(value):
+    if isinstance(value, str) and value.startswith("_:"):
+        return "<BLANK_NODE>"
+    return value
+
+
+def _normalize_invalid_record(row):
+    out = copy.deepcopy(row)
+    if "object_uri" in out:
+        out["object_uri"] = _normalize_invalid_node_id(out.get("object_uri"))
+    if "identifier_nodes" in out:
+        out["identifier_nodes"] = [
+            _normalize_invalid_node_id(x)
+            for x in (out.get("identifier_nodes") or [])
+        ]
+    return out
+
+
 def normalized_extraction(result):
     out = copy.deepcopy(result)
     out.pop("engine", None)
+    out["invalid_records"] = [
+        _normalize_invalid_record(x)
+        for x in (out.get("invalid_records") or [])
+    ]
     return out
 
 
