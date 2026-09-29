@@ -31,7 +31,6 @@ def _expected_current_provenance(doc):
             "claim_key": key,
             "source_file": c.get("source_file"),
             "source_locator_contract": c.get("source_locator_contract"),
-            "source_locator_xpath": c.get("source_locator_xpath"),
             "object_id": c.get("object_id"),
             "object_boundary_signature": c.get("object_boundary_signature"),
             "applicability_class": c.get("applicability_class"),
