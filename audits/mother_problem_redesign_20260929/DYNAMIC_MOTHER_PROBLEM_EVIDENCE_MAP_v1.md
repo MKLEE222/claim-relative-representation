@@ -1,7 +1,7 @@
 # Dynamic mother-problem evidence / claim map v1
 
 Date: 2026-09-29
-Status: AUTHORITATIVE PLANNING MAP AFTER MODULE-Q FRESH AAD AND MODULE-R EXPOSED DEVELOPMENT.
+Status: AUTHORITATIVE PLANNING MAP AFTER AAD/VGW CORRECTED REPRODUCTIONS AND QUALIFIED-GENERATOR REPAIR.
 
 ## 1. Purpose
 
@@ -190,24 +190,27 @@ Freshness:
 
     EXPOSED DEVELOPMENT
 
-### D4 — prospective cross-project temporal replication
+### D4 — cross-project temporal reproduction after pre-data execution failure
 
 Module Q / Auden in Austria Digital.
 
-Freshness:
+Authoritative fresh-attempt status:
 
-    TRUE ONE-SHOT FRESH OPENING
-    now exposed after run 36526317608
+    INVALID / pre-data infrastructure failure
 
-Population:
+The original fresh runner stopped on an import-path error before archive acquisition.
+
+A later exposed audit opened the population, so literal fresh status was not recoverable.
+
+Corrected reproduction:
 
     148/148 parsed
     0 parse errors
-    139 valid primary objects
-    9 no-primary-object
-    69 ERIR eligible
+    69 ERIR substantive
     70 admissible null
     9 ineligible
+    oracle/runtime unresolved = 0
+    P1-P7 = 69/69
 
 Transition classes:
 
@@ -215,69 +218,21 @@ Transition classes:
     P-U2 resolution/acquisition         = 30
     P-U3 narrowing/qualification        = 23
 
-Reference:
+Machine-level corrected-vs-exposed comparison:
 
-    P1-P7 = 69/69
-    reference end-to-end = 69/69
+    all scientific outputs match = true
 
-Independent raw-source audit:
+Scientific role:
 
-    69/69 PASS
-
-Strong comparators:
-
-    current reopen:
-        current state/provenance yes
-        exact delta no
-        transition attribution no
-        delayed history no
-
-    ordered snapshots:
-        current state/provenance yes
-        exact delta yes
-        transition attribution no
-        delayed history no
-
-Authoritative disposition:
-
-    BOUNDED_PARTIAL
-
-Only bounded-partial cause:
-
-    frozen Q4 collateral-root fault has no intervention support on all 30 P-U2 episodes
-
-Exact post-hoc support diagnostic:
-
-    P-U1 16/16 -> fault instantiated/detected
-    P-U2  0/30 -> no pre-existing root state to mutate
-    P-U3 23/23 -> fault instantiated/detected
-
-Licensed proposition:
-
-> A prospectively opened second project reproduces the ERIR state/provenance/history mechanism
-> across 69 source-audited episodes and three registered transition classes, while the
-> predeclared universal collateral-root stress test is unsupported for the unresolved-root U2
-> subclass.
-
-Independence ceiling:
-
-    FRESH CROSS-PROJECT / SAME-FRAMEWORK REPLICATION
+    strong cross-project corrected reproduction
 
 Not licensed:
 
-    full confirmatory PASS
-    cross-encoding confirmation
-    independent-infrastructure confirmation
+    fresh confirmatory PASS
 
 ### D5 — non-temporal scholarly assertion reassessment
 
 Module R.
-
-Near-neighbor basis:
-
-    TEI change targeting
-    CIDOC CRM E13 Attribute Assignment
-    CRMinf evidence / argumentation / belief adoption
 
 Synthetic gate:
 
@@ -287,198 +242,294 @@ Historical source-grounded exposed panel:
 
     5 total
     3 substantive
-    2 admissible null
+    2 assertion-state null / history-non-null after qualified-generator repair
 
-Substantive transition families observed:
+Historical transition content:
 
-    R-U2 ALTERNATIVE_FORMATION          = 1
-    R-U3 EVIDENTIAL_STATUS_REVISION     = 1
-    R-U4 RESOLUTION                     = 1
+    Sykes     status revision
+    Arbre Sec alternative formation
+    Great Desert resolution
+    Tutia     evidence registration / corroborative continuity
+    Pashai    evidence registration / corroborative continuity
 
-Natural nulls include:
-- additive/corroborative Tutia evidence;
-- Pashai corroboration already known in the earlier state.
+VGW independent ecology:
 
-Strong additional comparator:
+Authoritative first DATA_OPEN run:
 
-    B_CHANGE_LOG_NO_JUSTIFICATION
+    INVALID
+    reason = runtime N-Triples lexer failure after DATA_OPEN
 
-It can retain:
-- change/event identity;
-- target;
-- exact old/new diff;
+Corrected reproduction on byte-identical first-opening sources:
 
-while lacking:
-- evidence/justification that licensed the reassessment.
+    2108 F-number cases
+    36 substantive reassessments
+    139 natural current-attribution null cases
+    175 admissible executed cases
+    0 execution failures
+    oracle/runtime scientific surface exact
+    independent documentary audit = 36/36 PASS
 
-Development separation:
+Scientific role:
 
-    explicit change log
-    !=
-    evidence-grounded scholarly justification
+    strong independent-ecology post-fresh reproduction
 
-Freshness:
+Not licensed:
 
-    EXPOSED DEVELOPMENT ONLY
+    literal fresh PASS
+    true-authorship adjudication
 
-Former reserved candidate:
+### D6 — qualified scholarly generators and registered composition
 
-    HistoryAtState/frus
-    STRICT FRESHNESS LOST on 2026-09-29 after one incidental repository-search snippet from
-    volumes/frus1977-80v09.xml.
+Structural de-exogenization audit first reproduced the defect:
 
-No target reassessment episode was surfaced, but the literal no-volumes exposure rule was
-violated. FRUS is therefore disqualified from fresh Module-R confirmation and retained only for
-exposed design/development.
+    operation recovery from S,e:
+        unique           0/10
+        underidentified 10/10
+
+    recovery even from complete S0/S1:
+        unique           3/10
+        underidentified  7/10
+
+Repair:
+
+    remove operation from input
+
+    use:
+        current scholarly state S
+        source-grounded earlier/later relation rho
+        evidence/proposal e
+
+    qualify:
+        Gamma(S,rho,e) = {g : Q(S,rho,e,g)}
+
+First-class generator vocabulary:
+
+    RECORD_EVIDENCE
+    REPLACE
+    ADD_ALTERNATIVE
+    REVISE_STATUS
+    RESOLVE
+
+The evidence-relation vocabulary comes from the R3 contrast ontology frozen before Module-R
+representation outcomes.
+
+Closure result:
+
+    historical operation-free recovery = 5/5
+    synthetic operation-free recovery  = 5/5
+    oracle/runtime exact                = 10/10
+    old post-state Psi preserved        = 10/10
+    false-positive binding controls     = 6/6 rejected
+    RECORD_EVIDENCE Psi-identity/Xi-nonidentity = 4/4
+
+Factorization:
+
+    fixed state + changed relation
+        CONTRADICTS_PRIOR -> ADD_ALTERNATIVE
+        REPLACES_PRIOR    -> REPLACE
+
+    fixed REPLACES_PRIOR + changed state
+        singleton state   -> REPLACE
+        alternative state -> RESOLVE
+
+Therefore generator selection is jointly state- and relation-dependent rather than a renamed
+relation lookup.
+
+Registered two-step composition:
+
+    forward:
+        ADD_ALTERNATIVE ; RESOLVE
+
+    reverse:
+        REPLACE ; REVISE_STATUS
+
+Result:
+
+    generator sequence differs
+    final Psi differs
+    final full scholarly state differs
+    non-commutative composition = true
+
+Scientific proposition:
+
+> Current scholarly state values are insufficient by themselves. Researchability across change
+> also depends on preserving the source-grounded relations and bindings needed to qualify which
+> scholarly action is lawful now, because an executed action can change which generator a later
+> evidence relation induces.
+
+Evidence ceiling:
+
+    structural + synthetic + source-grounded exposed validation
+
+Not yet licensed:
+
+    universal generator vocabulary
+    universal scholarly action algebra
+    ecological prevalence of non-commutative multi-step trajectories
+    automatic relation extraction from arbitrary natural language
 
 ## 4. What is now actually established
 
-The dynamic line is no longer supported only by synthetic or exposed correspondence examples.
+The dynamic line now has:
 
-It now has:
+1. object-boundary false-positive falsification and repair;
+2. separate ambiguity-triggered and evidence-release activation regimes;
+3. corrected cross-project temporal reproduction with 69 substantive and 70 natural-null cases;
+4. non-temporal source-grounded reassessment development plus VGW independent-ecology corrected
+   reproduction with 36 substantive and 139 natural-null cases;
+5. strong current-state, snapshot and change-log comparators;
+6. a demonstrated defect in treating the transition operation as an external event label;
+7. an operation-free qualified-generator repair using a pre-existing source-contrast ontology;
+8. a first-class RECORD_EVIDENCE generator separating assertion identity from scholarly-history
+   identity;
+9. a registered state-dependent two-step composition in which order changes both selected
+   generators and the final state.
 
-1. object-boundary falsification and repair;
-2. two distinct temporal activation regimes;
-3. natural exposed mechanism evidence;
-4. one one-shot fresh cross-project temporal population;
-5. full independent source reconstruction of the 69 fresh eligible cases;
-6. a second, non-temporal event family at synthetic + source-grounded development stage;
-7. strong current-state and snapshot comparators rather than straw baselines.
+Literal prospective fresh positive confirmation remains absent because both AAD and VGW consumed
+their fresh opportunity through execution-path failures before corrected reproduction.
 
-Therefore a manuscript-level dynamic contribution is now scientifically plausible.
+That is an evidentiary-label limitation, not a remaining operation-identification defect.
 
 ## 5. Strongest integrated dynamic claim currently licensed
 
 A bounded formulation is:
 
 > Researchability across scholarly change requires more than preserving successive state values.
-> Under the declared tasks studied here, a later scholar must be able to establish which
-> scholarly object and proposition an evidence/reassessment event applies to, recover the
-> resulting state without collateral rewriting, trace its source basis, and reconstruct the
-> transition that produced it. Current-state reopening and ordered snapshots can preserve
-> substantial state information while leaving evidence-bound transition attribution and delayed
-> scholarly audit underdetermined.
+> Under the declared tasks studied here, the representation must preserve enough object,
+> proposition, source, evidence-relation and history structure to determine which scholarly
+> actions are lawfully available from the current state, execute the selected action without
+> collateral rewriting, and retain why that action was justified. The same source-grounded
+> relation can induce different generators after the state changes, so future researchability is
+> a property of qualified transition structure rather than of snapshots alone.
 
 This statement is supported by:
-- J exposed object-boundary mechanism;
-- P exposed ERIR mechanism;
-- Q fresh bounded-partial replication;
-- R exposed non-temporal development.
+- J object-boundary falsification/repair;
+- P evidence-release revision;
+- AAD corrected cross-project reproduction;
+- R historical reassessment;
+- VGW independent-ecology corrected reproduction;
+- qualified-generator de-exogenization and composition audit.
 
-The sentence must retain task/corpus bounds.
+The statement remains bounded to the registered source relations, tasks and state forms.
 
-## 6. Stronger synthesis still only a hypothesis
+## 6. Composability status
 
-The static and dynamic evidence suggest two orthogonal dimensions:
+The earlier synthesis:
 
-    A. state-level carrier sufficiency / exposure
+> task-required scholarly distinctions must be recoverable at a state and lawfully composable
+> across state-changing events
 
-and:
+is no longer only an organizing hypothesis.
 
-    B. cross-state continuity / composability
+A registered structural result now establishes:
+- generator qualification is state-dependent;
+- generator qualification also depends on source-grounded evidence relation;
+- RECORD_EVIDENCE can change scholarly history while leaving current assertions unchanged;
+- one qualified transition can change which generator a later relation induces;
+- the registered two-event sequence is non-commutative.
 
-A candidate synthesis is:
+What remains open is generalization:
 
-> A representation remains researchable only when task-required scholarly distinctions are both
-> recoverable at a state and lawfully composable across state-changing events.
+    registered composition result
+    !=
+    universal minimal-sufficiency theorem
+    !=
+    ecological prevalence theorem
+    !=
+    universal scholarly action algebra
 
-Current evidence supports this as an organizing framework.
-
-It is not yet established as a general minimal-sufficiency theorem.
+So composability is now demonstrated in the registered model, while its general natural scope
+remains an empirical/theoretical burden.
 
 ## 7. Remaining empirical burdens
 
-### Burden 1 — fresh non-temporal event-family confirmation
+### Burden 1 — natural multi-step qualified composition
 
 Status:
 
     OPEN
-    HIGHEST-VALUE NEXT EMPIRICAL BURDEN
+    HIGHEST-VALUE NEXT SCIENTIFIC BURDEN
 
-Why:
-- temporal ERIR now has a real fresh population;
-- its bounded-partial status is caused by a predeclared stress-test support gap, not by failed
-  reference/source evidence;
-- Module R is the only major dynamic branch still lacking any fresh natural confirmation;
-- a fresh non-temporal result would test whether target/provenance/history obligations survive
-  beyond date/warrant updates.
+Need a source-grounded sequence in which:
+- at least two evidence/reassessment events concern a connected scholarly state;
+- each earlier/later relation is adjudicated independently of generator output;
+- the first qualified action changes the state used to qualify the second;
+- alternative ordering is either naturally observable or available as a controlled counterfactual;
+- complete provenance and transition history are retained.
 
-Previously reserved candidate:
+A further one-step corpus is lower value if it does not test this structure.
 
-    FRUS — NOW DISQUALIFIED FROM STRICT FRESH USE.
-
-A replacement fresh non-temporal corpus must be screened under a path allowlist that prevents
-repository-wide search from surfacing episode/data files.
-
-Before any replacement corpus opening:
-- object/assertion adapter must be frozen from allowed project-level files only;
-- full population/denominator must be frozen;
-- event/evidence semantics must be frozen;
-- null rules must be frozen;
-- independent source-audit logic must be frozen;
-- failure-injection support predicates must be frozen.
-
-### Burden 2 — cross-encoding temporal confirmation
+### Burden 2 — broader evidence-relation portability
 
 Status:
 
-    OPEN / SECONDARY
+    OPEN
 
-AAD and AMP share a closely related framework.
+The present qualified repair uses the frozen R3 contrast vocabulary.
 
-A third genuinely independent temporal ecology would strengthen external validity.
+Need to test whether equivalent qualification can be grounded in other source-native scholarly
+relation systems without silently translating them into the R3 ontology after seeing outcomes.
 
-It is not currently the highest-value next step if the paper's core contribution is the wider
-mother problem rather than a temporal-date benchmark.
+VGW already supplies one promising source-native relation family through previous-attribution
+encoding, but this has not yet been used as an independent qualified-generator confirmation.
 
-### Burden 3 — human independent historical adjudication
+### Burden 3 — clean prospective confirmation
 
 Status:
 
-    BOUNDED_PARTIAL / optional depending claim
+    OPEN / IMPORTANT BUT NOT THE CURRENT MOTHER-PROBLEM BOTTLENECK
 
-The Yule-Cordier model-separated blind pass did not achieve strict quote-valid consensus.
+AAD and VGW both have strong corrected reproductions but no literal fresh PASS.
 
-No human historian agreement claim exists.
+A future clean prospective confirmation would improve evidentiary status.
 
-This remains relevant to the historical case-reading ceiling but does not invalidate D1-D5.
+It should test the qualified-generator formulation, not merely repeat the old one-step operation
+contract.
 
-### Burden 4 — whole-object prevalence
+### Burden 4 — human independent historical adjudication
+
+Status:
+
+    BOUNDED_PARTIAL / OPTIONAL DEPENDING CLAIM
+
+No human-historian consensus claim is currently licensed.
+
+### Burden 5 — whole-object prevalence
 
 Status:
 
     OPEN / OPTIONAL
 
-Track B still requires an authorized L5/L6 denominator.
-
-Not required for mechanism claims if no prevalence statement is made.
+Not required for mechanism claims unless prevalence is asserted.
 
 ## 8. What should NOT happen next
 
 Do not:
-- rerun AAD under a repaired Q4 denominator and call it fresh;
-- add a post-hoc P-U2-specific fault and relabel Module Q PASS;
-- search AAD for a more favorable subset;
-- reopen AMP/Berlin/Paul/StaBi as confirmation;
-- consume FRUS episode XML before a complete pre-fresh Module-R protocol;
-- return to accumulating more temporal datasets before deciding whether the paper actually needs
-  cross-encoding temporal confirmation.
+- restore the old operation field merely because it makes transition classification easy;
+- rename operation to evidence_relation without state-dependent qualification;
+- treat Psi-null evidence as no scholarly action;
+- collect another one-step corpus before deciding how it contributes to qualified composition;
+- relabel AAD or VGW corrected reproductions as fresh PASS;
+- infer automatic relation extraction from the five source-audited historical rows;
+- claim a universal algebra from the registered two-step probe.
 
-## 9. Next authorized engineering step
+## 9. Next authorized scientific step
 
-FRUS is no longer authorized for a fresh opening.
+The exogenous-operation defect is closed for the audited scope.
 
 Next authorized step:
 
-    screen a replacement Module-R fresh corpus using project-level path allowlists only.
+    natural / ecological multi-step qualified composition
 
-The replacement pre-fresh design must explicitly distinguish:
+Before opening any new candidate sequence, freeze:
+- scholarly object/state boundary;
+- source-grounded evidence-relation adjudication;
+- event ordering;
+- qualification rules;
+- null/history semantics;
+- oracle/runtime implementation independence;
+- complete denominator;
+- alternative-order counterfactual rule, if used.
 
-    source-visible statement/value
-    editorial assessment/evidence
-    revised/normalized assertion
-    target document/proposition
-    source/justification provenance
-
-and must freeze failure-injection support predicates by transition class so that Module-Q's Q4
-support gap is not repeated.
+A fresh one-step confirmation may still be useful, but it is no longer the principal scientific
+bottleneck after the qualified-generator repair.
