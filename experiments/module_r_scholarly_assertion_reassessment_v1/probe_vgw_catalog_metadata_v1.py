@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import re
 import urllib.request
 from html.parser import HTMLParser
 from urllib.parse import urljoin
