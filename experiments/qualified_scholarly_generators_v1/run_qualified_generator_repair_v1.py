@@ -368,6 +368,86 @@ def compose(engine):
     }
 
 
+def factorization_probe():
+    s0 = synth.base_state()
+
+    base_event = strip_operation(synth.event(
+        "QG-FACTOR",
+        "author-attribution",
+        "REPLACE",
+        "Author-B",
+        "ACCEPTED",
+        "EVID-QG-FACTOR",
+        "qualified:factor",
+    ))
+
+    contradict = copy.deepcopy(base_event)
+    contradict["evidence_relation"] = "CONTRADICTS_PRIOR"
+
+    replace = copy.deepcopy(base_event)
+    replace["evidence_relation"] = "REPLACES_PRIOR"
+
+    g_contradict_o = qo.qualify(s0, contradict)["generator"]
+    g_replace_o = qo.qualify(s0, replace)["generator"]
+    g_contradict_r = qr.qualify(s0, contradict)["generator"]
+    g_replace_r = qr.qualify(s0, replace)["generator"]
+
+    require(
+        [g_contradict_o, g_replace_o]
+        == [g_contradict_r, g_replace_r],
+        {
+            "oracle": [g_contradict_o, g_replace_o],
+            "runtime": [g_contradict_r, g_replace_r],
+        },
+    )
+    require(
+        [g_contradict_o, g_replace_o]
+        == ["ADD_ALTERNATIVE", "REPLACE"],
+        {
+            "contradict": g_contradict_o,
+            "replace": g_replace_o,
+        },
+    )
+
+    alt_event = copy.deepcopy(contradict)
+    alt_event["event_id"] = "QG-FACTOR-ALT"
+    alt_event["status"] = "COMPETING"
+    s1 = qo.apply(s0, alt_event)["state"]
+
+    replace_after_alt = copy.deepcopy(replace)
+    replace_after_alt["event_id"] = "QG-FACTOR-RESOLVE"
+    g_replace_after_alt_o = qo.qualify(
+        s1, replace_after_alt
+    )["generator"]
+    g_replace_after_alt_r = qr.qualify(
+        s1, replace_after_alt
+    )["generator"]
+    require(
+        g_replace_after_alt_o == g_replace_after_alt_r == "RESOLVE",
+        {
+            "oracle": g_replace_after_alt_o,
+            "runtime": g_replace_after_alt_r,
+        },
+    )
+
+    return {
+        "fixed_state_same_proposal": {
+            "CONTRADICTS_PRIOR": g_contradict_o,
+            "REPLACES_PRIOR": g_replace_o,
+        },
+        "relation_sensitivity": g_contradict_o != g_replace_o,
+        "fixed_relation_REPLACES_PRIOR": {
+            "singleton_state": g_replace_o,
+            "alternative_state": g_replace_after_alt_o,
+        },
+        "state_sensitivity": g_replace_o != g_replace_after_alt_o,
+        "generator_is_joint_function_of_state_and_relation": all([
+            g_contradict_o != g_replace_o,
+            g_replace_o != g_replace_after_alt_o,
+        ]),
+    }
+
+
 def main():
     fixtures = synthetic_fixtures() + historical_fixtures()
     rows = [audit_fixture(x) for x in fixtures]
@@ -382,6 +462,8 @@ def main():
     require(len(hist_rows) == 5 and len(synth_rows) == 5, rows)
 
     reject = rejection_controls()
+
+    factorization = factorization_probe()
 
     compose_o = compose(qo.apply)
     compose_r = compose(qr.execute)
@@ -425,9 +507,15 @@ def main():
             "false_positive_controls_rejected": f"{len(reject)}/{len(reject)}",
             "state_dependent_generator_selection": True,
             "non_commutative_composition": True,
+            "relation_sensitivity": factorization["relation_sensitivity"],
+            "state_sensitivity": factorization["state_sensitivity"],
+            "joint_state_relation_qualification": factorization[
+                "generator_is_joint_function_of_state_and_relation"
+            ],
         },
         "recovery_rows": rows,
         "rejection_controls": reject,
+        "factorization_probe": factorization,
         "composition": compose_o,
         "claim_ceiling": [
             "Generator selection is established only for the registered source-grounded relation vocabulary and audited states.",
@@ -461,6 +549,7 @@ def main():
             for x in rows
         ],
         "rejection_controls": reject,
+        "factorization_probe": factorization,
         "composition": {
             "forward_generators": compose_o["forward_generators"],
             "reverse_generators": compose_o["reverse_generators"],
