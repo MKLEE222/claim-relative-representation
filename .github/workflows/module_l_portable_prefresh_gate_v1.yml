@@ -30,6 +30,7 @@ jobs:
           python -m py_compile experiments/module_l_portable_object_claim_v1/runtime_l.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/evaluator_l.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/test_portable_contract_v1.py
+          python -m py_compile experiments/module_l_portable_object_claim_v1/test_iso_datetime_portability_v1.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/test_inherited_obligations_v1.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/run_exposed_regression.py
           python -m py_compile experiments/module_l_portable_object_claim_v1/run_exposed_delta_audit.py
@@ -39,6 +40,8 @@ jobs:
         run: python experiments/module_j_dahn_object_bound_holdout_v1/test_object_contract_v1.py
       - name: Run portable F17-F30 controls
         run: python experiments/module_l_portable_object_claim_v1/test_portable_contract_v1.py
+      - name: Run portable F31-F36 ISO datetime controls
+        run: python experiments/module_l_portable_object_claim_v1/test_iso_datetime_portability_v1.py
       - name: Replay inherited I-J obligations on portable engine
         run: python experiments/module_l_portable_object_claim_v1/test_inherited_obligations_v1.py
 
