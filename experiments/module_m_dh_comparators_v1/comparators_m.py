@@ -37,7 +37,6 @@ def _claim_core(c):
         "population_scope": c.get("population_scope"),
         "source_file": c.get("source_file"),
         "source_locator_contract": c.get("source_locator_contract"),
-        "source_locator_xpath": c.get("source_locator_xpath"),
     }
 
 
@@ -71,7 +70,6 @@ def _provenance_for_live(state):
             "claim_key": c["claim_key"],
             "source_file": c.get("source_file"),
             "source_locator_contract": c.get("source_locator_contract"),
-            "source_locator_xpath": c.get("source_locator_xpath"),
             "object_id": c.get("object_id"),
             "object_boundary_signature": c.get("object_boundary_signature"),
             "applicability_class": c.get("applicability_class"),
