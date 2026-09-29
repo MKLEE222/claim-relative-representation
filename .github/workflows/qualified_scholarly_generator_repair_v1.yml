@@ -28,7 +28,7 @@ jobs:
           test "$(git hash-object audits/mother_problem_redesign_20260929/QUALIFIED_SCHOLARLY_GENERATOR_CONTRACT_v1.md)" = "5d30977f9d411c3c06fd42c8541d86e3f18ad7b3"
           test "$(git hash-object experiments/qualified_scholarly_generators_v1/qualified_oracle_v1.py)" = "bec70893eb95e256bb1be0082a8e0736122a7fc4"
           test "$(git hash-object experiments/qualified_scholarly_generators_v1/qualified_runtime_v1.py)" = "b156f9fd2679105be2a05ea2b888fa079a1a881c"
-          test "$(git hash-object experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py)" = "fb84bdbf39e8464af166d39c37777b17e3170120"
+          test "$(git hash-object experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py)" = "bb7ba3651812680dc060ac3dfe8213985410d8b7"
 
       - name: Compile repair
         run: |
