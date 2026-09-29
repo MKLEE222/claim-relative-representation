@@ -377,3 +377,28 @@ Its generic model is more valuable for the separately frozen Module-R scholarly 
 editorial reassessment family.
 
 No volumes/*.xml file has been opened.
+
+
+## FRUS freshness update — 2026-09-29
+
+A repository-wide code-search query intended to locate project-level sender/recipient encoding
+returned one incidental snippet from:
+
+    volumes/frus1977-80v09.xml
+
+The snippet contained only a General Editor byline / nearby publication URL fragment and no target
+document-level reassessment episode.
+
+Nevertheless the reserved-candidate rule prohibited any volumes/*.xml exposure.
+
+Therefore:
+
+    FRUS_STRICT_FRESHNESS = LOST
+    FRESH_MODULE_R_USE = DISALLOWED
+
+See:
+
+    audits/mother_problem_redesign_20260929/
+    FRUS_FRESHNESS_INCIDENT_MEMO_2026-09-29.md
+
+FRUS remains usable for exposed design/development only.
