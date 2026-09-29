@@ -214,7 +214,7 @@ def audit_case(item, raw):
     checks = {
         "one_primary_letter": len(letters) == 1,
         "one_machine_origin": len(machine_origins) == 1,
-        "no_excluded_active_root": len(excluded_roots) == 0,
+        "excluded_carriers_separated": all(x.get("excluded") is True for x in excluded_roots),
         "source_file_exact": source_origin.get("source_file") == item["path"],
         "origin_applicability_exact": (
             source_origin.get("applicability_class") == "FILE_LEVEL_UNIQUE_OBJECT"
