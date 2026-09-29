@@ -402,3 +402,38 @@ See:
     FRUS_FRESHNESS_INCIDENT_MEMO_2026-09-29.md
 
 FRUS remains usable for exposed design/development only.
+
+
+### Candidate-discovery exposure correction — Darwin Correspondence / HSA
+
+During a later global GitHub code search for project-level postmark/correspondence patterns, the
+search result itself returned snippets from specific episode XML files.
+
+This exposed:
+- cambridge-collection/darwin-correspondence-data specific letter snippets;
+- HSA-specific letter XML snippets surfaced through a secondary repository.
+
+Scientific disposition:
+
+    NOT ELIGIBLE FOR FUTURE FRESH MODULE-Q HOLDOUT
+
+Reason:
+
+    EPISODE CONTENT EXPOSED BY SEARCH RESULT SNIPPET
+
+No claim is made that the snippets were sufficient to establish an eligible ERIR episode.
+The exclusion is precautionary and follows the project's strict freshness discipline.
+
+### Candidate-discovery method amendment
+
+Global code search that can return episode-file snippets is no longer admissible for discovering
+fresh Module-Q candidates.
+
+Future discovery must proceed from:
+1. project/public documentation, articles or landing pages;
+2. repository metadata and directory trees;
+3. README / ODD / schema / generic transforms only;
+4. no episode XML/code-search snippets before candidate protocol freeze.
+
+This amendment concerns candidate discovery only and does not change any scientific endpoint or
+eligibility definition.
