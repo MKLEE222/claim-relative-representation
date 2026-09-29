@@ -85,7 +85,7 @@ def source_audit():
         arbr,
     )
     require(
-        "followed by Cordier's response" in arbr_entry["pass1_note"],
+        "followed by Cordier's response" in arbr_entry["act_note"],
         arbr_entry,
     )
 
