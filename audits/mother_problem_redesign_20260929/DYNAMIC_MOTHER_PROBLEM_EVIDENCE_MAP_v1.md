@@ -368,6 +368,101 @@ Not yet licensed:
     ecological prevalence of non-commutative multi-step trajectories
     automatic relation extraction from arbitrary natural language
 
+### D7 — natural target-bound qualified composition
+
+Existing exposed/page-verified Yule-Cordier assets were used after the qualified-generator repair.
+
+#### Paper Money event-level natural composition
+
+Frozen historical sequence:
+
+    PM01 base material assertion
+    -> PM02 1903 criticism
+    -> PM03 1920 correction/rehabilitation
+
+Qualified forward sequence:
+
+    ADD_ALTERNATIVE ; RESOLVE
+
+Reverse PM03-at-S0:
+
+    rejected
+    RELATION_TARGET_NOT_LIVE
+
+History ablation:
+
+    Psi(full-history state) = Psi(history-ablated state)
+
+but:
+
+    PM03 with full history        -> RESOLVE
+    PM03 with history removed     -> RELATION_TARGET_HISTORY_UNRESOLVED
+
+Thus retained transition history can change future generator availability even when current
+assertions are identical.
+
+Scientific ceiling:
+
+    page-verified event-level natural development
+
+PM03 remains a compound event relative to the later act-segmentation discipline.
+
+#### Arbre Sec act-level replication
+
+Frozen page-verified proposition sequence:
+
+    ARBR-ID-1903
+    -> ARBR-ID-HS
+    -> ARBR-REPLY-CORDIER
+
+Relations:
+
+    COMPETING_IDENTIFICATION
+    BIBLIOGRAPHIC_REPLY
+
+Qualified generators:
+
+    ADD_ALTERNATIVE ; RECORD_EVIDENCE
+
+The bibliographic reply:
+- is unavailable before ARBR-ID-HS exists;
+- preserves current identification assertions;
+- changes retained scholarly history.
+
+Reverse reply-at-S0:
+
+    rejected
+    RELATION_TARGET_NOT_LIVE
+
+The same target-bound v2 engines also rerun Paper Money successfully.
+
+Case-specific branch scan:
+
+    no Paper Money / Arbre Sec identifiers in qualification engines
+
+Cross-relation-family result:
+
+    contrast/history relations
+    + source-native proposition relations
+    -> same qualification interface
+
+Scientific proposition:
+
+> Lawful future scholarly actions can depend on the identity of the prior proposition targeted
+> by a source relation and, in some cases, on retained history showing how that proposition
+> entered the scholarly state.
+
+Evidence ceiling:
+
+    natural + page-verified + exposed/development + one historical corpus
+
+Not licensed:
+
+    cross-corpus ecological confirmation
+    prevalence
+    universal relation vocabulary
+    universal action algebra
+
 ## 4. What is now actually established
 
 The dynamic line now has:
@@ -379,16 +474,24 @@ The dynamic line now has:
    reproduction with 36 substantive and 139 natural-null cases;
 5. strong current-state, snapshot and change-log comparators;
 6. a demonstrated defect in treating the transition operation as an external event label;
-7. an operation-free qualified-generator repair using a pre-existing source-contrast ontology;
+7. an operation-free qualified-generator repair using pre-existing source-grounded relations;
 8. a first-class RECORD_EVIDENCE generator separating assertion identity from scholarly-history
    identity;
-9. a registered state-dependent two-step composition in which order changes both selected
-   generators and the final state.
+9. registered state-dependent synthetic composition with non-commutative order effects;
+10. a page-verified Paper Money natural sequence in which retained history changes whether a later
+    correction is qualified;
+11. a page-verified Arbre Sec act-level replication in which a competing identification enables
+    a later bibliographic reply;
+12. target-bound qualification portability across two pre-existing source-relation families with
+    one shared, case-independent engine.
 
 Literal prospective fresh positive confirmation remains absent because both AAD and VGW consumed
 their fresh opportunity through execution-path failures before corrected reproduction.
 
-That is an evidentiary-label limitation, not a remaining operation-identification defect.
+Natural multi-step composition is therefore no longer an empty empirical burden.
+
+The principal remaining status gap is prospective independent ecological confirmation of the
+qualified-composition formulation.
 
 ## 5. Strongest integrated dynamic claim currently licensed
 
@@ -421,70 +524,85 @@ The earlier synthesis:
 
 is no longer only an organizing hypothesis.
 
-A registered structural result now establishes:
+Structural/synthetic evidence establishes:
 - generator qualification is state-dependent;
-- generator qualification also depends on source-grounded evidence relation;
+- generator qualification depends on source-grounded relation;
 - RECORD_EVIDENCE can change scholarly history while leaving current assertions unchanged;
 - one qualified transition can change which generator a later relation induces;
-- the registered two-event sequence is non-commutative.
+- registered ordering can be non-commutative.
 
-What remains open is generalization:
+Natural exposed evidence now additionally establishes:
+- relation-target identity can enable or block a later action;
+- Paper Money: identical current assertions with different retained histories can have different
+  future generator availability;
+- Arbre Sec: an act-level competing proposal enables a later history-only bibliographic reply;
+- the same target-bound interface handles two distinct pre-existing relation families.
 
-    registered composition result
+Therefore composability is demonstrated both structurally and in bounded natural historical
+sequences.
+
+What remains open is external generalization:
+
+    natural within-corpus composition
+    !=
+    prospective independent ecology
     !=
     universal minimal-sufficiency theorem
     !=
-    ecological prevalence theorem
+    prevalence theorem
     !=
     universal scholarly action algebra
 
-So composability is now demonstrated in the registered model, while its general natural scope
-remains an empirical/theoretical burden.
-
 ## 7. Remaining empirical burdens
 
-### Burden 1 — natural multi-step qualified composition
+### Burden 1 — prospective independent ecological qualified composition
 
 Status:
 
     OPEN
     HIGHEST-VALUE NEXT SCIENTIFIC BURDEN
 
-Need a source-grounded sequence in which:
-- at least two evidence/reassessment events concern a connected scholarly state;
-- each earlier/later relation is adjudicated independently of generator output;
-- the first qualified action changes the state used to qualify the second;
-- alternative ordering is either naturally observable or available as a controlled counterfactual;
-- complete provenance and transition history are retained.
+Need an ecology outside the Yule-Cordier development corpus in which, before outcome opening:
+- scholarly object/state boundary is frozen;
+- at least two connected sequential acts are prospectively registered;
+- source-native relation types and relation targets are frozen;
+- the first act can alter the qualification context for the second;
+- history-retention requirements are registered;
+- oracle/runtime implementations are independent;
+- alternative-order counterfactual policy is frozen when used.
 
-A further one-step corpus is lower value if it does not test this structure.
+The desired test is the qualified-composition theory itself, not another one-step operation
+benchmark.
 
-### Burden 2 — broader evidence-relation portability
+### Burden 2 — cross-corpus relation-family portability
 
 Status:
 
-    OPEN
+    OPEN / PARTIALLY REDUCED
 
-The present qualified repair uses the frozen R3 contrast vocabulary.
+Within Yule-Cordier, target-bound qualification now works across:
+- earlier/later contrast relations;
+- proposition-to-proposition source-native relations.
 
-Need to test whether equivalent qualification can be grounded in other source-native scholarly
-relation systems without silently translating them into the R3 ontology after seeing outcomes.
+What remains is to test a genuinely different scholarly relation ecology without translating its
+native semantics into the Yule-Cordier relation vocabulary after outcomes are seen.
 
-VGW already supplies one promising source-native relation family through previous-attribution
-encoding, but this has not yet been used as an independent qualified-generator confirmation.
+VGW previous-attribution structures are a possible development source but are already exposed.
+
+A new fresh ecology would have greater evidentiary value.
 
 ### Burden 3 — clean prospective confirmation
 
 Status:
 
-    OPEN / IMPORTANT BUT NOT THE CURRENT MOTHER-PROBLEM BOTTLENECK
+    OPEN / IMPORTANT
 
-AAD and VGW both have strong corrected reproductions but no literal fresh PASS.
+AAD and VGW have strong corrected reproductions but no literal fresh PASS.
 
-A future clean prospective confirmation would improve evidentiary status.
+The next clean confirmation should preferably be multi-step and target-bound.
 
-It should test the qualified-generator formulation, not merely repeat the old one-step operation
-contract.
+A clean one-step PASS would improve evidence status but would no longer address the principal
+mother-problem gap as directly.
 
 ### Burden 4 — human independent historical adjudication
 
@@ -515,21 +633,26 @@ Do not:
 
 ## 9. Next authorized scientific step
 
-The exogenous-operation defect is closed for the audited scope.
+The following defects are closed for the audited scope:
+- exogenous operation input;
+- relation-only qualification;
+- state-only qualification;
+- missing relation-target binding;
+- treating assertion-state identity as no scholarly action;
+- purely synthetic composition with no natural sequence.
 
-Next authorized step:
+Next authorized scientific step:
 
-    natural / ecological multi-step qualified composition
+    prospective independent ecological target-bound qualified composition
 
-Before opening any new candidate sequence, freeze:
-- scholarly object/state boundary;
-- source-grounded evidence-relation adjudication;
-- event ordering;
-- qualification rules;
-- null/history semantics;
-- oracle/runtime implementation independence;
-- complete denominator;
-- alternative-order counterfactual rule, if used.
+Candidate discovery must now prioritize projects whose documentation exposes:
+- proposition/event identifiers or otherwise stable scholarly targets;
+- sequential intervention/reassessment relations;
+- source-native relation semantics;
+- retained provenance/history sufficient to bind later acts to earlier ones.
 
-A fresh one-step confirmation may still be useful, but it is no longer the principal scientific
-bottleneck after the qualified-generator repair.
+Do not spend the next cycle adding more one-step Yule-Cordier cases unless they test a distinct
+failure boundary.
+
+A fresh one-step confirmation remains useful for evidence status, but it is no longer the main
+scientific bottleneck.
