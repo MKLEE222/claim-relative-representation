@@ -145,6 +145,13 @@ def iri(local):
     return "https://example.org/fp/" + local
 
 
+def invoke(engine, state, event):
+    fn = getattr(engine, "apply", None)
+    if fn is None:
+        fn = getattr(engine, "execute")
+    return fn(state, event)
+
+
 def events():
     return {
         "review": {
@@ -176,10 +183,10 @@ def run_chain(engine):
     ev = events()
     s0 = engine.initial_state(iri("F0"), iri("npS"))
 
-    review_first = engine.apply(s0, ev["review"])
+    review_first = invoke(engine, s0, ev["review"])
     require(review_first["qualified"], review_first)
 
-    response_before_update = engine.apply(
+    response_before_update = invoke(engine, 
         review_first["state"], ev["response"]
     )
     require(
@@ -189,18 +196,18 @@ def run_chain(engine):
         response_before_update,
     )
 
-    update = engine.apply(review_first["state"], ev["update"])
+    update = invoke(engine, review_first["state"], ev["update"])
     require(update["qualified"], update)
 
     full_before_response = update["state"]
 
-    response = engine.apply(full_before_response, ev["response"])
+    response = invoke(engine, full_before_response, ev["response"])
     require(response["qualified"], response)
 
-    decision = engine.apply(response["state"], ev["decision"])
+    decision = invoke(engine, response["state"], ev["decision"])
     require(decision["qualified"], decision)
 
-    response_at_s0 = engine.apply(s0, ev["response"])
+    response_at_s0 = invoke(engine, s0, ev["response"])
     require(
         not response_at_s0["qualified"]
         and response_at_s0["reason"]
@@ -208,7 +215,7 @@ def run_chain(engine):
         response_at_s0,
     )
 
-    decision_at_s0 = engine.apply(s0, ev["decision"])
+    decision_at_s0 = invoke(engine, s0, ev["decision"])
     require(
         not decision_at_s0["qualified"]
         and decision_at_s0["reason"]
@@ -225,7 +232,7 @@ def run_chain(engine):
             == full_before_response["current_formalization"],
         {"ablated": ablated, "full": full_before_response},
     )
-    response_ablated = engine.apply(ablated, ev["response"])
+    response_ablated = invoke(engine, ablated, ev["response"])
     require(
         not response_ablated["qualified"]
         and response_ablated["reason"]
@@ -235,7 +242,7 @@ def run_chain(engine):
 
     wrong = copy.deepcopy(ev["response"])
     wrong["target_review_np"] = iri("foreignReview")
-    wrong_result = engine.apply(full_before_response, wrong)
+    wrong_result = invoke(engine, full_before_response, wrong)
     require(not wrong_result["qualified"], wrong_result)
 
     return {
@@ -342,8 +349,8 @@ def main():
         "target_np": iri("npR"),
         "retraction_np": iri("npX"),
     }
-    ro = fp_oracle.apply(s, retract)
-    rr = fp_runtime.execute(s, retract)
+    ro = invoke(fp_oracle, s, retract)
+    rr = invoke(fp_runtime, s, retract)
     require(ro == rr, {"oracle": ro, "runtime": rr})
     require(ro["qualified"] and iri("npR") not in ro["state"]["live_reviews"], ro)
 
