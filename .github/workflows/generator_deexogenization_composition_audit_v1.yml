@@ -19,6 +19,9 @@ jobs:
         with:
           python-version: "3.12"
 
+      - name: Install parser dependency
+        run: python -m pip install lxml
+
       - name: Compile audit
         run: |
           python -m py_compile experiments/generator_deexogenization_v1/generator_audit.py
