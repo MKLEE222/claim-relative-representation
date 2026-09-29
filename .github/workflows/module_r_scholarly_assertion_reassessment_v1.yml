@@ -27,3 +27,24 @@ jobs:
 
       - name: Run Module R synthetic reassessment controls
         run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_reassessment_contract_v1.py
+
+
+  historical-exposed-development:
+    needs: synthetic-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Compile historical development runner
+        run: python -m py_compile experiments/module_r_scholarly_assertion_reassessment_v1/run_historical_exposed.py
+
+      - name: Run source-grounded Yule-Cordier reassessment development
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/run_historical_exposed.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-r-historical-exposed-development-v1
+          path: experiments/module_r_scholarly_assertion_reassessment_v1/results
