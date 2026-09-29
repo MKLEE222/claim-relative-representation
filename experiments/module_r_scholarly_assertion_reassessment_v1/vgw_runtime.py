@@ -44,7 +44,16 @@ def _read_bnode(text, pos):
     end = pos
     while end < len(text) and not text[end].isspace():
         end += 1
-    token = text[pos:end]
+
+    # N-Triples permits the statement terminator to follow a blank-node
+    # object without intervening whitespace. The final dot is not part of
+    # the blank-node label. Internal dots remain untouched.
+    token_end = end
+    if end == len(text) and end > pos and text[end - 1] == ".":
+        token_end = end - 1
+        end = token_end
+
+    token = text[pos:token_end]
     if not token.startswith("_:") or len(token) <= 2:
         raise ValueError("bad blank node")
     return ("B", token), end
