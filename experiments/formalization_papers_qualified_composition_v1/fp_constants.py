@@ -1,0 +1,31 @@
+NP = "http://www.nanopub.org/nschema#"
+NPX = "http://purl.org/nanopub/x/"
+LF = "https://w3id.org/linkflows/reviews/"
+PSO = "http://purl.org/spar/pso/"
+FRBR = "http://purl.org/vocab/frbr/core#"
+DCT = "http://purl.org/dc/terms/"
+RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+XSD = "http://www.w3.org/2001/XMLSchema#"
+
+SPECIAL_ISSUE = LF + "formalization-papers/DataScienceSpecialIssue"
+NP_NANOPUBLICATION = NP + "Nanopublication"
+NP_HAS_ASSERTION = NP + "hasAssertion"
+NP_HAS_PUBINFO = NP + "hasPublicationInfo"
+
+RDF_TYPE = RDF + "type"
+FRBR_PART_OF = FRBR + "partOf"
+PSO_WITH_STATUS = PSO + "withStatus"
+PSO_SUBMITTED = PSO + "submitted"
+PSO_ACCEPTED = PSO + "accepted-for-publication"
+PSO_REJECTED = PSO + "rejected-for-publication"
+
+LF_REVIEW_COMMENT = LF + "ReviewComment"
+LF_REFERS_TO = LF + "refersTo"
+LF_IS_RESPONSE_TO = LF + "isResponseTo"
+LF_IS_UPDATE_OF = LF + "isUpdateOf"
+
+NPX_SUPERSEDES = NPX + "supersedes"
+NPX_RETRACTS = NPX + "retracts"
+
+DCT_CREATOR = DCT + "creator"
+DCT_CREATED = DCT + "created"
