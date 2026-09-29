@@ -40,7 +40,7 @@ def triple(s, p, o):
 def add_artwork(lines, obj, fnums, prod=None, direct_vg=False,
                 previous=0, unknown_assignment=False,
                 responsible=True, two_productions=False,
-                typed_f=False):
+                typed_f=False, blank_previous=False):
     lines.append(triple(I(obj), C.RDF_TYPE, I(C.E22_HUMAN_MADE_OBJECT)))
     for idx, fnum in enumerate(fnums, 1):
         ident = f"{obj}/identifier/f/{idx}"
@@ -67,7 +67,11 @@ def add_artwork(lines, obj, fnums, prod=None, direct_vg=False,
         )
 
     for idx in range(previous):
-        assignment = I(f"{obj}/assignment/{idx+1}")
+        assignment = (
+            f"_:assignment_{idx+1}_{obj.rsplit('/', 1)[-1]}"
+            if blank_previous
+            else I(f"{obj}/assignment/{idx+1}")
+        )
         assigned_prod = I(f"{obj}/assigned-production/{idx+1}")
         lines.append(triple(prod_term, C.P141I_WAS_ASSIGNED_BY, assignment))
         lines.append(triple(assignment, C.RDF_TYPE, I(C.E13_ATTRIBUTE_ASSIGNMENT)))
@@ -118,7 +122,7 @@ def build_fixture():
     )}
 
     # Baseline F1001-F1006 plus duplicate F1008 and two extra boundary cases.
-    for fnum in ["F1001", "F1002", "F1003", "F1004", "F1005", "F1006", "F1010", "F1011", "F1012"]:
+    for fnum in ["F1001", "F1002", "F1003", "F1004", "F1005", "F1006", "F1010", "F1011", "F1012", "F1013"]:
         add_artwork(
             d[C.BASELINE_SLUG],
             f"https://synthetic.example/baseline/{fnum}",
@@ -229,6 +233,15 @@ def build_fixture():
         previous=2,
     )
 
+    # F1013 = qualifying reassessment encoded only as a blank node -> not addressable.
+    add_artwork(
+        d["van_gogh_museum"],
+        "https://synthetic.example/current/F1013",
+        ["F1013"],
+        previous=1,
+        blank_previous=True,
+    )
+
     # Post-1970 role exclusion is counted but never used as 1970 baseline.
     add_artwork(
         d[C.POST1970_SLUG],
@@ -304,6 +317,7 @@ def main():
         "F1010": "NO_CURRENT_PROVIDER_OBJECT",
         "F1011": "INVALID_PRODUCTION_CARDINALITY",
         "F1012": "MULTIPLE_PREVIOUS_ATTRIBUTION_ASSIGNMENTS",
+        "F1013": "NON_ADDRESSABLE_REASSESSMENT_EVENT",
     }
     for fnum, disposition in expected.items():
         require(cases[fnum]["disposition"] == disposition, {
