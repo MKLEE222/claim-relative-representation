@@ -6,3 +6,5 @@ Scientific contract changes: none.
 Execution repair: add module_p_evidence_release_revision_v1 to sys.path.
 
 Diagnostic rerun: field-level eligible-manifest consistency check.
+
+Final rerun: normalize source-context-bound opaque claim IDs only.
