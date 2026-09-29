@@ -14,6 +14,13 @@ def _v(term):
     return str(term)
 
 
+def _canon_time(value):
+    s = str(value)
+    if s.endswith("+00:00"):
+        return s[:-6] + "Z"
+    return s
+
+
 def parse_trig(raw: bytes):
     store = Store()
     store.load(input=raw, format=RdfFormat.TRIG)
@@ -61,7 +68,7 @@ def parse_trig(raw: bytes):
                 if s == np and p == C.DCT_CREATOR:
                     creators[np] = o
                 elif s == np and p == C.DCT_CREATED:
-                    created[np] = o
+                    created[np] = _canon_time(o)
                 elif s == np and p == C.LF_IS_UPDATE_OF:
                     updates.add((np, o))
                 elif s == np and p == C.NPX_SUPERSEDES:
