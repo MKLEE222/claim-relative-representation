@@ -7,7 +7,7 @@ DCT = "http://purl.org/dc/terms/"
 RDF = "http://www.w3.org/1999/02/22-rdf-syntax-ns#"
 XSD = "http://www.w3.org/2001/XMLSchema#"
 
-SPECIAL_ISSUE = LF + "formalization-papers/DataScienceSpecialIssue"
+SPECIAL_ISSUE = "https://w3id.org/linkflows/formalization-papers/DataScienceSpecialIssue"
 NP_NANOPUBLICATION = NP + "Nanopublication"
 NP_HAS_ASSERTION = NP + "hasAssertion"
 NP_HAS_PUBINFO = NP + "hasPublicationInfo"
