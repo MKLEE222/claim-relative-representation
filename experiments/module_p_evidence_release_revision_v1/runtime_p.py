@@ -219,6 +219,9 @@ def execute(doc, fault=None, drop_history=False):
         "post_event_warrant": copy.deepcopy(post.get("current_warrant")),
         "post_event_phi": warrant_projection(post.get("current_warrant")),
         "post_event_live_claim_keys": sorted(post.get("live_claim_keys") or []),
+        # Compatibility aliases for the frozen Module-M comparator projection.
+        "post_origin_warrant": copy.deepcopy(post.get("current_warrant")),
+        "post_origin_live_claim_keys": sorted(post.get("live_claim_keys") or []),
         "final_warrant": copy.deepcopy(state.get("current_warrant")),
         "final_live_claim_keys": sorted(state.get("live_claim_keys") or []),
         "collateral_temporal_paths": copy.deepcopy(
