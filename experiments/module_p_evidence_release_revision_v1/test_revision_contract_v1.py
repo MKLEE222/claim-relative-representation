@@ -85,8 +85,23 @@ def main():
     )
     t1 = runtime_p.execute(r1)
     e1 = evaluator_p.evaluate(t1, o1, r1)
-    require(e1["eligibility_exact"], e1)
-    require(e1["reference_end_to_end_pass"], e1)
+    debug1 = {
+        "evaluation": e1,
+        "oracle_root": o1.get("warrant_root"),
+        "runtime_root": r1.get("warrant_root"),
+        "oracle_post": o1.get("warrant_after"),
+        "runtime_post": r1.get("warrant_after"),
+        "trace_post": t1.get("post_event_warrant"),
+        "oracle_phi_before": o1.get("p_warrant_before"),
+        "runtime_phi_before": r1.get("p_warrant_before"),
+        "oracle_phi_after": o1.get("p_warrant_after"),
+        "runtime_phi_after": r1.get("p_warrant_after"),
+        "trace_phi_after": t1.get("post_event_phi"),
+        "oracle_origin": o1.get("origin_claim"),
+        "runtime_origin": r1.get("origin_claim"),
+    }
+    require(e1["eligibility_exact"], debug1)
+    require(e1["reference_end_to_end_pass"], debug1)
     results["P-F1_VALID_CONFLICT_FORMATION"] = True
 
     # P-F2: no machine-readable t0 date; later evidence yields a warranted exact state.
