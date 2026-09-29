@@ -1,0 +1,21 @@
+name: module-r-vgw-postfresh-oracle-runtime-diff-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_r_scholarly_assertion_reassessment_v1/VGW_POSTFRESH_ORACLE_RUNTIME_DIFF_TRIGGER_v1.txt"
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install RDF dependency
+        run: python -m pip install rdflib==7.1.4
+      - name: Run oracle/runtime diff diagnostic on exact first-opening bytes
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/diagnose_vgw_oracle_runtime_diff_v1.py
