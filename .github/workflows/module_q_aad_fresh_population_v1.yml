@@ -2,6 +2,11 @@ name: module-q-aad-fresh-population-v1
 
 on:
   workflow_dispatch:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_q_fresh_erir_v1/AAD_FRESH_RUN_TRIGGER_v1.txt"
 
 jobs:
   aad-fresh-one-shot:
