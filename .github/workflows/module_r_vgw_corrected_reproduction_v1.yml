@@ -23,7 +23,7 @@ jobs:
         run: |
           test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_contract_constants.py)" = "acac49b2312131100e3f47d5ac258697cb8e4afc"
           test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_oracle.py)" = "57796319953fb6639f8789fbf62f81a82e571472"
-          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_runtime.py)" = "95e84d6227f2bbb16256e2f03ffaa73c4d344b16"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/vgw_runtime.py)" = "b5d25b77adb7e8f2abd151258dca5895e5479eeb"
           test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/oracle_r.py)" = "f5cefb84d8957b5e887fd133ef1122213b2419dd"
           test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/runtime_r.py)" = "52ea3ebb788b414036d3f086aa0d51c0dba424f7"
           test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/evaluator_r.py)" = "370b92f3934577af21a318797e75d177ece32097"
@@ -41,8 +41,11 @@ jobs:
       - name: Re-run VGW-shaped synthetic gate after lexer correction
         run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_prefresh_synthetic_v1.py
 
-      - name: Run exposed lexical regression
+      - name: Run blank-node terminator regression
         run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_nt_terminator_regression_v1.py
+
+      - name: Run LANGTAG terminator regression
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_langtag_terminator_regression_v1.py
 
       - name: Run corrected reproduction on exact frozen source URLs
         run: python experiments/module_r_scholarly_assertion_reassessment_v1/run_vgw_corrected_reproduction_v1.py
