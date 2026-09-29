@@ -1,0 +1,51 @@
+name: natural-qualified-composition-paper-money-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/natural_qualified_composition_v1/**"
+      - "audits/mother_problem_redesign_20260929/NATURAL_QUALIFIED_COMPOSITION_PAPER_MONEY_PROTOCOL_v1.md"
+      - "audits/mother_problem_redesign_20260929/NATURAL_QUALIFIED_COMPOSITION_PAPER_MONEY_HISTORY_AMENDMENT_v1.md"
+      - ".github/workflows/natural_qualified_composition_paper_money_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  composition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen source and execution blobs
+        run: |
+          test "$(git hash-object data/yule_cordier_claim_events.csv)" = "807e2aeef5054553e59de1cd017a216dfa46283d"
+          test "$(git hash-object data/paper_money_archival_stance_traces_v1.csv)" = "7a032f814536911fa27001dbbb93660cd0f67221"
+          test "$(git hash-object experiments/deepening_v1/R3_RELATION_ONTOLOGY_AMENDMENT_v2.md)" = "54b859edc59cf3ae008a76cf7dff7053d151280d"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/NATURAL_QUALIFIED_COMPOSITION_PAPER_MONEY_PROTOCOL_v1.md)" = "0b81df6ff3bd5c6af669922834825b63a7ddde0f"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/NATURAL_QUALIFIED_COMPOSITION_PAPER_MONEY_HISTORY_AMENDMENT_v1.md)" = "0395e6dac3b5e4075727c91f86abb44fa11b0fe3"
+          test "$(git hash-object experiments/natural_qualified_composition_v1/target_bound_oracle_v1.py)" = "4c982512f977a39d596862441eca8ca146418555"
+          test "$(git hash-object experiments/natural_qualified_composition_v1/target_bound_runtime_v1.py)" = "98af34cb07a82daa39803e853f955abd41d50e43"
+          test "$(git hash-object experiments/natural_qualified_composition_v1/run_natural_paper_money_composition_v1.py)" = "9a8a922a30ec2064b818ba17808f0cb364eb1e37"
+
+      - name: Compile natural composition engines
+        run: |
+          python -m py_compile experiments/natural_qualified_composition_v1/target_bound_oracle_v1.py
+          python -m py_compile experiments/natural_qualified_composition_v1/target_bound_runtime_v1.py
+          python -m py_compile experiments/natural_qualified_composition_v1/run_natural_paper_money_composition_v1.py
+
+      - name: Re-run qualified generator repair
+        run: python experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py
+
+      - name: Run natural Paper Money composition
+        run: python experiments/natural_qualified_composition_v1/run_natural_paper_money_composition_v1.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: natural-qualified-composition-paper-money-v1
+          path: experiments/natural_qualified_composition_v1/results
