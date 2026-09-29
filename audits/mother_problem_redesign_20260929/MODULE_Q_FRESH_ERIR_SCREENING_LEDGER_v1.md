@@ -269,3 +269,111 @@ Scientific routing:
 Do not consume FRUS episode XML while Module-Q fresh temporal confirmation remains unresolved.
 The project is especially valuable because its generic model approaches the E13/CRMinf
 assertion/evidence pattern identified in the near-neighbor design audit.
+
+
+### auden-in-austria-digital/aad-data
+
+Only repository metadata, README, project ODD/Schematron and generic template-generation code
+were inspected.
+
+Screening commit:
+
+    34c3958686ab03614dedd8d979ffe94b6c0f2a28
+
+Closed population metadata:
+
+    data/xml/editions/
+    148 direct XML files
+    0 subdirectories
+
+No file under data/xml/editions/*.xml has been opened.
+
+Project-level evidence establishes:
+- editorial data and XML-generation workflows for Auden in Austria Digital;
+- every generated document receives msDesc/history/origin/origDate from project metadata;
+- origDate uses required notBefore-iso / notAfter-iso;
+- correspDesc requires at least one correspAction when present;
+- correspAction has a closed action vocabulary including sent;
+- correspondence-like document categories are validated for correspondence metadata;
+- the transcription hierarchy includes project-native letter / letter_message structure;
+- facsimile/source metadata is part of the project workflow.
+
+Scientific independence limitation:
+
+    SAME-FRAMEWORK / NOT CROSS-ENCODING
+
+The ODD and editorial workflow are highly similar to the already exposed AMP project.
+Therefore AAD can provide:
+- fresh cross-project prospective replication;
+
+but cannot by itself provide:
+- independent encoding-ecology confirmation.
+
+Current status:
+
+    HARD-GATE PASSER WITH EXPLICIT SAME-FRAMEWORK CEILING
+
+Before any episode opening, a synthetic AAD-shaped fixture derived only from the ODD must verify
+that the frozen portable object/claim engine handles the project hierarchy without an
+outcome-specific adapter.
+
+If that pre-fresh synthetic gate passes, AAD is the current deterministic Module-Q choice among
+hard-gate passers.
+
+### stazh/briefedition-escher
+
+Only repository metadata, README, generic conversion code and ODD were inspected.
+
+Screening commit:
+
+    e604c0e494aa217059038491f168fa50db45deba
+
+Project-level material strongly establishes:
+- a real digital correspondence edition;
+- letter objects and stable IDs;
+- conversion of source letter metadata to correspDesc/correspAction type=sent;
+- separate timeline/context infrastructure.
+
+However the generic conversion/schema inspected so far does not establish an independent
+origDate/editorial-evidence layer distinct from the current correspondence date.
+
+Current status:
+
+    REJECT / LATER-EVIDENCE HARD GATE NOT ESTABLISHED
+
+No letter episode XML has been opened.
+
+### Briefverkehr-der-Stadt-St-Gallen/sg-missiven-app
+
+A generic ODD search initially surfaced correspAction(sent) and origDate rendering rules.
+
+Project README inspection showed that the application uses stazh/erqzh-data, whose documented
+data are Zürcher Rechtsquellen/legal-source editions rather than the correspondence ecology
+suggested by the search hit.
+
+Current status:
+
+    REJECT / PROJECT-SEMANTIC MISMATCH
+
+This is retained as evidence that generic TEI vocabulary is not sufficient to establish the
+scholarly semantics required by Module Q.
+
+No source episode XML was opened.
+
+### HistoryAtState/frus — reserved for Module R
+
+Only repository metadata, README and schema/frus.odd have been inspected.
+
+Screening commit:
+
+    8e5da08c1d99bbcdf69c34cef8c15dff91f95cf9
+
+Status:
+
+    FRESH RESERVED / DO NOT OPEN
+
+FRUS is no longer treated as the preferred temporal Module-Q candidate.
+Its generic model is more valuable for the separately frozen Module-R scholarly assertion /
+editorial reassessment family.
+
+No volumes/*.xml file has been opened.
