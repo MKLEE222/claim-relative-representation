@@ -4,6 +4,7 @@ import copy
 import hashlib
 import json
 import sys
+from datetime import datetime
 from pathlib import Path
 
 from lxml import etree as LET
@@ -282,6 +283,78 @@ def _rekey_claim(c, object_id: str, boundary_signature: str, applicability_class
     return x
 
 
+def _portable_parse_temporal(v: str):
+    """Portable runtime lexical parser.
+
+    Legacy date/partial/range forms retain inherited semantics. New support is
+    limited to offset-aware ISO datetimes, projected to their encoded local
+    calendar date for this day-granularity scholarly task.
+    """
+    legacy = base.parse_temporal(v)
+    if legacy is not None:
+        return legacy
+
+    raw = (v or "").strip()
+    if "T" not in raw:
+        return None
+    normalized = raw[:-1] + "+00:00" if raw.endswith("Z") else raw
+    try:
+        dt = datetime.fromisoformat(normalized)
+    except ValueError:
+        return None
+    if dt.tzinfo is None:
+        return None
+    d = dt.date()
+    return d, d
+
+
+def _portable_bounds_from_attrs(attrs):
+    exact = attrs.get("when-iso") or attrs.get("when")
+    if exact:
+        return _portable_parse_temporal(exact)
+
+    lo_s = (
+        attrs.get("notBefore-iso") or attrs.get("notBefore")
+        or attrs.get("from-iso") or attrs.get("from")
+    )
+    hi_s = (
+        attrs.get("notAfter-iso") or attrs.get("notAfter")
+        or attrs.get("to-iso") or attrs.get("to")
+    )
+    lo = _portable_parse_temporal(lo_s) if lo_s else None
+    hi = _portable_parse_temporal(hi_s) if hi_s else None
+    if not lo and not hi:
+        return None
+    return lo[0] if lo else base.date.min, hi[1] if hi else base.date.max
+
+
+def _portable_make_claim(path, role, idx, el, tree, locator):
+    attrs = base.date_attrs(el)
+    bounds = _portable_bounds_from_attrs(attrs)
+    interval = base.interval_json(bounds)
+    return {
+        "claim_key": base.claim_key(path, role, idx, interval, attrs, locator),
+        "role": role,
+        "ordinal": idx,
+        "raw_attrs": attrs,
+        "interval": interval,
+        "_bounds": bounds,
+        "status": base.interval_kind(bounds),
+        "uncertain": (
+            base.interval_kind(bounds) in ("BOUNDED", "OPEN")
+            or bool(el.get("cert"))
+            or bool(el.get("precision"))
+        ),
+        "cert": el.get("cert"),
+        "precision": el.get("precision"),
+        "resp": el.get("resp"),
+        "source_file": path,
+        "source_locator_contract": locator,
+        "source_locator_xpath": tree.getpath(el),
+        "source_text": _norm(" ".join(el.itertext()))[:500],
+    }
+
+
 def _portable_runtime_eligibility(claims):
     """Runtime-side complete eligibility record for the portable contract."""
     d1_pairs = []
@@ -400,16 +473,50 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
     oid = obj["object_id"]
     sig = obj["boundary_signature"]
 
-    claims = []
-    for c in base_doc.get("claims", []):
-        if c.get("role") in ("docDate", "sent"):
-            claims.append(_rekey_claim(
-                c, oid, sig, "FILE_LEVEL_UNIQUE_OBJECT", ctx
-            ))
-
     tree = root.getroottree()
+    claims = []
+
+    doc_dates = [
+        x for x in root.xpath(
+            "//*[local-name()='msContents']//*[local-name()='docDate']"
+        )
+        if base.date_attrs(x)
+    ]
+    for i, x in enumerate(doc_dates, 1):
+        c = _portable_make_claim(
+            path,
+            "docDate",
+            i,
+            x,
+            tree,
+            base.contract_locator("msContents_docDate", i),
+        )
+        claims.append(_rekey_claim(
+            c, oid, sig, "FILE_LEVEL_UNIQUE_OBJECT", ctx
+        ))
+
+    sent_dates = [
+        x for x in root.xpath(
+            "//*[local-name()='correspAction' and @type='sent']"
+            "//*[local-name()='date']"
+        )
+        if base.date_attrs(x)
+    ]
+    for i, x in enumerate(sent_dates, 1):
+        c = _portable_make_claim(
+            path,
+            "sent",
+            i,
+            x,
+            tree,
+            base.contract_locator("correspAction_sent_date", i),
+        )
+        claims.append(_rekey_claim(
+            c, oid, sig, "FILE_LEVEL_UNIQUE_OBJECT", ctx
+        ))
+
     for i, x in enumerate(_selected_dateline_elements(candidate), 1):
-        c = base.make_claim(
+        c = _portable_make_claim(
             path,
             "dateline",
             i,
@@ -421,15 +528,37 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
             c, oid, sig, "INSIDE_SELECTED_OBJECT_BOUNDARY", ctx
         ))
 
+    origin_els, origin_lang = base.choose_origin(root)
+    origin_element_count = len(origin_els)
+    if origin_element_count == 0:
+        origin_contract_status = "NO_ORIGIN_EVIDENCE"
+    elif origin_element_count == 1:
+        origin_contract_status = "SINGLE_ORIGIN_ADMISSIBLE"
+    else:
+        origin_contract_status = "COMPOSITE_ORIGIN_UNRESOLVED"
+
     origin = None
-    if base_doc.get("origin_claim") is not None:
+    if origin_element_count == 1:
+        raw_origin = _portable_make_claim(
+            path,
+            "origDate",
+            1,
+            origin_els[0],
+            tree,
+            base.contract_locator(
+                "history_origin_origDate", 1, origin_lang or "none"
+            ),
+        )
         origin = _rekey_claim(
-            base_doc["origin_claim"],
+            raw_origin,
             oid,
             sig,
             "FILE_LEVEL_UNIQUE_OBJECT",
             ctx,
         )
+
+    base_doc["origin_contract_status"] = origin_contract_status
+    base_doc["origin_element_count"] = origin_element_count
 
     if fault == "cross_object_claim" and claims:
         claims[0]["object_id"] = "FOREIGN_OBJECT"
@@ -495,9 +624,9 @@ def parse_document(path: str, raw: bytes, source_context: dict, fault: str | Non
     reasons = []
     if not is_correspondence or not eligibility.get("eligible"):
         reasons.append("NOT_PRIMARY_ELIGIBLE")
-    if base_doc.get("origin_contract_status") == "NO_ORIGIN_EVIDENCE":
+    if origin_contract_status == "NO_ORIGIN_EVIDENCE":
         reasons.append("NO_ORIGIN_EVIDENCE")
-    elif base_doc.get("origin_contract_status") == "COMPOSITE_ORIGIN_UNRESOLVED":
+    elif origin_contract_status == "COMPOSITE_ORIGIN_UNRESOLVED":
         reasons.append("COMPOSITE_ORIGIN_UNRESOLVED")
     if root_warrant == post_warrant:
         reasons.append("NO_WARRANT_STATE_CHANGE")
