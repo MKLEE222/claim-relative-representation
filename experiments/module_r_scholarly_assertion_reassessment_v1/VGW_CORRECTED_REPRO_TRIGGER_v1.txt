@@ -1,0 +1,3 @@
+VGW corrected reproduction trigger v1
+Authoritative fresh run remains 36553853190 = INVALID.
+Purpose: verify the frozen analysis after lexer-only correction on the exact same source bytes.
