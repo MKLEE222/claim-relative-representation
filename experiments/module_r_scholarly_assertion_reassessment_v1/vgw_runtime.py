@@ -158,11 +158,29 @@ def _literal_value(term):
 
 
 def _extract_records(raw: bytes, slug: str):
-    g = MiniGraph(parse_nt(raw))
+    triples = parse_nt(raw)
+    g = MiniGraph(triples)
+    node_kinds = {}
+    for s, _, o in triples:
+        node_kinds.setdefault(s[1], s[0])
+        if o[0] in {"I", "B"}:
+            node_kinds.setdefault(o[1], o[0])
     records = []
     invalid = []
 
     for obj in g.subjects_of_type(C.E22_HUMAN_MADE_OBJECT):
+        # The lexical parser preserves "_:" labels, but they are not stable identities.
+        # Artwork objects must be addressable by project URI.
+        is_addressable_object = node_kinds.get(obj) == "I"
+        if not is_addressable_object:
+            invalid.append({
+                "slug": slug,
+                "object_uri": obj,
+                "disposition": "NON_ADDRESSABLE_ARTWORK_OBJECT",
+                "identifier_nodes": [],
+                "f_values": [],
+            })
+            continue
         identifier_nodes = []
         f_values = []
         for ident_term in g.objects(obj, C.P1_IDENTIFIED_BY):
@@ -250,6 +268,7 @@ def _extract_records(raw: bytes, slug: str):
                 )
                 row = {
                     "assignment_id": assignment,
+                    "assignment_addressable": node_kinds.get(assignment) == "I",
                     "assignment_types": sorted(assignment_types),
                     "assigned_van_gogh": assigned_van_gogh,
                     "responsible_agents": responsible,
@@ -326,6 +345,12 @@ def _state_event_for_pair(base, current, source_version):
 
     if len(q) == 1:
         assignment = q[0]
+        if not assignment.get("assignment_addressable"):
+            return {
+                "disposition": "NON_ADDRESSABLE_REASSESSMENT_EVENT",
+                "state": None,
+                "event": None,
+            }
         responsible = (
             assignment["responsible_agents"][0]
             if len(assignment["responsible_agents"]) == 1
@@ -362,8 +387,14 @@ def _state_event_for_pair(base, current, source_version):
             "target_property": C.TARGET_PROPERTY,
             "source_repository": C.STUDY_REPOSITORY,
             "source_version": source_version,
-            "evidence_id": current["production_uri"],
-            "evidence_locator": current["slug"] + "::" + str(current["production_uri"]),
+            "evidence_id": current["object_uri"],
+            "evidence_locator": (
+                current["slug"]
+                + "::"
+                + current["object_uri"]
+                + "::"
+                + C.P108I_WAS_PRODUCED_BY
+            ),
             "responsible_agent": None,
             "applicability_class": "ASSERTION_LEVEL_ADMISSIBLE",
             "operation": "REVISE_STATUS",
