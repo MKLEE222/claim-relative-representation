@@ -1,0 +1,52 @@
+name: qualified-scholarly-generator-repair-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/qualified_scholarly_generators_v1/**"
+      - "audits/mother_problem_redesign_20260929/QUALIFIED_SCHOLARLY_GENERATOR_CONTRACT_v1.md"
+      - ".github/workflows/qualified_scholarly_generator_repair_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  repair:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen evidence-relation and repair blobs
+        run: |
+          test "$(git hash-object experiments/deepening_v1/R3_UPDATE_CONTRAST_AMENDMENT_v4.md)" = "f0cee63ec7e6509338f2ae1141821e002b05f706"
+          test "$(git hash-object experiments/deepening_v1/R3_RELATION_ONTOLOGY_AMENDMENT_v2.md)" = "54b859edc59cf3ae008a76cf7dff7053d151280d"
+          test "$(git hash-object experiments/deepening_v1/r3_B02_B03_contrast_audit_v1.csv)" = "fd5ec1eb75a691c7864a9dce16e2e3748e5e442d"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/QUALIFIED_SCHOLARLY_GENERATOR_CONTRACT_v1.md)" = "5d30977f9d411c3c06fd42c8541d86e3f18ad7b3"
+          test "$(git hash-object experiments/qualified_scholarly_generators_v1/qualified_oracle_v1.py)" = "bec70893eb95e256bb1be0082a8e0736122a7fc4"
+          test "$(git hash-object experiments/qualified_scholarly_generators_v1/qualified_runtime_v1.py)" = "b156f9fd2679105be2a05ea2b888fa079a1a881c"
+          test "$(git hash-object experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py)" = "fb84bdbf39e8464af166d39c37777b17e3170120"
+
+      - name: Compile repair
+        run: |
+          python -m py_compile experiments/qualified_scholarly_generators_v1/qualified_oracle_v1.py
+          python -m py_compile experiments/qualified_scholarly_generators_v1/qualified_runtime_v1.py
+          python -m py_compile experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py
+
+      - name: Re-run existing Module R contract
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/test_reassessment_contract_v1.py
+
+      - name: Reproduce exogenous-operation problem
+        run: python experiments/generator_deexogenization_v1/run_generator_audit_v1.py
+
+      - name: Run qualified generator repair
+        run: python experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: qualified-scholarly-generator-repair-v1
+          path: experiments/qualified_scholarly_generators_v1/results
