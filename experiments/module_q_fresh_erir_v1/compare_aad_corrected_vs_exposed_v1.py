@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import json
+import re
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -12,6 +13,21 @@ EXPOSED = RESULTS / "aad_exposed_audit_results_v1.json"
 
 def load(path):
     return json.loads(path.read_text(encoding="utf-8"))
+
+
+OPAQUE_CLAIM_PATH = re.compile(r"^claims/[0-9a-f]{64}:(.+)$")
+
+
+def normalize_failure_evaluation(value):
+    if isinstance(value, dict):
+        return {k: normalize_failure_evaluation(v) for k, v in value.items()}
+    if isinstance(value, list):
+        return [normalize_failure_evaluation(v) for v in value]
+    if isinstance(value, str):
+        m = OPAQUE_CLAIM_PATH.match(value)
+        if m:
+            return "claims/<context-bound-key>:" + m.group(1)
+    return value
 
 
 def slim_manifest(rows):
@@ -26,7 +42,9 @@ def slim_manifest(rows):
             "phi_after": x.get("phi_after"),
             "p_evaluation": x.get("p_evaluation"),
             "comparator_evaluation": x.get("comparator_evaluation"),
-            "failure_evaluation": x.get("failure_evaluation"),
+            "failure_evaluation": normalize_failure_evaluation(
+                x.get("failure_evaluation")
+            ),
         })
     return out
 
@@ -122,7 +140,9 @@ def main():
         "eligible_manifest_first_diff": manifest_first_diff,
         "note": (
             "source_context.population_scope and study/data-status labels are intentionally "
-            "different and excluded from equality; scientific population/outcome surfaces "
+            "different and excluded from equality. Opaque claim-key hashes embedded in fault "
+            "paths are normalized because those hashes are intentionally source-context-bound; "
+            "the mutation type/status must still match exactly. All other scientific surfaces "
             "must match exactly."
         ),
     }
