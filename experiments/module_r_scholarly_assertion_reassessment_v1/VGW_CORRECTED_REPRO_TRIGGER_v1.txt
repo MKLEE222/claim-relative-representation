@@ -3,3 +3,5 @@ Authoritative fresh run remains 36553853190 = INVALID.
 Purpose: verify the frozen analysis after lexer-only correction on the exact same source bytes.
 
 Second corrected reproduction after full grammar closure: exact first-opening source SHA values; authoritative fresh INVALID unchanged.
+
+Rerun after invalid-record blank-node comparison clarification; scientific case surface unchanged.
