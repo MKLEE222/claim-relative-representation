@@ -147,7 +147,7 @@ Figure 1 brings the two readings together by displaying the targets and effects 
 
 ![Two editorial continuations in Paper Money and Arbre Sec](figures/figure_1_scholarly_continuation.svg)
 
-**Figure 1.** Relations among interventions in two editorial sequences. Arrows run forward through the documentary layers and identify the target of each later act. Cordier transmits Laufer's response in Paper Money and answers Houtum-Schindler's proposal in Arbre Sec; the latter reply records a bibliographical response without an adoption of the cypress identification. Printed source loci are specified in Section 2.3.
+**Figure 1.** Relations among interventions in two editorial sequences. Arrows point from later interventions toward the earlier propositions or acts they address. Cordier transmits Laufer's response in Paper Money and answers Houtum-Schindler's proposal in Arbre Sec; the latter reply records a bibliographical response without establishing adoption of the cypress identification. Printed source loci are specified in Section 2.3.
 
 The remainder of the article makes these continuation conditions explicit, compares them, and tests them. The next section defines the evidentiary conditions under which a particular later act can be reconstructed from a represented state.
 
@@ -286,6 +286,10 @@ A further diagnostic comparison uses three information views: one with functiona
 
 **Table 3.** Information-view comparison for response qualification. The 47 naturally non-live-target acts and 52 constructed history-ablated contexts have different denominators. The columns are defined information projections, not implementations of a named metadata standard.
 
+![Three conditions for a scholarly response](figures/figure_3_representation_obligations.svg)
+
+**Figure 3.** Cumulative conditions for reconstructing a specified response action in Formalization Papers. Target binding alone admits both natural non-live-target acts and constructed history-ablated contexts. Checking current target availability removes the former false admissions; retaining the required entry history removes the latter. All 52 valid response contexts remain available throughout. Rows are distinct test populations with separate denominators.
+
 The comparison distinguishes two obligations. A relation can point to a target that is unavailable for the specified action; checking target availability removes the 47 false admissions in that population. An available target can still lack the recorded entry history required for a response; checking that history removes the 52 false admissions in the constructed ablation population. All 52 valid response contexts remain available in every view. The publication-status contrast in Table 2 shows why entry history is required for some acts but not all.
 
 The first prospective execution failed a parser check and yielded no valid confirmatory result. The corrected reproduction used the identical source archive after repairs to date-time serialization and multi-valued creator handling; independent parsers then agreed on the relevant source surface. The 52-chain result is reported as a **corrected reproduction**, while the subsequent signature and information-view comparisons are post-exposure diagnostic analyses. The initial failed execution remains part of the public evidence record.
@@ -405,4 +409,3 @@ Yule, Henry, and Henri Cordier. 1903. *The Book of Ser Marco Polo*. Third editio
 ## Evidence and materials statement
 
 The [evidence and reproducibility companion](EVIDENCE_AND_REPRODUCIBILITY.md) gives printed and checked scan-page anchors, source records, the fixed Formalization Papers snapshot, denominators, executable workflows, and the status of each analysis. The Formalization Papers source records remain in their [original supplementary repository](https://github.com/LaraHack/formalization_papers_supplemental); they are not redistributed here. The companion also links to the detailed technical provenance record. The article's historical interpretations remain open to scholarly challenge, and the computational comparisons assess their representational consequences.
-
