@@ -58,7 +58,7 @@ def parse_trig(raw: bytes):
     decisions = set()
     supersedes = set()
     retracts = set()
-    creators = {}
+    creators = set()
     created = {}
 
     for np in nanopubs:
@@ -69,7 +69,7 @@ def parse_trig(raw: bytes):
             triples = by_graph[pg]
             for s, p, o in triples:
                 if s == np and p == C.DCT_CREATOR:
-                    creators[np] = o
+                    creators.add((np, o))
                 elif s == np and p == C.DCT_CREATED:
                     created[np] = _canon_time(o)
                 elif s == np and p == C.LF_IS_UPDATE_OF:
@@ -133,7 +133,7 @@ def parse_trig(raw: bytes):
         "decisions": sorted(decisions),
         "supersedes": sorted(supersedes),
         "retracts": sorted(retracts),
-        "creators": sorted(creators.items()),
+        "creators": sorted(creators),
         "created": sorted(created.items()),
     }
 
