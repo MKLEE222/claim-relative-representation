@@ -486,6 +486,19 @@ def classify_population(surface):
                     "pairs": pairs,
                 })
 
+        relevant_packages = set([submission_np] if submission_np else [])
+        relevant_packages.update(live_reviews)
+        relevant_packages.update(live_updates)
+        relevant_packages.update(live_responses)
+        relevant_packages.update(live_decisions)
+        for package in sorted(relevant_packages):
+            if package in created_ambiguous:
+                ambiguities.append({
+                    "kind": "MULTIPLE_CREATED_TIMESTAMPS",
+                    "package": package,
+                    "values": created_ambiguous[package],
+                })
+
         t1 = []
         for response_np in sorted(set(live_responses)):
             rec = response_records[response_np]
