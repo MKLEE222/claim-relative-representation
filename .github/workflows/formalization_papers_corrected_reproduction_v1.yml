@@ -26,9 +26,11 @@ jobs:
         run: |
           test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_CORRECTED_REPRODUCTION_PROTOCOL_v1.md)" = "51e51beb65c911e82ae86ede2b0e082eefbcee2c"
           test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_POSTFRESH_DATETIME_CORRECTION_v1.md)" = "482a1311f410b5a730ea5cab5466d9f0fdf6300e"
-          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_oracle.py)" = "71d57aae1d729048f1c3be92c541a6ccbdbfeaa9"
-          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_runtime.py)" = "7acee381cc3dde11ff8c2ab7e2dfa9cdf18a34c1"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_CORRECTED_REPRODUCTION_AMENDMENT_v2.md)" = "e379bc73ae52f37adbb40f1bd143f63f9174de30"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_oracle.py)" = "3994ef01bf277d5880b1ce3f111287cf8cccf472"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_runtime.py)" = "17925015559b0541e6d7655858668e6feda4d558"
           test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_datetime_canonicalization_v1.py)" = "6930a685359f4e8c1936447e3fd74d6248a19761"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_creator_cardinality_v2.py)" = "de34a0edb712d0f45b726517de6bf0675baa1b07"
           test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py)" = "d9bdf1b392143c27b91986f38f7615247c550bf1"
           test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_corrected_finalize_v1.py)" = "7f1a163dcf73411ee31e8eaf0e89be55ad2dbcf0"
           test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_population.py)" = "21257498e78b11fe5996f00c398bd70ab39bc3a4"
@@ -48,9 +50,13 @@ jobs:
           python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_corrected_finalize_v1.py
           python -m py_compile experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py
           python -m py_compile experiments/formalization_papers_qualified_composition_v1/test_fp_datetime_canonicalization_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/test_fp_creator_cardinality_v2.py
 
       - name: Run datetime canonicalization regression
         run: python experiments/formalization_papers_qualified_composition_v1/test_fp_datetime_canonicalization_v1.py
+
+      - name: Run creator-cardinality regression
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_creator_cardinality_v2.py
 
       - name: Re-run parser and qualification synthetic gate
         run: python experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py
