@@ -1,0 +1,104 @@
+name: formalization-papers-corrected-reproduction-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/formalization_papers_qualified_composition_v1/FORMALIZATION_PAPERS_CORRECTED_REPRO_TRIGGER_v1.txt"
+
+jobs:
+  corrected:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen parser dependencies
+        run: python -m pip install rdflib==7.6.0 pyoxigraph==0.5.11
+
+      - name: Verify corrected-reproduction frozen blobs
+        run: |
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_CORRECTED_REPRODUCTION_PROTOCOL_v1.md)" = "51e51beb65c911e82ae86ede2b0e082eefbcee2c"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_POSTFRESH_DATETIME_CORRECTION_v1.md)" = "482a1311f410b5a730ea5cab5466d9f0fdf6300e"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_oracle.py)" = "71d57aae1d729048f1c3be92c541a6ccbdbfeaa9"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_runtime.py)" = "7acee381cc3dde11ff8c2ab7e2dfa9cdf18a34c1"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_datetime_canonicalization_v1.py)" = "6930a685359f4e8c1936447e3fd74d6248a19761"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py)" = "d9bdf1b392143c27b91986f38f7615247c550bf1"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_corrected_finalize_v1.py)" = "7f1a163dcf73411ee31e8eaf0e89be55ad2dbcf0"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_population.py)" = "21257498e78b11fe5996f00c398bd70ab39bc3a4"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py)" = "21800a8eb456892efff609013c32505d46c7b134"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py)" = "7e7f77377e7c2402b8c700ae2fb36420247b2ec2"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_finalize_v1.py)" = "3bd10046534291b3a01f34861a66d5c0c267e83f"
+
+      - name: Compile corrected stack
+        run: |
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_constants.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_oracle.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_runtime.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_population.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_finalize_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_corrected_finalize_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/test_fp_datetime_canonicalization_v1.py
+
+      - name: Run datetime canonicalization regression
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_datetime_canonicalization_v1.py
+
+      - name: Re-run parser and qualification synthetic gate
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py
+
+      - name: Re-run population synthetic gate
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_population_synthetic_v1.py
+
+      - name: Re-run authoritative stack synthetic closure
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_authoritative_stack_synthetic_v1.py
+
+      - name: Download byte-identical first-opening archive
+        run: |
+          curl -fL --retry 3 --retry-delay 2             -o /tmp/formalization-papers-v1.0.tar.gz             "https://codeload.github.com/LaraHack/formalization_papers_supplemental/tar.gz/2f68d8498aeeb724e3438deda13e74ae7fb076d8"
+          test "$(sha256sum /tmp/formalization-papers-v1.0.tar.gz | awk '{print $1}')" = "c2349aa34350dc5f02f3ad7ccfc1ff6f879e88950fee948b0d5ffa206d4ca9e3"
+          rm -rf /tmp/formalization-papers-v1.0
+          mkdir -p /tmp/formalization-papers-v1.0
+          tar -xzf /tmp/formalization-papers-v1.0.tar.gz             --strip-components=1             -C /tmp/formalization-papers-v1.0
+
+      - name: Require corrected real-source parser exactness
+        run: |
+          mkdir -p experiments/formalization_papers_qualified_composition_v1/results_corrected
+          python experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py             --source-root /tmp/formalization-papers-v1.0             --output experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_parser_diagnostic_v1.json
+          python - <<'PY'
+          import json
+          p = "experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_parser_diagnostic_v1.json"
+          d = json.load(open(p, encoding="utf-8"))
+          assert d["file_count"] == 10, d
+          assert d["exact_file_count"] == 10, d
+          assert d["mismatch_component_file_counts"] == {}, d
+          print("REAL_SOURCE_PARSER_EXACT_10_OF_10")
+          PY
+
+      - name: Run corrected full-population analysis
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py             --source-root /tmp/formalization-papers-v1.0             --source-archive /tmp/formalization-papers-v1.0.tar.gz             --output experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_main_v1.json
+
+      - name: Run corrected independent documentary audit
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py             --source-root /tmp/formalization-papers-v1.0             --main-result experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_main_v1.json             --output experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_documentary_audit_v1.json
+
+      - name: Finalize corrected reproduction label
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/fp_corrected_finalize_v1.py             --main-result experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_main_v1.json             --audit-result experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_documentary_audit_v1.json             --diagnostic-result experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_parser_diagnostic_v1.json             --output experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_final_v1.json
+          sha256sum experiments/formalization_papers_qualified_composition_v1/results_corrected/*.json             > experiments/formalization_papers_qualified_composition_v1/results_corrected/SHA256SUMS.txt
+          cat experiments/formalization_papers_qualified_composition_v1/results_corrected/fp_corrected_final_v1.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: formalization-papers-corrected-reproduction-v1
+          path: experiments/formalization_papers_qualified_composition_v1/results_corrected
