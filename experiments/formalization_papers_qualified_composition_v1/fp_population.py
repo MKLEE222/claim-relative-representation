@@ -327,7 +327,11 @@ def classify_population(surface):
                 continue
             if canonical.get(np) == np and np in live_packages:
                 live_reviews.append(np)
-            elif canonical.get(np) is None:
+            elif (
+                canonical.get(np) is None
+                and version["ambiguous"].get(np)
+                    != "NO_LIVE_TERMINAL_VERSION"
+            ):
                 ambiguities.append({
                     "kind": "REVIEW_VERSION_UNRESOLVED",
                     "package": np,
@@ -348,7 +352,11 @@ def classify_population(surface):
                 continue
             if canonical.get(np) == np and np in live_packages:
                 live_updates.append(np)
-            elif canonical.get(np) is None:
+            elif (
+                canonical.get(np) is None
+                and version["ambiguous"].get(np)
+                    != "NO_LIVE_TERMINAL_VERSION"
+            ):
                 ambiguities.append({
                     "kind": "UPDATE_VERSION_UNRESOLVED",
                     "package": np,
@@ -374,7 +382,11 @@ def classify_population(surface):
             review_targets = sorted(row["review_targets"])
             update_targets = sorted(row["update_targets"])
             if canonical.get(np) != np or np not in live_packages:
-                if canonical.get(np) is None:
+                if (
+                    canonical.get(np) is None
+                    and version["ambiguous"].get(np)
+                        != "NO_LIVE_TERMINAL_VERSION"
+                ):
                     ambiguities.append({
                         "kind": "RESPONSE_VERSION_UNRESOLVED",
                         "package": np,
@@ -438,7 +450,11 @@ def classify_population(surface):
             if target_root != root:
                 continue
             if canonical.get(np) != np or np not in live_packages:
-                if canonical.get(np) is None:
+                if (
+                    canonical.get(np) is None
+                    and version["ambiguous"].get(np)
+                        != "NO_LIVE_TERMINAL_VERSION"
+                ):
                     ambiguities.append({
                         "kind": "DECISION_VERSION_UNRESOLVED",
                         "package": np,
