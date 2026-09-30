@@ -107,7 +107,7 @@ PREAMBLE = r"""\documentclass[11pt,a4paper]{article}
 \tolerance=1800
 \begin{document}
 \begin{center}
-{\LARGE\bfseries After Revision: Corrections, Replies, and Scholarly Continuation in Digital Editions\par}
+{\LARGE\bfseries __MANUSCRIPT_TITLE__\par}
 \vspace{0.7em}
 \end{center}
 \vspace{1em}
@@ -116,7 +116,10 @@ PREAMBLE = r"""\documentclass[11pt,a4paper]{article}
 
 def build():
     lines = SOURCE.read_text(encoding="utf-8").splitlines()
-    out = [PREAMBLE]
+    title_line = next((line[2:].strip() for line in lines if line.startswith("# ")), None)
+    if not title_line:
+        raise ValueError("Manuscript title missing")
+    out = [PREAMBLE.replace("__MANUSCRIPT_TITLE__", inline(title_line))]
     i = 0
     references_mode = False
     while i < len(lines):
@@ -148,6 +151,11 @@ def build():
         if line.startswith("### "):
             title = re.sub(r"^\d+\.\d+\s+", "", line[4:].strip())
             out.append(r"\subsection{" + inline(title) + "}")
+            i += 1
+            continue
+        if line.startswith("#### "):
+            title = re.sub(r"^\d+\.\d+\.\d+\s+", "", line[5:].strip())
+            out.append(r"\subsubsection{" + inline(title) + "}")
             i += 1
             continue
         if line.startswith("\\["):
