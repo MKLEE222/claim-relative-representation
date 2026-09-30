@@ -133,3 +133,202 @@ Scientific interpretation:
 > independently reconstructed from the public source.
 
 No TMLR record query or DATA_OPEN is authorized.
+
+
+## Candidate B — eLife Reviewed Preprints / immutable JATS XML
+
+Documentation/schema inspected only:
+- eLife public peer-review model documentation;
+- elifesciences/elife-article-xml README/tree metadata;
+- article-xml commit:
+  ec0fbc8e81cfae472260f96a03ba078b57007612;
+- article-xml tree:
+  d6bba934b495f7e4272f370de53817c0fc28af84;
+- elifesciences/eLife-JATS-schematron Reviewed Preprint schema at:
+  4c2359460359160b3e02c98fc07804b304627bb7;
+- elifesciences/data-hub-api DocMap model/code at:
+  2515b474a449e79932acd7d8805c96ec1b2daaa5.
+
+Record-level eLife preprint XML opened:
+
+    no
+
+Only repository tree metadata/filenames/sizes were inspected.
+
+### Source-native structural model
+
+The public eLife model defines a Reviewed Preprint as including:
+- the preprint/version;
+- eLife Assessment;
+- one or more Public Reviews;
+- Author Response when available.
+
+Revised Reviewed Preprints publish a new version and may update the eLife Assessment and Public
+Reviews.
+
+The public DocMap model independently represents:
+- ordered steps with previous-step / next-step;
+- versionIdentifier;
+- preprint inputs;
+- evaluation outputs;
+- evaluation types:
+    evaluation-summary
+    review-article
+    reply;
+- version-specific evaluation inputs to manuscript publication.
+
+The public JATS Reviewed Preprint schema independently requires:
+- exactly one eLife Assessment sub-article:
+    article-type = editor-report;
+- at least one Public Review sub-article:
+    article-type = referee-report;
+- no more than one Author Response:
+    article-type = author-comment;
+- version-specific reviewed-preprint DOI;
+- version-specific peer-review sub-article DOI;
+- publication-history events with direct self-uri links to the version's:
+    reviewed-preprint
+    editor-report
+    referee-report
+    author-comment when present.
+
+The schema requires each peer-review sub-article DOI to begin with the exact Reviewed Preprint
+version DOI.
+
+Thus exact version-target binding and retained evaluation history are publicly encoded in the
+immutable XML itself.
+
+### Prospective action families
+
+Candidate history-not-required generator:
+
+    RECORD_EVALUATION
+
+Beta:
+- exact manuscript/version DOI;
+- evaluation sub-article DOI whose prefix binds it to that exact version;
+- evaluation kind.
+
+Kappa:
+- current target Reviewed Preprint version exists.
+
+Retained earlier transition history is not required merely to register a version-bound Public
+Review/eLife Assessment/Author Response.
+
+Candidate history-required generator:
+
+    PUBLISH_REVIEWED_PREPRINT
+
+Beta:
+- exact Reviewed Preprint version DOI;
+- exact publication-history event for that version.
+
+Kappa:
+- eLife Assessment retained;
+- at least one Public Review retained;
+- publication-history event retains the direct Assessment/Review bindings for that version.
+
+A state retaining the same current manuscript/version projection but erasing those evaluation
+bindings is not sufficient for this generator.
+
+This gives a natural connected sequence:
+
+    RECORD_EVALUATION*
+    -> PUBLISH_REVIEWED_PREPRINT
+
+and, for later versions:
+
+    prior reviewed version
+    -> RECORD_EVALUATION*
+    -> PUBLISH_REVISED_REVIEWED_PREPRINT
+
+### Immutable denominator
+
+Authoritative source candidate:
+
+    elifesciences/elife-article-xml
+    commit ec0fbc8e81cfae472260f96a03ba078b57007612
+
+Tree metadata at this commit:
+- 9,270 Reviewed Preprint XML files;
+- 4,806 manuscript IDs;
+- 3,715 manuscripts have more than one version;
+- maximum observed version count in tree metadata = 5;
+- total preprint XML byte size = 1,597,080,287.
+
+To avoid a 1.6 GB fresh execution path while preserving outcome blindness, the candidate-specific
+scope will use the deterministic manuscript rule:
+
+    int(manuscript_id) mod 16 == 0
+
+and include all Reviewed Preprint versions for every selected manuscript.
+
+At the frozen tree this scope is:
+- 297 manuscripts;
+- 568 XML files;
+- 96,584,062 bytes;
+- 226 manuscripts have multiple version filenames.
+
+This rule uses only stable manuscript identity and was frozen without opening XML content or
+review/evaluation outcomes.
+
+### Gate disposition
+
+G1 independent scholarly ecology:
+    PASS
+
+G2 stable object and exact relation target:
+    PASS
+    version-specific article/sub-article DOI plus publication-history self-uri.
+
+G3 source-native relation semantics:
+    PASS
+    reviewed-preprint version, assessment, public review, author response and publication event
+    are schema-native.
+
+G4 connected multi-step structure:
+    PASS
+
+G5 publicly auditable Beta(g):
+    PASS
+    exact version/evaluation bindings are public JATS.
+
+G6 publicly auditable Kappa(g):
+    PASS
+    assessment/review/history bindings are public in the immutable XML.
+
+G7 signature heterogeneity:
+    PASS PROSPECTIVELY
+    RECORD_EVALUATION does not require earlier transition history;
+    PUBLISH_REVIEWED_PREPRINT requires retained version-bound evaluation history.
+
+G8 closed denominator:
+    PASS
+    immutable Git commit plus outcome-blind modulo-16 manuscript scope.
+
+G9 independent extraction/audit feasibility:
+    PASS
+    lxml tree oracle;
+    independent Expat/SAX-style streaming runtime;
+    third raw-XML documentary audit.
+
+G10 exact-path pre-data feasibility:
+    PASS IN PRINCIPLE
+    approximately 96.6 MB source scope and schema-bounded XML surfaces are compatible with the
+    prospective master execution contract.
+
+Screening disposition:
+
+    SCREEN_PASS_G1_G10
+
+Freshness status:
+
+    RECORD_CONTENT_UNOPENED
+
+Broad discovery stop rule:
+
+    ACTIVATED
+
+No eLife preprint XML may be opened until the candidate-specific protocol, synthetic coverage
+manifest, two independent engines, documentary audit, finalizer and exact-path artifact round-trip
+are all frozen and green.
