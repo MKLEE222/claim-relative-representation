@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article xmlns:xlink="http://www.w3.org/1999/xlink" article-type="research-article" dtd-version="1.4">
+  <front>
+    <journal-meta><journal-id>elife</journal-id></journal-meta>
+    <article-meta>
+      <article-id pub-id-type="publisher-id">160176</article-id>
+      <article-id pub-id-type="doi" specific-use="version">10.7554/eLife.160176.2</article-id>
+      <article-version-alternatives>
+        <article-version article-version-type="preprint-version">1.2</article-version>
+        <article-version article-version-type="publication-state">reviewed-preprint</article-version>
+      </article-version-alternatives>
+      <pub-history><event>
+<event-desc>Reviewed preprint v1</event-desc>
+<date date-type="reviewed-preprint" iso-8601-date="2025-01-01"><day>1</day><month>1</month><year>2025</year></date>
+<self-uri content-type="reviewed-preprint" xlink:href="https://doi.org/10.7554/eLife.160176.1"/>
+
+<self-uri content-type="referee-report" xlink:href="https://doi.org/10.7554/eLife.160176.1.sa2">Public Review</self-uri>
+
+</event></pub-history>
+    </article-meta>
+  </front>
+  <sub-article article-type="editor-report"><front-stub><article-id pub-id-type="doi">10.7554/eLife.160176.2.sa1</article-id></front-stub></sub-article>
+  <sub-article article-type="referee-report"><front-stub><article-id pub-id-type="doi">10.7554/eLife.160176.2.sa2</article-id></front-stub></sub-article>
+  
+  
+</article>
