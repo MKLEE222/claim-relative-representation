@@ -699,29 +699,61 @@ Open questions are:
 
 ## 7. Remaining empirical burdens
 
-### Burden 1 — action-availability false-positive decomposition
+### Burden 1 — generator-specific qualification minimality
 
 Status:
 
     OPEN
     HIGHEST-VALUE IMMEDIATE BURDEN
 
-Formalization Papers now supplies both:
-- 52 eligible history-sensitive positive chains;
-- 7 T8 roots with natural non-live/nonfunctional target relations.
+The Formalization Papers comparator audit has closed the broad false-positive question for the
+registered response action.
 
-The next test should compare:
+Observed:
 
-    relation-edge-only representation
-    vs
-    live-target/current-state representation
-    vs
-    full history-qualified representation
+    D_POSITIVE = 52
+        B_RELATION_TARGET 52/52
+        B_LIVE_TARGET     52/52
+        Q_FULL_HISTORY    52/52
 
-and measure false scholarly-action availability.
+    D_NONLIVE = 47
+        B_RELATION_TARGET false availability 47/47
+        B_LIVE_TARGET     false availability 0/47
+        Q_FULL_HISTORY    false availability 0/47
 
-This directly tests whether the newly identified representation distinctions are necessary rather
-than merely present.
+    D_HISTORY_ABLATED = 52
+        B_RELATION_TARGET false availability 52/52
+        B_LIVE_TARGET     false availability 52/52
+        Q_FULL_HISTORY    false availability 0/52
+
+Thus:
+
+    relation target identity
+    !=
+    live/current target validity
+    !=
+    retained-history qualification
+
+is established for RECORD_RESPONSE.
+
+The next question is whether the same qualification inputs are required by every generator.
+
+They should not be assumed universal.
+
+Need generator-specific signatures for:
+- RECORD_REVIEW;
+- REPLACE_FORMALIZATION;
+- RECORD_RESPONSE;
+- REVISE_PUBLICATION_STATUS;
+- target-bound Yule-Cordier ADD_ALTERNATIVE / RESOLVE / RECORD_EVIDENCE.
+
+The goal is conditional minimality:
+
+    which distinctions are necessary for which action family?
+
+not:
+
+    every action requires all metadata.
 
 ### Burden 2 — literal clean prospective confirmation
 
@@ -734,44 +766,29 @@ positive PASS.
 
 A future clean confirmation would improve evidentiary labeling.
 
-It is no longer required to establish that qualified composition occurs in an independent ecology;
-that scientific question is strongly supported by Formalization Papers corrected reproduction.
+It is no longer required to establish that qualified composition or its target/history mechanism
+occurs in an independent ecology.
 
-### Burden 3 — qualification minimality / theorem boundary
-
-Status:
-
-    OPEN
-
-Current formal object:
-
-    Q(S,rho,target(rho),H,e,g)
-
-Need to determine which distinctions are conditionally necessary for which action families rather
-than treating every component as universally required.
-
-The likely target is a task-relative necessity structure, not a claim that all scholarly actions
-require the same metadata.
-
-### Burden 4 — broader relation-ecology portability
+### Burden 3 — broader relation-ecology portability
 
 Status:
 
     PARTIALLY OPEN
 
-Cross-corpus portability is now supported between:
+Cross-corpus portability is supported between:
 - Yule-Cordier historical assertion relations;
 - Formalization Papers review/update/response/decision relations.
 
-Additional ecologies would broaden scope but are no longer the main immediate bottleneck.
+Additional ecologies broaden scope but are no longer the immediate scientific bottleneck.
 
-### Burden 5 — human independent historical adjudication / prevalence
+### Burden 4 — universal theorem / prevalence boundary
 
 Status:
 
-    OPTIONAL DEPENDING CLAIM
+    OPEN / CLAIM-DEPENDENT
 
-No universal prevalence or historian-consensus claim is licensed.
+No universal scholarly action algebra, universal minimal-sufficiency theorem, prevalence claim or
+historian-consensus claim is currently licensed.
 
 ## 8. What should NOT happen next
 
@@ -786,39 +803,37 @@ Do not:
 
 ## 9. Next authorized scientific step
 
-The following defects are closed for the audited scope:
+The following are now closed for the audited scope:
 - exogenous operation input;
 - relation-only qualification;
 - state-only qualification;
 - missing relation-target binding;
-- treating assertion-state identity as no scholarly action;
+- assertion-state identity mistaken for no scholarly action;
 - purely synthetic composition;
 - within-corpus-only natural composition;
-- independent-ecology composition as a scientific mechanism.
+- independent-ecology composition as a mechanism;
+- broad action-availability false positives for relation-only and live-target-only response
+  representations.
 
 Next authorized scientific step:
 
-    action-availability false-positive decomposition
+    generator-specific qualification signature audit
 
-Use the already exposed Formalization Papers population to compare progressively stronger
-representations:
+For each registered generator, determine whether qualification depends on:
+- exact object/root identity;
+- exact relation target;
+- target functional cardinality;
+- live/current target status;
+- retained transition history;
+- source/version/provenance binding.
 
-    B_EDGE_ONLY
-    B_LIVE_TARGET
-    Q_FULL_HISTORY
+Use controlled ablations on already exposed/natural states.
 
-Primary questions:
+Primary desired result:
 
-1. How many non-live/nonfunctional response edges would an edge-only representation incorrectly
-   expose as executable actions?
-2. Holding the current update/live targets fixed, how many later responses would a current-state
-   representation incorrectly expose after transition history is removed?
-3. Does the full qualified representation reject both classes without reducing availability on the
-   52 valid connected chains?
+    qualification requirements are generator-relative
 
-This test should be frozen as an exposed comparator audit.
+rather than a universal all-fields-required checklist.
 
-Do not consume another fresh ecology merely to answer this already-localized mechanism question.
-
-A future clean prospective holdout remains useful for evidentiary status after the mechanism
-decomposition is complete.
+Only after this minimality boundary is clear should the project decide whether a fourth fresh
+ecology adds enough scientific value to justify another confirmation cycle.
