@@ -118,6 +118,7 @@ def build():
     lines = SOURCE.read_text(encoding="utf-8").splitlines()
     out = [PREAMBLE]
     i = 0
+    references_mode = False
     while i < len(lines):
         line = lines[i].rstrip()
         if not line:
@@ -131,11 +132,17 @@ def build():
             continue
         if line.startswith("## "):
             title = line[3:].strip()
+            if references_mode:
+                out.append(r"\endgroup")
+                references_mode = False
             number = re.match(r"\d+\.\s+(.*)", title)
             if number:
                 out.append(r"\section{" + inline(number.group(1)) + "}")
             else:
                 out.append(r"\section*{" + inline(title) + "}")
+            if title == "References":
+                out.append(r"\begingroup\small\raggedright\setlength{\parindent}{0pt}\setlength{\parskip}{0.35em}")
+                references_mode = True
             i += 1
             continue
         if line.startswith("### "):
@@ -196,7 +203,12 @@ def build():
         while i < len(lines) and lines[i].strip() and not lines[i].startswith(("#", "| ", "![", "\\[", "> ", "    ")):
             block.append(lines[i].strip())
             i += 1
-        out.append(inline(" ".join(block)) + "\n")
+        paragraph = inline(" ".join(block)) + "\n"
+        if references_mode:
+            paragraph = r"\hangindent=1.5em\hangafter=1 " + paragraph
+        out.append(paragraph)
+    if references_mode:
+        out.append(r"\endgroup")
     out.append("\\end{document}\n")
     TARGET.write_text("\n\n".join(out), encoding="utf-8")
     print(f"Wrote {TARGET} ({len(out)} blocks)")
