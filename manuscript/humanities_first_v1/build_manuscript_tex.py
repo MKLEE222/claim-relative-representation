@@ -107,7 +107,7 @@ PREAMBLE = r"""\documentclass[11pt,a4paper]{article}
 \tolerance=1800
 \begin{document}
 \begin{center}
-{\LARGE\bfseries After Revision: Scholarly Continuation in Digital Editions\par}
+{\LARGE\bfseries After Revision: Corrections, Replies, and Scholarly Continuation in Digital Editions\par}
 \vspace{0.7em}
 \end{center}
 \vspace{1em}
