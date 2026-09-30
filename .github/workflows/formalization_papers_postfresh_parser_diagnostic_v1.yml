@@ -6,6 +6,7 @@ on:
       - audit/cold-start-20260926
     paths:
       - "experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py"
+      - "experiments/formalization_papers_qualified_composition_v1/diagnose_fp_pubinfo_cardinality_v1.py"
       - ".github/workflows/formalization_papers_postfresh_parser_diagnostic_v1.yml"
   workflow_dispatch:
 
@@ -28,6 +29,7 @@ jobs:
           python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_oracle.py
           python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_runtime.py
           python -m py_compile experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/diagnose_fp_pubinfo_cardinality_v1.py
 
       - name: Download exact exposed source archive
         run: |
@@ -41,6 +43,10 @@ jobs:
         run: |
           mkdir -p experiments/formalization_papers_qualified_composition_v1/results_postfresh
           python experiments/formalization_papers_qualified_composition_v1/diagnose_fp_parser_mismatch_v1.py             --source-root /tmp/formalization-papers-v1.0             --output experiments/formalization_papers_qualified_composition_v1/results_postfresh/fp_parser_diff_diagnostic_v1.json
+
+      - name: Run pubinfo cardinality audit
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/diagnose_fp_pubinfo_cardinality_v1.py             --source-root /tmp/formalization-papers-v1.0             --output experiments/formalization_papers_qualified_composition_v1/results_postfresh/fp_pubinfo_cardinality_v1.json
 
       - uses: actions/upload-artifact@v4
         with:
