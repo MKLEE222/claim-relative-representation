@@ -225,6 +225,20 @@ def main():
                     k for k, v in x["components"].items()
                     if not v["exact"]
                 ],
+                "created_first_oracle": (
+                    x["components"].get("created", {})
+                    .get("only_oracle_first20", [None])[0]
+                    if x["components"].get("created", {})
+                    .get("only_oracle_first20")
+                    else None
+                ),
+                "created_first_runtime": (
+                    x["components"].get("created", {})
+                    .get("only_runtime_first20", [None])[0]
+                    if x["components"].get("created", {})
+                    .get("only_runtime_first20")
+                    else None
+                ),
             }
             for x in file_rows
         ],
