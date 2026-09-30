@@ -1,0 +1,143 @@
+name: elife-prefresh-exact-path-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/elife_clean_prospective_v1/**"
+      - "audits/mother_problem_redesign_20260929/ELIFE_CLEAN_PROSPECTIVE_CONFIRMATION_PROTOCOL_v1.md"
+      - "audits/mother_problem_redesign_20260929/PROSPECTIVE_CONFIRMATION_MASTER_EXECUTION_PROTOCOL_v1.md"
+      - ".github/workflows/elife_prefresh_exact_path_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  exact-path:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen pre-data dependency
+        run: |
+          python -m pip install lxml==6.0.2
+          python - <<'PY'
+          import lxml
+          assert lxml.__version__ == "6.0.2", lxml.__version__
+          print("LXML_VERSION", lxml.__version__)
+          PY
+
+      - name: Verify frozen protocols, manifest, engines and synthetic source tree
+        run: |
+          test "$(git hash-object audits/mother_problem_redesign_20260929/PROSPECTIVE_CONFIRMATION_MASTER_EXECUTION_PROTOCOL_v1.md)" = "588e1489830df8c3779e819bc84ae30a6e0d4507"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/ELIFE_CLEAN_PROSPECTIVE_CONFIRMATION_PROTOCOL_v1.md)" = "ff4c05aa2ca094ce820451eb689ef3b0db5f6e51"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/ELIFE_SOURCE_MANIFEST_v1.json)" = "7d540a3d5f949ffd80c6e1dcdfa16722d9347b02"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/ELIFE_SYNTHETIC_EXPECTED_v1.json)" = "42795bfc886c6fd718b9967a718253bd4d6355ed"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/ELIFE_SCIENTIFIC_MANIFEST_v1.json)" = "8c1229e8ad3ba703bf9005a9d4492aca21c83d20"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/elife_constants.py)" = "a78a3440b53c336daca0825bd16048037fb3948c"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/elife_oracle.py)" = "cd7de8b55b297c5947ac4f106581fa9c99765842"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/elife_runtime.py)" = "da1a72da9418c6ce6c96a730c29b1c001af11622"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/run_authoritative_v1.py)" = "e61bd6adab0ab80dfb6e410ca3ecbc6537525665"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/run_documentary_audit_v1.py)" = "181260b512b48d30288e4c8cfc8ae938ce6d6832"
+          test "$(git hash-object experiments/elife_clean_prospective_v1/finalize_v1.py)" = "6b8cb7c69dfa91e9faf9f6cce50cbe4cd5627da4"
+          test "$(git rev-parse HEAD:experiments/elife_clean_prospective_v1/synthetic_source)" = "6ee5d81891f4ceafadae7f289218a30994762aa9"
+
+      - name: Compile and import the complete post-open stack
+        run: |
+          python -m py_compile experiments/elife_clean_prospective_v1/elife_constants.py
+          python -m py_compile experiments/elife_clean_prospective_v1/elife_oracle.py
+          python -m py_compile experiments/elife_clean_prospective_v1/elife_runtime.py
+          python -m py_compile experiments/elife_clean_prospective_v1/run_authoritative_v1.py
+          python -m py_compile experiments/elife_clean_prospective_v1/run_documentary_audit_v1.py
+          python -m py_compile experiments/elife_clean_prospective_v1/finalize_v1.py
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "experiments/elife_clean_prospective_v1")
+          import elife_constants, elife_oracle, elife_runtime
+          import run_authoritative_v1, run_documentary_audit_v1, finalize_v1
+          print("COMPLETE_STACK_IMPORT_PASS")
+          PY
+
+      - name: Run exact authoritative stack on closed synthetic source
+        run: |
+          rm -rf experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1
+          mkdir -p experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1
+          python experiments/elife_clean_prospective_v1/run_authoritative_v1.py             --source experiments/elife_clean_prospective_v1/synthetic_source             --output-dir experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1             --mode synthetic
+
+      - name: Freeze synthetic coverage manifest inside the artifact
+        run: |
+          cp             experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/coverage_observed_v1.json             experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/synthetic_coverage_manifest_v1.json
+
+      - name: Run the exact independent documentary auditor
+        run: |
+          python experiments/elife_clean_prospective_v1/run_documentary_audit_v1.py             --source experiments/elife_clean_prospective_v1/synthetic_source             --qualification-results experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/qualification_results_v1.json             --output experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/documentary_audit_v1.json
+
+      - name: Run the exact finalizer
+        run: |
+          python experiments/elife_clean_prospective_v1/finalize_v1.py             --input-dir experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1             --documentary-audit experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/documentary_audit_v1.json             --mode synthetic             --output experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/final_result_v1.json
+
+      - name: Validate the final synthetic license
+        run: |
+          python - <<'PY'
+          import json
+          from pathlib import Path
+          p = Path("experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/final_result_v1.json")
+          result = json.loads(p.read_text())
+          assert result["final_disposition"] == "SYNTHETIC_EXACT_PATH_FINAL_PASS", result
+          coverage = json.loads(Path(
+              "experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1/synthetic_coverage_manifest_v1.json"
+          ).read_text())
+          assert coverage["registered_all_covered"] is True, coverage
+          print("SYNTHETIC_DATA_OPEN_LICENSE_PASS")
+          PY
+
+      - name: Upload complete pre-data exact-path artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: elife-prefresh-exact-path-v1
+          path: experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1
+
+      - name: Download artifact in the same environment
+        uses: actions/download-artifact@v4
+        with:
+          name: elife-prefresh-exact-path-v1
+          path: /tmp/elife-prefresh-roundtrip
+
+      - name: Verify artifact round-trip against finalizer manifest
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          src = Path("experiments/elife_clean_prospective_v1/results/prefresh_exact_path_v1")
+          dl = Path("/tmp/elife-prefresh-roundtrip")
+          manifest = json.loads((src / "artifact_manifest_v1.json").read_text())
+
+          required = {
+              "source_accounting_v1.json",
+              "parser_comparison_v1.json",
+              "population_results_v1.json",
+              "qualification_results_v1.json",
+              "coverage_observed_v1.json",
+              "synthetic_coverage_manifest_v1.json",
+              "run_summary_v1.json",
+              "documentary_audit_v1.json",
+              "final_result_v1.json",
+          }
+          assert required.issubset(manifest["files"]), (required, manifest)
+
+          for name, expected in manifest["files"].items():
+              p = dl / name
+              assert p.exists(), name
+              actual = hashlib.sha256(p.read_bytes()).hexdigest()
+              assert actual == expected, (name, expected, actual)
+
+          result = json.loads((dl / "final_result_v1.json").read_text())
+          assert result["final_disposition"] == "SYNTHETIC_EXACT_PATH_FINAL_PASS"
+          print("PREFRESH_ARTIFACT_ROUNDTRIP_PASS")
+          PY
