@@ -17,3 +17,15 @@ A successful run must be labeled:
     POST_FRESH_CORRECTED_REPRODUCTION_PASS
 
 and must never be relabeled as a fresh PASS.
+
+
+CORRECTED REPRODUCTION V2 TRIGGER
+
+The v1 corrected attempt 36658658912 stopped before population at the real-source exactness gate.
+
+V2 additionally freezes:
+- FORMALIZATION_PAPERS_CORRECTED_REPRODUCTION_AMENDMENT_v2.md
+- multi-valued dct:creator relation preservation
+- creator-cardinality regression.
+
+Scientific population / qualification / documentary logic remains unchanged.
