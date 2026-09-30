@@ -51,7 +51,7 @@ def _extract(by_graph, all_triples):
             pubinfo_graph[s] = o
             nanopubs.add(s)
 
-    creators = {}
+    creators = set()
     created = {}
     supersedes = []
     retracts = []
@@ -66,7 +66,7 @@ def _extract(by_graph, all_triples):
         if pg and pg in by_graph:
             for s, p, o in by_graph[pg]:
                 if s == np and p == C.DCT_CREATOR:
-                    creators[np] = o
+                    creators.add((np, o))
                 if s == np and p == C.DCT_CREATED:
                     created[np] = _canon_time(o)
                 if s == np and p == C.LF_IS_UPDATE_OF:
@@ -136,7 +136,7 @@ def _extract(by_graph, all_triples):
         "decisions": sorted(set(decisions)),
         "supersedes": sorted(set(supersedes)),
         "retracts": sorted(set(retracts)),
-        "creators": sorted(creators.items()),
+        "creators": sorted(creators),
         "created": sorted(created.items()),
     }
     return surface
