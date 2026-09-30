@@ -402,8 +402,23 @@ def main():
     root_exact = main_roots == raw["roots"]
 
     main_t0, main_t1 = manifest_sets(main_result)
-    raw_t0 = set(tuple(x) for x in raw["t0"])
-    raw_t1 = set(tuple(x) for x in raw["t1"])
+
+    eligible_roots = {
+        row["root"]
+        for row in (main_result.get("population") or {}).get("roots", [])
+        if row.get("disposition", "").startswith(("T0_", "T1_"))
+    }
+
+    # Independently re-derive the raw chains, then compare only within the
+    # prospectively eligible root denominator. T8/T9 roots are legitimate
+    # frozen population outcomes and must not become a global audit failure
+    # merely because raw relation edges remain visible.
+    raw_t0 = {
+        tuple(x) for x in raw["t0"] if x[0] in eligible_roots
+    }
+    raw_t1 = {
+        tuple(x) for x in raw["t1"] if x[0] in eligible_roots
+    }
 
     # A T1 tuple that is part of a T0 chain is not separately in the main
     # denominator when the root disposition is T0. Compare the underlying
