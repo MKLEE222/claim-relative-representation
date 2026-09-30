@@ -1,0 +1,19 @@
+FORMALIZATION PAPERS CORRECTED REPRODUCTION TRIGGER v1
+
+Date: 2026-09-30
+
+Authoritative fresh run 36657856767 remains INVALID.
+
+This trigger authorizes a post-fresh corrected reproduction on the byte-identical first-opening
+archive only, under:
+
+- FORMALIZATION_PAPERS_CORRECTED_REPRODUCTION_PROTOCOL_v1.md
+- FORMALIZATION_PAPERS_POSTFRESH_DATETIME_CORRECTION_v1.md
+
+The correction is limited to dct:created xsd:dateTime fractional-second canonicalization.
+
+A successful run must be labeled:
+
+    POST_FRESH_CORRECTED_REPRODUCTION_PASS
+
+and must never be relabeled as a fresh PASS.
