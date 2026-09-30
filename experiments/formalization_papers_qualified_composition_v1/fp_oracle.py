@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import copy
+from datetime import datetime
 from collections import defaultdict
 from rdflib import Dataset, URIRef
 
@@ -13,9 +14,11 @@ def _v(x):
 
 def _canon_time(value):
     s = str(value)
-    if s.endswith("+00:00"):
-        return s[:-6] + "Z"
-    return s
+    try:
+        dt = datetime.fromisoformat(s.replace("Z", "+00:00"))
+    except ValueError:
+        return s
+    return dt.isoformat(timespec="microseconds")
 
 
 def parse_trig(raw: bytes):
