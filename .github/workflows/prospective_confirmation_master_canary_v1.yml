@@ -1,0 +1,153 @@
+name: prospective-confirmation-master-canary-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/prospective_confirmation_master_v1/**"
+      - "audits/mother_problem_redesign_20260929/PROSPECTIVE_CONFIRMATION_MASTER_EXECUTION_PROTOCOL_v1.md"
+      - ".github/workflows/prospective_confirmation_master_canary_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  canary:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install all known pre-data dependencies
+        run: |
+          python -m pip install lxml rdflib==7.6.0 pyoxigraph==0.5.11
+          python - <<'PY'
+          import lxml, rdflib, pyoxigraph
+          print("lxml", lxml.__version__)
+          print("rdflib", rdflib.__version__)
+          print("pyoxigraph", pyoxigraph.__version__)
+          PY
+
+      - name: Verify master and regression blobs
+        run: |
+          test "$(git hash-object audits/mother_problem_redesign_20260929/PROSPECTIVE_CONFIRMATION_MASTER_EXECUTION_PROTOCOL_v1.md)" = "588e1489830df8c3779e819bc84ae30a6e0d4507"
+          test "$(git hash-object experiments/prospective_confirmation_master_v1/run_execution_accident_regression_v1.py)" = "2b659956c0842a4bd299729fdb4bbdb3c242f6fc"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_nt_terminator_regression_v1.py)" = "db05b357b9165fb675678596296fd159cd0d1b39"
+          test "$(git hash-object experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_langtag_terminator_regression_v1.py)" = "7c6f201dac083ba638e3753caf7e34498c79eadc"
+          test "$(git hash-object experiments/module_q_fresh_erir_v1/run_aad_corrected_reproduction_v1.py)" = "fbc4a78c8fec26586720051c56a42c57280f36f0"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py)" = "52f0a640b27927f8db23d5e649673b3e2c620812"
+
+      - name: Compile and import the AAD corrected execution stack
+        run: |
+          python -m py_compile experiments/module_q_fresh_erir_v1/run_aad_corrected_reproduction_v1.py
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "experiments/module_q_fresh_erir_v1")
+          import run_aad_corrected_reproduction_v1
+          print("AAD_IMPORT_CLOSURE_PASS")
+          PY
+
+      - name: Regress the VGW natural N-Triples lexical failures
+        run: |
+          python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_nt_terminator_regression_v1.py
+          python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_runtime_langtag_terminator_regression_v1.py
+          python experiments/module_r_scholarly_assertion_reassessment_v1/test_vgw_invalid_bnode_comparison_v1.py
+
+      - name: Re-run the full Formalization Papers synthetic gate
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py
+
+      - name: Regress Formalization Papers natural parser surfaces
+        run: |
+          python experiments/prospective_confirmation_master_v1/run_execution_accident_regression_v1.py
+
+      - name: Write canary dependency and execution manifest
+        run: |
+          mkdir -p experiments/prospective_confirmation_master_v1/results
+          python - <<'PY'
+          import hashlib, json, platform, sys
+          from pathlib import Path
+          import lxml, rdflib, pyoxigraph
+
+          out = Path("experiments/prospective_confirmation_master_v1/results")
+          reg = out / "execution_accident_regression_v1.json"
+          reg_hash = hashlib.sha256(reg.read_bytes()).hexdigest()
+          payload = {
+              "study": "PROSPECTIVE_CONFIRMATION_MASTER_CANARY_V1",
+              "python": sys.version,
+              "platform": platform.platform(),
+              "dependencies": {
+                  "lxml": lxml.__version__,
+                  "rdflib": rdflib.__version__,
+                  "pyoxigraph": pyoxigraph.__version__,
+              },
+              "regression_result_sha256": reg_hash,
+              "known_accident_classes": {
+                  "aad_import_path": "PASS",
+                  "vgw_blank_node_terminal_dot": "PASS",
+                  "vgw_langtag_terminal_dot": "PASS",
+                  "vgw_invalid_blank_node_identity_comparison": "PASS",
+                  "formalization_full_synthetic_gate": "PASS",
+                  "formalization_fractional_datetime": "PASS",
+                  "formalization_multivalued_creator": "PASS",
+              },
+              "record_level_candidate_data_opened": False,
+              "overall": "PASS",
+          }
+          p = out / "master_canary_v1.json"
+          p.write_text(json.dumps(payload, indent=2) + "\n", encoding="utf-8")
+
+          files = {}
+          for q in sorted(out.glob("*.json")):
+              files[q.name] = hashlib.sha256(q.read_bytes()).hexdigest()
+          (out / "roundtrip_manifest_v1.json").write_text(
+              json.dumps({"files": files}, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(payload, indent=2))
+          PY
+
+      - name: Upload pre-data canary artifact
+        id: canary_upload
+        uses: actions/upload-artifact@v4
+        with:
+          name: prospective-confirmation-master-canary-v1
+          path: experiments/prospective_confirmation_master_v1/results
+
+      - name: Download the canary artifact in the same pre-data environment
+        uses: actions/download-artifact@v4
+        with:
+          name: prospective-confirmation-master-canary-v1
+          path: /tmp/master-canary-roundtrip
+
+      - name: Verify artifact round-trip
+        run: |
+          python - <<'PY'
+          import hashlib, json
+          from pathlib import Path
+
+          src = Path("experiments/prospective_confirmation_master_v1/results")
+          dl = Path("/tmp/master-canary-roundtrip")
+          manifest = json.loads((src / "roundtrip_manifest_v1.json").read_text())
+
+          for name, expected in manifest["files"].items():
+              p = dl / name
+              assert p.exists(), name
+              actual = hashlib.sha256(p.read_bytes()).hexdigest()
+              assert actual == expected, (name, expected, actual)
+
+          assert (dl / "master_canary_v1.json").exists()
+          data = json.loads((dl / "master_canary_v1.json").read_text())
+          assert data["overall"] == "PASS"
+          assert data["record_level_candidate_data_opened"] is False
+          print("PRE_DATA_ARTIFACT_ROUNDTRIP_PASS")
+          PY
+
+      - name: Report upload digest
+        run: |
+          echo "artifact-digest=${{ steps.canary_upload.outputs.artifact-digest }}"
+          echo "MASTER_PRE_DATA_CANARY_PASS"
