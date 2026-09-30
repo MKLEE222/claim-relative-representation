@@ -606,7 +606,17 @@ The dynamic line now has:
     fixed but response availability changes;
 15. an independent raw-source audit that reconstructs the complete eligible chain denominator;
 16. a natural negative side in which relation edges persist but 47 response/update bindings fail
-    the frozen live-target requirement.
+    the frozen live-target requirement;
+17. a layered action-availability comparator showing:
+    - relation-target-only -> 47/47 natural non-live false availabilities;
+    - live-target/current-state -> 52/52 history-ablated false availabilities;
+    - full history-qualified representation -> 0 false availabilities while preserving 52/52
+      valid responses;
+18. generator-specific qualification signatures over 48 reviews, 8 updates, 52 responses and 8
+    decisions;
+19. cross-ecology signature heterogeneity:
+    - Formalization RECORD_RESPONSE requires retained history while update/decision do not;
+    - Yule-Cordier RESOLVE requires retained history while ADD_ALTERNATIVE/RECORD_EVIDENCE do not.
 
 Thus the main scientific composition burden is no longer whether target/history-sensitive
 qualified composition exists outside the development corpus.
@@ -628,12 +638,12 @@ rather than a literal prospective fresh PASS.
 A bounded formulation is:
 
 > Researchability across scholarly change requires more than preserving successive state values or
-> relation edges. Under the declared tasks studied here, a representation must preserve enough
-> object, proposition, source, relation-target, live-version and transition-history structure to
-> determine which scholarly actions are lawfully available from the current state, execute them
-> selectively, and retain why they were justified. States with the same current scholarly
-> projection can differ in future action availability when the target-bound history needed to
-> qualify a later act is lost.
+> relation edges. A representation must preserve the distinctions required by the scholarly
+> actions that are intended to remain available: object/proposition identity, exact relation
+> target, live/version state, provenance and, for some generators, retained transition history.
+> These requirements are generator-relative rather than a universal metadata checklist. States
+> with the same current scholarly projection can differ in future action availability when a later
+> generator's qualification signature inspects history that has been lost.
 
 This statement is supported by:
 - J object-boundary falsification/repair;
@@ -643,13 +653,15 @@ This statement is supported by:
 - VGW independent-ecology corrected reproduction;
 - qualified-generator de-exogenization;
 - Paper Money and Arbre Sec natural composition;
-- Formalization Papers independent-ecology corrected reproduction over 52 connected chains.
+- Formalization Papers independent-ecology corrected reproduction over 52 connected chains;
+- the Formalization action-availability comparator;
+- generator-signature audits in both Formalization Papers and Yule-Cordier.
 
 The statement remains bounded to the registered tasks, relation families and state forms.
 
 ## 6. Composability status
 
-Composability is now demonstrated at three levels.
+Composability is now demonstrated at four linked levels.
 
 ### Structural
 
@@ -677,83 +689,107 @@ Formalization Papers establishes on byte-identical corrected reproduction:
 - 52/52 live-version discipline;
 - independent raw-source chain-denominator reconstruction.
 
-The strongest current hierarchy is:
+### Generator-relative qualification
 
-    relation edge present
-    !=
-    target currently live
-    !=
-    target history sufficient
-    !=
-    later action qualified
-    !=
-    lawful composition
+The action-availability and signature audits further establish:
 
-What remains open is no longer existence of cross-corpus composition.
+    functional relation target
+    !=
+    live/current target
+    !=
+    retained-history qualification
 
-Open questions are:
-- minimality of the full qualification structure;
-- breadth across additional scholarly relation ecologies;
+and:
+
+    Sigma(g1) != Sigma(g2)
+
+for registered natural generators.
+
+History-required generators occur in both ecologies:
+
+    Formalization:
+        RECORD_RESPONSE
+
+    Yule-Cordier:
+        RESOLVE
+
+History-not-required generators also occur in both:
+
+    Formalization:
+        REPLACE_FORMALIZATION
+        REVISE_PUBLICATION_STATUS
+
+    Yule-Cordier:
+        ADD_ALTERNATIVE
+        RECORD_EVIDENCE
+
+Therefore composition is not function composition over one universally sufficient state vector.
+
+It is composition across generator-indexed qualification domains.
+
+What remains open is the formal closure of this structure:
+- action-relative state equivalence;
+- sequence-level representation burden;
+- conditional minimality boundaries;
 - literal clean prospective confirmation;
-- any universal algebra/minimal-sufficiency theorem.
+- any universal algebra/theorem beyond the registered models.
 
 ## 7. Remaining empirical burdens
 
-### Burden 1 — generator-specific qualification minimality
+### Burden 1 — action-relative equivalence and sequence closure
 
 Status:
 
     OPEN
     HIGHEST-VALUE IMMEDIATE BURDEN
 
-The Formalization Papers comparator audit has closed the broad false-positive question for the
-registered response action.
+Generator-specific qualification minimality is now empirically supported across two ecologies.
 
-Observed:
+The next theoretical object should be an action-relative state equivalence:
 
-    D_POSITIVE = 52
-        B_RELATION_TARGET 52/52
-        B_LIVE_TARGET     52/52
-        Q_FULL_HISTORY    52/52
+    S ~_g S'
 
-    D_NONLIVE = 47
-        B_RELATION_TARGET false availability 47/47
-        B_LIVE_TARGET     false availability 0/47
-        Q_FULL_HISTORY    false availability 0/47
+iff the two states agree on the distinctions in:
 
-    D_HISTORY_ABLATED = 52
-        B_RELATION_TARGET false availability 52/52
-        B_LIVE_TARGET     false availability 52/52
-        Q_FULL_HISTORY    false availability 0/52
+    Sigma(g)
 
-Thus:
+that the registered qualification rule for g actually inspects.
 
-    relation target identity
-    !=
-    live/current target validity
-    !=
-    retained-history qualification
+Need to test/prove within the registered models:
 
-is established for RECORD_RESPONSE.
+### Qualification invariance
 
-The next question is whether the same qualification inputs are required by every generator.
+If:
 
-They should not be assumed universal.
+    S ~_g S'
 
-Need generator-specific signatures for:
-- RECORD_REVIEW;
-- REPLACE_FORMALIZATION;
-- RECORD_RESPONSE;
-- REVISE_PUBLICATION_STATUS;
-- target-bound Yule-Cordier ADD_ALTERNATIVE / RESOLVE / RECORD_EVIDENCE.
+then:
 
-The goal is conditional minimality:
+    available_g(S,e) = available_g(S',e)
 
-    which distinctions are necessary for which action family?
+for registered admissible evidence e.
 
-not:
+### Required-dimension counterexamples
 
-    every action requires all metadata.
+For each dimension marked REQUIRED in Sigma(g), there must be a registered state pair differing
+only in that dimension for which action availability differs.
+
+### Nonrequired-dimension invariance
+
+For dimensions marked NOT_REQUIRED_IN_REGISTERED_TASK, the registered ablation must leave
+qualification unchanged while other signature conditions are held fixed.
+
+### Sequence closure
+
+For:
+
+    S_t --g_t--> S_(t+1)
+
+determine how g_t creates/modifies the distinctions inspected by:
+
+    Sigma(g_(t+1))
+
+The target theorem should be task-relative and conditional, not universal.
 
 ### Burden 2 — literal clean prospective confirmation
 
@@ -766,8 +802,10 @@ positive PASS.
 
 A future clean confirmation would improve evidentiary labeling.
 
-It is no longer required to establish that qualified composition or its target/history mechanism
-occurs in an independent ecology.
+It is no longer required to establish:
+- independent-ecology composition;
+- target/history-sensitive qualification;
+- generator-specific history heterogeneity.
 
 ### Burden 3 — broader relation-ecology portability
 
@@ -813,27 +851,33 @@ The following are now closed for the audited scope:
 - within-corpus-only natural composition;
 - independent-ecology composition as a mechanism;
 - broad action-availability false positives for relation-only and live-target-only response
-  representations.
+  representations;
+- the hypothesis that every registered scholarly action requires the same qualification fields.
 
 Next authorized scientific step:
 
-    generator-specific qualification signature audit
+    action-relative state-equivalence / sequence-closure formalization
 
-For each registered generator, determine whether qualification depends on:
-- exact object/root identity;
-- exact relation target;
-- target functional cardinality;
-- live/current target status;
-- retained transition history;
-- source/version/provenance binding.
+Define:
 
-Use controlled ablations on already exposed/natural states.
+    Sigma(g)
 
-Primary desired result:
+from the empirically registered qualification signatures.
 
-    qualification requirements are generator-relative
+Then define:
 
-rather than a universal all-fields-required checklist.
+    S ~_g S'
+    iff
+    P_{Sigma(g)}(S) = P_{Sigma(g)}(S')
 
-Only after this minimality boundary is clear should the project decide whether a fourth fresh
-ecology adds enough scientific value to justify another confirmation cycle.
+and mechanize three checks in the existing engines:
+
+1. qualification invariance under ~_g;
+2. counterexamples for every dimension registered REQUIRED;
+3. sequence closure showing how g_t writes the target/history dimensions read by
+   Sigma(g_(t+1)).
+
+This is the point where the project should convert the empirical obligation list into a
+generator-indexed theory of researchability.
+
+Do not consume a fourth fresh ecology before this formal boundary is closed.
