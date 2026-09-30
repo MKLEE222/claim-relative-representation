@@ -616,7 +616,17 @@ The dynamic line now has:
     decisions;
 19. cross-ecology signature heterogeneity:
     - Formalization RECORD_RESPONSE requires retained history while update/decision do not;
-    - Yule-Cordier RESOLVE requires retained history while ADD_ALTERNATIVE/RECORD_EVIDENCE do not.
+    - Yule-Cordier RESOLVE requires retained history while ADD_ALTERNATIVE/RECORD_EVIDENCE do not;
+20. action-relative state-equivalence closure:
+    - 120/120 natural action contexts preserve generator qualification under registered equivalent-state perturbations;
+    - 393/393 registered REQUIRED-dimension witnesses change/block availability as expected;
+    - 19/19 registered NOT_REQUIRED history perturbations preserve qualification;
+    - Formalization sequence write/read closure = 52/52;
+    - Yule-Cordier sequence write/read closure = 2/2;
+21. typed qualification signatures:
+    - Beta(g) for event/relation binding;
+    - Kappa(g) for state/history qualification;
+    - state equivalence is defined on Kappa(g) for fixed admissible event binding.
 
 Thus the main scientific composition burden is no longer whether target/history-sensitive
 qualified composition exists outside the development corpus.
@@ -727,11 +737,15 @@ Therefore composition is not function composition over one universally sufficien
 
 It is composition across generator-indexed qualification domains.
 
-What remains open is the formal closure of this structure:
-- action-relative state equivalence;
-- sequence-level representation burden;
-- conditional minimality boundaries;
+The registered formal closure now additionally establishes:
+- action-relative state equivalence under Kappa(g);
+- witnessed necessity for every registered REQUIRED condition;
+- witnessed invariance for registered NOT_REQUIRED history dimensions;
+- sequence-level write/read closure across 52 Formalization chains and two Yule-Cordier natural sequences.
+
+What remains open is narrower:
 - literal clean prospective confirmation;
+- broader portability of the typed Beta/Kappa signature decomposition;
 - any universal algebra/theorem beyond the registered models.
 
 ## 7. Remaining empirical burdens
@@ -740,56 +754,45 @@ What remains open is the formal closure of this structure:
 
 Status:
 
-    OPEN
-    HIGHEST-VALUE IMMEDIATE BURDEN
+    CLOSED FOR REGISTERED MODELS
 
-Generator-specific qualification minimality is now empirically supported across two ecologies.
+Closure workflow:
 
-The next theoretical object should be an action-relative state equivalence:
+    36661636458
+
+Observed:
+
+    qualification invariance contexts = 120/120
+    REQUIRED witnesses                = 393/393
+    NOT_REQUIRED witnesses            = 19/19
+    Formalization sequence closure    = 52/52
+    Yule-Cordier sequence closure     = 2/2
+
+Formal object:
+
+    Sigma(g) = (Beta(g), Kappa(g))
+
+where:
+- Beta(g) types event/relation binding requirements;
+- Kappa(g) types current-state/history qualification requirements.
+
+For fixed admissible event/relation binding e:
 
     S ~_g S'
+    iff
+    P_Kappa(g)(S) = P_Kappa(g)(S')
 
-iff the two states agree on the distinctions in:
-
-    Sigma(g)
-
-that the registered qualification rule for g actually inspects.
-
-Need to test/prove within the registered models:
-
-### Qualification invariance
-
-If:
+and, under the registered models:
 
     S ~_g S'
+    =>
+    Q_g(S,e) = Q_g(S',e)
 
-then:
+The closure is bounded and task-relative.
 
-    available_g(S,e) = available_g(S',e)
-
-for registered admissible evidence e.
-
-### Required-dimension counterexamples
-
-For each dimension marked REQUIRED in Sigma(g), there must be a registered state pair differing
-only in that dimension for which action availability differs.
-
-### Nonrequired-dimension invariance
-
-For dimensions marked NOT_REQUIRED_IN_REGISTERED_TASK, the registered ablation must leave
-qualification unchanged while other signature conditions are held fixed.
-
-### Sequence closure
-
-For:
-
-    S_t --g_t--> S_(t+1)
-
-determine how g_t creates/modifies the distinctions inspected by:
-
-    Sigma(g_(t+1))
-
-The target theorem should be task-relative and conditional, not universal.
+Three Yule witnesses retain a typed limitation: exact event-target identity and live-target lookup
+are coupled in that ecology for the two ADD_ALTERNATIVE acts and the Arbre Sec RECORD_EVIDENCE
+act. Formalization Papers independently separates event-target and live/current-state predicates.
 
 ### Burden 2 — literal clean prospective confirmation
 
@@ -852,32 +855,29 @@ The following are now closed for the audited scope:
 - independent-ecology composition as a mechanism;
 - broad action-availability false positives for relation-only and live-target-only response
   representations;
-- the hypothesis that every registered scholarly action requires the same qualification fields.
+- the hypothesis that every registered scholarly action requires the same qualification fields;
+- action-relative state equivalence for the registered generators;
+- registered conditional-minimality witnesses;
+- sequence-level write/read closure.
 
-Next authorized scientific step:
+The main remaining empirical gap is now:
 
-    action-relative state-equivalence / sequence-closure formalization
+    literal clean prospective confirmation
 
-Define:
+Any next fresh ecology should test the typed generator-relative formulation directly:
 
-    Sigma(g)
+    Sigma(g) = (Beta(g), Kappa(g))
 
-from the empirically registered qualification signatures.
+rather than repeating the old one-step or all-fields-required contracts.
 
-Then define:
+A high-value fresh confirmation should preregister:
+1. event/relation binding predicates Beta(g);
+2. state/history predicates Kappa(g);
+3. at least one history-required and one history-not-required generator;
+4. connected multi-step composition;
+5. action-relative equivalence perturbations;
+6. complete denominator and immutable DATA_OPEN boundary.
 
-    S ~_g S'
-    iff
-    P_{Sigma(g)}(S) = P_{Sigma(g)}(S')
-
-and mechanize three checks in the existing engines:
-
-1. qualification invariance under ~_g;
-2. counterexamples for every dimension registered REQUIRED;
-3. sequence closure showing how g_t writes the target/history dimensions read by
-   Sigma(g_(t+1)).
-
-This is the point where the project should convert the empirical obligation list into a
-generator-indexed theory of researchability.
-
-Do not consume a fourth fresh ecology before this formal boundary is closed.
+Do not consume another fresh ecology merely for breadth. The next one should primarily repair the
+remaining evidentiary-status gap by delivering a clean prospective PASS under the now-closed
+theoretical formulation.
