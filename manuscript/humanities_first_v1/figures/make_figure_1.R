@@ -20,11 +20,11 @@ soft <- "#F5F7F8"
 draw_box <- function(x, y, w, h, title, body, locus, fill, edge) {
   grid.roundrect(x = x, y = y, width = w, height = h, r = unit(2.4, "mm"),
                  gp = gpar(fill = fill, col = edge, lwd = 1.0))
-  grid.text(title, x = x, y = y + h * 0.28, gp = gpar(col = ink, fontsize = 8.2,
+  grid.text(title, x = x, y = y + h * 0.28, gp = gpar(col = ink, fontsize = 8.5,
             fontface = "bold", fontfamily = "Arial"))
-  grid.text(body, x = x, y = y - h * 0.01, gp = gpar(col = ink, fontsize = 7.3,
+  grid.text(body, x = x, y = y - h * 0.01, gp = gpar(col = ink, fontsize = 7.7,
             fontfamily = "Arial"))
-  grid.text(locus, x = x, y = y - h * 0.33, gp = gpar(col = muted, fontsize = 6.5,
+  grid.text(locus, x = x, y = y - h * 0.33, gp = gpar(col = muted, fontsize = 7.0,
             fontfamily = "Arial"))
 }
 
@@ -33,7 +33,7 @@ draw_arrow <- function(x0, x1, y, label) {
              arrow = arrow(type = "closed", length = unit(2.1, "mm")),
              gp = gpar(col = line, lwd = 1.1, fill = line))
   grid.text(label, x = (x0 + x1) / 2, y = y + 0.102,
-            gp = gpar(col = muted, fontsize = 6.7, fontfamily = "Arial"))
+            gp = gpar(col = muted, fontsize = 7.1, fontfamily = "Arial"))
 }
 
 draw_figure <- function() {
@@ -53,13 +53,13 @@ draw_figure <- function() {
             gp = gpar(col = ink, fontsize = 9.2, fontface = "bold", fontfamily = "Arial"))
 
   draw_box(0.18, 0.715, 0.265, 0.175,
-           "Material proposition", "Mulberry bark in paper money", "1903 I:423 | PM01",
+           "Material proposition", "Mulberry bark in paper money", "1903 I:423",
            blue_fill, blue_edge)
   draw_box(0.50, 0.715, 0.265, 0.175,
-           "Bretschneider's criticism", "Transmitted by Cordier", "1903 I:430 | PM02",
+           "Bretschneider's criticism", "Transmitted by Cordier", "1903 I:430",
            blue_fill, blue_edge)
   draw_box(0.82, 0.715, 0.265, 0.175,
-           "Laufer's response", "Corrects PM02; endorses PM01", "1920:70-72 | PM03",
+           "Laufer's response", "Corrects critic; endorses Polo", "1920:70-72",
            blue_fill, blue_edge)
   draw_arrow(0.315, 0.365, 0.715, "criticized by")
   draw_arrow(0.635, 0.685, 0.715, "corrected by")
@@ -80,10 +80,10 @@ draw_figure <- function() {
            "Earlier identification", "Oriental Plane", "1903 I:113, 128",
            teal_fill, teal_edge)
   draw_box(0.50, 0.315, 0.265, 0.175,
-           "Houtum-Schindler's proposal", "Cypress of Zoroaster", "1920:31 | transmitted",
+           "Houtum-Schindler's proposal", "Cypress of Zoroaster", "1920:31",
            teal_fill, teal_edge)
   draw_box(0.82, 0.315, 0.265, 0.175,
-           "Cordier's reply", "Bibliographical response", "1920:31 | no assent shown",
+           "Cordier's reply", "Bibliographical response", "1920:31",
            teal_fill, teal_edge)
   draw_arrow(0.315, 0.365, 0.315, "challenged by")
   draw_arrow(0.635, 0.685, 0.315, "answered by")
@@ -95,9 +95,9 @@ draw_figure <- function() {
   grid.text("Arrows encode the targeted historical relation; boxes distinguish actors from their editorial transmission.",
             x = 0.5, y = 0.071,
             gp = gpar(col = muted, fontsize = 7.0, fontfamily = "Arial"))
-  grid.text("Sources: Yule-Cordier 1903 I:113, 128, 423, 430; Cordier 1920:31, 70-72. Relations follow the registered reading.",
+  grid.text("Sources: Yule-Cordier 1903 I:113, 128, 423, 430; Cordier 1920:31, 70-72. Arrows show interpreted source relations.",
             x = 0.5, y = 0.038,
-            gp = gpar(col = muted, fontsize = 6.5, fontfamily = "Arial"))
+            gp = gpar(col = muted, fontsize = 7.0, fontfamily = "Arial"))
 }
 
 svg(file.path(output_dir, "figure_1_scholarly_continuation.svg"),
@@ -116,3 +116,4 @@ png(file.path(output_dir, "figure_1_scholarly_continuation.png"),
     pointsize = 9, type = "cairo", bg = "white")
 draw_figure()
 dev.off()
+
