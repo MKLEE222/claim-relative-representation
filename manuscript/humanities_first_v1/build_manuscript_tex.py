@@ -74,8 +74,12 @@ def table_tex(block, caption, number):
 
 
 def figure_tex(image_line, caption, number):
-    filename = f"figures/figure_{number}_" + (
-        "scholarly_continuation.pdf" if number == 1 else "current_state_vs_continuation.pdf")
+    filenames = {
+        1: "figures/figure_1_scholarly_continuation.pdf",
+        2: "figures/figure_2_current_state_vs_continuation.pdf",
+        3: "figures/figure_3_representation_obligations.pdf",
+    }
+    filename = filenames[number]
     return "\n".join([r"\begin{figure}[H]", r"\centering",
                       r"\includegraphics[width=\linewidth]{" + filename + "}",
                       r"\caption{" + inline(caption_text(caption, "Figure")) + "}",
@@ -224,4 +228,3 @@ def build():
 
 if __name__ == "__main__":
     build()
-
