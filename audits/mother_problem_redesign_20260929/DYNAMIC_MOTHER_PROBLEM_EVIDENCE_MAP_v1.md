@@ -463,6 +463,126 @@ Not licensed:
     universal relation vocabulary
     universal action algebra
 
+
+### D8 — Formalization Papers independent ecological qualified composition
+
+Candidate selected prospectively by documentation-only C1-C8 screening:
+
+    Formalization Papers semantic publishing/reviewing field study
+
+Frozen source:
+
+    LaraHack/formalization_papers_supplemental
+    v1.0
+    commit 2f68d8498aeeb724e3438deda13e74ae7fb076d8
+
+Authoritative first DATA_OPEN attempt:
+
+    INVALID
+
+Freshness was consumed.
+
+Primary invalidation:
+
+    independent parser registered-surface disagreement
+
+Post-fresh diagnostics isolated two implementation-only representation defects:
+- xsd:dateTime fractional-second lexical precision;
+- scalar collapse of the genuinely multi-valued dct:creator relation.
+
+The second diagnostic exposed a useful provenance rule in its own right:
+
+    404 nanopublications
+    379 with one creator
+    25 with two creators
+    404 with exactly one created timestamp
+
+After frozen implementation corrections, byte-identical corrected reproduction:
+
+    10/10 record files parser exact
+    zero registered component mismatches
+
+Closed graph-derived population:
+
+    roots = 15
+
+    T0 complete review/update/response/decision = 8
+    T8 ambiguous/nonfunctional target            = 7
+
+All connected T0 chains were retained:
+
+    52
+
+Qualified-composition result:
+
+    52/52 PASS
+
+Generator sequence:
+
+    RECORD_REVIEW
+    -> REPLACE_FORMALIZATION
+    -> RECORD_RESPONSE
+    -> REVISE_PUBLICATION_STATUS
+
+Every registered counterfactual is executable for every eligible chain:
+
+    response before review        52/52 reject
+    response before update        52/52 reject
+    same-current-state H ablation 52/52 reject
+    decision before update        52/52 reject
+    wrong review target           52/52 reject
+    wrong update target           52/52 reject
+    live-version discipline       52/52 pass
+
+For all 52 history ablations:
+
+    current formalization/update projection identical
+
+but:
+
+    RESPONSE_TARGET_HISTORY_UNRESOLVED
+
+Therefore:
+
+    Psi(S_full) = Psi(S_history_ablated)
+
+while:
+
+    Gamma_response(S_full) != Gamma_response(S_history_ablated)
+
+in an independent scholarly ecology.
+
+Independent raw-TriG audit:
+
+    root set exact
+    connected-chain set exact
+    T0-chain set exact
+    52/52 chain audit PASS
+
+Natural negative side:
+
+    T8 roots = 7
+
+Ambiguity instances include:
+
+    RESPONSE_UPDATE_TARGET_NOT_LIVE = 47
+    RESPONSE_NONFUNCTIONAL_TARGET   = 1
+
+Thus relation-edge presence is naturally observed without lawful current action availability.
+
+Scientific role:
+
+    strong independent-ecology post-fresh corrected reproduction
+    closed population
+    cross-corpus qualified-composition confirmation
+
+Evidentiary ceiling:
+
+    authoritative fresh = INVALID
+    corrected reproduction = PASS
+    not literal prospective fresh PASS
+
+
 ## 4. What is now actually established
 
 The dynamic line now has:
@@ -470,155 +590,188 @@ The dynamic line now has:
 1. object-boundary false-positive falsification and repair;
 2. separate ambiguity-triggered and evidence-release activation regimes;
 3. corrected cross-project temporal reproduction with 69 substantive and 70 natural-null cases;
-4. non-temporal source-grounded reassessment development plus VGW independent-ecology corrected
-   reproduction with 36 substantive and 139 natural-null cases;
+4. non-temporal reassessment development plus VGW independent-ecology corrected reproduction;
 5. strong current-state, snapshot and change-log comparators;
 6. a demonstrated defect in treating the transition operation as an external event label;
 7. an operation-free qualified-generator repair using pre-existing source-grounded relations;
 8. a first-class RECORD_EVIDENCE generator separating assertion identity from scholarly-history
    identity;
 9. registered state-dependent synthetic composition with non-commutative order effects;
-10. a page-verified Paper Money natural sequence in which retained history changes whether a later
-    correction is qualified;
-11. a page-verified Arbre Sec act-level replication in which a competing identification enables
-    a later bibliographic reply;
-12. target-bound qualification portability across two pre-existing source-relation families with
-    one shared, case-independent engine.
+10. Paper Money natural history-dependent composition;
+11. Arbre Sec act-level proposal -> history-only reply composition;
+12. target-bound qualification portability across multiple source-relation families;
+13. an independent Formalization Papers ecology with 15 closed roots, 8 complete T0 roots and 52
+    connected qualified-composition chains;
+14. 52/52 independent-ecology history ablations where the current formalization projection is held
+    fixed but response availability changes;
+15. an independent raw-source audit that reconstructs the complete eligible chain denominator;
+16. a natural negative side in which relation edges persist but 47 response/update bindings fail
+    the frozen live-target requirement.
 
-Literal prospective fresh positive confirmation remains absent because both AAD and VGW consumed
-their fresh opportunity through execution-path failures before corrected reproduction.
+Thus the main scientific composition burden is no longer whether target/history-sensitive
+qualified composition exists outside the development corpus.
 
-Natural multi-step composition is therefore no longer an empty empirical burden.
+It does.
 
-The principal remaining status gap is prospective independent ecological confirmation of the
-qualified-composition formulation.
+The remaining evidentiary defect is narrower:
+
+    the first Formalization Papers DATA_OPEN run was INVALID at the parser-surface gate
+
+and the successful population result is therefore:
+
+    POST_FRESH_CORRECTED_REPRODUCTION_PASS
+
+rather than a literal prospective fresh PASS.
 
 ## 5. Strongest integrated dynamic claim currently licensed
 
 A bounded formulation is:
 
-> Researchability across scholarly change requires more than preserving successive state values.
-> Under the declared tasks studied here, the representation must preserve enough object,
-> proposition, source, evidence-relation and history structure to determine which scholarly
-> actions are lawfully available from the current state, execute the selected action without
-> collateral rewriting, and retain why that action was justified. The same source-grounded
-> relation can induce different generators after the state changes, so future researchability is
-> a property of qualified transition structure rather than of snapshots alone.
+> Researchability across scholarly change requires more than preserving successive state values or
+> relation edges. Under the declared tasks studied here, a representation must preserve enough
+> object, proposition, source, relation-target, live-version and transition-history structure to
+> determine which scholarly actions are lawfully available from the current state, execute them
+> selectively, and retain why they were justified. States with the same current scholarly
+> projection can differ in future action availability when the target-bound history needed to
+> qualify a later act is lost.
 
 This statement is supported by:
 - J object-boundary falsification/repair;
 - P evidence-release revision;
-- AAD corrected cross-project reproduction;
-- R historical reassessment;
+- AAD corrected temporal reproduction;
+- R source-grounded reassessment;
 - VGW independent-ecology corrected reproduction;
-- qualified-generator de-exogenization and composition audit.
+- qualified-generator de-exogenization;
+- Paper Money and Arbre Sec natural composition;
+- Formalization Papers independent-ecology corrected reproduction over 52 connected chains.
 
-The statement remains bounded to the registered source relations, tasks and state forms.
+The statement remains bounded to the registered tasks, relation families and state forms.
 
 ## 6. Composability status
 
-The earlier synthesis:
+Composability is now demonstrated at three levels.
 
-> task-required scholarly distinctions must be recoverable at a state and lawfully composable
-> across state-changing events
+### Structural
 
-is no longer only an organizing hypothesis.
+The registered model establishes:
+- state-dependent qualification;
+- relation-dependent qualification;
+- first-class history-only generators;
+- non-commutative order effects.
 
-Structural/synthetic evidence establishes:
-- generator qualification is state-dependent;
-- generator qualification depends on source-grounded relation;
-- RECORD_EVIDENCE can change scholarly history while leaving current assertions unchanged;
-- one qualified transition can change which generator a later relation induces;
-- registered ordering can be non-commutative.
+### Natural historical
 
-Natural exposed evidence now additionally establishes:
-- relation-target identity can enable or block a later action;
-- Paper Money: identical current assertions with different retained histories can have different
-  future generator availability;
-- Arbre Sec: an act-level competing proposal enables a later history-only bibliographic reply;
-- the same target-bound interface handles two distinct pre-existing relation families.
+Paper Money and Arbre Sec establish:
+- exact relation-target identity can enable/block a later act;
+- retained history can change future action availability at identical current assertion state;
+- composition can continue through assertion-changing or history-only actions.
 
-Therefore composability is demonstrated both structurally and in bounded natural historical
-sequences.
+### Independent ecology
 
-What remains open is external generalization:
+Formalization Papers establishes on byte-identical corrected reproduction:
+- 52 connected review/update/response/decision chains;
+- 52/52 response-before-review rejection;
+- 52/52 response-before-update rejection;
+- 52/52 same-current-state history-ablation rejection;
+- 52/52 wrong-target rejection;
+- 52/52 live-version discipline;
+- independent raw-source chain-denominator reconstruction.
 
-    natural within-corpus composition
+The strongest current hierarchy is:
+
+    relation edge present
     !=
-    prospective independent ecology
+    target currently live
     !=
-    universal minimal-sufficiency theorem
+    target history sufficient
     !=
-    prevalence theorem
+    later action qualified
     !=
-    universal scholarly action algebra
+    lawful composition
+
+What remains open is no longer existence of cross-corpus composition.
+
+Open questions are:
+- minimality of the full qualification structure;
+- breadth across additional scholarly relation ecologies;
+- literal clean prospective confirmation;
+- any universal algebra/minimal-sufficiency theorem.
 
 ## 7. Remaining empirical burdens
 
-### Burden 1 — prospective independent ecological qualified composition
+### Burden 1 — action-availability false-positive decomposition
 
 Status:
 
     OPEN
-    HIGHEST-VALUE NEXT SCIENTIFIC BURDEN
+    HIGHEST-VALUE IMMEDIATE BURDEN
 
-Need an ecology outside the Yule-Cordier development corpus in which, before outcome opening:
-- scholarly object/state boundary is frozen;
-- at least two connected sequential acts are prospectively registered;
-- source-native relation types and relation targets are frozen;
-- the first act can alter the qualification context for the second;
-- history-retention requirements are registered;
-- oracle/runtime implementations are independent;
-- alternative-order counterfactual policy is frozen when used.
+Formalization Papers now supplies both:
+- 52 eligible history-sensitive positive chains;
+- 7 T8 roots with natural non-live/nonfunctional target relations.
 
-The desired test is the qualified-composition theory itself, not another one-step operation
-benchmark.
+The next test should compare:
 
-### Burden 2 — cross-corpus relation-family portability
+    relation-edge-only representation
+    vs
+    live-target/current-state representation
+    vs
+    full history-qualified representation
 
-Status:
+and measure false scholarly-action availability.
 
-    OPEN / PARTIALLY REDUCED
+This directly tests whether the newly identified representation distinctions are necessary rather
+than merely present.
 
-Within Yule-Cordier, target-bound qualification now works across:
-- earlier/later contrast relations;
-- proposition-to-proposition source-native relations.
-
-What remains is to test a genuinely different scholarly relation ecology without translating its
-native semantics into the Yule-Cordier relation vocabulary after outcomes are seen.
-
-VGW previous-attribution structures are a possible development source but are already exposed.
-
-A new fresh ecology would have greater evidentiary value.
-
-### Burden 3 — clean prospective confirmation
+### Burden 2 — literal clean prospective confirmation
 
 Status:
 
-    OPEN / IMPORTANT
+    OPEN / EVIDENTIARY STATUS GAP
 
-AAD and VGW have strong corrected reproductions but no literal fresh PASS.
+Formalization Papers, AAD and VGW all have strong corrected reproductions but no literal fresh
+positive PASS.
 
-The next clean confirmation should preferably be multi-step and target-bound.
+A future clean confirmation would improve evidentiary labeling.
 
-A clean one-step PASS would improve evidence status but would no longer address the principal
-mother-problem gap as directly.
+It is no longer required to establish that qualified composition occurs in an independent ecology;
+that scientific question is strongly supported by Formalization Papers corrected reproduction.
 
-### Burden 4 — human independent historical adjudication
-
-Status:
-
-    BOUNDED_PARTIAL / OPTIONAL DEPENDING CLAIM
-
-No human-historian consensus claim is currently licensed.
-
-### Burden 5 — whole-object prevalence
+### Burden 3 — qualification minimality / theorem boundary
 
 Status:
 
-    OPEN / OPTIONAL
+    OPEN
 
-Not required for mechanism claims unless prevalence is asserted.
+Current formal object:
+
+    Q(S,rho,target(rho),H,e,g)
+
+Need to determine which distinctions are conditionally necessary for which action families rather
+than treating every component as universally required.
+
+The likely target is a task-relative necessity structure, not a claim that all scholarly actions
+require the same metadata.
+
+### Burden 4 — broader relation-ecology portability
+
+Status:
+
+    PARTIALLY OPEN
+
+Cross-corpus portability is now supported between:
+- Yule-Cordier historical assertion relations;
+- Formalization Papers review/update/response/decision relations.
+
+Additional ecologies would broaden scope but are no longer the main immediate bottleneck.
+
+### Burden 5 — human independent historical adjudication / prevalence
+
+Status:
+
+    OPTIONAL DEPENDING CLAIM
+
+No universal prevalence or historian-consensus claim is licensed.
 
 ## 8. What should NOT happen next
 
@@ -639,20 +792,33 @@ The following defects are closed for the audited scope:
 - state-only qualification;
 - missing relation-target binding;
 - treating assertion-state identity as no scholarly action;
-- purely synthetic composition with no natural sequence.
+- purely synthetic composition;
+- within-corpus-only natural composition;
+- independent-ecology composition as a scientific mechanism.
 
 Next authorized scientific step:
 
-    prospective independent ecological target-bound qualified composition
+    action-availability false-positive decomposition
 
-Candidate discovery must now prioritize projects whose documentation exposes:
-- proposition/event identifiers or otherwise stable scholarly targets;
-- sequential intervention/reassessment relations;
-- source-native relation semantics;
-- retained provenance/history sufficient to bind later acts to earlier ones.
+Use the already exposed Formalization Papers population to compare progressively stronger
+representations:
 
-Do not spend the next cycle adding more one-step Yule-Cordier cases unless they test a distinct
-failure boundary.
+    B_EDGE_ONLY
+    B_LIVE_TARGET
+    Q_FULL_HISTORY
 
-A fresh one-step confirmation remains useful for evidence status, but it is no longer the main
-scientific bottleneck.
+Primary questions:
+
+1. How many non-live/nonfunctional response edges would an edge-only representation incorrectly
+   expose as executable actions?
+2. Holding the current update/live targets fixed, how many later responses would a current-state
+   representation incorrectly expose after transition history is removed?
+3. Does the full qualified representation reject both classes without reducing availability on the
+   52 valid connected chains?
+
+This test should be frozen as an exposed comparator audit.
+
+Do not consume another fresh ecology merely to answer this already-localized mechanism question.
+
+A future clean prospective holdout remains useful for evidentiary status after the mechanism
+decomposition is complete.
