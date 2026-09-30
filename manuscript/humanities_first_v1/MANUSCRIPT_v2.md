@@ -1,4 +1,4 @@
-# After Revision: Scholarly Continuation in Digital Editions
+# After Revision: Corrections, Replies, and Scholarly Continuation in Digital Editions
 
 ## Abstract
 
