@@ -66,14 +66,14 @@ def main():
     })
 
     expected_multi = [
-        [
+        (
             "https://example.org/cardinality/np1",
             "https://example.org/cardinality/creatorA",
-        ],
-        [
+        ),
+        (
             "https://example.org/cardinality/np1",
             "https://example.org/cardinality/creatorB",
-        ],
+        ),
     ]
     require(o_multi["creators"] == expected_multi, o_multi)
 
@@ -86,10 +86,10 @@ def main():
     })
     require(
         o_single["creators"]
-        == [[
+        == [(
             "https://example.org/cardinality/np1",
             "https://example.org/cardinality/creatorA",
-        ]],
+        )],
         o_single,
     )
 
