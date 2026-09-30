@@ -346,13 +346,27 @@ Scholarly continuation thus offers a way to connect editorial interpretation wit
 
 Birnbaum, David J., and Elena Spadini. 2020. “Reassessing the Locus of Normalization in Machine-Assisted Collation.” *Digital Humanities Quarterly* 14 (3). https://www.digitalhumanities.org/dhq/vol/14/3/000489/000489.html.
 
+Bleeker, Elli, Bram Buitendijk, and Ronald Haentjens Dekker. 2019. “Agree to Disagree: Modelling Co-existing Scholarly Perspectives on Literary Text.” *Digital Scholarship in the Humanities* 34 (4): 844–854. https://doi.org/10.1093/llc/fqz061.
+
 Bleeker, Elli, Bram Buitendijk, Ronald Haentjens Dekker, Vincent Neyt, and Dirk Van Hulle. 2022. “Layers of Variation: A Computational Approach to Collating Texts with Revisions.” *Digital Humanities Quarterly* 16 (1). https://dhq.digitalhumanities.org/vol/16/1/000583/000583.html.
 
 Broyles, Paul A. 2020. “Digital Editions and Version Numbering.” *Digital Humanities Quarterly* 14 (2). https://www.digitalhumanities.org/dhq/vol/14/2/000455/000455.html.
 
+Bryant, John. 2010. “Rewriting Moby-Dick: Politics, Textual Identity, and the Revision Narrative.” *PMLA* 125 (4): 1043–1060. https://doi.org/10.1632/pmla.2010.125.4.1043.
+
 Bucur, Cristina-Iulia, Tobias Kuhn, Davide Ceolin, and Jacco van Ossenbruggen. 2023. “Nanopublication-Based Semantic Publishing and Reviewing: A Field Study with Formalization Papers.” *PeerJ Computer Science* 9: e1159. https://doi.org/10.7717/peerj-cs.1159.
 
 Cordier, Henri. 1920. *Ser Marco Polo: Notes and Addenda to Sir Henry Yule's Edition, Containing the Results of Recent Research and Discovery*. London: John Murray. [Digitized copy](https://resources.warburg.sas.ac.uk/pdf/ndb90b2753728.pdf).
+
+CRMinf. 2026. “Classes & Properties Declarations of CRMinf Version 1.2.1.” Version 1.2.1, April 2026. https://cidoc-crm.org/extensions/crminf/html/CRMinf_v1.2.1.html. Accessed 30 September 2026.
+
+Drucker, Johanna. 2011. “Humanities Approaches to Graphical Display.” *Digital Humanities Quarterly* 5 (1). https://dhq.digitalhumanities.org/vol/5/1/000091/000091.html.
+
+Eggert, Paul. 2019. “Digital Editions: The Archival Impulse and the Editorial Impulse.” In *The Work and the Reader in Literary Studies: Scholarly Editing and Book History*, 80–92. Cambridge: Cambridge University Press. https://doi.org/10.1017/9781108641012.006.
+
+Fyfe, Paul. 2012. “Electronic Errata: Digital Publishing, Open Review, and the Futures of Correction.” In *Debates in the Digital Humanities*, edited by Matthew K. Gold, 259–280. Minneapolis: University of Minnesota Press. https://doi.org/10.5749/minnesota/9780816677948.003.0027.
+
+Gabler, Hans Walter. 2010. “Theorizing the Digital Scholarly Edition.” *Literature Compass* 7 (2): 43–56. https://doi.org/10.1111/j.1741-4113.2009.00675.x.
 
 McCarty, Willard. 2003. “‘Knowing True Things by What Their Mockeries Be’: Modelling in the Humanities.” *Computing in the Humanities Working Papers* A.24. https://chwp.artsci.utoronto.ca/CHC2003/McCarty2.htm.
 
@@ -373,20 +387,3 @@ Yule, Henry, and Henri Cordier. 1903. *The Book of Ser Marco Polo*. Third editio
 ## Evidence and materials statement
 
 The printed source passages and their page-image anchors, interpretive claim records, protocols, scripts, raw outputs, correction history, and denominator audits are documented in the [source and evidence register](SOURCE_NOTES_AND_SUBMISSION_GAPS.md) in the [project repository](https://github.com/MKLEE222/claim-relative-representation). The Formalization Papers analysis used a fixed ten-file snapshot of the [supplementary repository](https://github.com/LaraHack/formalization_papers_supplemental); its exact commit and archive checksum appear in the register. That register also separates the failed prospective execution, corrected reproduction, and subsequent diagnostic analyses. Final source-image quotation checks and the dataset's reuse terms remain submission requirements.
-
-
-
-
-Bleeker, Elli, Bram Buitendijk, and Ronald Haentjens Dekker. 2019. “Agree to Disagree: Modelling Co-existing Scholarly Perspectives on Literary Text.” *Digital Scholarship in the Humanities* 34 (4): 844–854. https://doi.org/10.1093/llc/fqz061.
-
-Bryant, John. 2010. “Rewriting Moby-Dick: Politics, Textual Identity, and the Revision Narrative.” *PMLA* 125 (4): 1043–1060. https://doi.org/10.1632/pmla.2010.125.4.1043.
-
-CRMinf. 2026. “Classes & Properties Declarations of CRMinf Version 1.2.1.” Version 1.2.1, April 2026. https://cidoc-crm.org/extensions/crminf/html/CRMinf_v1.2.1.html. Accessed 30 September 2026.
-
-Drucker, Johanna. 2011. “Humanities Approaches to Graphical Display.” *Digital Humanities Quarterly* 5 (1). https://dhq.digitalhumanities.org/vol/5/1/000091/000091.html.
-
-Eggert, Paul. 2019. “Digital Editions: The Archival Impulse and the Editorial Impulse.” In *The Work and the Reader in Literary Studies: Scholarly Editing and Book History*, 80–92. Cambridge: Cambridge University Press. https://doi.org/10.1017/9781108641012.006.
-
-Fyfe, Paul. 2012. “Electronic Errata: Digital Publishing, Open Review, and the Futures of Correction.” In *Debates in the Digital Humanities*, edited by Matthew K. Gold, 259–280. Minneapolis: University of Minnesota Press. https://doi.org/10.5749/minnesota/9780816677948.003.0027.
-
-Gabler, Hans Walter. 2010. “Theorizing the Digital Scholarly Edition.” *Literature Compass* 7 (2): 43–56. https://doi.org/10.1111/j.1741-4113.2009.00675.x.
