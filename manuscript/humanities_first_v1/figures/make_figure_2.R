@@ -39,40 +39,40 @@ draw <- function() {
   label("Controlled Paper Money comparison after the criticism has entered",0.04,0.900,8.2,muted,FALSE,"left")
 
   box(0.5,0.809,0.57,0.075,blue,blue_edge)
-  label("Same incoming intervention: PM03 corrects PM02 and endorses PM01",0.5,0.809,8.0,ink,TRUE)
+  label("Same later act: Laufer corrects Bretschneider and endorses Polo",0.5,0.809,8.0,ink,TRUE)
   link(0.5,0.771,0.5,0.714)
 
-  label("Representation A: retained history",0.255,0.682,8.4,blue_edge,TRUE)
-  label("Representation B: controlled history ablation",0.745,0.682,8.4,amber_edge,TRUE)
+  label("A: Retained history",0.255,0.682,9.2,blue_edge,TRUE)
+  label("B: Reduced working view",0.745,0.682,9.2,amber_edge,TRUE)
 
   box(0.255,0.505,0.43,0.295,blue,blue_edge)
   box(0.745,0.505,0.43,0.295,amber,amber_edge)
 
   label("Current assertions",0.255,0.591,8.2,ink,TRUE)
-  label("PM01 and PM02 present",0.255,0.548,7.8)
+  label("Polo and Bretschneider claims present",0.255,0.548,7.4)
   label("Entry history",0.255,0.493,8.2,ink,TRUE)
-  label("PM02 recorded as criticism of PM01",0.255,0.451,7.5)
-  label("Psi(A) = Psi(B)",0.255,0.405,7.5,blue_edge,TRUE)
+  label("Bretschneider's criticism recorded",0.255,0.451,7.5)
+  label("Same current assertions",0.255,0.405,8.0,blue_edge,TRUE)
 
   label("Current assertions",0.745,0.591,8.2,ink,TRUE)
-  label("PM01 and PM02 present",0.745,0.548,7.8)
+  label("Polo and Bretschneider claims present",0.745,0.548,7.4)
   label("Entry history",0.745,0.493,8.2,ink,TRUE)
   label("Critical entry relation removed",0.745,0.451,7.5)
-  label("Psi(B) = Psi(A)",0.745,0.405,7.5,amber_edge,TRUE)
+  label("Same current assertions",0.745,0.405,8.0,amber_edge,TRUE)
 
   link(0.255,0.357,0.255,0.297,blue_edge)
   link(0.745,0.357,0.745,0.297,amber_edge)
   box(0.255,0.235,0.43,0.12,teal,teal_edge)
   box(0.745,0.235,0.43,0.12,amber,amber_edge)
-  label("Qualified local RESOLVE",0.255,0.254,8.1,ink,TRUE)
+  label("Correction supported",0.255,0.254,9.0,ink,TRUE)
   label("Exact critical target substantiated",0.255,0.213,7.1,muted)
-  label("TARGET_HISTORY_UNRESOLVED",0.745,0.254,7.5,ink,TRUE)
+  label("Target history unresolved",0.745,0.254,8.3,ink,TRUE)
   label("Target exists; entry relation unavailable",0.745,0.213,7.1,muted)
 
-  label("The tested task is to substantiate which criticism PM03 corrects; reporting Laufer's wording alone asks less.",
-        0.5,0.112,7.3,muted)
-  label("Source: registered Paper Money sequence and controlled ablation, evidence register E2-E5. Outcomes are model-relative.",
-        0.5,0.062,6.8,muted)
+  label("Task: substantiate which earlier criticism Laufer corrects, using the represented record.",
+        0.5,0.112,7.8,muted)
+  label("Source: Yule and Cordier 1903, I:423, 430; Cordier 1920, 70-72. Comparison constructed for this test.",
+        0.5,0.062,7.1,muted)
 }
 
 svg(file.path(output_dir,"figure_2_current_state_vs_continuation.svg"),
@@ -87,3 +87,4 @@ png(file.path(output_dir,"figure_2_current_state_vs_continuation.png"),
     width=180/25.4,height=100/25.4,units="in",res=300,
     pointsize=9,type="cairo",bg="white")
 draw(); dev.off()
+
