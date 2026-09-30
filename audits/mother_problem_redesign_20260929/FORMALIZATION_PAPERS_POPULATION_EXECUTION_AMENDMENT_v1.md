@@ -258,3 +258,51 @@ After DATA_OPEN:
 
 Implementation defects discovered after DATA_OPEN may be corrected only under an explicit
 INVALID/corrected-reproduction discipline; they cannot restore literal freshness.
+
+
+## 16. Deterministic foreign-target selection
+
+When a wrong-target control has multiple valid foreign-root candidates:
+
+- sort candidate live nanopublication URIs lexicographically;
+- use the first candidate.
+
+For review-target injection choose the first live review from a different root.
+
+For update-target injection choose the first live update from a different root.
+
+No semantic or outcome-based foreign target selection is permitted.
+
+## 17. Deterministic overall disposition
+
+Compute the final scientific disposition in this order:
+
+### INVALID
+If any of:
+- source archive cannot be resolved to the frozen commit;
+- any record file parse fails;
+- oracle/runtime registered surface differs;
+- population accounting is incomplete;
+- a T0/T1 forward chain disagrees between qualification engines;
+- documentary audit fails any registered T0/T1 chain.
+
+### PASS
+Else if:
+- at least one T0/T1 root exists;
+- every enumerated T0/T1 chain passes all applicable frozen forward/counterfactual/history tests;
+- unavailable foreign-target injections are only those marked STRUCTURALLY_UNAVAILABLE under
+  Section 11;
+- documentary audit passes all enumerated T0/T1 chains.
+
+### BOUNDED_PARTIAL
+Else if:
+- some registered connected review/update structure exists but no T0/T1 denominator is available;
+  or
+- T0/T1 roots exist but one prospective scientific criterion is not supported without an
+  implementation/parser/documentary failure.
+
+### NULL_APPLICABILITY
+Else:
+- no root exposes a registered connected review/update trajectory.
+
+No other overall category is introduced after DATA_OPEN.
