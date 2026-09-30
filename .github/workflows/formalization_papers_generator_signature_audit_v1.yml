@@ -1,0 +1,54 @@
+name: formalization-papers-generator-signature-audit-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/formalization_papers_qualified_composition_v1/run_fp_generator_signature_audit_v1.py"
+      - "audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_GENERATOR_QUALIFICATION_SIGNATURE_PROTOCOL_v1.md"
+      - ".github/workflows/formalization_papers_generator_signature_audit_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen parser dependencies
+        run: python -m pip install rdflib==7.6.0 pyoxigraph==0.5.11
+
+      - name: Compile signature audit
+        run: |
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_oracle.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_runtime.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_population.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/run_fp_generator_signature_audit_v1.py
+
+      - name: Download byte-identical first-opening archive
+        run: |
+          curl -fL --retry 3 --retry-delay 2             -o /tmp/formalization-papers-v1.0.tar.gz             "https://codeload.github.com/LaraHack/formalization_papers_supplemental/tar.gz/2f68d8498aeeb724e3438deda13e74ae7fb076d8"
+          test "$(sha256sum /tmp/formalization-papers-v1.0.tar.gz | awk '{print $1}')" = "c2349aa34350dc5f02f3ad7ccfc1ff6f879e88950fee948b0d5ffa206d4ca9e3"
+          rm -rf /tmp/formalization-papers-v1.0
+          mkdir -p /tmp/formalization-papers-v1.0
+          tar -xzf /tmp/formalization-papers-v1.0.tar.gz             --strip-components=1             -C /tmp/formalization-papers-v1.0
+
+      - name: Reproduce corrected population
+        run: |
+          mkdir -p experiments/formalization_papers_qualified_composition_v1/results_signature
+          python experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py             --source-root /tmp/formalization-papers-v1.0             --source-archive /tmp/formalization-papers-v1.0.tar.gz             --output experiments/formalization_papers_qualified_composition_v1/results_signature/fp_corrected_main_for_signature_v1.json
+
+      - name: Run generator qualification signature audit
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/run_fp_generator_signature_audit_v1.py             --main-result experiments/formalization_papers_qualified_composition_v1/results_signature/fp_corrected_main_for_signature_v1.json             --output experiments/formalization_papers_qualified_composition_v1/results_signature/fp_generator_signature_audit_v1.json
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: formalization-papers-generator-signature-audit-v1
+          path: experiments/formalization_papers_qualified_composition_v1/results_signature
