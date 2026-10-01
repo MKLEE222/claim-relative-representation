@@ -1,0 +1,157 @@
+name: formalization-papers-fresh-qualified-composition-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/formalization_papers_qualified_composition_v1/FORMALIZATION_PAPERS_DATA_OPEN_TRIGGER_v1.txt"
+
+jobs:
+  fresh:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install independent RDF engines
+        run: python -m pip install rdflib pyoxigraph
+
+      - name: Verify frozen scientific blobs
+        run: |
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_QUALIFIED_COMPOSITION_PROTOCOL_v1.md)" = "aae6d2ab665d188e08e325bfb877b4a323888704"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_PRE_FRESH_EXPOSURE_REGISTRY_v1.md)" = "464c08e5bf9036d94eee58ecc9dc0d42264e13df"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_POPULATION_EXECUTION_AMENDMENT_v1.md)" = "dd328bf5d38b916246094980fc7b99c2069c5d77"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_PREDATA_ADAPTER_CORRECTION_v1.md)" = "d655e9107d3047c90f0ee493b74eeba9cb342b03"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/FORMALIZATION_PAPERS_PREDATA_HARNESS_CORRECTION_v1.md)" = "b0c22b0cfcb132c17933f2963087f9c675631e82"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_constants.py)" = "69d96f700dc90bf2cd1fc2a83f60e06e07cbee3d"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_oracle.py)" = "10069272597e183f8e0f857d9693691730b82d2f"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_runtime.py)" = "d3991f0d2c3827a19ac67a02f7526f5fbd7693aa"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_population.py)" = "21257498e78b11fe5996f00c398bd70ab39bc3a4"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py)" = "21800a8eb456892efff609013c32505d46c7b134"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py)" = "7e7f77377e7c2402b8c700ae2fb36420247b2ec2"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_finalize_v1.py)" = "3bd10046534291b3a01f34861a66d5c0c267e83f"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py)" = "52f0a640b27927f8db23d5e649673b3e2c620812"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_population_synthetic_v1.py)" = "faef447a338d9adcb5886eff3a1636a07bb6d7e1"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/test_fp_authoritative_stack_synthetic_v1.py)" = "d4c4415d64611f2e22eb85364e65256d527b977f"
+
+      - name: Verify frozen source tag metadata
+        run: |
+          git ls-remote https://github.com/LaraHack/formalization_papers_supplemental.git refs/tags/v1.0 'refs/tags/v1.0^{}' > /tmp/fp-tag.txt
+          cat /tmp/fp-tag.txt
+          grep -q "2f68d8498aeeb724e3438deda13e74ae7fb076d8" /tmp/fp-tag.txt
+
+      - name: Compile full fresh stack
+        run: |
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_constants.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_oracle.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_runtime.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_population.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/fp_finalize_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/test_fp_population_synthetic_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/test_fp_authoritative_stack_synthetic_v1.py
+
+      - name: Re-run parser and qualification synthetic gate
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_prefresh_synthetic_v1.py
+
+      - name: Re-run population synthetic gate
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_population_synthetic_v1.py
+
+      - name: Re-run authoritative stack synthetic closure
+        run: python experiments/formalization_papers_qualified_composition_v1/test_fp_authoritative_stack_synthetic_v1.py
+
+      - name: Write DATA_OPEN event
+        run: |
+          mkdir -p experiments/formalization_papers_qualified_composition_v1/results
+          python - <<'PY'
+          import datetime
+          import hashlib
+          import json
+          import os
+          import pathlib
+          import subprocess
+
+          files = [
+              "experiments/formalization_papers_qualified_composition_v1/fp_constants.py",
+              "experiments/formalization_papers_qualified_composition_v1/fp_oracle.py",
+              "experiments/formalization_papers_qualified_composition_v1/fp_runtime.py",
+              "experiments/formalization_papers_qualified_composition_v1/fp_population.py",
+              "experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py",
+              "experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py",
+              "experiments/formalization_papers_qualified_composition_v1/fp_finalize_v1.py",
+          ]
+
+          def sha256(path):
+              h = hashlib.sha256()
+              with open(path, "rb") as f:
+                  for chunk in iter(lambda: f.read(1024 * 1024), b""):
+                      h.update(chunk)
+              return h.hexdigest()
+
+          event = {
+              "event": "DATA_OPEN_EVENT",
+              "freshness_consumption_authorized": True,
+              "github_sha": os.environ["GITHUB_SHA"],
+              "utc_time": datetime.datetime.now(
+                  datetime.timezone.utc
+              ).isoformat(),
+              "source_repository": "LaraHack/formalization_papers_supplemental",
+              "source_tag": "v1.0",
+              "source_commit": "2f68d8498aeeb724e3438deda13e74ae7fb076d8",
+              "source_archive": "GitHub codeload tar.gz by frozen commit",
+              "published_index_used": False,
+              "scientific_file_sha256": {
+                  p: sha256(p) for p in files
+              },
+              "scientific_git_blobs": {
+                  p: subprocess.check_output(
+                      ["git", "hash-object", p], text=True
+                  ).strip()
+                  for p in files
+              },
+          }
+          out = pathlib.Path(
+              "experiments/formalization_papers_qualified_composition_v1/results/fp_data_open_event_v1.json"
+          )
+          out.write_text(
+              json.dumps(event, ensure_ascii=False, indent=2) + "\n",
+              encoding="utf-8",
+          )
+          print(json.dumps(event, ensure_ascii=False, indent=2))
+          PY
+
+      - name: DATA_OPEN download frozen v1.0 source archive
+        run: |
+          curl -fL --retry 3 --retry-delay 2             -o /tmp/formalization-papers-v1.0.tar.gz             "https://codeload.github.com/LaraHack/formalization_papers_supplemental/tar.gz/2f68d8498aeeb724e3438deda13e74ae7fb076d8"
+          sha256sum /tmp/formalization-papers-v1.0.tar.gz
+          rm -rf /tmp/formalization-papers-v1.0
+          mkdir -p /tmp/formalization-papers-v1.0
+          tar -xzf /tmp/formalization-papers-v1.0.tar.gz             --strip-components=1             -C /tmp/formalization-papers-v1.0
+
+      - name: Run authoritative full-population analysis
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/run_fp_fresh_population_v1.py             --source-root /tmp/formalization-papers-v1.0             --source-archive /tmp/formalization-papers-v1.0.tar.gz             --output experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_main_v1.json
+
+      - name: Run independent documentary audit
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/fp_documentary_audit_v1.py             --source-root /tmp/formalization-papers-v1.0             --main-result experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_main_v1.json             --output experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_documentary_audit_v1.json
+
+      - name: Finalize authoritative disposition
+        run: |
+          python experiments/formalization_papers_qualified_composition_v1/fp_finalize_v1.py             --main-result experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_main_v1.json             --audit-result experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_documentary_audit_v1.json             --data-open-event experiments/formalization_papers_qualified_composition_v1/results/fp_data_open_event_v1.json             --output experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_final_v1.json
+          sha256sum experiments/formalization_papers_qualified_composition_v1/results/*.json             > experiments/formalization_papers_qualified_composition_v1/results/SHA256SUMS.txt
+          cat experiments/formalization_papers_qualified_composition_v1/results/fp_fresh_final_v1.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: formalization-papers-fresh-qualified-composition-v1
+          path: experiments/formalization_papers_qualified_composition_v1/results

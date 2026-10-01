@@ -1,0 +1,10 @@
+AAD corrected reproduction trigger v1
+Date: 2026-09-29
+Purpose: verify that the pre-data import-path repair reproduces the same scientific population and capability results.
+Scientific status: CORRECTED_REPRODUCTION_AFTER_EXPOSURE, not fresh confirmation.
+Scientific contract changes: none.
+Execution repair: add module_p_evidence_release_revision_v1 to sys.path.
+
+Diagnostic rerun: field-level eligible-manifest consistency check.
+
+Final rerun: normalize source-context-bound opaque claim IDs only.

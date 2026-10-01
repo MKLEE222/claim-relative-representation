@@ -1,0 +1,49 @@
+name: natural-act-level-qualified-composition-v2
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/natural_act_composition_v2/**"
+      - "audits/mother_problem_redesign_20260929/NATURAL_ACT_LEVEL_COMPOSITION_ARBRE_SEC_PROTOCOL_v2.md"
+      - ".github/workflows/natural_act_level_qualified_composition_v2.yml"
+  workflow_dispatch:
+
+jobs:
+  composition:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Verify frozen source and execution blobs
+        run: |
+          test "$(git hash-object data/r3_verified_proposition_panel_v1.csv)" = "f1ffa2aefde17f731fc9d0a19781aed81c94622c"
+          test "$(git hash-object experiments/deepening_v1/r3_pass1_B02_entry_labels_v1.csv)" = "c65e84425e0410f0e70531f09027e3d357d06ed7"
+          test "$(git hash-object experiments/deepening_v1/R3_ACT_SEGMENTATION_PROTOCOL.md)" = "00274d41e18506de5e2504e94d07536baf9ab170"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/NATURAL_ACT_LEVEL_COMPOSITION_ARBRE_SEC_PROTOCOL_v2.md)" = "a3e77bec9be44542cb6cb6e1041aafa9c45b233b"
+          test "$(git hash-object experiments/natural_act_composition_v2/target_bound_oracle_v2.py)" = "c85da9a5dcc423a9d5a105bbb4786a435eb8bd2d"
+          test "$(git hash-object experiments/natural_act_composition_v2/target_bound_runtime_v2.py)" = "85bde934504895fcbf6d3446a686f50ad1213982"
+          test "$(git hash-object experiments/natural_act_composition_v2/run_natural_act_composition_v2.py)" = "71b88cd07f8c3ea3059074ea0c08192a18dea3a8"
+
+      - name: Compile act-level composition engines
+        run: |
+          python -m py_compile experiments/natural_act_composition_v2/target_bound_oracle_v2.py
+          python -m py_compile experiments/natural_act_composition_v2/target_bound_runtime_v2.py
+          python -m py_compile experiments/natural_act_composition_v2/run_natural_act_composition_v2.py
+
+      - name: Re-run qualified generator repair
+        run: python experiments/qualified_scholarly_generators_v1/run_qualified_generator_repair_v1.py
+
+      - name: Run natural act-level composition replication
+        run: python experiments/natural_act_composition_v2/run_natural_act_composition_v2.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: natural-act-level-qualified-composition-v2
+          path: experiments/natural_act_composition_v2/results

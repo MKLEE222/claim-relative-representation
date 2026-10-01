@@ -1,0 +1,4 @@
+Natural act-level qualified composition v2 trigger
+Date: 2026-09-29
+Scientific changes: none.
+Purpose: trigger the already frozen Arbre Sec replication workflow.

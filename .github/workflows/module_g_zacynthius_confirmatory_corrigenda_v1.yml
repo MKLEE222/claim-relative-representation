@@ -1,0 +1,34 @@
+name: module-g-zacynthius-confirmatory-corrigenda-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_g_zacynthius_confirmatory_corrigenda_v1/**"
+      - ".github/workflows/module_g_zacynthius_confirmatory_corrigenda_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependency
+        run: python -m pip install lxml==5.4.0
+      - name: Compile
+        run: python -m py_compile experiments/module_g_zacynthius_confirmatory_corrigenda_v1/run.py
+      - name: Execute frozen confirmatory matrix
+        run: python experiments/module_g_zacynthius_confirmatory_corrigenda_v1/run.py
+      - name: Upload results
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-g-zacynthius-confirmatory-corrigenda-v1
+          path: |
+            experiments/module_g_zacynthius_confirmatory_corrigenda_v1/results
+            experiments/module_g_zacynthius_confirmatory_corrigenda_v1/PROTOCOL.md
+            experiments/module_g_zacynthius_confirmatory_corrigenda_v1/SOURCE_CONTRACT_v1.md
+            experiments/module_g_zacynthius_confirmatory_corrigenda_v1/run.py

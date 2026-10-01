@@ -1,0 +1,41 @@
+name: module-q-aad-fresh-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_q_fresh_erir_confirmation_v1/AAD_FRESH_RUN_TRIGGER_v1.txt"
+  workflow_dispatch:
+
+jobs:
+  fresh-one-shot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen XML dependency
+        run: python -m pip install lxml==6.1.3
+
+      - name: Re-run Module P synthetic controls
+        run: python experiments/module_p_evidence_release_revision_v1/test_revision_contract_v1.py
+
+      - name: Re-run AAD-shaped pre-fresh gate
+        run: python experiments/module_q_fresh_erir_confirmation_v1/test_aad_shaped_synthetic_v1.py
+
+      - name: Run one-shot fresh AAD confirmation
+        run: python experiments/module_q_fresh_erir_confirmation_v1/run_aad_fresh_confirmatory.py
+
+      - name: Run frozen independent documentary audit
+        run: python experiments/module_q_fresh_erir_confirmation_v1/audit_aad_fresh_sources.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: module-q-aad-fresh-v1
+          path: experiments/module_q_fresh_erir_confirmation_v1/results
+          if-no-files-found: warn

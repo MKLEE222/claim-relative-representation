@@ -1,0 +1,31 @@
+name: deepening-r3-frame-refinement
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/r3_refine_frame.py"
+      - "experiments/deepening_v1/R3_FRAME_REFINEMENT_PROTOCOL.md"
+      - ".github/workflows/deepening_r3_frame.yml"
+  workflow_dispatch:
+
+jobs:
+  refine:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Repair over-generated retrospective frame
+        run: python experiments/deepening_v1/r3_refine_frame.py
+      - name: Upload refined frame
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r3-structural-frame-v2
+          path: |
+            experiments/deepening_v1/results/r3_structural_frame_v2.csv
+            experiments/deepening_v1/results/r3_structural_exclusions_v2.csv
+            experiments/deepening_v1/results/r3_structural_frame_v2_meta.json
+          if-no-files-found: error

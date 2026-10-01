@@ -1,0 +1,19 @@
+name: module-r-vgw-postfresh-parser-diagnostic-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_r_scholarly_assertion_reassessment_v1/VGW_POSTFRESH_PARSER_DIAGNOSTIC_TRIGGER_v1.txt"
+
+jobs:
+  diagnose:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Run fixed-source parser diagnostic
+        run: python experiments/module_r_scholarly_assertion_reassessment_v1/diagnose_vgw_runtime_parse_failure_v1.py

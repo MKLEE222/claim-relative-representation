@@ -1,0 +1,21 @@
+# Editorial maintenance without a single direction of change
+
+*Draft findings section. Evidence: four purposively selected, already-inspected entries. This is not a prevalence result or a reconstruction of the entire editorial lineage.*
+
+The comparison does not support treating Cordier's 1920 Addenda as a uniformly corrective layer. Within an individual entry, continuity and disagreement can concern different propositions advanced by the same commentator. The Pashai note is particularly instructive. The 1903 edition already cautions against assuming that Polo visited the countries personally and conjectures a Mongol source for his information. Stein, quoted in the later Addenda, expressly endorses this source-critical judgment. He nevertheless questions the route through the Dorah or Nuksan Pass and Chitral, proposing an alternative through eastern Kafiristan. His alternative remains modal rather than categorical. The unit of comparison must therefore be the proposition and its target: agreement about the provenance of Polo's account coexists with disagreement about the itinerary inferred from it (Yule-Cordier 1903, I, pp.164-165; Cordier 1920, pp.34-35).
+
+Transmission also differs from adoption. The 1903 Arbre Sec note identifies an Oriental Plane and records a botanical objection with a response. The 1920 entry reports Houtum-Schindler's competing cypress proposal, then shifts to Cordier's defense of his own earlier reading of Schindler. The backward reference resolves to a genuine citation in the third edition, but the bibliographical reply is not an explicit endorsement of the cypress proposal. Flattening these acts into an editor-level identification update would attribute a commitment that the reviewed entry does not establish (Yule-Cordier 1903, I, pp.113, 128; Cordier 1920, p.31).
+
+The Tun-o-Kain entry further separates the date of editorial incorporation from the dates of the arguments incorporated. It reports Sykes's revision in a 1905 publication, invokes Stewart's opinion dated 1882 and published in 1886, and then introduces Hedin's 1910 defense of a competing route. The resulting entry preserves an argumentative sequence, not a single new conclusion that simply replaces Yule. Similarly, the Great Desert entry places an inference about the local origin of folklore alongside survey-based corroboration of distance and marches. The latter does not independently warrant the former: the two claims have different stated evidential bases (Cordier 1920, pp.25-30, 48-49).
+
+These cases motivate a source-bound account of editorial maintenance. It must distinguish the person transmitting a proposition from the scholar responsible for it, identify the particular earlier claim addressed, retain its modality, and record the evidence offered for that claim. These requirements arise from close reading; they do not establish that an unstructured representation necessarily loses such information. Whether a transformed object still enables recovery of those distinctions is the subsequent computational question.
+
+A coverage correction precedes any whole-book distributional conclusion. Eight explicit Introduction page-pointer headings lie outside every interval in the frozen 223-entry retrieval frame. Page inspection confirms that the omitted class contains substantive chronological, biographical and source-critical material. The old frame remains a valid declared search universe for the completed retrieval runs, but it is not an established denominator for the full Addenda. A revised historical inventory must audit heading coverage and continuation boundaries before intervention frequencies are reported.
+
+## Primary witnesses used here
+
+Yule, Henry, and Henri Cordier. 1903. *The Book of Ser Marco Polo*, third edition, volume I. London: John Murray. Pages 113, 128, 164-165, 202.
+
+Cordier, Henri. 1920. *Ser Marco Polo: Notes and Addenda to Sir Henry Yule's Edition*. London: John Murray. Pages 3-5, 8, 11, 25-31, 34-35, 48-49.
+
+The later quoted works by Sykes, Stewart, Hedin, Schindler and Stein are studied through their transmission in Cordier, not claimed as separately inspected originals. The 1871 and 1875 editions remain outside this round. Exact anchors and image references are in the companion audit delivery package.

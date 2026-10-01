@@ -70,3 +70,6 @@ jobs:
 
       - name: Validate archival argument reinstatement
         run: python validation/validate_argument_reinstatement_v1.py
+
+      - name: Validate R3-A B01 first-pass coding
+        run: python validation/validate_r3_b01_pass1.py

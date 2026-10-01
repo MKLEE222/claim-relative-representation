@@ -1,0 +1,73 @@
+name: module-i-dahn-boundary-development-verification-v2
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_i_dahn_document_boundary_holdout_v1/**"
+      - ".github/workflows/module_i_dahn_boundary_development_verification_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  hardening-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - name: Compile hardened evaluator
+        run: |
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/oracle_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/runtime_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/evaluator_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+          python -m py_compile experiments/module_i_dahn_document_boundary_holdout_v1/audit_origin_sets_v2.py
+      - name: Run adversarial fault-injection tests
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+      - name: Record frozen evaluator SHA-256 identities
+        run: |
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/oracle_v2.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/runtime_v2.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/evaluator_v2.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/run.py
+          sha256sum experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+      - name: Audit multi-origDate composition on exposed Berlin
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/audit_origin_sets_v2.py --prefix Correspondence/Berlin_Intellectuals/Corpus/
+      - name: Audit multi-origDate composition on exposed Paul
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/audit_origin_sets_v2.py --prefix Correspondence/Paul_d_Estournelles_de_Constant/Corpus/
+
+  berlin:
+    needs: hardening-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - name: Verify Berlin exposed development corpus
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/run.py --mode development --prefix Correspondence/Berlin_Intellectuals/Corpus/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-i-berlin-development-v2
+          path: experiments/module_i_dahn_document_boundary_holdout_v1/development_results_v2
+
+  paul:
+    needs: hardening-tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - name: Verify exposed Paul development corpus with repaired boundary
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/run.py --mode development --prefix Correspondence/Paul_d_Estournelles_de_Constant/Corpus/
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-i-paul-development-v2
+          path: experiments/module_i_dahn_document_boundary_holdout_v1/development_results_v2

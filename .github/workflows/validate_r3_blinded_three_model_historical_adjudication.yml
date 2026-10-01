@@ -1,0 +1,48 @@
+name: validate-r3-blinded-three-model-historical-adjudication-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/R3_BLINDED_THREE_MODEL_HISTORICAL_ADJUDICATION_PROTOCOL_v1.md"
+      - "experiments/deepening_v1/r3_blinded_three_model_historical_adjudication_v1.py"
+      - "experiments/deepening_v1/analyze_r3_blinded_three_model_historical_adjudication_v1.py"
+      - "experiments/deepening_v1/run_r3_blinded_three_model_historical_adjudication_v1.ps1"
+      - "experiments/deepening_v1/run_r3_blinded_three_model_historical_adjudication_v1.bat"
+      - ".github/workflows/validate_r3_blinded_three_model_historical_adjudication.yml"
+  workflow_dispatch:
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Compile frozen runner and analyzer
+        run: |
+          python -m py_compile experiments/deepening_v1/r3_blinded_three_model_historical_adjudication_v1.py
+          python -m py_compile experiments/deepening_v1/analyze_r3_blinded_three_model_historical_adjudication_v1.py
+      - name: Validate frozen matrix dimensions
+        run: |
+          python - <<'PY'
+          import ast
+          from pathlib import Path
+
+          p=Path("experiments/deepening_v1/r3_blinded_three_model_historical_adjudication_v1.py")
+          tree=ast.parse(p.read_text(encoding="utf-8"))
+          ns={}
+          for node in tree.body:
+              if isinstance(node, ast.Assign):
+                  for target in node.targets:
+                      if isinstance(target, ast.Name) and target.id in {"MODELS_DEFAULT","PERTURBATIONS","CASES"}:
+                          ns[target.id]=ast.literal_eval(node.value)
+          assert len(ns["MODELS_DEFAULT"]) == 3
+          assert len(ns["PERTURBATIONS"]) == 3
+          assert len(ns["CASES"]) == 5
+          assert sum(len(v["components"]) for v in ns["CASES"].values()) == 21
+          assert len(ns["CASES"]) * len(ns["PERTURBATIONS"]) * len(ns["MODELS_DEFAULT"]) == 45
+          print("FROZEN_MATRIX_VALID=1")
+          PY

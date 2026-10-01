@@ -1,0 +1,33 @@
+{
+  "authority": "Retrospective AI-assisted source audit; no independent human coding",
+  "source_collection_run": 36295170122,
+  "source_collection_artifact": 10923572684,
+  "source_collection_archive_sha256": "c434268684773d24cb2c506a94c0a6407c36e70cc7df8ec8641630a74c2b8297",
+  "sources": [
+    {"id":"pg10636.txt","url":"https://www.gutenberg.org/cache/epub/10636/pg10636.txt","sha256":"7b0cbb0bc47a48d7594314b56d890e3e43ac05666b8c70d98f10719501cf6fb5","registered_hash_match":true},
+    {"id":"pg12410.txt","url":"https://www.gutenberg.org/cache/epub/12410/pg12410.txt","sha256":"c1ce61dd8c6c6a326c42fb7ac3b1a63767bf1685ec88354f83dd321e1748921c","registered_hash_match":true},
+    {"id":"cordier_1920.pdf","url":"https://resources.warburg.sas.ac.uk/pdf/ndb90b2753728.pdf","sha256":"dfa29f55b41714d79ac2c3107e3e23094e9dfc27114f53e7bf4a20147ba71941","registered_hash_match":true,"pages":180},
+    {"id":"yule_1903_v1.pdf","url":"https://archive.org/download/bookofsermarcopo001polo/bookofsermarcopo001polo.pdf","sha256":"6f1d7f6040bf2e3333405f604f3231d1b97a4bb6c405343a28bc2d9fb335a3f7","registered_hash_match":false,"pages":790,"identity_check":"Title image: 1903, third edition revised by Henri Cordier, Volume I; separate PDF copy"}
+  ],
+  "visually_reviewed_pages": {
+    "1903": [{"pdf_index":8,"printed":"title"},{"pdf_index":408,"printed":"113"},{"pdf_index":425,"printed":"128"},{"pdf_index":461,"printed":"164"},{"pdf_index":462,"printed":"165"},{"pdf_index":501,"printed":"202"}],
+    "1920": [{"pdf_index":16,"printed":"3"},{"pdf_index":17,"printed":"4"},{"pdf_index":18,"printed":"5"},{"pdf_index":21,"printed":"8"},{"pdf_index":24,"printed":"11"},{"pdf_index":38,"printed":"25"},{"pdf_index":39,"printed":"26"},{"pdf_index":40,"printed":"27"},{"pdf_index":41,"printed":"28"},{"pdf_index":42,"printed":"29"},{"pdf_index":43,"printed":"30"},{"pdf_index":44,"printed":"31"},{"pdf_index":47,"printed":"34"},{"pdf_index":48,"printed":"35"},{"pdf_index":61,"printed":"48"},{"pdf_index":62,"printed":"49"}]
+  },
+  "coverage_scope": "Explicit Introduction, p./pp. headings after Addenda title, compared with all 223 frozen entry intervals; not a full-book recall audit",
+  "offset_unit": "Unicode characters in UTF-8 decoded pg12410.txt; original CRLF preserved",
+  "first_frozen_entry_start": 2045707,
+  "uncovered_heads": [
+    {"pointer":"Introduction p.6","source_start":2024070,"source_end":2024092,"pdf_index":16,"covered_by":[]},
+    {"pointer":"Introduction p.10n","source_start":2025171,"source_end":2025196,"pdf_index":16,"covered_by":[]},
+    {"pointer":"Introduction p.19","source_start":2026314,"source_end":2026385,"pdf_index":17,"covered_by":[]},
+    {"pointer":"Introduction p.19n","source_start":2027940,"source_end":2027965,"pdf_index":17,"covered_by":[]},
+    {"pointer":"Introduction p.21","source_start":2029588,"source_end":2029657,"pdf_index":18,"covered_by":[]},
+    {"pointer":"Introduction p.23","source_start":2036932,"source_end":2036955,"pdf_index":21,"covered_by":[]},
+    {"pointer":"Introduction p.76n","source_start":2037570,"source_end":2037595,"pdf_index":21,"covered_by":[]},
+    {"pointer":"Introduction p.92","source_start":2044677,"source_end":2044700,"pdf_index":24,"covered_by":[]}
+  ],
+  "replacement_whole_book_denominator": null,
+  "old_retrieval_universe_unchanged": 223,
+  "local_verification": {"exact_anchors":20,"page_image_hashes":22,"historical_observation_references":10,"historical_semantic_correctness_proven_by_code":false},
+  "not_claimed": ["231 is the complete population","1871/1875 genealogies checked","independent coder agreement","new retrieval or LLM outcome"]
+}

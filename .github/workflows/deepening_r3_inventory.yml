@@ -1,0 +1,28 @@
+name: deepening-r3-yule-cordier-inventory
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/r3_yule_cordier_inventory.py"
+      - "experiments/deepening_v1/R3_HUMANITIES_PROTOCOL.md"
+      - ".github/workflows/deepening_r3_inventory.yml"
+  workflow_dispatch:
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Enumerate complete retrospective candidate frame
+        run: python experiments/deepening_v1/r3_yule_cordier_inventory.py
+      - name: Upload candidate inventory
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r3-yule-cordier-candidates
+          path: experiments/deepening_v1/results/r3_yule_cordier_inventory_candidates.json
+          if-no-files-found: error

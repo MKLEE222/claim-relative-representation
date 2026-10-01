@@ -1,0 +1,36 @@
+name: module-c-fv-native-pipeline-continuation-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_c_fv_native_pipeline_continuation_v1/**"
+      - ".github/workflows/module_c_fv_native_pipeline_continuation_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install parser
+        run: python -m pip install lxml==5.4.0
+
+      - name: Compile
+        run: python -m py_compile experiments/module_c_fv_native_pipeline_continuation_v1/run.py
+
+      - name: Execute frozen Module C protocol
+        run: |
+          python experiments/module_c_fv_native_pipeline_continuation_v1/run.py             --out /tmp/module_c_fv_results
+
+      - name: Preserve output
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-c-fv-native-pipeline-continuation-v1
+          path: /tmp/module_c_fv_results/results.json

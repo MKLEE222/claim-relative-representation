@@ -1,0 +1,32 @@
+name: module-q-aad-fresh-population-v1
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_q_fresh_erir_v1/AAD_FRESH_RUN_TRIGGER_v1.txt"
+
+jobs:
+  aad-fresh-one-shot:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependency
+        run: python -m pip install lxml
+
+      - name: Compile frozen AAD runner
+        run: python -m py_compile experiments/module_q_fresh_erir_v1/run_aad_fresh_population_v1.py
+
+      - name: Run frozen AAD fresh population
+        run: python experiments/module_q_fresh_erir_v1/run_aad_fresh_population_v1.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-q-aad-fresh-population-v1
+          path: experiments/module_q_fresh_erir_v1/results

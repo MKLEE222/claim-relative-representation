@@ -1,0 +1,7 @@
+Module Q AAD fresh one-shot trigger v1
+Date: 2026-09-29
+Pinned upstream: auden-in-austria-digital/aad-data@34c3958686ab03614dedd8d979ffe94b6c0f2a28
+Frozen protocol: AAD_FRESH_POPULATION_PROTOCOL_v1.md
+Expected population: 148 direct XML files under data/xml/editions/
+Disposition vocabulary: PASS / BOUNDED_PARTIAL / NULL / INVALID
+This marker intentionally consumes AAD freshness for Module Q.

@@ -1,0 +1,35 @@
+{
+  "study": "ELIFE_SYNTHETIC_EXPECTED_V1",
+  "expected_file_count": 20,
+  "dispositions": {
+    "elife-preprint-160000-v1.xml": "COMPLETE_V1",
+    "elife-preprint-160016-v1.xml": "COMPLETE_V1",
+    "elife-preprint-160032-v2.xml": "COMPLETE_REVISED",
+    "elife-preprint-160048-v3.xml": "COMPLETE_REVISED",
+    "elife-preprint-160064-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160080-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160096-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160112-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160128-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160144-v2.xml": "INVALID_PRIOR_HISTORY",
+    "elife-preprint-160160-v2.xml": "INVALID_PRIOR_HISTORY",
+    "elife-preprint-160176-v2.xml": "INVALID_PRIOR_HISTORY",
+    "elife-preprint-160192-v2.xml": "INVALID_PRIOR_HISTORY",
+    "elife-preprint-160208-v2.xml": "INVALID_PRIOR_HISTORY",
+    "elife-preprint-160224-v1.xml": "INVALID_IDENTITY",
+    "elife-preprint-160240-v2.xml": "INVALID_IDENTITY",
+    "elife-preprint-160256-v1.xml": "COMPLETE_V1",
+    "elife-preprint-160272-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160288-v1.xml": "INVALID_CURRENT_EVALUATION_BINDING",
+    "elife-preprint-160304-v1.xml": "PARSE_ERROR"
+  },
+  "expected_counts": {
+    "COMPLETE_V1": 3,
+    "COMPLETE_REVISED": 2,
+    "INVALID_IDENTITY": 2,
+    "INVALID_CURRENT_EVALUATION_BINDING": 7,
+    "INVALID_PRIOR_HISTORY": 5,
+    "PARSE_ERROR": 1,
+    "ORACLE_RUNTIME_UNRESOLVED": 0
+  }
+}

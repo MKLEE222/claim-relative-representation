@@ -1,0 +1,30 @@
+name: deepening-r3-coding-batches
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/deepening_v1/r3_build_coding_batches.py"
+      - "experiments/deepening_v1/R3_RELATION_ONTOLOGY_AMENDMENT_v2.md"
+      - ".github/workflows/deepening_r3_coding_batches.yml"
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Build frozen R3 coding batches
+        run: python experiments/deepening_v1/r3_build_coding_batches.py
+      - name: Upload R3 coding batches
+        uses: actions/upload-artifact@v4
+        with:
+          name: deepening-r3-coding-batches-v1
+          path: |
+            experiments/deepening_v1/results/r3_coding_batches_v1/*.json
+            experiments/deepening_v1/results/r3_coding_batches_v1_manifest.json
+          if-no-files-found: error

@@ -1,0 +1,41 @@
+name: module-q-aad-corrected-reproduction-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_q_fresh_erir_v1/AAD_CORRECTED_REPRO_TRIGGER_v1.txt"
+
+jobs:
+  corrected-reproduction:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependency
+        run: python -m pip install lxml
+
+      - name: Compile corrected and comparison runners
+        run: |
+          python -m py_compile experiments/module_q_fresh_erir_v1/run_aad_corrected_reproduction_v1.py
+          python -m py_compile experiments/module_q_fresh_erir_v1/run_aad_exposed_audit_v1.py
+          python -m py_compile experiments/module_q_fresh_erir_v1/compare_aad_corrected_vs_exposed_v1.py
+
+      - name: Run corrected reproduction of frozen AAD analysis
+        run: python experiments/module_q_fresh_erir_v1/run_aad_corrected_reproduction_v1.py
+
+      - name: Re-run exposed reference analysis
+        run: python experiments/module_q_fresh_erir_v1/run_aad_exposed_audit_v1.py
+
+      - name: Compare scientific output surfaces
+        run: python experiments/module_q_fresh_erir_v1/compare_aad_corrected_vs_exposed_v1.py
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: module-q-aad-corrected-reproduction-v1
+          path: experiments/module_q_fresh_erir_v1/results

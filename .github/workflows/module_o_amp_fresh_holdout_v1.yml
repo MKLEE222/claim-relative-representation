@@ -1,0 +1,80 @@
+name: module-o-amp-fresh-holdout-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_o_amp_fresh_holdout_v1/**"
+      - ".github/workflows/module_o_amp_fresh_holdout_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  preregistered-prefresh-gate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+
+      - name: Compile frozen portable/comparator/obligation engines
+        run: |
+          python -m py_compile experiments/module_l_portable_object_claim_v1/oracle_l.py
+          python -m py_compile experiments/module_l_portable_object_claim_v1/runtime_l.py
+          python -m py_compile experiments/module_l_portable_object_claim_v1/evaluator_l.py
+          python -m py_compile experiments/module_m_dh_comparators_v1/comparators_m.py
+          python -m py_compile experiments/module_m_dh_comparators_v1/evaluator_m.py
+          python -m py_compile experiments/module_n_obligation_identification_v1/interventions_n.py
+          python -m py_compile experiments/module_n_obligation_identification_v1/evaluator_n.py
+          python -m py_compile experiments/module_o_amp_fresh_holdout_v1/run_holdout.py
+
+      - name: Verify frozen scientific engine blobs
+        run: |
+          test "$(git hash-object experiments/module_l_portable_object_claim_v1/runtime_l.py)" = "34285c65d020f8a5b096abf54133ee2fb3930793"
+          test "$(git hash-object experiments/module_l_portable_object_claim_v1/oracle_l.py)" = "ace9d7fa06c08f17ba9a7edd7b44515390abc4f9"
+          test "$(git hash-object experiments/module_l_portable_object_claim_v1/evaluator_l.py)" = "e5a935153f7e929d491121cce27ff10bf6be72ad"
+          test "$(git hash-object experiments/module_m_dh_comparators_v1/comparators_m.py)" = "08f0f2d2a1fc2e9e547fa3df2dd350e37d4770f6"
+          test "$(git hash-object experiments/module_m_dh_comparators_v1/evaluator_m.py)" = "96f9fed32a65047f838a7eb4f1f3673a5425fed2"
+          test "$(git hash-object experiments/module_n_obligation_identification_v1/interventions_n.py)" = "19672c3b01cfaae858ebb1cec447216c78f0d600"
+          test "$(git hash-object experiments/module_n_obligation_identification_v1/evaluator_n.py)" = "be049628dbd3aced7187c18ea3518d2fe3318d10"
+
+      - name: Run inherited F1-F9
+        run: python experiments/module_i_dahn_document_boundary_holdout_v1/test_hardening_v2.py
+
+      - name: Run inherited F10-F16
+        run: python experiments/module_j_dahn_object_bound_holdout_v1/test_object_contract_v1.py
+
+      - name: Run portable F17-F30
+        run: python experiments/module_l_portable_object_claim_v1/test_portable_contract_v1.py
+
+      - name: Run portable F31-F36 ISO controls
+        run: python experiments/module_l_portable_object_claim_v1/test_iso_datetime_portability_v1.py
+
+      - name: Replay inherited obligations on portable engine
+        run: python experiments/module_l_portable_object_claim_v1/test_inherited_obligations_v1.py
+
+      - name: Re-run Module M synthetic comparator gate
+        run: python experiments/module_m_dh_comparators_v1/test_comparators_v1.py
+
+      - name: Re-run Module N synthetic crossover gate
+        run: python experiments/module_n_obligation_identification_v1/test_non_substitutability_v1.py
+
+  authoritative-holdout:
+    needs: preregistered-prefresh-gate
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+
+      - name: Open and run frozen AMP population once
+        run: python experiments/module_o_amp_fresh_holdout_v1/run_holdout.py
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-o-amp-fresh-holdout-v1
+          path: experiments/module_o_amp_fresh_holdout_v1/results

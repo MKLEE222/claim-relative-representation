@@ -1,0 +1,33 @@
+{
+  "study": "ELIFE_CLEAN_PROSPECTIVE_PREDATA_LICENSE_V1",
+  "status": "DATA_OPEN_LICENSE_GRANTED",
+  "record_content_opened": false,
+  "workflow_run": 36666602987,
+  "head_sha": "cf6e4c1f0480660d8d9e36c312e0634173443662",
+  "artifact_id": 11075469599,
+  "artifact_zip_sha256": "32ac04b81a43d2562afd380d834e1e26604826396766d7d4c40d5d53125da548",
+  "synthetic_population": {
+    "total_files": 20,
+    "complete_v1": 3,
+    "complete_revised": 2,
+    "invalid_current_evaluation_binding": 7,
+    "invalid_identity": 2,
+    "invalid_prior_history": 5,
+    "parse_error": 1,
+    "oracle_runtime_unresolved": 0
+  },
+  "execution_trace_count": 47,
+  "all_registered_traces_covered": true,
+  "documentary_audit": "5/5 PASS",
+  "final_disposition": "SYNTHETIC_EXACT_PATH_FINAL_PASS",
+  "artifact_roundtrip": "PASS",
+  "licensed_source": {
+    "repository": "elifesciences/elife-article-xml",
+    "commit": "ec0fbc8e81cfae472260f96a03ba078b57007612",
+    "tree": "d6bba934b495f7e4272f370de53817c0fc28af84",
+    "scope": "int(manuscript_id) mod 16 == 0; all versions",
+    "manuscripts": 297,
+    "xml_files": 568,
+    "total_bytes": 96584062
+  }
+}

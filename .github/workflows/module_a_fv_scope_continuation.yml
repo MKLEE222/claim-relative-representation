@@ -1,0 +1,54 @@
+name: module-a-fv-scope-continuation-v1
+on:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - experiments/module_a_fv_scope_continuation_v1/pilot.py
+      - experiments/module_a_fv_scope_continuation_v1/trace_native_branches.py
+      - .github/workflows/module_a_fv_scope_continuation.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  replay:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Install XML parser and record environment
+        run: |
+          python -m pip install lxml
+          python --version
+          python -m pip freeze
+      - name: Compile pilot and source trace
+        run: |
+          python -m py_compile experiments/module_a_fv_scope_continuation_v1/pilot.py
+          python -m py_compile experiments/module_a_fv_scope_continuation_v1/trace_native_branches.py
+      - name: Replay development pilot on frozen published sources
+        run: |
+          python experiments/module_a_fv_scope_continuation_v1/pilot.py --download-sources | tee experiments/module_a_fv_scope_continuation_v1/execution.log
+          python experiments/module_a_fv_scope_continuation_v1/trace_native_branches.py | tee experiments/module_a_fv_scope_continuation_v1/branch_execution.log
+      - name: Compare to already-executed local result, not a new scientific gate
+        run: |
+          python - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          out=Path('experiments/module_a_fv_scope_continuation_v1/results')
+          x=json.loads((out/'results.json').read_bytes()); x.pop('execution')
+          digest=hashlib.sha256(json.dumps(x,sort_keys=True,separators=(',',':'),ensure_ascii=False).encode()).hexdigest()
+          assert digest=='5d25cd1bd505d6d916aeb602407337f89608a729ddddb77a76b59470171ae3fb',digest
+          trace=hashlib.sha256((out/'native_branch_traces.json').read_bytes()).hexdigest()
+          assert trace=='5b974012d1002e08908bd4de8742ba688a4774c5e4c79ca9c5b56ba35ae2efe6',trace
+          print('LOCAL_SCIENTIFIC_PAYLOAD_REPRODUCED=1')
+          print('SOURCE_TRACE_REPRODUCED=1')
+          print('INDEPENDENT_HISTORICAL_REPLICATION_CLAIMED=0')
+          PY
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: module-a-fv-scope-continuation-v1
+          path: experiments/module_a_fv_scope_continuation_v1/
+          if-no-files-found: error

@@ -1,0 +1,43 @@
+name: module-h-dahn-prospective-holdout-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - ".github/workflows/module_h_dahn_prospective_holdout_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  execute-holdout:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify frozen evaluator identity
+        shell: bash
+        run: |
+          test "$(git hash-object experiments/module_h_dahn_end_to_end_holdout_v1/run.py)" = "3cfb747de03df433692415457f22293e0adefc49"
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install dependency
+        run: python -m pip install lxml==5.4.0
+
+      - name: Compile frozen evaluator
+        run: python -m py_compile experiments/module_h_dahn_end_to_end_holdout_v1/run.py
+
+      - name: Execute Paul prospective holdout once
+        run: python experiments/module_h_dahn_end_to_end_holdout_v1/run.py --mode holdout --prefix Correspondence/Paul_d_Estournelles_de_Constant/Corpus/
+
+      - name: Upload holdout results
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-h-dahn-prospective-holdout-v1
+          path: |
+            experiments/module_h_dahn_end_to_end_holdout_v1/holdout_results
+            experiments/module_h_dahn_end_to_end_holdout_v1/PROTOCOL.md
+            experiments/module_h_dahn_end_to_end_holdout_v1/DEVELOPMENT_DESIGN_REPAIR_v1.md
+            experiments/module_h_dahn_end_to_end_holdout_v1/run.py

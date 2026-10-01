@@ -1,0 +1,5 @@
+Module Q AAD exposed audit trigger v1
+Date: 2026-09-29
+Reason: recover corpus applicability after INVALID fresh attempt 36531128233.
+Scientific status: EXPOSED AUDIT ONLY.
+Pinned upstream: auden-in-austria-digital/aad-data@34c3958686ab03614dedd8d979ffe94b6c0f2a28

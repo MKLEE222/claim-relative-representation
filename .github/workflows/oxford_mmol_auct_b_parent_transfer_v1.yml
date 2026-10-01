@@ -1,0 +1,31 @@
+name: oxford-mmol-auct-b-parent-transfer-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/transfer_oxford_mmol_parent_continuation_v1/TRANSFER_PROTOCOL_AUCT_B_v1.md"
+      - "experiments/transfer_oxford_mmol_parent_continuation_v1/transfer_auct_b_v1.py"
+      - ".github/workflows/oxford_mmol_auct_b_parent_transfer_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install parser
+        run: python -m pip install lxml==5.4.0
+      - name: Compile frozen transfer
+        run: python -m py_compile experiments/transfer_oxford_mmol_parent_continuation_v1/transfer_auct_b_v1.py
+      - name: Execute Auct_B transfer
+        run: python experiments/transfer_oxford_mmol_parent_continuation_v1/transfer_auct_b_v1.py
+      - name: Preserve transfer output
+        uses: actions/upload-artifact@v4
+        with:
+          name: oxford-mmol-auct-b-parent-transfer-v1
+          path: experiments/transfer_oxford_mmol_parent_continuation_v1/results/transfer_results.json

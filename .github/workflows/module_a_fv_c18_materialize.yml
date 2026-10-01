@@ -1,0 +1,46 @@
+name: module-a-fv-c18-materialize
+on:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths: [.github/workflows/module_a_fv_c18_materialize.yml]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  materialize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Materialize already exposed development sources only
+        run: |
+          python - <<'PY'
+          import hashlib,json,urllib.request
+          from pathlib import Path
+          pin='5a208f869ff1213defa000e3181d5315a072a15f'
+          base=f'https://raw.githubusercontent.com/FrankensteinVariorum/collationWorkspace/{pin}/'
+          paths=['collationChunks/C18/'+p for p in ['msColl_C18.xml','1818_fullFlat_C18.xml','1823_fullFlat_C18.xml','1831_fullFlat_C18.xml','Thomas_fullFlat_C18.xml','output/Collation_C18-complete.xml','input/msColl_C18.xml']]
+          paths+=['python-collation/collate.py','xslt/preProcessing-1.xsl','xslt/preProcessing-2.xsl','xslt/postProcessing.xsl']
+          expected={'collationChunks/C18/msColl_C18.xml':'8e537331ebf46dd4f013da9afcbe38c14092b6fd','collationChunks/C18/output/Collation_C18-complete.xml':'bca0548912ab1d7b2676360d33a6468290296d7e'}
+          out=Path('module_a_c18_source_bundle'); out.mkdir(exist_ok=True)
+          records=[]
+          for path in paths:
+              req=urllib.request.Request(base+path,headers={'User-Agent':'CRR-module-A-materialization/1.0'})
+              with urllib.request.urlopen(req,timeout=60) as r: raw=r.read()
+              blob=hashlib.sha1(f'blob {len(raw)}\0'.encode()+raw).hexdigest()
+              if path in expected and blob!=expected[path]: raise RuntimeError(f'SOURCE DRIFT: {path}: {blob}')
+              dest=out/path; dest.parent.mkdir(parents=True,exist_ok=True); dest.write_bytes(raw)
+              records.append({'path':path,'url':base+path,'bytes':len(raw),'git_blob_sha1':blob,'sha256':hashlib.sha256(raw).hexdigest()})
+              print(path,len(raw),blob)
+          manifest={'status':'SOURCE_MATERIALIZATION_ONLY_NO_OUTCOMES','exposure':'C18_ALREADY_OPENED_DEVELOPMENT','upstream_commit':pin,'files':records}
+          (out/'MANIFEST.json').write_text(json.dumps(manifest,indent=2)+'\n',encoding='utf-8')
+          print('MATERIALIZATION_COMPLETE=1; NO_SCIENTIFIC_OUTCOME_COMPUTED=1')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: module-a-fv-c18-source-bundle
+          path: module_a_c18_source_bundle/
+          if-no-files-found: error

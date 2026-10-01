@@ -1,0 +1,28 @@
+name: module-q-aad-prefresh-synthetic-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_q_fresh_erir_v1/**"
+      - ".github/workflows/module_q_aad_prefresh_synthetic_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  aad-prefresh-synthetic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install runtime dependency
+        run: python -m pip install lxml
+
+      - name: Compile AAD pre-fresh synthetic gate
+        run: python -m py_compile experiments/module_q_fresh_erir_v1/test_aad_prefresh_synthetic_v1.py
+
+      - name: Run AAD pre-fresh synthetic gate
+        run: python experiments/module_q_fresh_erir_v1/test_aad_prefresh_synthetic_v1.py

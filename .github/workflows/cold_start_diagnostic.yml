@@ -1,0 +1,30 @@
+name: cold-start-claim-diagnostic
+on:
+  push:
+    branches: [audit/cold-start-20260926]
+    paths:
+      - audits/cold_start_20260926/run.py
+      - .github/workflows/cold_start_diagnostic.yml
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Compile diagnostic
+        run: python -m py_compile audits/cold_start_20260926/run.py
+      - name: Run source-grounded post-result checks
+        run: python audits/cold_start_20260926/run.py
+      - name: Preserve diagnostics and exact fetched sources
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: crr-cold-start-diagnostic-20260926
+          path: audits/cold_start_20260926/generated/
+          if-no-files-found: error

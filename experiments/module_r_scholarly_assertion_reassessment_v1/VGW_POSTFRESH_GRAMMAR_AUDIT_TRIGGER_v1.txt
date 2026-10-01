@@ -1,0 +1,4 @@
+Post-fresh full N-Triples grammar coverage audit trigger v1.
+Authoritative fresh run remains INVALID; this audit cannot restore freshness.
+
+Closure rerun after frozen LANGTAG terminal-dot correction; require zero failures across exact first-opening source SHA values.

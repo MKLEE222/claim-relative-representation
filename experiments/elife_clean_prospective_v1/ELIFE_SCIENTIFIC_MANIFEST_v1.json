@@ -1,0 +1,61 @@
+{
+  "study": "ELIFE_CLEAN_PROSPECTIVE_SCIENTIFIC_MANIFEST_V1",
+  "status": "PRE_DATA_FROZEN",
+  "governing_master_protocol": {
+    "path": "audits/mother_problem_redesign_20260929/PROSPECTIVE_CONFIRMATION_MASTER_EXECUTION_PROTOCOL_v1.md",
+    "git_blob_sha": "588e1489830df8c3779e819bc84ae30a6e0d4507"
+  },
+  "candidate_protocol": {
+    "path": "audits/mother_problem_redesign_20260929/ELIFE_CLEAN_PROSPECTIVE_CONFIRMATION_PROTOCOL_v1.md",
+    "git_blob_sha": "ff4c05aa2ca094ce820451eb689ef3b0db5f6e51"
+  },
+  "source": {
+    "repository": "elifesciences/elife-article-xml",
+    "commit": "ec0fbc8e81cfae472260f96a03ba078b57007612",
+    "tree": "d6bba934b495f7e4272f370de53817c0fc28af84",
+    "source_manifest_path": "experiments/elife_clean_prospective_v1/ELIFE_SOURCE_MANIFEST_v1.json",
+    "source_manifest_git_blob_sha": "7d540a3d5f949ffd80c6e1dcdfa16722d9347b02",
+    "expected_manuscripts": 297,
+    "expected_xml_files": 568,
+    "expected_total_bytes": 96584062,
+    "scope_rule": "int(manuscript_id) mod 16 == 0; include all Reviewed Preprint XML versions"
+  },
+  "schema_anchors": [
+    {
+      "repository": "elifesciences/eLife-JATS-schematron",
+      "commit": "4c2359460359160b3e02c98fc07804b304627bb7",
+      "path": "src/rp-schematron.sch"
+    },
+    {
+      "repository": "elifesciences/data-hub-api",
+      "commit": "2515b474a449e79932acd7d8805c96ec1b2daaa5",
+      "paths": [
+        "data_hub_api/docmaps/v2/docmap_typing.py",
+        "data_hub_api/docmaps/v2/codecs/docmaps.py",
+        "data_hub_api/docmaps/v2/codecs/evaluation.py"
+      ]
+    }
+  ],
+  "synthetic": {
+    "expected_path": "experiments/elife_clean_prospective_v1/ELIFE_SYNTHETIC_EXPECTED_v1.json",
+    "expected_git_blob_sha": "42795bfc886c6fd718b9967a718253bd4d6355ed",
+    "synthetic_source_tree_sha": "6ee5d81891f4ceafadae7f289218a30994762aa9",
+    "fixture_count": 20
+  },
+  "scientific_blobs": {
+    "experiments/elife_clean_prospective_v1/elife_constants.py": "a78a3440b53c336daca0825bd16048037fb3948c",
+    "experiments/elife_clean_prospective_v1/elife_oracle.py": "cd7de8b55b297c5947ac4f106581fa9c99765842",
+    "experiments/elife_clean_prospective_v1/elife_runtime.py": "da1a72da9418c6ce6c96a730c29b1c001af11622",
+    "experiments/elife_clean_prospective_v1/run_authoritative_v1.py": "e61bd6adab0ab80dfb6e410ca3ecbc6537525665",
+    "experiments/elife_clean_prospective_v1/run_documentary_audit_v1.py": "181260b512b48d30288e4c8cfc8ae938ce6d6832",
+    "experiments/elife_clean_prospective_v1/finalize_v1.py": "6b8cb7c69dfa91e9faf9f6cce50cbe4cd5627da4"
+  },
+  "dependencies": {
+    "python": "3.12",
+    "lxml": "6.0.2",
+    "oracle_xml_engine": "lxml.etree",
+    "runtime_xml_engine": "xml.parsers.expat",
+    "documentary_xml_engine": "xml.etree.ElementTree"
+  },
+  "record_content_opened": false
+}

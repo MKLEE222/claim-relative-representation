@@ -1,0 +1,22 @@
+atomic_component_id,review_id,inquiry_id,episode,comparison_axis,reviewer_response_field,registered_answer_source_rows,propagation_target
+PASH-C01,R3R2-01,R3Q-PASH-STANCE,PASHAI,corroborated_target_identity,ordinary prose answer|responsible actor/source,R3OBJ-PASH-01|R3OBJ-PASH-02,R3 historical claim|Pashai controlled separation|Pashai repair
+PASH-C02,R3R2-01,R3Q-PASH-STANCE,PASHAI,corroboration_relation_direction,ordinary prose answer|supporting span(s),R3OBJ-PASH-02,R3 historical claim|Pashai controlled separation|Pashai repair
+PASH-C03,R3R2-01,R3Q-PASH-STANCE,PASHAI,challenged_target_identity,ordinary prose answer|responsible actor/source,R3OBJ-PASH-03|R3OBJ-PASH-04,R3 historical claim|Pashai controlled separation|Pashai repair
+PASH-C04,R3R2-01,R3Q-PASH-STANCE,PASHAI,challenge_relation_direction,ordinary prose answer|supporting span(s),R3OBJ-PASH-04,R3 historical claim|Pashai controlled separation|Pashai repair
+PASH-C05,R3R2-01,R3Q-PASH-STANCE,PASHAI,alternative_modality,modality/uncertainty,R3OBJ-PASH-04,R3 historical claim|Pashai controlled separation
+PASH-C06,R3R2-01,R3Q-PASH-STANCE,PASHAI,later_actor_responsibility,responsible actor/source per proposition,R3OBJ-PASH-02|R3OBJ-PASH-04,R3 historical claim|Pashai controlled separation
+ARBR-C01,R3R2-02,R3Q-ARBR-COMMIT,ARBRE_SEC,cypress_commitment_holder,ordinary prose answer|responsible actor/source,R3OBJ-ARBR-02,R3 historical claim|Arbre Sec controlled separation|Arbre Sec repair
+ARBR-C02,R3R2-02,R3Q-ARBR-COMMIT,ARBRE_SEC,cordier_transmission_reply_role,ordinary prose answer|responsible actor/source,R3OBJ-ARBR-02|R3OBJ-ARBR-03,R3 historical claim|Arbre Sec controlled separation|Arbre Sec repair
+ARBR-C03,R3R2-02,R3Q-ARBR-COMMIT,ARBRE_SEC,cordier_adoption_status,ordinary prose answer|unresolved ambiguity,R3OBJ-ARBR-03,R3 historical claim|Arbre Sec controlled separation|Arbre Sec repair
+DES-C01,R3R2-03,R3Q-DES-EVIDENCE,GREAT_DESERT,distance_marches_evidence_assignment,ordinary prose answer|supporting span(s),R3OBJ-DES-03,R3 historical claim|Great Desert controlled separation|Great Desert repair|AW1 carrier interpretation
+DES-C02,R3R2-03,R3Q-DES-EVIDENCE,GREAT_DESERT,folklore_source_evidence_assignment,ordinary prose answer|supporting span(s),R3OBJ-DES-02,R3 historical claim|Great Desert controlled separation|Great Desert repair|AW1 carrier interpretation
+DES-C03,R3R2-03,R3Q-DES-EVIDENCE,GREAT_DESERT,later_actor_source_responsibility,responsible actor/source per proposition,R3OBJ-DES-02|R3OBJ-DES-03,R3 historical claim|Great Desert controlled separation
+DES-C04,R3R2-03,R3Q-DES-EVIDENCE,GREAT_DESERT,proposition_specific_evidence_distinction,ordinary prose answer|unresolved ambiguity,R3OBJ-DES-02|R3OBJ-DES-03,R3 historical claim|Great Desert controlled separation|Great Desert repair|AW1 carrier interpretation
+URM-C01,R3R2-04,R3Q-URM-ERRATUM,URUMTSI,earlier_action_reading,ordinary prose answer|supporting span(s),R3OBJ-URM-01,R3 historical control|Urumtsi control
+URM-C02,R3R2-04,R3Q-URM-ERRATUM,URUMTSI,replacement_action_reading,ordinary prose answer|supporting span(s),R3OBJ-URM-02,R3 historical control|Urumtsi control|AW2 repair interpretation
+URM-C03,R3R2-04,R3Q-URM-ERRATUM,URUMTSI,correction_direction,ordinary prose answer,R3OBJ-URM-01|R3OBJ-URM-02,R3 historical control|Urumtsi control|AW2 repair interpretation
+TUN-C01,R3R2-05,R3Q-TUN-CONTROVERSY,TUN_O_KAIN,controversy_resolution_state,ordinary prose answer|unresolved ambiguity,R3OBJ-TUN-01|R3OBJ-TUN-02|R3OBJ-TUN-03,R3 historical claim|Tun-o-Kain workflow interpretation
+TUN-C02,R3R2-05,R3Q-TUN-CONTROVERSY,TUN_O_KAIN,sykes_relation_direction,ordinary prose answer|responsible actor/source,R3OBJ-TUN-02,R3 historical claim|Tun-o-Kain workflow interpretation
+TUN-C03,R3R2-05,R3Q-TUN-CONTROVERSY,TUN_O_KAIN,hedin_relation_direction,ordinary prose answer|responsible actor/source,R3OBJ-TUN-03,R3 historical claim|Tun-o-Kain workflow interpretation
+TUN-C04,R3R2-05,R3Q-TUN-CONTROVERSY,TUN_O_KAIN,hedin_modality,modality/uncertainty,R3OBJ-TUN-03,R3 historical claim|Tun-o-Kain workflow interpretation
+TUN-C05,R3R2-05,R3Q-TUN-CONTROVERSY,TUN_O_KAIN,quoted_scholar_vs_editor_responsibility,responsible actor/source per proposition,R3OBJ-TUN-02|R3OBJ-TUN-03,R3 historical claim|Tun-o-Kain workflow interpretation

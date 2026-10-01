@@ -1,0 +1,13 @@
+case_id,task_or_condition,scope_inclusion,discoverability,relation_determinacy,responsibility_traceability,resolution_state_fidelity,composability,evidence_authority,interpretive_note
+PM_CURRENT_OBJECT,locate later paper-money treatment,OUT,NA,NA,NA,NA,NA,NATIVE_ECOLOGICAL,"PM03 outside current-object horizon"
+PM_COLLECTION_GENERIC,locate later paper-money treatment,IN,FAIL_5835_OF_6033,NOT_TESTED,NOT_TESTED,NOT_TESTED,NOT_TESTED,NATIVE_ECOLOGICAL,"target present but generic policy does not surface it"
+KS_LATER_GENERIC,locate later Kinsay treatment,IN,FAIL_304_OF_482,NOT_TESTED,NOT_TESTED,NOT_TESTED,NOT_TESTED,NEAR_HOLDOUT_TRANSFER,"scope adaptation without referent mediation"
+KS_ALIAS_BRIDGE,locate later Kinsay treatment,IN,PASS_RANK_4_OF_482,NOT_TESTED,PARTIAL_NATIVE_REFERENT,NOT_TESTED,NOT_TESTED,EXPLORATORY_AFTER_FAILURE,"native identity carrier repairs discoverability"
+CL_LOCAL_LINEAR,locate attached coal note,IN,PARTIAL_RANK_4_OF_6,NOT_TESTED,NOT_TESTED,NOT_TESTED,NOT_TESTED,NATIVE_ECOLOGICAL,"local availability does not imply direct localization"
+CL_ATTACHMENT,locate attached coal note,IN,PASS_1_OF_1,EXACT,EXPLICIT_NOTE_BINDING,NOT_TESTED,NOT_TESTED,NATIVE_ECOLOGICAL,"native note attachment supplies direct research path"
+SCR_PAGE_OLD,localize correction,IN,NOT_PRIMARY,EXACT,POINTER_BOUND,NOT_TESTED,NA,SEALED_EXTERNAL_HOLDOUT,"line coordinate redundant"
+SCR_OLD_ONLY,localize correction,IN,NOT_PRIMARY,AMBIGUOUS_2_CANDIDATES,POINTER_REDUCED,NOT_TESTED,NA,SEALED_EXTERNAL_HOLDOUT,"same lexical correction has two loci without page"
+WW_CERT_REMOVED,printed-locus endpoints plus certainty,IN,NOT_PRIMARY,ENDPOINTS_EXACT,LINK_PROVENANCE_PRESENT,CERTAINTY_NOT_PRESERVED,NA,EXTERNAL_NATIVE_CONTROLLED,"endpoint task preserved while certainty task fails"
+FAUST_SOURCE_LOCATOR_REMOVED,temporal order plus source audit,IN,NOT_PRIMARY,TEMPORAL_ORDER_PRESERVED,SOURCE_LOCATOR_REMOVED,NOT_PRIMARY,NOT_TESTED,EXTERNAL_NATIVE_CONTROLLED,"temporal relation survives while audit basis weakens"
+FAUST_RAW_GRAPH,source-qualified chronology,IN,NOT_PRIMARY,INDIVIDUAL_ASSERTIONS_EXPLICIT,SOURCE_QUALIFIED,CONFLICT_PRESERVED,FAIL_RAW_ACYCLICITY,EXTERNAL_NATIVE,"recoverable assertions are not jointly composable without conflict policy"
+FV_C17,alignment versus source geography,IN,NOT_PRIMARY,ALIGNMENT_EXACT_OR_EXPLICIT,WITNESS_LINKS_PRESENT,NA,SELECTIVE_BY_TASK,SEALED_EXTERNAL_HOLDOUT,"alignment adequacy does not imply manuscript surface/zone recovery"

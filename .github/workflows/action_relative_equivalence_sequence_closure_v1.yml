@@ -1,0 +1,86 @@
+name: action-relative-equivalence-sequence-closure-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/action_relative_equivalence_v1/**"
+      - "audits/mother_problem_redesign_20260929/ACTION_RELATIVE_STATE_EQUIVALENCE_SEQUENCE_CLOSURE_PROTOCOL_v1.md"
+      - "audits/mother_problem_redesign_20260929/ACTION_RELATIVE_EQUIVALENCE_SIGNATURE_TYPING_AMENDMENT_v1.md"
+      - ".github/workflows/action_relative_equivalence_sequence_closure_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  closure:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    permissions:
+      actions: read
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install frozen parser dependencies
+        run: python -m pip install rdflib==7.6.0 pyoxigraph==0.5.11
+
+      - name: Verify frozen theory and engine blobs
+        run: |
+          test "$(git hash-object audits/mother_problem_redesign_20260929/ACTION_RELATIVE_STATE_EQUIVALENCE_SEQUENCE_CLOSURE_PROTOCOL_v1.md)" = "0ee15bdb3003e92ada53fb66ddbcb8025797ba78"
+          test "$(git hash-object audits/mother_problem_redesign_20260929/ACTION_RELATIVE_EQUIVALENCE_SIGNATURE_TYPING_AMENDMENT_v1.md)" = "f1b7ff4b868e9b771b8b6f7315e3b2c5a175915c"
+          test "$(git hash-object experiments/action_relative_equivalence_v1/run_action_relative_equivalence_v1.py)" = "96e66f6460999145196c66a306d1c00e2cef1cbe"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_oracle.py)" = "3994ef01bf277d5880b1ce3f111287cf8cccf472"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/fp_runtime.py)" = "17925015559b0541e6d7655858668e6feda4d558"
+          test "$(git hash-object experiments/formalization_papers_qualified_composition_v1/run_fp_generator_signature_audit_v1.py)" = "f0ee9a66a1e6b242c549a7b25f6df327b5ea25f4"
+          test "$(git hash-object experiments/natural_act_composition_v2/target_bound_oracle_v2.py)" = "c85da9a5dcc423a9d5a105bbb4786a435eb8bd2d"
+          test "$(git hash-object experiments/natural_act_composition_v2/target_bound_runtime_v2.py)" = "85bde934504895fcbf6d3446a686f50ad1213982"
+          test "$(git hash-object experiments/natural_act_composition_v2/run_natural_act_composition_v2.py)" = "71b88cd07f8c3ea3059074ea0c08192a18dea3a8"
+          test "$(git hash-object experiments/cross_ecology_generator_signature_v1/run_cross_ecology_signature_audit_v1.py)" = "53a6b0416d57b6f398418024df2619097cb66314"
+
+      - name: Compile closure stack
+        run: |
+          python -m py_compile experiments/action_relative_equivalence_v1/run_action_relative_equivalence_v1.py
+          python -m py_compile experiments/formalization_papers_qualified_composition_v1/run_fp_generator_signature_audit_v1.py
+          python -m py_compile experiments/natural_act_composition_v2/target_bound_oracle_v2.py
+          python -m py_compile experiments/natural_act_composition_v2/target_bound_runtime_v2.py
+          python -m py_compile experiments/natural_act_composition_v2/run_natural_act_composition_v2.py
+          python -m py_compile experiments/cross_ecology_generator_signature_v1/run_cross_ecology_signature_audit_v1.py
+
+      - name: Download frozen corrected Formalization Papers artifact
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          rm -rf /tmp/fp-corrected
+          mkdir -p /tmp/fp-corrected
+          gh api /repos/MKLEE222/claim-relative-representation/actions/artifacts/11073656774/zip > /tmp/fp-corrected.zip
+          test "$(sha256sum /tmp/fp-corrected.zip | awk '{print $1}')" = "3819e4cd06fe4b22a6a68aaa4ca3ee01515fac08b25ac4cdb63e61463bf46e8d"
+          unzip -q /tmp/fp-corrected.zip -d /tmp/fp-corrected
+          test "$(find /tmp/fp-corrected -name fp_corrected_main_v1.json | wc -l)" = "1"
+
+      - name: Re-run Yule source audit
+        run: |
+          python - <<'PY'
+          import sys
+          sys.path.insert(0, "experiments/natural_act_composition_v2")
+          import run_natural_act_composition_v2 as y
+          y.source_audit()
+          y.no_case_specific_branches()
+          print("YULE_SOURCE_AND_BRANCH_AUDIT_PASS")
+          PY
+
+      - name: Run action-relative equivalence and sequence closure
+        run: |
+          mkdir -p experiments/action_relative_equivalence_v1/results
+          FP_MAIN="$(find /tmp/fp-corrected -name fp_corrected_main_v1.json)"
+          python experiments/action_relative_equivalence_v1/run_action_relative_equivalence_v1.py             --formalization-main "$FP_MAIN"             --output experiments/action_relative_equivalence_v1/results/action_relative_equivalence_v1.json
+
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: action-relative-equivalence-sequence-closure-v1
+          path: experiments/action_relative_equivalence_v1/results

@@ -1,0 +1,9 @@
+{
+  "expected_calls": 45,
+  "observed_calls": 45,
+  "schema_valid_calls": 9,
+  "schema_invalid_calls": 36,
+  "raw_results_sha256": "d648a61b6ef6ecaaf50e0d25de27538233a0eff68c869750338aaba82fb4e248",
+  "all_calls_completed": true,
+  "registered_answer_loaded_by_runner": false
+}

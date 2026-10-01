@@ -1,0 +1,33 @@
+name: module-h-dahn-development-verification-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/module_h_dahn_end_to_end_holdout_v1/**"
+      - ".github/workflows/module_h_dahn_development_verification_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  verify-development:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install dependency
+        run: python -m pip install lxml==5.4.0
+      - name: Compile
+        run: python -m py_compile experiments/module_h_dahn_end_to_end_holdout_v1/run.py
+      - name: Run Berlin development verification only
+        run: python experiments/module_h_dahn_end_to_end_holdout_v1/run.py --mode development --prefix Correspondence/Berlin_Intellectuals/Corpus/
+      - name: Upload development verification
+        uses: actions/upload-artifact@v4
+        with:
+          name: module-h-dahn-development-verification-v1
+          path: |
+            experiments/module_h_dahn_end_to_end_holdout_v1/development_results
+            experiments/module_h_dahn_end_to_end_holdout_v1/PROTOCOL.md
+            experiments/module_h_dahn_end_to_end_holdout_v1/run.py

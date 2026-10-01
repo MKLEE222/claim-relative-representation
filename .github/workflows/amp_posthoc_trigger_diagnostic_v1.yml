@@ -1,0 +1,26 @@
+name: amp-posthoc-trigger-diagnostic-v1
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "audits/mother_problem_redesign_20260929/amp_posthoc_trigger_v1/**"
+      - ".github/workflows/amp_posthoc_trigger_diagnostic_v1.yml"
+  workflow_dispatch:
+
+jobs:
+  diagnostic:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install lxml==5.4.0
+      - name: Run posthoc AMP trigger decomposition
+        run: python audits/mother_problem_redesign_20260929/amp_posthoc_trigger_v1/run_trigger_diagnostic.py
+      - uses: actions/upload-artifact@v4
+        with:
+          name: amp-posthoc-trigger-diagnostic-v1
+          path: audits/mother_problem_redesign_20260929/amp_posthoc_trigger_v1/results

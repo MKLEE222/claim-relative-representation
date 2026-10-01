@@ -1,0 +1,22 @@
+FORMALIZATION PAPERS DATA_OPEN TRIGGER v1
+
+Date: 2026-09-30
+Status: AUTHORIZED ONE-SHOT FRESHNESS CONSUMPTION.
+
+This marker authorizes exactly one authoritative prospective execution under:
+
+- FORMALIZATION_PAPERS_QUALIFIED_COMPOSITION_PROTOCOL_v1.md
+- FORMALIZATION_PAPERS_POPULATION_EXECUTION_AMENDMENT_v1.md
+- the frozen scientific blobs verified by
+  formalization_papers_fresh_qualified_composition_v1.yml
+
+The workflow must:
+1. pass all pre-data gates;
+2. emit DATA_OPEN_EVENT.json;
+3. only then download the frozen v1.0 source archive at commit
+   2f68d8498aeeb724e3438deda13e74ae7fb076d8;
+4. preserve the first scientific outcome without post-opening rescue.
+
+Once the archive download step begins, record-level freshness is considered consumed.
+
+No nanopublication index fallback is authorized in this run.

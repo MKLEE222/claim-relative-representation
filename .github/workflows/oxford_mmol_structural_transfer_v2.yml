@@ -1,0 +1,32 @@
+name: oxford-mmol-structural-transfer-v2
+
+on:
+  push:
+    branches:
+      - audit/cold-start-20260926
+    paths:
+      - "experiments/transfer_oxford_mmol_parent_continuation_v2/**"
+      - ".github/workflows/oxford_mmol_structural_transfer_v2.yml"
+  workflow_dispatch:
+
+jobs:
+  execute:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install parser
+        run: python -m pip install lxml==5.4.0
+      - name: Compile
+        run: python -m py_compile experiments/transfer_oxford_mmol_parent_continuation_v2/run.py
+      - name: Select structurally eligible collection and execute frozen transfer
+        run: python experiments/transfer_oxford_mmol_parent_continuation_v2/run.py
+      - name: Preserve selector and transfer outputs
+        uses: actions/upload-artifact@v4
+        with:
+          name: oxford-mmol-structural-transfer-v2
+          path: |
+            experiments/transfer_oxford_mmol_parent_continuation_v2/results/selection_manifest.json
+            experiments/transfer_oxford_mmol_parent_continuation_v2/results/transfer_v2_results.json

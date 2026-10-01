@@ -1,0 +1,4 @@
+Natural Paper Money composition trigger v1
+Date: 2026-09-29
+Purpose: trigger frozen target-bound natural composition workflow.
+Scientific changes: none.
