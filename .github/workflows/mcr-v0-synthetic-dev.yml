@@ -23,6 +23,8 @@ jobs:
           python-version: "3.12"
       - name: Run MCR preregistered synthetic-only tests
         run: python -m unittest -v mcr_v0.test_mcr
+      - name: Demonstrate bounded LLM-facing context against equal-source baselines
+        run: python -m mcr_v0.demo
       - name: Print evidence ceiling
         run: |
           echo "MCR_V0_EVIDENCE_CLASS=SYNTHETIC_DEV"
